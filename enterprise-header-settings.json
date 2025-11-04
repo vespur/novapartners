@@ -806,6 +806,13 @@
       "placeholder": "/contact"
     },
     {
+      "id": "utility.link1.icon",
+      "label": "링크 1 아이콘 SVG",
+      "description": "텍스트 우측에 표시할 SVG 코드입니다.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg width=\"16\" height=\"16\">...</svg>"
+    },
+    {
       "id": "utility.link2.text",
       "label": "링크 2 텍스트",
       "description": "두 번째 링크 텍스트입니다.",
@@ -820,6 +827,13 @@
       "placeholder": "/portal"
     },
     {
+      "id": "utility.link2.icon",
+      "label": "링크 2 아이콘 SVG",
+      "description": "텍스트 우측에 표시할 SVG 코드입니다.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg width=\"16\" height=\"16\">...</svg>"
+    },
+    {
       "id": "utility.link3.text",
       "label": "링크 3 텍스트",
       "description": "세 번째 링크 텍스트입니다.",
@@ -832,6 +846,13 @@
       "description": "세 번째 링크 주소입니다.",
       "type": "TEXT",
       "placeholder": "/login"
+    },
+    {
+      "id": "utility.link3.icon",
+      "label": "링크 3 아이콘 SVG",
+      "description": "텍스트 우측에 표시할 SVG 코드입니다.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg width=\"16\" height=\"16\">...</svg>"
     },
     {
       "id": "utility.fontSize",
@@ -863,6 +884,23 @@
       "label": "언어 선택 표시",
       "description": "체크하면 언어 선택기가 표시됩니다.",
       "type": "CHECKBOX"
+    },
+    {
+      "id": "language.activeStyle",
+      "label": "선택 언어 표시 방법",
+      "description": "현재 활성 언어를 표시하는 방법을 선택하세요.",
+      "type": "SELECT",
+      "options": [
+        {"label": "색상 변경", "value": "color"},
+        {"label": "밑줄 표시", "value": "underline"},
+        {"label": "색상 + 밑줄", "value": "both"}
+      ]
+    },
+    {
+      "id": "language.activeColor",
+      "label": "활성 언어 색상",
+      "description": "선택된 언어의 색상입니다.",
+      "type": "COLOR_PICKER"
     },
     {
       "id": "language.lang1.text",
@@ -1109,14 +1147,16 @@
       "cat3": {"title": "", "items": ""}
     },
     "utility": {
-      "link1": {"text": "문의하기", "url": "/contact"},
-      "link2": {"text": "고객포탈", "url": "/portal"},
-      "link3": {"text": "로그인", "url": "/login"},
+      "link1": {"text": "문의하기", "url": "/contact", "icon": ""},
+      "link2": {"text": "고객포탈", "url": "/portal", "icon": ""},
+      "link3": {"text": "로그인", "url": "/login", "icon": ""},
       "fontSize": 13,
       "gap": 20
     },
     "language": {
       "show": true,
+      "activeStyle": "color",
+      "activeColor": "#0066CCFF",
       "lang1": {"text": "KO", "url": "/"},
       "lang2": {"text": "EN", "url": "/en"},
       "current": "lang1"

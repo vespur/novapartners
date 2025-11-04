@@ -258,11 +258,19 @@
   }
 
   .utility-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: var(--text-color);
     text-decoration: none;
     font-size: {{property.utility.fontSize}}px;
     transition: color var(--transition-speed);
     white-space: nowrap;
+  }
+
+  .utility-link svg {
+    width: 14px;
+    height: 14px;
   }
 
   .utility-link:hover {
@@ -283,12 +291,24 @@
     font-weight: 600;
     color: #999;
     text-decoration: none;
-    transition: color var(--transition-speed);
+    transition: color var(--transition-speed), border-bottom var(--transition-speed);
+    {{#if (or (eq property.language.activeStyle "underline") (eq property.language.activeStyle "both"))}}
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+    {{/if}}
   }
 
+  {{#if (or (eq property.language.activeStyle "color") (eq property.language.activeStyle "both"))}}
   .language-item.active a {
-    color: var(--hover-color);
+    color: {{property.language.activeColor}};
   }
+  {{/if}}
+
+  {{#if (or (eq property.language.activeStyle "underline") (eq property.language.activeStyle "both"))}}
+  .language-item.active a {
+    border-bottom-color: {{property.language.activeColor}};
+  }
+  {{/if}}
 
   .mobile-menu-btn {
     display: none;
@@ -793,13 +813,28 @@
 
       <div class="utility-nav">
         {{#if property.utility.link1.text}}
-          <a class="utility-link" href="{{property.utility.link1.url}}">{{property.utility.link1.text}}</a>
+          <a class="utility-link" href="{{property.utility.link1.url}}">
+            <span>{{property.utility.link1.text}}</span>
+            {{#if property.utility.link1.icon}}
+              {{{property.utility.link1.icon}}}
+            {{/if}}
+          </a>
         {{/if}}
         {{#if property.utility.link2.text}}
-          <a class="utility-link" href="{{property.utility.link2.url}}">{{property.utility.link2.text}}</a>
+          <a class="utility-link" href="{{property.utility.link2.url}}">
+            <span>{{property.utility.link2.text}}</span>
+            {{#if property.utility.link2.icon}}
+              {{{property.utility.link2.icon}}}
+            {{/if}}
+          </a>
         {{/if}}
         {{#if property.utility.link3.text}}
-          <a class="utility-link" href="{{property.utility.link3.url}}">{{property.utility.link3.text}}</a>
+          <a class="utility-link" href="{{property.utility.link3.url}}">
+            <span>{{property.utility.link3.text}}</span>
+            {{#if property.utility.link3.icon}}
+              {{{property.utility.link3.icon}}}
+            {{/if}}
+          </a>
         {{/if}}
 
         {{#if property.language.show}}
