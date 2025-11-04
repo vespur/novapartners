@@ -1,0 +1,696 @@
+<style>
+  /* CSS 변수 정의 */
+  :root {
+    --header-height: {{property.header.height}}px;
+    --header-bg: {{property.colors.background}};
+    --text-color: {{property.colors.text}};
+    --hover-color: {{property.colors.hover}};
+    --dropdown-bg: {{property.colors.dropdownBg}};
+    --transition-speed: {{property.advanced.transitionSpeed}}ms;
+    --menu-gap: {{property.advanced.menuGap}}px;
+    --mobile-height: {{property.mobile.headerHeight}}px;
+    --mobile-breakpoint: {{property.mobile.breakpoint}}px;
+  }
+
+  /* 헤더 기본 스타일 */
+  .global-header {
+    position: {{#if property.advanced.sticky}}sticky{{else}}relative{{/if}};
+    top: 0;
+    width: 100%;
+    background: var(--header-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    font-family: {{property.design.fontFamily}};
+  }
+
+  .header-inner {
+    max-width: {{#if property.advanced.maxWidth}}{{property.advanced.maxWidth}}px{{else}}100%{{/if}};
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+  }
+
+  /* 로고 */
+  .header-logo {
+    flex-shrink: 0;
+    z-index: 1001;
+  }
+
+  .header-logo a {
+    display: block;
+    text-decoration: none;
+  }
+
+  .header-logo img {
+    height: {{property.logo.height}}px;
+    width: auto;
+    display: block;
+  }
+
+  /* 네비게이션 */
+  .main-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: var(--menu-gap);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 28px 0;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color var(--transition-speed);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .nav-link:hover {
+    color: var(--hover-color);
+  }
+
+  /* 드롭다운 배경 오버레이 */
+  .dropdown-overlay {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity var(--transition-speed), height 0s var(--transition-speed);
+    pointer-events: none;
+    z-index: 998;
+    {{#unless property.advanced.showOverlay}}
+    display: none;
+    {{/unless}}
+  }
+
+  .main-nav:hover .dropdown-overlay {
+    height: 100vh;
+    opacity: 1;
+    transition: opacity var(--transition-speed), height 0s;
+  }
+
+  /* 드롭다운 메뉴 */
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dropdown-bg);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed), visibility var(--transition-speed);
+    min-width: 200px;
+    padding: 20px 0;
+    z-index: 999;
+  }
+
+  .nav-item:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dropdown-item {
+    position: relative;
+  }
+
+  .dropdown-link {
+    display: block;
+    padding: 12px 24px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background var(--transition-speed), color var(--transition-speed);
+    white-space: nowrap;
+  }
+
+  .dropdown-link:hover {
+    background: #f5f5f5;
+    color: var(--hover-color);
+  }
+
+  /* 메가 메뉴 */
+  .dropdown.mega {
+    min-width: 900px;
+    max-width: 1200px;
+  }
+
+  .mega-grid {
+    display: flex;
+    gap: 40px;
+    padding: 20px 30px;
+  }
+
+  .mega-column {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mega-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 16px;
+    padding: 0 0 8px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .mega-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* 유틸리티 메뉴 */
+  .utility-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .utility-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color var(--transition-speed);
+    white-space: nowrap;
+  }
+
+  .utility-link:hover {
+    color: var(--hover-color);
+  }
+
+  /* 언어 선택 */
+  .language-selector {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    margin: 0 0 0 12px;
+    padding: 0 0 0 20px;
+    border-left: 1px solid #e0e0e0;
+  }
+
+  .language-item a {
+    font-size: 13px;
+    font-weight: 600;
+    color: #999;
+    text-decoration: none;
+    transition: color var(--transition-speed);
+  }
+
+  .language-item.active a {
+    color: var(--hover-color);
+  }
+
+  /* 모바일 메뉴 버튼 */
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 12px;
+  }
+
+  .mobile-menu-btn span {
+    width: 24px;
+    height: 2px;
+    background: var(--text-color);
+    transition: all var(--transition-speed);
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: {{property.mobile.breakpoint}}px) {
+    .header-inner {
+      padding: 0 20px;
+      height: var(--mobile-height);
+    }
+
+    .header-logo img {
+      height: {{property.mobile.logoHeight}}px;
+    }
+
+    .main-nav {
+      position: fixed;
+      top: var(--mobile-height);
+      left: 0;
+      width: 100%;
+      height: calc(100vh - var(--mobile-height));
+      background: var(--dropdown-bg);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      padding: 20px;
+      overflow-y: auto;
+      transform: translateX(-100%);
+      transition: transform var(--transition-speed);
+      z-index: 999;
+    }
+
+    .main-nav.active {
+      transform: translateX(0);
+    }
+
+    .nav-list {
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+    }
+
+    .nav-item {
+      width: 100%;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .nav-link {
+      padding: 16px 0;
+    }
+
+    .dropdown {
+      position: static;
+      transform: none;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0 0 12px 20px;
+      opacity: 1;
+      visibility: visible;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-speed);
+    }
+
+    .nav-item.active .dropdown {
+      max-height: 2000px;
+    }
+
+    .dropdown.mega {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .mega-grid {
+      flex-direction: column;
+      gap: 20px;
+      padding: 12px 0;
+    }
+
+    .dropdown-overlay {
+      display: none;
+    }
+
+    .utility-nav {
+      gap: 12px;
+    }
+
+    .utility-link {
+      font-size: 11px;
+    }
+
+    .language-selector {
+      margin-left: 8px;
+      padding-left: 12px;
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  }
+
+  /* 태블릿 */
+  @media (max-width: 1024px) and (min-width: {{add property.mobile.breakpoint 1}}px) {
+    .header-inner {
+      padding: 0 30px;
+    }
+
+    .nav-list {
+      gap: 30px;
+    }
+
+    .nav-link {
+      font-size: 15px;
+    }
+
+    .dropdown.mega {
+      min-width: 600px;
+      max-width: 800px;
+    }
+
+    .utility-nav {
+      gap: 16px;
+    }
+
+    .utility-link {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<template>
+  <header class="global-header">
+    <div class="header-inner">
+
+      <!-- 로고 -->
+      <div class="header-logo">
+        <a href="{{property.logo.link}}" title="{{property.logo.alt}}">
+          {{#if property.logo.image}}
+            <img src="{{property.logo.image}}" alt="{{property.logo.alt}}" loading="eager">
+          {{else}}
+            <span style="font-size: 20px; font-weight: bold; color: var(--text-color);">LOGO</span>
+          {{/if}}
+        </a>
+      </div>
+
+      <!-- 메인 네비게이션 -->
+      <nav class="main-nav" data-nav="main">
+        <div class="dropdown-overlay"></div>
+
+        <ul class="nav-list">
+
+          <!-- 메뉴 1 -->
+          {{#if property.menu1.title}}
+          <li class="nav-item">
+            <a class="nav-link" {{#if property.menu1.link}}href="{{property.menu1.link}}"{{else}}href="javascript:void(0)"{{/if}}>
+              {{property.menu1.title}}
+            </a>
+            {{#if property.menu1.items}}
+            <div class="dropdown">
+              <ul class="dropdown-list">
+                {{#each (split property.menu1.items "\n")}}
+                  {{#if this}}
+                    {{#with (split this "|")}}
+                      <li class="dropdown-item">
+                        <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
+                      </li>
+                    {{/with}}
+                  {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+            {{/if}}
+          </li>
+          {{/if}}
+
+          <!-- 메뉴 2 (메가 메뉴 가능) -->
+          {{#if property.menu2.title}}
+          <li class="nav-item">
+            <a class="nav-link" {{#if property.menu2.link}}href="{{property.menu2.link}}"{{else}}href="javascript:void(0)"{{/if}}>
+              {{property.menu2.title}}
+            </a>
+            <div class="dropdown {{#if property.menu2.isMega}}mega{{/if}}">
+              {{#if property.menu2.isMega}}
+                <div class="mega-grid">
+                  <!-- 카테고리 1 -->
+                  {{#if property.menu2.cat1.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu2.cat1.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu2.cat1.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li>
+                              <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
+                            </li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+
+                  <!-- 카테고리 2 -->
+                  {{#if property.menu2.cat2.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu2.cat2.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu2.cat2.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li>
+                              <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
+                            </li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+
+                  <!-- 카테고리 3 -->
+                  {{#if property.menu2.cat3.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu2.cat3.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu2.cat3.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li>
+                              <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
+                            </li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+                </div>
+              {{else}}
+                <ul class="dropdown-list">
+                  {{#each (split property.menu2.cat1.items "\n")}}
+                    {{#if this}}
+                      {{#with (split this "|")}}
+                        <li class="dropdown-item">
+                          <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
+                        </li>
+                      {{/with}}
+                    {{/if}}
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </div>
+          </li>
+          {{/if}}
+
+          <!-- 메뉴 3 -->
+          {{#if property.menu3.title}}
+          <li class="nav-item">
+            <a class="nav-link" {{#if property.menu3.link}}href="{{property.menu3.link}}"{{else}}href="javascript:void(0)"{{/if}}>
+              {{property.menu3.title}}
+            </a>
+            {{#if property.menu3.items}}
+            <div class="dropdown">
+              <ul class="dropdown-list">
+                {{#each (split property.menu3.items "\n")}}
+                  {{#if this}}
+                    {{#with (split this "|")}}
+                      <li class="dropdown-item">
+                        <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
+                      </li>
+                    {{/with}}
+                  {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+            {{/if}}
+          </li>
+          {{/if}}
+
+          <!-- 메뉴 4 -->
+          {{#if property.menu4.title}}
+          <li class="nav-item">
+            <a class="nav-link" {{#if property.menu4.link}}href="{{property.menu4.link}}"{{else}}href="javascript:void(0)"{{/if}}>
+              {{property.menu4.title}}
+            </a>
+            {{#if property.menu4.items}}
+            <div class="dropdown">
+              <ul class="dropdown-list">
+                {{#each (split property.menu4.items "\n")}}
+                  {{#if this}}
+                    {{#with (split this "|")}}
+                      <li class="dropdown-item">
+                        <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
+                      </li>
+                    {{/with}}
+                  {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+            {{/if}}
+          </li>
+          {{/if}}
+
+        </ul>
+      </nav>
+
+      <!-- 유틸리티 메뉴 -->
+      <div class="utility-nav">
+        {{#if property.utility.link1.text}}
+          <a class="utility-link" href="{{property.utility.link1.url}}">{{property.utility.link1.text}}</a>
+        {{/if}}
+        {{#if property.utility.link2.text}}
+          <a class="utility-link" href="{{property.utility.link2.url}}">{{property.utility.link2.text}}</a>
+        {{/if}}
+        {{#if property.utility.link3.text}}
+          <a class="utility-link" href="{{property.utility.link3.url}}">{{property.utility.link3.text}}</a>
+        {{/if}}
+
+        <!-- 언어 선택 -->
+        {{#if property.language.show}}
+        <ul class="language-selector">
+          <li class="language-item {{#if (eq property.language.current 'lang1')}}active{{/if}}">
+            <a href="{{property.language.lang1.url}}">{{property.language.lang1.text}}</a>
+          </li>
+          <li class="language-item {{#if (eq property.language.current 'lang2')}}active{{/if}}">
+            <a href="{{property.language.lang2.url}}">{{property.language.lang2.text}}</a>
+          </li>
+        </ul>
+        {{/if}}
+
+        <!-- 모바일 메뉴 버튼 -->
+        <button type="button" class="mobile-menu-btn" data-action="toggle-menu" aria-label="메뉴 열기/닫기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  // 모바일 메뉴 토글 처리
+  function handleMenuToggle(e) {
+    const btn = e.target.closest('[data-action="toggle-menu"]');
+    if (!btn) return;
+
+    const nav = container.querySelector('[data-nav="main"]');
+    if (!nav) return;
+
+    btn.classList.toggle('active');
+    nav.classList.toggle('active');
+
+    // 스크롤 방지
+    if (nav.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+
+  // 모바일에서 메뉴 항목 클릭 시 서브메뉴 토글
+  function handleNavClick(e) {
+    const breakpoint = context.property.mobile.breakpoint || 768;
+    if (window.innerWidth > breakpoint) return;
+
+    const navLink = e.target.closest('.nav-link');
+    if (!navLink) return;
+
+    const navItem = navLink.closest('.nav-item');
+    const dropdown = navItem.querySelector('.dropdown');
+
+    if (dropdown) {
+      e.preventDefault();
+
+      // 다른 열린 메뉴 닫기
+      const allItems = container.querySelectorAll('.nav-item');
+      allItems.forEach(item => {
+        if (item !== navItem) {
+          item.classList.remove('active');
+        }
+      });
+
+      // 현재 메뉴 토글
+      navItem.classList.toggle('active');
+    }
+  }
+
+  // 윈도우 리사이즈 처리
+  let resizeTimer;
+  function handleResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const breakpoint = context.property.mobile.breakpoint || 768;
+      if (window.innerWidth > breakpoint) {
+        const nav = container.querySelector('[data-nav="main"]');
+        const btn = container.querySelector('[data-action="toggle-menu"]');
+
+        if (nav && nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          btn.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        // 모바일 메뉴 활성 상태 제거
+        const allItems = container.querySelectorAll('.nav-item');
+        allItems.forEach(item => item.classList.remove('active'));
+      }
+    }, 250);
+  }
+
+  // 이벤트 위임
+  container.addEventListener('click', handleMenuToggle, true);
+  container.addEventListener('click', handleNavClick, true);
+  window.addEventListener('resize', handleResize);
+
+  // 설정 변경 시 반영
+  bm.onContextChange = () => {
+    // 필요시 동적 스타일 재적용 등
+  };
+
+  // 정리
+  bm.onDestroy = () => {
+    window.removeEventListener('resize', handleResize);
+    document.body.style.overflow = '';
+    clearTimeout(resizeTimer);
+  };
+</script>
