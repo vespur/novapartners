@@ -5,26 +5,22 @@
       "content": "📸 로고 설정"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "웹사이트 상단에 표시될 로고를 설정합니다. 로고는 브랜드 아이덴티티를 나타내는 중요한 요소입니다."
-    },
-    {
       "id": "logo.image",
       "label": "로고 이미지",
-      "description": "웹사이트 로고 이미지를 선택하세요. SVG 또는 투명 배경 PNG를 권장합니다.",
+      "description": "웹사이트 로고 이미지를 선택하세요.",
       "type": "IMAGE_PICKER"
     },
     {
       "id": "logo.alt",
       "label": "로고 대체 텍스트",
-      "description": "검색엔진 최적화(SEO)와 접근성을 위한 텍스트입니다. 회사명을 입력하세요.",
+      "description": "SEO와 접근성을 위한 텍스트입니다.",
       "type": "TEXT",
-      "placeholder": "예: 회사명"
+      "placeholder": "회사명"
     },
     {
       "id": "logo.height",
       "label": "로고 높이",
-      "description": "로고의 세로 크기(px)입니다. 일반적으로 24~40px이 적당합니다.",
+      "description": "로고의 세로 크기(px)입니다.",
       "type": "RANGE",
       "min": 20,
       "max": 60,
@@ -35,7 +31,8 @@
       "id": "logo.link",
       "label": "로고 클릭 링크",
       "description": "로고 클릭 시 이동할 페이지를 선택하세요.",
-      "type": "LINK"
+      "type": "TEXT",
+      "placeholder": "/"
     },
     {
       "id": "logo.padding.top",
@@ -83,43 +80,27 @@
       "content": "📍 헤더 위치 및 레이아웃"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "헤더의 위치 지정 방식과 다른 섹션과의 관계를 설정합니다."
-    },
-    {
       "id": "header.position",
       "label": "헤더 위치 모드",
       "description": "헤더의 위치 지정 방식을 선택하세요.",
       "type": "SELECT",
       "options": [
-        {
-          "label": "일반 (Relative)",
-          "value": "relative"
-        },
-        {
-          "label": "상단 고정 (Fixed)",
-          "value": "fixed"
-        },
-        {
-          "label": "절대 위치 (Absolute)",
-          "value": "absolute"
-        },
-        {
-          "label": "스크롤 고정 (Sticky)",
-          "value": "sticky"
-        }
+        {"label": "일반 (Relative)", "value": "relative"},
+        {"label": "상단 고정 (Fixed)", "value": "fixed"},
+        {"label": "절대 위치 (Absolute)", "value": "absolute"},
+        {"label": "스크롤 고정 (Sticky)", "value": "sticky"}
       ]
     },
     {
       "id": "header.overlap",
       "label": "다음 섹션과 겹침",
-      "description": "체크하면 헤더가 다음 섹션(히어로 등)과 겹쳐서 표시됩니다.",
+      "description": "체크하면 헤더가 다음 섹션과 겹쳐서 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "header.zIndex",
-      "label": "Z-Index (레이어 순서)",
-      "description": "헤더의 레이어 순서입니다. 높을수록 위에 표시됩니다.",
+      "label": "Z-Index",
+      "description": "헤더의 레이어 순서입니다.",
       "type": "RANGE",
       "min": 1,
       "max": 9999,
@@ -129,7 +110,7 @@
     {
       "id": "header.height",
       "label": "헤더 높이",
-      "description": "헤더의 세로 높이입니다. 미니멀 60~70px, 일반 70~90px, 큰 로고 90~120px.",
+      "description": "헤더의 세로 높이입니다.",
       "type": "RANGE",
       "min": 60,
       "max": 120,
@@ -159,28 +140,89 @@
 
     {
       "type": "TITLE",
-      "content": "🎨 디자인 및 색상"
+      "content": "🔄 스크롤 상태별 스타일"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "헤더의 색상 테마와 전체적인 디자인 스타일을 설정합니다. 브랜드 색상에 맞춰 조정하세요."
+      "id": "scroll.enabled",
+      "label": "스크롤 시 스타일 변경",
+      "description": "체크하면 스크롤 시 헤더 스타일이 변경됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scroll.background",
+      "label": "스크롤 시 배경색",
+      "description": "스크롤 내렸을 때의 배경색입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "scroll.shadow.enabled",
+      "label": "스크롤 시 그림자",
+      "description": "스크롤 시 그림자를 표시합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scroll.shadow.color",
+      "label": "스크롤 시 그림자 색상",
+      "description": "스크롤 시 그림자 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "scroll.shadow.blur",
+      "label": "스크롤 시 그림자 흐림",
+      "description": "스크롤 시 그림자 블러 강도입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "scroll.backdrop.enabled",
+      "label": "스크롤 시 배경 흐림",
+      "description": "스크롤 시 배경 블러 효과를 적용합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scroll.backdrop.blur",
+      "label": "스크롤 시 흐림 강도",
+      "description": "스크롤 시 백드롭 블러 강도입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "scroll.threshold",
+      "label": "스크롤 감지 임계값",
+      "description": "이 픽셀 이상 스크롤 시 스타일이 변경됩니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🎨 디자인 및 색상"
     },
     {
       "id": "colors.background",
       "label": "헤더 배경색",
-      "description": "헤더 전체의 배경 색상입니다. 색상 선택기로 투명도도 조절할 수 있습니다.",
+      "description": "헤더 전체의 배경 색상입니다.",
       "type": "COLOR_PICKER"
     },
     {
       "id": "colors.text",
       "label": "텍스트 색상",
-      "description": "메뉴 텍스트의 기본 색상입니다. 배경색과 충분한 대비를 유지하세요.",
+      "description": "메뉴 텍스트의 기본 색상입니다.",
       "type": "COLOR_PICKER"
     },
     {
       "id": "colors.hover",
       "label": "호버 색상",
-      "description": "메뉴에 마우스를 올렸을 때 표시되는 강조 색상입니다.",
+      "description": "메뉴에 마우스를 올렸을 때 색상입니다.",
       "type": "COLOR_PICKER"
     },
     {
@@ -204,7 +246,7 @@
     {
       "id": "design.shadow.blur",
       "label": "헤더 그림자 흐림 정도",
-      "description": "그림자의 블러(흐림) 효과 강도입니다.",
+      "description": "그림자의 블러 효과 강도입니다.",
       "type": "RANGE",
       "min": 0,
       "max": 40,
@@ -223,14 +265,14 @@
     },
     {
       "id": "design.backdrop.enabled",
-      "label": "배경 흐림 효과 (Backdrop Blur)",
-      "description": "체크하면 반투명 헤더 뒤의 콘텐츠가 흐려집니다.",
+      "label": "배경 흐림 효과",
+      "description": "체크하면 반투명 헤더 뒤 콘텐츠가 흐려집니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "design.backdrop.blur",
       "label": "배경 흐림 강도",
-      "description": "배경 블러 효과의 강도입니다. 10~20px 권장.",
+      "description": "배경 블러 효과의 강도입니다.",
       "type": "RANGE",
       "min": 0,
       "max": 30,
@@ -239,8 +281,8 @@
     },
     {
       "id": "design.border.enabled",
-      "label": "헤더 하단 테두리 표시",
-      "description": "체크하면 헤더 하단에 얇은 테두리가 표시됩니다.",
+      "label": "헤더 하단 테두리",
+      "description": "체크하면 헤더 하단에 테두리가 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
@@ -265,22 +307,10 @@
       "description": "헤더에 사용할 글꼴입니다.",
       "type": "SELECT",
       "options": [
-        {
-          "label": "시스템 기본",
-          "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif"
-        },
-        {
-          "label": "Noto Sans KR",
-          "value": "'Noto Sans KR', 'Malgun Gothic', sans-serif"
-        },
-        {
-          "label": "Pretendard",
-          "value": "'Pretendard', -apple-system, sans-serif"
-        },
-        {
-          "label": "Montserrat (영문)",
-          "value": "'Montserrat', sans-serif"
-        }
+        {"label": "시스템 기본", "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif"},
+        {"label": "Noto Sans KR", "value": "'Noto Sans KR', 'Malgun Gothic', sans-serif"},
+        {"label": "Pretendard", "value": "'Pretendard', -apple-system, sans-serif"},
+        {"label": "Montserrat (영문)", "value": "'Montserrat', sans-serif"}
       ]
     },
     {
@@ -322,8 +352,15 @@
       "content": "📦 드롭다운 메뉴 디자인"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "드롭다운 메뉴의 상세 디자인을 설정합니다."
+      "id": "dropdown.hoverEffect",
+      "label": "호버 효과",
+      "description": "드롭다운 항목 호버 시 효과를 선택하세요.",
+      "type": "SELECT",
+      "options": [
+        {"label": "배경색 변경", "value": "background"},
+        {"label": "밑줄", "value": "underline"},
+        {"label": "없음", "value": "none"}
+      ]
     },
     {
       "id": "dropdown.padding.top",
@@ -357,7 +394,7 @@
     },
     {
       "id": "dropdown.shadow.enabled",
-      "label": "드롭다운 그림자 표시",
+      "label": "드롭다운 그림자",
       "description": "체크하면 드롭다운에 그림자가 표시됩니다.",
       "type": "CHECKBOX"
     },
@@ -379,7 +416,7 @@
     },
     {
       "id": "dropdown.border.enabled",
-      "label": "드롭다운 테두리 표시",
+      "label": "드롭다운 테두리",
       "description": "체크하면 드롭다운에 테두리가 표시됩니다.",
       "type": "CHECKBOX"
     },
@@ -431,98 +468,161 @@
       "content": "📋 메뉴 1"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "첫 번째 메인 메뉴를 설정합니다. 하위 메뉴가 있는 일반 드롭다운 메뉴로 표시됩니다."
-    },
-    {
       "id": "menu1.title",
       "label": "메뉴 제목",
       "description": "상단에 표시될 메뉴 이름입니다.",
       "type": "TEXT",
-      "placeholder": "예: 회사소개"
+      "placeholder": "회사소개"
     },
     {
       "id": "menu1.link",
       "label": "메뉴 링크",
-      "description": "메뉴 클릭 시 이동할 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
+      "type": "TEXT",
+      "placeholder": "/about"
+    },
+    {
+      "id": "menu1.icon",
+      "label": "메뉴 아이콘 SVG",
+      "description": "메뉴 제목 옆에 표시할 SVG 코드를 입력하세요. 모바일에서도 표시됩니다.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\">...</svg>"
+    },
+    {
+      "id": "menu1.isMega",
+      "label": "메가 메뉴 사용",
+      "description": "체크하면 3개 카테고리로 구성된 넓은 메가 메뉴가 표시됩니다.",
+      "type": "CHECKBOX"
     },
     {
       "id": "menu1.items",
-      "label": "하위 메뉴 목록",
+      "label": "하위 메뉴 목록 (일반)",
+      "description": "메가 메뉴 미사용 시. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "회사 개요|/about/overview\nCEO 메시지|/about/ceo"
+    },
+    {
+      "id": "menu1.cat1.title",
+      "label": "카테고리 1 제목",
+      "description": "메가 메뉴의 첫 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "컨설팅"
+    },
+    {
+      "id": "menu1.cat1.items",
+      "label": "카테고리 1 항목",
       "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
-      "placeholder": "회사 개요|/about/overview\nCEO 메시지|/about/ceo\n연혁|/about/history"
+      "placeholder": "전략 컨설팅|/services/consulting/strategy"
+    },
+    {
+      "id": "menu1.cat2.title",
+      "label": "카테고리 2 제목",
+      "description": "메가 메뉴의 두 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "솔루션"
+    },
+    {
+      "id": "menu1.cat2.items",
+      "label": "카테고리 2 항목",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "통합 플랫폼|/solutions/platform"
+    },
+    {
+      "id": "menu1.cat3.title",
+      "label": "카테고리 3 제목",
+      "description": "메가 메뉴의 세 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "산업군"
+    },
+    {
+      "id": "menu1.cat3.items",
+      "label": "카테고리 3 항목",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "제조업|/industries/manufacturing"
     },
 
     {
       "type": "TITLE",
-      "content": "📋 메뉴 2 (메가 메뉴)"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "두 번째 메인 메뉴를 설정합니다. 메가 메뉴를 활성화하면 3개 카테고리로 구성된 넓은 드롭다운이 표시됩니다."
+      "content": "📋 메뉴 2"
     },
     {
       "id": "menu2.title",
       "label": "메뉴 제목",
       "description": "상단에 표시될 메뉴 이름입니다.",
       "type": "TEXT",
-      "placeholder": "예: 서비스"
+      "placeholder": "서비스"
     },
     {
       "id": "menu2.link",
       "label": "메뉴 링크",
-      "description": "메뉴 클릭 시 이동할 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
+      "type": "TEXT",
+      "placeholder": "/services"
+    },
+    {
+      "id": "menu2.icon",
+      "label": "메뉴 아이콘 SVG",
+      "description": "메뉴 제목 옆에 표시할 SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
     },
     {
       "id": "menu2.isMega",
       "label": "메가 메뉴 사용",
-      "description": "체크하면 3개 카테고리로 구성된 넓은 메가 메뉴가 표시됩니다.",
+      "description": "체크하면 3개 카테고리로 구성된 메가 메뉴가 표시됩니다.",
       "type": "CHECKBOX"
+    },
+    {
+      "id": "menu2.items",
+      "label": "하위 메뉴 목록 (일반)",
+      "description": "메가 메뉴 미사용 시. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "서비스 소개|/services/intro"
     },
     {
       "id": "menu2.cat1.title",
       "label": "카테고리 1 제목",
       "description": "메가 메뉴의 첫 번째 카테고리 제목입니다.",
       "type": "TEXT",
-      "placeholder": "예: 컨설팅"
+      "placeholder": "서비스"
     },
     {
       "id": "menu2.cat1.items",
       "label": "카테고리 1 항목",
       "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
-      "placeholder": "전략 컨설팅|/services/consulting/strategy\n프로세스 개선|/services/consulting/process"
+      "placeholder": "컨설팅|/services/consulting"
     },
     {
       "id": "menu2.cat2.title",
       "label": "카테고리 2 제목",
       "description": "메가 메뉴의 두 번째 카테고리 제목입니다.",
       "type": "TEXT",
-      "placeholder": "예: 솔루션"
+      "placeholder": "솔루션"
     },
     {
       "id": "menu2.cat2.items",
       "label": "카테고리 2 항목",
       "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
-      "placeholder": "통합 플랫폼|/solutions/platform\n데이터 분석|/solutions/analytics"
+      "placeholder": "통합 플랫폼|/solutions/platform"
     },
     {
       "id": "menu2.cat3.title",
       "label": "카테고리 3 제목",
       "description": "메가 메뉴의 세 번째 카테고리 제목입니다.",
       "type": "TEXT",
-      "placeholder": "예: 산업군"
+      "placeholder": "산업군"
     },
     {
       "id": "menu2.cat3.items",
       "label": "카테고리 3 항목",
       "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
-      "placeholder": "제조업|/industries/manufacturing\n금융|/industries/finance"
+      "placeholder": "제조업|/industries/manufacturing"
     },
 
     {
@@ -530,28 +630,80 @@
       "content": "📋 메뉴 3"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "세 번째 메인 메뉴를 설정합니다. 일반 드롭다운 메뉴로 표시됩니다."
-    },
-    {
       "id": "menu3.title",
       "label": "메뉴 제목",
       "description": "상단에 표시될 메뉴 이름입니다.",
       "type": "TEXT",
-      "placeholder": "예: 고객지원"
+      "placeholder": "고객지원"
     },
     {
       "id": "menu3.link",
       "label": "메뉴 링크",
-      "description": "메뉴 클릭 시 이동할 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
+      "type": "TEXT",
+      "placeholder": "/support"
+    },
+    {
+      "id": "menu3.icon",
+      "label": "메뉴 아이콘 SVG",
+      "description": "메뉴 제목 옆에 표시할 SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "menu3.isMega",
+      "label": "메가 메뉴 사용",
+      "description": "체크하면 3개 카테고리로 구성된 메가 메뉴가 표시됩니다.",
+      "type": "CHECKBOX"
     },
     {
       "id": "menu3.items",
-      "label": "하위 메뉴 목록",
+      "label": "하위 메뉴 목록 (일반)",
+      "description": "메가 메뉴 미사용 시. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "자료실|/support/library\nFAQ|/support/faq"
+    },
+    {
+      "id": "menu3.cat1.title",
+      "label": "카테고리 1 제목",
+      "description": "메가 메뉴의 첫 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "지원센터"
+    },
+    {
+      "id": "menu3.cat1.items",
+      "label": "카테고리 1 항목",
       "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
-      "placeholder": "자료실|/support/library\nFAQ|/support/faq\n문의하기|/support/contact"
+      "placeholder": "FAQ|/support/faq"
+    },
+    {
+      "id": "menu3.cat2.title",
+      "label": "카테고리 2 제목",
+      "description": "메가 메뉴의 두 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "자료"
+    },
+    {
+      "id": "menu3.cat2.items",
+      "label": "카테고리 2 항목",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "다운로드|/support/download"
+    },
+    {
+      "id": "menu3.cat3.title",
+      "label": "카테고리 3 제목",
+      "description": "메가 메뉴의 세 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "문의"
+    },
+    {
+      "id": "menu3.cat3.items",
+      "label": "카테고리 3 항목",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "문의하기|/support/contact"
     },
 
     {
@@ -559,28 +711,80 @@
       "content": "📋 메뉴 4"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "네 번째 메인 메뉴를 설정합니다. 일반 드롭다운 메뉴로 표시됩니다."
-    },
-    {
       "id": "menu4.title",
       "label": "메뉴 제목",
       "description": "상단에 표시될 메뉴 이름입니다.",
       "type": "TEXT",
-      "placeholder": "예: 채용"
+      "placeholder": "채용"
     },
     {
       "id": "menu4.link",
       "label": "메뉴 링크",
-      "description": "메뉴 클릭 시 이동할 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
+      "type": "TEXT",
+      "placeholder": "/careers"
+    },
+    {
+      "id": "menu4.icon",
+      "label": "메뉴 아이콘 SVG",
+      "description": "메뉴 제목 옆에 표시할 SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "menu4.isMega",
+      "label": "메가 메뉴 사용",
+      "description": "체크하면 3개 카테고리로 구성된 메가 메뉴가 표시됩니다.",
+      "type": "CHECKBOX"
     },
     {
       "id": "menu4.items",
-      "label": "하위 메뉴 목록",
+      "label": "하위 메뉴 목록 (일반)",
+      "description": "메가 메뉴 미사용 시. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "채용 공고|/careers/jobs"
+    },
+    {
+      "id": "menu4.cat1.title",
+      "label": "카테고리 1 제목",
+      "description": "메가 메뉴의 첫 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "채용정보"
+    },
+    {
+      "id": "menu4.cat1.items",
+      "label": "카테고리 1 항목",
       "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
-      "placeholder": "채용 공고|/careers/jobs\n인재상|/careers/culture\n지원하기|/careers/apply"
+      "placeholder": "채용 공고|/careers/jobs"
+    },
+    {
+      "id": "menu4.cat2.title",
+      "label": "카테고리 2 제목",
+      "description": "메가 메뉴의 두 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "조직문화"
+    },
+    {
+      "id": "menu4.cat2.items",
+      "label": "카테고리 2 항목",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "인재상|/careers/culture"
+    },
+    {
+      "id": "menu4.cat3.title",
+      "label": "카테고리 3 제목",
+      "description": "메가 메뉴의 세 번째 카테고리 제목입니다.",
+      "type": "TEXT",
+      "placeholder": "복리후생"
+    },
+    {
+      "id": "menu4.cat3.items",
+      "label": "카테고리 3 항목",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "복리후생|/careers/benefits"
     },
 
     {
@@ -588,51 +792,50 @@
       "content": "🔗 유틸리티 메뉴"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "헤더 우측에 표시되는 추가 링크들입니다. 문의하기, 고객포탈, 로그인 등을 설정할 수 있습니다."
-    },
-    {
       "id": "utility.link1.text",
       "label": "링크 1 텍스트",
-      "description": "첫 번째 유틸리티 링크에 표시될 텍스트입니다.",
+      "description": "첫 번째 링크 텍스트입니다.",
       "type": "TEXT",
-      "placeholder": "예: 문의하기"
+      "placeholder": "문의하기"
     },
     {
       "id": "utility.link1.url",
       "label": "링크 1 주소",
-      "description": "첫 번째 링크의 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "첫 번째 링크 주소입니다.",
+      "type": "TEXT",
+      "placeholder": "/contact"
     },
     {
       "id": "utility.link2.text",
       "label": "링크 2 텍스트",
-      "description": "두 번째 유틸리티 링크에 표시될 텍스트입니다.",
+      "description": "두 번째 링크 텍스트입니다.",
       "type": "TEXT",
-      "placeholder": "예: 고객포탈"
+      "placeholder": "고객포탈"
     },
     {
       "id": "utility.link2.url",
       "label": "링크 2 주소",
-      "description": "두 번째 링크의 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "두 번째 링크 주소입니다.",
+      "type": "TEXT",
+      "placeholder": "/portal"
     },
     {
       "id": "utility.link3.text",
       "label": "링크 3 텍스트",
-      "description": "세 번째 유틸리티 링크에 표시될 텍스트입니다.",
+      "description": "세 번째 링크 텍스트입니다.",
       "type": "TEXT",
-      "placeholder": "예: 로그인"
+      "placeholder": "로그인"
     },
     {
       "id": "utility.link3.url",
       "label": "링크 3 주소",
-      "description": "세 번째 링크의 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "세 번째 링크 주소입니다.",
+      "type": "TEXT",
+      "placeholder": "/login"
     },
     {
       "id": "utility.fontSize",
-      "label": "유틸리티 메뉴 글자 크기",
+      "label": "글자 크기",
       "description": "유틸리티 링크의 텍스트 크기입니다.",
       "type": "RANGE",
       "min": 11,
@@ -642,8 +845,8 @@
     },
     {
       "id": "utility.gap",
-      "label": "유틸리티 메뉴 간격",
-      "description": "유틸리티 링크들 사이의 간격입니다.",
+      "label": "링크 간격",
+      "description": "링크들 사이의 간격입니다.",
       "type": "RANGE",
       "min": 8,
       "max": 40,
@@ -656,55 +859,47 @@
       "content": "🌐 언어 선택"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "다국어 웹사이트를 위한 언어 선택 기능입니다. 한국어/영어 등 2개 언어를 지원합니다."
-    },
-    {
       "id": "language.show",
       "label": "언어 선택 표시",
-      "description": "체크하면 언어 선택기가 헤더 우측에 표시됩니다.",
+      "description": "체크하면 언어 선택기가 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "language.lang1.text",
-      "label": "언어 1 표시 텍스트",
-      "description": "첫 번째 언어의 표시 텍스트입니다. 보통 2글자 언어 코드를 사용합니다.",
+      "label": "언어 1 텍스트",
+      "description": "첫 번째 언어의 표시 텍스트입니다.",
       "type": "TEXT",
-      "placeholder": "예: KO"
+      "placeholder": "KO"
     },
     {
       "id": "language.lang1.url",
       "label": "언어 1 URL",
-      "description": "첫 번째 언어로 전환 시 이동할 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "첫 번째 언어 URL입니다.",
+      "type": "TEXT",
+      "placeholder": "/"
     },
     {
       "id": "language.lang2.text",
-      "label": "언어 2 표시 텍스트",
+      "label": "언어 2 텍스트",
       "description": "두 번째 언어의 표시 텍스트입니다.",
       "type": "TEXT",
-      "placeholder": "예: EN"
+      "placeholder": "EN"
     },
     {
       "id": "language.lang2.url",
       "label": "언어 2 URL",
-      "description": "두 번째 언어로 전환 시 이동할 페이지를 선택하세요.",
-      "type": "LINK"
+      "description": "두 번째 언어 URL입니다.",
+      "type": "TEXT",
+      "placeholder": "/en"
     },
     {
       "id": "language.current",
       "label": "현재 활성 언어",
-      "description": "현재 페이지의 언어를 선택하세요. 선택된 언어가 강조 표시됩니다.",
+      "description": "현재 페이지의 언어를 선택하세요.",
       "type": "SELECT",
       "options": [
-        {
-          "label": "언어 1",
-          "value": "lang1"
-        },
-        {
-          "label": "언어 2",
-          "value": "lang2"
-        }
+        {"label": "언어 1", "value": "lang1"},
+        {"label": "언어 2", "value": "lang2"}
       ]
     },
 
@@ -713,13 +908,9 @@
       "content": "📱 모바일 설정"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "모바일 기기에서의 헤더 표시 방식을 설정합니다. 화면이 작은 기기에서는 햄버거 메뉴가 표시됩니다."
-    },
-    {
       "id": "mobile.headerHeight",
       "label": "모바일 헤더 높이",
-      "description": "모바일 화면에서의 헤더 높이입니다. 일반적으로 50~60px가 적당합니다.",
+      "description": "모바일 화면에서의 헤더 높이입니다.",
       "type": "RANGE",
       "min": 50,
       "max": 80,
@@ -729,7 +920,7 @@
     {
       "id": "mobile.logoHeight",
       "label": "모바일 로고 높이",
-      "description": "모바일 화면에서의 로고 높이입니다. PC 로고보다 작게 설정하세요.",
+      "description": "모바일 화면에서의 로고 높이입니다.",
       "type": "RANGE",
       "min": 16,
       "max": 40,
@@ -739,7 +930,7 @@
     {
       "id": "mobile.breakpoint",
       "label": "모바일 전환 기준",
-      "description": "이 픽셀 값 이하에서 모바일 메뉴로 전환됩니다. 768px은 태블릿 세로/모바일 기준.",
+      "description": "이 픽셀 값 이하에서 모바일 메뉴로 전환됩니다.",
       "type": "RANGE",
       "min": 600,
       "max": 992,
@@ -747,16 +938,18 @@
       "unit": "px"
     },
     {
-      "id": "mobile.hamburgerIcon",
-      "label": "햄버거 메뉴 아이콘",
-      "description": "햄버거 버튼에 표시할 아이콘 이미지입니다. 비우면 기본 막대 스타일이 표시됩니다.",
-      "type": "IMAGE_PICKER"
+      "id": "mobile.hamburgerIconSvg",
+      "label": "햄버거 아이콘 SVG",
+      "description": "햄버거 버튼 SVG 코드를 입력하세요. 비우면 기본 막대 표시.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg width=\"24\" height=\"24\">...</svg>"
     },
     {
-      "id": "mobile.hamburgerIconClose",
-      "label": "닫기 아이콘",
-      "description": "메뉴가 열렸을 때 표시할 닫기 아이콘입니다. 비우면 X 애니메이션이 표시됩니다.",
-      "type": "IMAGE_PICKER"
+      "id": "mobile.hamburgerIconCloseSvg",
+      "label": "닫기 아이콘 SVG",
+      "description": "메뉴 열렸을 때 표시할 닫기 SVG 코드입니다.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg width=\"24\" height=\"24\">...</svg>"
     },
     {
       "id": "mobile.hamburgerSize",
@@ -771,8 +964,15 @@
     {
       "id": "mobile.hamburgerColor",
       "label": "햄버거 막대 색상",
-      "description": "기본 막대 스타일을 사용할 때의 색상입니다.",
+      "description": "기본 막대 스타일 사용 시 색상입니다.",
       "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobile.accordionIconSvg",
+      "label": "아코디언 화살표 SVG",
+      "description": "모바일 메뉴의 펼침/접힘 아이콘 SVG 코드입니다.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg width=\"16\" height=\"16\"><path d=\"M5 8l3 3 3-3\"/></svg>"
     },
 
     {
@@ -780,25 +980,21 @@
       "content": "⚙️ 고급 설정"
     },
     {
-      "type": "DESCRIPTION",
-      "content": "헤더의 동작 방식과 세부 스타일을 조정하는 고급 옵션입니다."
-    },
-    {
       "id": "advanced.showOverlay",
       "label": "드롭다운 배경 오버레이",
-      "description": "체크하면 드롭다운 메뉴가 열릴 때 페이지 전체에 어두운 배경이 표시됩니다.",
+      "description": "체크하면 드롭다운 시 페이지에 어두운 배경이 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "advanced.overlayColor",
       "label": "오버레이 색상",
-      "description": "드롭다운 배경 오버레이의 색상과 투명도입니다.",
+      "description": "드롭다운 배경 오버레이의 색상입니다.",
       "type": "COLOR_PICKER"
     },
     {
       "id": "advanced.transitionSpeed",
       "label": "애니메이션 속도",
-      "description": "메뉴 전환 애니메이션 속도입니다. 빠름 200ms, 일반 300ms, 느림 400~500ms.",
+      "description": "메뉴 전환 애니메이션 속도입니다.",
       "type": "RANGE",
       "min": 100,
       "max": 800,
@@ -833,25 +1029,24 @@
       "alt": "회사 로고",
       "height": 32,
       "link": "/",
-      "padding": {
-        "top": 0,
-        "bottom": 0,
-        "left": 0,
-        "right": 0
-      }
+      "padding": {"top": 0, "bottom": 0, "left": 0, "right": 0}
     },
     "header": {
       "position": "sticky",
       "overlap": false,
       "zIndex": 1000,
       "height": 80,
-      "padding": {
-        "left": 40,
-        "right": 40
-      }
+      "padding": {"left": 40, "right": 40}
+    },
+    "scroll": {
+      "enabled": true,
+      "background": "#FFFFFFEE",
+      "shadow": {"enabled": true, "color": "#00000020", "blur": 16},
+      "backdrop": {"enabled": true, "blur": 10},
+      "threshold": 50
     },
     "colors": {
-      "background": "#FFFFFFFF",
+      "background": "#FFFFFF00",
       "text": "#000000FF",
       "hover": "#0066CCFF",
       "dropdownBg": "#FFFFFFFF"
@@ -861,112 +1056,80 @@
       "fontSize": 16,
       "fontWeight": "500",
       "letterSpacing": 0,
-      "shadow": {
-        "enabled": true,
-        "color": "#00000014",
-        "blur": 8,
-        "offsetY": 2
-      },
-      "backdrop": {
-        "enabled": false,
-        "blur": 10
-      },
-      "border": {
-        "enabled": false,
-        "color": "#E0E0E0FF",
-        "thickness": 1
-      }
+      "shadow": {"enabled": false, "color": "#00000014", "blur": 8, "offsetY": 2},
+      "backdrop": {"enabled": false, "blur": 10},
+      "border": {"enabled": false, "color": "#E0E0E0FF", "thickness": 1}
     },
     "dropdown": {
-      "padding": {
-        "top": 20,
-        "bottom": 20
-      },
+      "hoverEffect": "background",
+      "padding": {"top": 20, "bottom": 20},
       "borderRadius": 8,
-      "shadow": {
-        "enabled": true,
-        "color": "#0000001F",
-        "blur": 24
-      },
-      "border": {
-        "enabled": false,
-        "color": "#E0E0E0FF",
-        "thickness": 1
-      },
-      "item": {
-        "fontSize": 14,
-        "padding": 12,
-        "hoverBg": "#F5F5F5FF"
-      }
+      "shadow": {"enabled": true, "color": "#0000001F", "blur": 24},
+      "border": {"enabled": false, "color": "#E0E0E0FF", "thickness": 1},
+      "item": {"fontSize": 14, "padding": 12, "hoverBg": "#F5F5F5FF"}
     },
     "menu1": {
       "title": "회사소개",
       "link": "",
-      "items": "회사 개요|/about/overview\nCEO 메시지|/about/ceo\n연혁|/about/history"
+      "icon": "",
+      "isMega": false,
+      "items": "회사 개요|/about/overview\nCEO 메시지|/about/ceo\n연혁|/about/history",
+      "cat1": {"title": "", "items": ""},
+      "cat2": {"title": "", "items": ""},
+      "cat3": {"title": "", "items": ""}
     },
     "menu2": {
       "title": "서비스 및 솔루션",
       "link": "",
+      "icon": "",
       "isMega": true,
-      "cat1": {
-        "title": "서비스",
-        "items": "컨설팅|/services/consulting\n시스템 구축|/services/integration\n운영 지원|/services/support"
-      },
-      "cat2": {
-        "title": "솔루션",
-        "items": "통합 플랫폼|/solutions/platform\n데이터 분석|/solutions/analytics\n자동화 시스템|/solutions/automation"
-      },
-      "cat3": {
-        "title": "산업군",
-        "items": "제조업|/industries/manufacturing\n금융|/industries/finance\nIT|/industries/it"
-      }
+      "items": "",
+      "cat1": {"title": "서비스", "items": "컨설팅|/services/consulting\n시스템 구축|/services/integration"},
+      "cat2": {"title": "솔루션", "items": "통합 플랫폼|/solutions/platform\n데이터 분석|/solutions/analytics"},
+      "cat3": {"title": "산업군", "items": "제조업|/industries/manufacturing\n금융|/industries/finance"}
     },
     "menu3": {
       "title": "고객지원",
       "link": "",
-      "items": "자료실|/support/library\nFAQ|/support/faq\n언론보도|/support/press\n공지사항|/support/notice"
+      "icon": "",
+      "isMega": false,
+      "items": "자료실|/support/library\nFAQ|/support/faq\n공지사항|/support/notice",
+      "cat1": {"title": "", "items": ""},
+      "cat2": {"title": "", "items": ""},
+      "cat3": {"title": "", "items": ""}
     },
     "menu4": {
       "title": "채용",
       "link": "",
-      "items": "채용 공고|/careers/jobs\n인재상|/careers/culture\n복리후생|/careers/benefits\n지원하기|/careers/apply"
+      "icon": "",
+      "isMega": false,
+      "items": "채용 공고|/careers/jobs\n인재상|/careers/culture\n지원하기|/careers/apply",
+      "cat1": {"title": "", "items": ""},
+      "cat2": {"title": "", "items": ""},
+      "cat3": {"title": "", "items": ""}
     },
     "utility": {
-      "link1": {
-        "text": "문의하기",
-        "url": "/contact"
-      },
-      "link2": {
-        "text": "고객포탈",
-        "url": "/portal"
-      },
-      "link3": {
-        "text": "로그인",
-        "url": "/login"
-      },
+      "link1": {"text": "문의하기", "url": "/contact"},
+      "link2": {"text": "고객포탈", "url": "/portal"},
+      "link3": {"text": "로그인", "url": "/login"},
       "fontSize": 13,
       "gap": 20
     },
     "language": {
       "show": true,
-      "lang1": {
-        "text": "KO",
-        "url": "/"
-      },
-      "lang2": {
-        "text": "EN",
-        "url": "/en"
-      },
+      "lang1": {"text": "KO", "url": "/"},
+      "lang2": {"text": "EN", "url": "/en"},
       "current": "lang1"
     },
     "mobile": {
       "headerHeight": 60,
       "logoHeight": 24,
       "breakpoint": 768,
-      "hamburgerIcon": "",
-      "hamburgerIconClose": "",
+      "hamburgerIconSvg": "",
+      "hamburgerIconCloseSvg": "",
       "hamburgerSize": 24,
-      "hamburgerColor": "#000000FF"
+      "hamburgerColor": "#000000FF",
+      "accordionIconSvg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\"><path d=\"M4 6L8 10L12 6\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>"
     },
     "advanced": {
       "showOverlay": true,

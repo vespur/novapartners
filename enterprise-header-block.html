@@ -1,5 +1,4 @@
 <style>
-  /* CSS 변수 정의 */
   :root {
     --header-height: {{property.header.height}}px;
     --header-bg: {{property.colors.background}};
@@ -9,13 +8,11 @@
     --transition-speed: {{property.advanced.transitionSpeed}}ms;
     --menu-gap: {{property.advanced.menuGap}}px;
     --mobile-height: {{property.mobile.headerHeight}}px;
-    --mobile-breakpoint: {{property.mobile.breakpoint}}px;
     --font-size: {{property.design.fontSize}}px;
     --font-weight: {{property.design.fontWeight}};
     --letter-spacing: {{property.design.letterSpacing}}px;
   }
 
-  /* 헤더 기본 스타일 */
   .global-header {
     position: {{property.header.position}};
     top: 0;
@@ -36,6 +33,20 @@
     {{/if}}
     z-index: {{property.header.zIndex}};
     font-family: {{property.design.fontFamily}};
+    transition: background var(--transition-speed), box-shadow var(--transition-speed), backdrop-filter var(--transition-speed);
+  }
+
+  .global-header.scrolled {
+    {{#if property.scroll.enabled}}
+    background: {{property.scroll.background}} !important;
+    {{#if property.scroll.shadow.enabled}}
+    box-shadow: 0 2px {{property.scroll.shadow.blur}}px {{property.scroll.shadow.color}} !important;
+    {{/if}}
+    {{#if property.scroll.backdrop.enabled}}
+    backdrop-filter: blur({{property.scroll.backdrop.blur}}px) !important;
+    -webkit-backdrop-filter: blur({{property.scroll.backdrop.blur}}px) !important;
+    {{/if}}
+    {{/if}}
   }
 
   .header-inner {
@@ -48,7 +59,6 @@
     height: var(--header-height);
   }
 
-  /* 로고 */
   .header-logo {
     flex-shrink: 0;
     z-index: 1001;
@@ -66,7 +76,6 @@
     display: block;
   }
 
-  /* 네비게이션 */
   .main-nav {
     flex: 1;
     display: flex;
@@ -87,7 +96,9 @@
   }
 
   .nav-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     padding: 28px 0;
     color: var(--text-color);
     text-decoration: none;
@@ -99,11 +110,19 @@
     cursor: pointer;
   }
 
+  .nav-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .nav-link:hover {
     color: var(--hover-color);
   }
 
-  /* 드롭다운 배경 오버레이 */
+  .mobile-only {
+    display: none;
+  }
+
   .dropdown-overlay {
     position: fixed;
     top: var(--header-height);
@@ -126,7 +145,6 @@
     transition: opacity var(--transition-speed), height 0s;
   }
 
-  /* 드롭다운 메뉴 */
   .dropdown {
     position: absolute;
     top: 100%;
@@ -173,12 +191,29 @@
     white-space: nowrap;
   }
 
+  {{#if (eq property.dropdown.hoverEffect "background")}}
   .dropdown-link:hover {
     background: {{property.dropdown.item.hoverBg}};
     color: var(--hover-color);
   }
+  {{/if}}
 
-  /* 메가 메뉴 */
+  {{#if (eq property.dropdown.hoverEffect "underline")}}
+  .dropdown-link {
+    border-bottom: 2px solid transparent;
+  }
+  .dropdown-link:hover {
+    color: var(--hover-color);
+    border-bottom-color: var(--hover-color);
+  }
+  {{/if}}
+
+  {{#if (eq property.dropdown.hoverEffect "none")}}
+  .dropdown-link:hover {
+    color: var(--hover-color);
+  }
+  {{/if}}
+
   .dropdown.mega {
     min-width: 900px;
     max-width: 1200px;
@@ -215,7 +250,6 @@
     padding: 0;
   }
 
-  /* 유틸리티 메뉴 */
   .utility-nav {
     display: flex;
     align-items: center;
@@ -235,7 +269,6 @@
     color: var(--hover-color);
   }
 
-  /* 언어 선택 */
   .language-selector {
     display: flex;
     list-style: none;
@@ -257,7 +290,6 @@
     color: var(--hover-color);
   }
 
-  /* 모바일 메뉴 버튼 */
   .mobile-menu-btn {
     display: none;
     align-items: center;
@@ -271,14 +303,11 @@
     height: {{property.mobile.hamburgerSize}}px;
   }
 
-  /* 햄버거 아이콘 이미지 */
-  .mobile-menu-btn img {
+  .mobile-menu-btn svg {
     width: 100%;
     height: 100%;
-    object-fit: contain;
   }
 
-  /* 햄버거 바 (기본 스타일) */
   .hamburger-bars {
     display: flex;
     flex-direction: column;
@@ -305,7 +334,6 @@
     transform: rotate(-45deg) translate(7px, -7px);
   }
 
-  /* 모바일 반응형 */
   @media (max-width: {{property.mobile.breakpoint}}px) {
     .header-inner {
       padding: 0 20px;
@@ -349,6 +377,21 @@
 
     .nav-link {
       padding: 16px 0;
+      justify-content: space-between;
+    }
+
+    .mobile-only {
+      display: inline-block;
+    }
+
+    .nav-link .accordion-icon {
+      width: 16px;
+      height: 16px;
+      transition: transform var(--transition-speed);
+    }
+
+    .nav-item.active .nav-link .accordion-icon {
+      transform: rotate(180deg);
     }
 
     .dropdown {
@@ -402,7 +445,6 @@
     }
   }
 
-  /* 태블릿 */
   @media (max-width: 1024px) and (min-width: {{add property.mobile.breakpoint 1}}px) {
     .header-inner {
       padding: 0 30px;
@@ -432,10 +474,9 @@
 </style>
 
 <template>
-  <header class="global-header">
+  <header class="global-header" data-header="main">
     <div class="header-inner">
 
-      <!-- 로고 -->
       <div class="header-logo">
         <a href="{{property.logo.link}}" title="{{property.logo.alt}}">
           {{#if property.logo.image}}
@@ -446,92 +487,62 @@
         </a>
       </div>
 
-      <!-- 메인 네비게이션 -->
       <nav class="main-nav" data-nav="main">
         <div class="dropdown-overlay"></div>
 
         <ul class="nav-list">
 
-          <!-- 메뉴 1 -->
           {{#if property.menu1.title}}
           <li class="nav-item">
             <a class="nav-link" {{#if property.menu1.link}}href="{{property.menu1.link}}"{{else}}href="javascript:void(0)"{{/if}}>
-              {{property.menu1.title}}
+              <span>{{property.menu1.title}}</span>
+              {{#if property.menu1.icon}}
+                {{{property.menu1.icon}}}
+              {{/if}}
+              {{#if (or property.menu1.items property.menu1.cat1.items)}}
+                <span class="accordion-icon mobile-only">{{{property.mobile.accordionIconSvg}}}</span>
+              {{/if}}
             </a>
-            {{#if property.menu1.items}}
-            <div class="dropdown">
-              <ul class="dropdown-list">
-                {{#each (split property.menu1.items "\n")}}
-                  {{#if this}}
-                    {{#with (split this "|")}}
-                      <li class="dropdown-item">
-                        <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
-                      </li>
-                    {{/with}}
-                  {{/if}}
-                {{/each}}
-              </ul>
-            </div>
-            {{/if}}
-          </li>
-          {{/if}}
-
-          <!-- 메뉴 2 (메가 메뉴 가능) -->
-          {{#if property.menu2.title}}
-          <li class="nav-item">
-            <a class="nav-link" {{#if property.menu2.link}}href="{{property.menu2.link}}"{{else}}href="javascript:void(0)"{{/if}}>
-              {{property.menu2.title}}
-            </a>
-            <div class="dropdown {{#if property.menu2.isMega}}mega{{/if}}">
-              {{#if property.menu2.isMega}}
+            {{#if (or property.menu1.items (and property.menu1.isMega property.menu1.cat1.items))}}
+            <div class="dropdown {{#if property.menu1.isMega}}mega{{/if}}">
+              {{#if property.menu1.isMega}}
                 <div class="mega-grid">
-                  <!-- 카테고리 1 -->
-                  {{#if property.menu2.cat1.title}}
+                  {{#if property.menu1.cat1.title}}
                   <div class="mega-column">
-                    <h3 class="mega-title">{{property.menu2.cat1.title}}</h3>
+                    <h3 class="mega-title">{{property.menu1.cat1.title}}</h3>
                     <ul class="mega-list">
-                      {{#each (split property.menu2.cat1.items "\n")}}
+                      {{#each (split property.menu1.cat1.items "\n")}}
                         {{#if this}}
                           {{#with (split this "|")}}
-                            <li>
-                              <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
-                            </li>
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
                           {{/with}}
                         {{/if}}
                       {{/each}}
                     </ul>
                   </div>
                   {{/if}}
-
-                  <!-- 카테고리 2 -->
-                  {{#if property.menu2.cat2.title}}
+                  {{#if property.menu1.cat2.title}}
                   <div class="mega-column">
-                    <h3 class="mega-title">{{property.menu2.cat2.title}}</h3>
+                    <h3 class="mega-title">{{property.menu1.cat2.title}}</h3>
                     <ul class="mega-list">
-                      {{#each (split property.menu2.cat2.items "\n")}}
+                      {{#each (split property.menu1.cat2.items "\n")}}
                         {{#if this}}
                           {{#with (split this "|")}}
-                            <li>
-                              <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
-                            </li>
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
                           {{/with}}
                         {{/if}}
                       {{/each}}
                     </ul>
                   </div>
                   {{/if}}
-
-                  <!-- 카테고리 3 -->
-                  {{#if property.menu2.cat3.title}}
+                  {{#if property.menu1.cat3.title}}
                   <div class="mega-column">
-                    <h3 class="mega-title">{{property.menu2.cat3.title}}</h3>
+                    <h3 class="mega-title">{{property.menu1.cat3.title}}</h3>
                     <ul class="mega-list">
-                      {{#each (split property.menu2.cat3.items "\n")}}
+                      {{#each (split property.menu1.cat3.items "\n")}}
                         {{#if this}}
                           {{#with (split this "|")}}
-                            <li>
-                              <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
-                            </li>
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
                           {{/with}}
                         {{/if}}
                       {{/each}}
@@ -541,64 +552,237 @@
                 </div>
               {{else}}
                 <ul class="dropdown-list">
-                  {{#each (split property.menu2.cat1.items "\n")}}
+                  {{#each (split property.menu1.items "\n")}}
                     {{#if this}}
                       {{#with (split this "|")}}
-                        <li class="dropdown-item">
-                          <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
-                        </li>
+                        <li class="dropdown-item"><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
                       {{/with}}
                     {{/if}}
                   {{/each}}
                 </ul>
               {{/if}}
             </div>
+            {{/if}}
           </li>
           {{/if}}
 
-          <!-- 메뉴 3 -->
-          {{#if property.menu3.title}}
+          {{#if property.menu2.title}}
           <li class="nav-item">
-            <a class="nav-link" {{#if property.menu3.link}}href="{{property.menu3.link}}"{{else}}href="javascript:void(0)"{{/if}}>
-              {{property.menu3.title}}
+            <a class="nav-link" {{#if property.menu2.link}}href="{{property.menu2.link}}"{{else}}href="javascript:void(0)"{{/if}}>
+              <span>{{property.menu2.title}}</span>
+              {{#if property.menu2.icon}}
+                {{{property.menu2.icon}}}
+              {{/if}}
+              {{#if (or property.menu2.items property.menu2.cat1.items)}}
+                <span class="accordion-icon mobile-only">{{{property.mobile.accordionIconSvg}}}</span>
+              {{/if}}
             </a>
-            {{#if property.menu3.items}}
-            <div class="dropdown">
-              <ul class="dropdown-list">
-                {{#each (split property.menu3.items "\n")}}
-                  {{#if this}}
-                    {{#with (split this "|")}}
-                      <li class="dropdown-item">
-                        <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
-                      </li>
-                    {{/with}}
+            {{#if (or property.menu2.items (and property.menu2.isMega property.menu2.cat1.items))}}
+            <div class="dropdown {{#if property.menu2.isMega}}mega{{/if}}">
+              {{#if property.menu2.isMega}}
+                <div class="mega-grid">
+                  {{#if property.menu2.cat1.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu2.cat1.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu2.cat1.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
                   {{/if}}
-                {{/each}}
-              </ul>
+                  {{#if property.menu2.cat2.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu2.cat2.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu2.cat2.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+                  {{#if property.menu2.cat3.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu2.cat3.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu2.cat3.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+                </div>
+              {{else}}
+                <ul class="dropdown-list">
+                  {{#each (split property.menu2.items "\n")}}
+                    {{#if this}}
+                      {{#with (split this "|")}}
+                        <li class="dropdown-item"><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                      {{/with}}
+                    {{/if}}
+                  {{/each}}
+                </ul>
+              {{/if}}
             </div>
             {{/if}}
           </li>
           {{/if}}
 
-          <!-- 메뉴 4 -->
+          {{#if property.menu3.title}}
+          <li class="nav-item">
+            <a class="nav-link" {{#if property.menu3.link}}href="{{property.menu3.link}}"{{else}}href="javascript:void(0)"{{/if}}>
+              <span>{{property.menu3.title}}</span>
+              {{#if property.menu3.icon}}
+                {{{property.menu3.icon}}}
+              {{/if}}
+              {{#if (or property.menu3.items property.menu3.cat1.items)}}
+                <span class="accordion-icon mobile-only">{{{property.mobile.accordionIconSvg}}}</span>
+              {{/if}}
+            </a>
+            {{#if (or property.menu3.items (and property.menu3.isMega property.menu3.cat1.items))}}
+            <div class="dropdown {{#if property.menu3.isMega}}mega{{/if}}">
+              {{#if property.menu3.isMega}}
+                <div class="mega-grid">
+                  {{#if property.menu3.cat1.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu3.cat1.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu3.cat1.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+                  {{#if property.menu3.cat2.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu3.cat2.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu3.cat2.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+                  {{#if property.menu3.cat3.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu3.cat3.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu3.cat3.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+                </div>
+              {{else}}
+                <ul class="dropdown-list">
+                  {{#each (split property.menu3.items "\n")}}
+                    {{#if this}}
+                      {{#with (split this "|")}}
+                        <li class="dropdown-item"><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                      {{/with}}
+                    {{/if}}
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </div>
+            {{/if}}
+          </li>
+          {{/if}}
+
           {{#if property.menu4.title}}
           <li class="nav-item">
             <a class="nav-link" {{#if property.menu4.link}}href="{{property.menu4.link}}"{{else}}href="javascript:void(0)"{{/if}}>
-              {{property.menu4.title}}
+              <span>{{property.menu4.title}}</span>
+              {{#if property.menu4.icon}}
+                {{{property.menu4.icon}}}
+              {{/if}}
+              {{#if (or property.menu4.items property.menu4.cat1.items)}}
+                <span class="accordion-icon mobile-only">{{{property.mobile.accordionIconSvg}}}</span>
+              {{/if}}
             </a>
-            {{#if property.menu4.items}}
-            <div class="dropdown">
-              <ul class="dropdown-list">
-                {{#each (split property.menu4.items "\n")}}
-                  {{#if this}}
-                    {{#with (split this "|")}}
-                      <li class="dropdown-item">
-                        <a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a>
-                      </li>
-                    {{/with}}
+            {{#if (or property.menu4.items (and property.menu4.isMega property.menu4.cat1.items))}}
+            <div class="dropdown {{#if property.menu4.isMega}}mega{{/if}}">
+              {{#if property.menu4.isMega}}
+                <div class="mega-grid">
+                  {{#if property.menu4.cat1.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu4.cat1.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu4.cat1.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
                   {{/if}}
-                {{/each}}
-              </ul>
+                  {{#if property.menu4.cat2.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu4.cat2.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu4.cat2.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+                  {{#if property.menu4.cat3.title}}
+                  <div class="mega-column">
+                    <h3 class="mega-title">{{property.menu4.cat3.title}}</h3>
+                    <ul class="mega-list">
+                      {{#each (split property.menu4.cat3.items "\n")}}
+                        {{#if this}}
+                          {{#with (split this "|")}}
+                            <li><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                          {{/with}}
+                        {{/if}}
+                      {{/each}}
+                    </ul>
+                  </div>
+                  {{/if}}
+                </div>
+              {{else}}
+                <ul class="dropdown-list">
+                  {{#each (split property.menu4.items "\n")}}
+                    {{#if this}}
+                      {{#with (split this "|")}}
+                        <li class="dropdown-item"><a class="dropdown-link" href="{{lookup this 1}}">{{lookup this 0}}</a></li>
+                      {{/with}}
+                    {{/if}}
+                  {{/each}}
+                </ul>
+              {{/if}}
             </div>
             {{/if}}
           </li>
@@ -607,7 +791,6 @@
         </ul>
       </nav>
 
-      <!-- 유틸리티 메뉴 -->
       <div class="utility-nav">
         {{#if property.utility.link1.text}}
           <a class="utility-link" href="{{property.utility.link1.url}}">{{property.utility.link1.text}}</a>
@@ -619,7 +802,6 @@
           <a class="utility-link" href="{{property.utility.link3.url}}">{{property.utility.link3.text}}</a>
         {{/if}}
 
-        <!-- 언어 선택 -->
         {{#if property.language.show}}
         <ul class="language-selector">
           <li class="language-item {{#if (eq property.language.current 'lang1')}}active{{/if}}">
@@ -631,10 +813,9 @@
         </ul>
         {{/if}}
 
-        <!-- 모바일 메뉴 버튼 -->
-        <button type="button" class="mobile-menu-btn" data-action="toggle-menu" aria-label="메뉴 열기/닫기">
-          {{#if property.mobile.hamburgerIcon}}
-            <img src="{{property.mobile.hamburgerIcon}}" alt="메뉴" data-icon-type="open">
+        <button type="button" class="mobile-menu-btn" data-action="toggle-menu" aria-label="메뉴">
+          {{#if property.mobile.hamburgerIconSvg}}
+            <span class="hamburger-svg" data-svg-type="open">{{{property.mobile.hamburgerIconSvg}}}</span>
           {{else}}
             <div class="hamburger-bars">
               <span></span>
@@ -653,7 +834,19 @@
   const container = bm.container;
   const context = bm.context;
 
-  // 모바일 메뉴 토글 처리
+  function handleScroll() {
+    if (!context.property.scroll.enabled) return;
+
+    const header = container.querySelector('[data-header="main"]');
+    const threshold = context.property.scroll.threshold || 50;
+
+    if (window.scrollY > threshold) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+
   function handleMenuToggle(e) {
     const btn = e.target.closest('[data-action="toggle-menu"]');
     if (!btn) return;
@@ -666,32 +859,20 @@
     btn.classList.toggle('active');
     nav.classList.toggle('active');
 
-    // 햄버거 아이콘 전환 (이미지를 사용하는 경우)
-    const img = btn.querySelector('img[data-icon-type]');
-    if (img) {
-      const openIcon = context.property.mobile.hamburgerIcon;
-      const closeIcon = context.property.mobile.hamburgerIconClose;
-
+    const svgOpen = btn.querySelector('[data-svg-type="open"]');
+    if (svgOpen && context.property.mobile.hamburgerIconCloseSvg) {
       if (isActive) {
-        // 닫기 -> 열기
-        img.src = openIcon || '';
-        img.alt = '메뉴';
+        svgOpen.innerHTML = context.property.mobile.hamburgerIconSvg;
+        svgOpen.setAttribute('data-svg-type', 'open');
       } else {
-        // 열기 -> 닫기
-        img.src = closeIcon || openIcon || '';
-        img.alt = '닫기';
+        svgOpen.innerHTML = context.property.mobile.hamburgerIconCloseSvg;
+        svgOpen.setAttribute('data-svg-type', 'close');
       }
     }
 
-    // 스크롤 방지
-    if (nav.classList.contains('active')) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
   }
 
-  // 모바일에서 메뉴 항목 클릭 시 서브메뉴 토글
   function handleNavClick(e) {
     const breakpoint = context.property.mobile.breakpoint || 768;
     if (window.innerWidth > breakpoint) return;
@@ -705,7 +886,6 @@
     if (dropdown) {
       e.preventDefault();
 
-      // 다른 열린 메뉴 닫기
       const allItems = container.querySelectorAll('.nav-item');
       allItems.forEach(item => {
         if (item !== navItem) {
@@ -713,12 +893,10 @@
         }
       });
 
-      // 현재 메뉴 토글
       navItem.classList.toggle('active');
     }
   }
 
-  // 윈도우 리사이즈 처리
   let resizeTimer;
   function handleResize() {
     clearTimeout(resizeTimer);
@@ -733,38 +911,32 @@
           btn.classList.remove('active');
           document.body.style.overflow = '';
 
-          // 햄버거 아이콘 리셋
-          const img = btn.querySelector('img[data-icon-type]');
-          if (img) {
-            img.src = context.property.mobile.hamburgerIcon || '';
-            img.alt = '메뉴';
+          const svgOpen = btn.querySelector('[data-svg-type]');
+          if (svgOpen && context.property.mobile.hamburgerIconSvg) {
+            svgOpen.innerHTML = context.property.mobile.hamburgerIconSvg;
+            svgOpen.setAttribute('data-svg-type', 'open');
           }
         }
 
-        // 모바일 메뉴 활성 상태 제거
         const allItems = container.querySelectorAll('.nav-item');
         allItems.forEach(item => item.classList.remove('active'));
       }
     }, 250);
   }
 
-  // 이벤트 위임
+  window.addEventListener('scroll', handleScroll, {passive: true});
   container.addEventListener('click', handleMenuToggle, true);
   container.addEventListener('click', handleNavClick, true);
   window.addEventListener('resize', handleResize);
 
-  // 설정 변경 시 반영
+  handleScroll();
+
   bm.onContextChange = () => {
-    // 햄버거 아이콘 업데이트
-    const btn = container.querySelector('[data-action="toggle-menu"]');
-    const img = btn ? btn.querySelector('img[data-icon-type]') : null;
-    if (img && !btn.classList.contains('active')) {
-      img.src = context.property.mobile.hamburgerIcon || '';
-    }
+    handleScroll();
   };
 
-  // 정리
   bm.onDestroy = () => {
+    window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', handleResize);
     document.body.style.overflow = '';
     clearTimeout(resizeTimer);
