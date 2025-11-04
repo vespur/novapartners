@@ -10,23 +10,38 @@
     --menu-gap: {{property.advanced.menuGap}}px;
     --mobile-height: {{property.mobile.headerHeight}}px;
     --mobile-breakpoint: {{property.mobile.breakpoint}}px;
+    --font-size: {{property.design.fontSize}}px;
+    --font-weight: {{property.design.fontWeight}};
+    --letter-spacing: {{property.design.letterSpacing}}px;
   }
 
   /* 헤더 기본 스타일 */
   .global-header {
-    position: {{#if property.advanced.sticky}}sticky{{else}}relative{{/if}};
+    position: {{property.header.position}};
     top: 0;
     width: 100%;
+    {{#if property.header.overlap}}
+    margin-bottom: calc(-1 * var(--header-height));
+    {{/if}}
     background: var(--header-bg);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    z-index: 1000;
+    {{#if property.design.backdrop.enabled}}
+    backdrop-filter: blur({{property.design.backdrop.blur}}px);
+    -webkit-backdrop-filter: blur({{property.design.backdrop.blur}}px);
+    {{/if}}
+    {{#if property.design.shadow.enabled}}
+    box-shadow: 0 {{property.design.shadow.offsetY}}px {{property.design.shadow.blur}}px {{property.design.shadow.color}};
+    {{/if}}
+    {{#if property.design.border.enabled}}
+    border-bottom: {{property.design.border.thickness}}px solid {{property.design.border.color}};
+    {{/if}}
+    z-index: {{property.header.zIndex}};
     font-family: {{property.design.fontFamily}};
   }
 
   .header-inner {
     max-width: {{#if property.advanced.maxWidth}}{{property.advanced.maxWidth}}px{{else}}100%{{/if}};
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 {{property.header.padding.right}}px 0 {{property.header.padding.left}}px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,6 +52,7 @@
   .header-logo {
     flex-shrink: 0;
     z-index: 1001;
+    padding: {{property.logo.padding.top}}px {{property.logo.padding.right}}px {{property.logo.padding.bottom}}px {{property.logo.padding.left}}px;
   }
 
   .header-logo a {
@@ -75,8 +91,9 @@
     padding: 28px 0;
     color: var(--text-color);
     text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    letter-spacing: var(--letter-spacing);
     transition: color var(--transition-speed);
     white-space: nowrap;
     cursor: pointer;
@@ -93,7 +110,7 @@
     left: 0;
     width: 100%;
     height: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: {{property.advanced.overlayColor}};
     opacity: 0;
     transition: opacity var(--transition-speed), height 0s var(--transition-speed);
     pointer-events: none;
@@ -116,13 +133,18 @@
     left: 50%;
     transform: translateX(-50%);
     background: var(--dropdown-bg);
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: {{property.dropdown.borderRadius}}px;
+    {{#if property.dropdown.shadow.enabled}}
+    box-shadow: 0 8px {{property.dropdown.shadow.blur}}px {{property.dropdown.shadow.color}};
+    {{/if}}
+    {{#if property.dropdown.border.enabled}}
+    border: {{property.dropdown.border.thickness}}px solid {{property.dropdown.border.color}};
+    {{/if}}
     opacity: 0;
     visibility: hidden;
     transition: opacity var(--transition-speed), visibility var(--transition-speed);
     min-width: 200px;
-    padding: 20px 0;
+    padding: {{property.dropdown.padding.top}}px 0 {{property.dropdown.padding.bottom}}px 0;
     z-index: 999;
   }
 
@@ -143,16 +165,16 @@
 
   .dropdown-link {
     display: block;
-    padding: 12px 24px;
+    padding: {{property.dropdown.item.padding}}px 24px;
     color: var(--text-color);
     text-decoration: none;
-    font-size: 14px;
+    font-size: {{property.dropdown.item.fontSize}}px;
     transition: background var(--transition-speed), color var(--transition-speed);
     white-space: nowrap;
   }
 
   .dropdown-link:hover {
-    background: #f5f5f5;
+    background: {{property.dropdown.item.hoverBg}};
     color: var(--hover-color);
   }
 
@@ -197,14 +219,14 @@
   .utility-nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: {{property.utility.gap}}px;
     flex-shrink: 0;
   }
 
   .utility-link {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 13px;
+    font-size: {{property.utility.fontSize}}px;
     transition: color var(--transition-speed);
     white-space: nowrap;
   }
@@ -224,7 +246,7 @@
   }
 
   .language-item a {
-    font-size: 13px;
+    font-size: {{property.utility.fontSize}}px;
     font-weight: 600;
     color: #999;
     text-decoration: none;
@@ -238,20 +260,49 @@
   /* 모바일 메뉴 버튼 */
   .mobile-menu-btn {
     display: none;
-    flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     cursor: pointer;
     padding: 8px;
     margin-left: 12px;
+    width: {{property.mobile.hamburgerSize}}px;
+    height: {{property.mobile.hamburgerSize}}px;
   }
 
-  .mobile-menu-btn span {
-    width: 24px;
+  /* 햄버거 아이콘 이미지 */
+  .mobile-menu-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* 햄버거 바 (기본 스타일) */
+  .hamburger-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .hamburger-bars span {
+    width: 100%;
     height: 2px;
-    background: var(--text-color);
+    background: {{property.mobile.hamburgerColor}};
     transition: all var(--transition-speed);
+  }
+
+  .mobile-menu-btn.active .hamburger-bars span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+
+  .mobile-menu-btn.active .hamburger-bars span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-btn.active .hamburger-bars span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
   }
 
   /* 모바일 반응형 */
@@ -277,13 +328,12 @@
       align-items: stretch;
       padding: 20px;
       overflow-y: auto;
-      transform: translateX(-100%);
-      transition: transform var(--transition-speed);
+      display: none;
       z-index: 999;
     }
 
     .main-nav.active {
-      transform: translateX(0);
+      display: flex;
     }
 
     .nav-list {
@@ -306,6 +356,7 @@
       transform: none;
       box-shadow: none;
       border-radius: 0;
+      border: none;
       padding: 0 0 12px 20px;
       opacity: 1;
       visibility: visible;
@@ -348,18 +399,6 @@
 
     .mobile-menu-btn {
       display: flex;
-    }
-
-    .mobile-menu-btn.active span:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
-    }
-
-    .mobile-menu-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .mobile-menu-btn.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
     }
   }
 
@@ -594,9 +633,15 @@
 
         <!-- 모바일 메뉴 버튼 -->
         <button type="button" class="mobile-menu-btn" data-action="toggle-menu" aria-label="메뉴 열기/닫기">
-          <span></span>
-          <span></span>
-          <span></span>
+          {{#if property.mobile.hamburgerIcon}}
+            <img src="{{property.mobile.hamburgerIcon}}" alt="메뉴" data-icon-type="open">
+          {{else}}
+            <div class="hamburger-bars">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          {{/if}}
         </button>
       </div>
 
@@ -616,8 +661,27 @@
     const nav = container.querySelector('[data-nav="main"]');
     if (!nav) return;
 
+    const isActive = btn.classList.contains('active');
+
     btn.classList.toggle('active');
     nav.classList.toggle('active');
+
+    // 햄버거 아이콘 전환 (이미지를 사용하는 경우)
+    const img = btn.querySelector('img[data-icon-type]');
+    if (img) {
+      const openIcon = context.property.mobile.hamburgerIcon;
+      const closeIcon = context.property.mobile.hamburgerIconClose;
+
+      if (isActive) {
+        // 닫기 -> 열기
+        img.src = openIcon || '';
+        img.alt = '메뉴';
+      } else {
+        // 열기 -> 닫기
+        img.src = closeIcon || openIcon || '';
+        img.alt = '닫기';
+      }
+    }
 
     // 스크롤 방지
     if (nav.classList.contains('active')) {
@@ -668,6 +732,13 @@
           nav.classList.remove('active');
           btn.classList.remove('active');
           document.body.style.overflow = '';
+
+          // 햄버거 아이콘 리셋
+          const img = btn.querySelector('img[data-icon-type]');
+          if (img) {
+            img.src = context.property.mobile.hamburgerIcon || '';
+            img.alt = '메뉴';
+          }
         }
 
         // 모바일 메뉴 활성 상태 제거
@@ -684,7 +755,12 @@
 
   // 설정 변경 시 반영
   bm.onContextChange = () => {
-    // 필요시 동적 스타일 재적용 등
+    // 햄버거 아이콘 업데이트
+    const btn = container.querySelector('[data-action="toggle-menu"]');
+    const img = btn ? btn.querySelector('img[data-icon-type]') : null;
+    if (img && !btn.classList.contains('active')) {
+      img.src = context.property.mobile.hamburgerIcon || '';
+    }
   };
 
   // 정리

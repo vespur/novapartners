@@ -34,9 +34,127 @@
     {
       "id": "logo.link",
       "label": "로고 클릭 링크",
-      "description": "로고 클릭 시 이동할 페이지입니다. 일반적으로 홈페이지(/)로 설정합니다.",
-      "type": "TEXT",
-      "placeholder": "/"
+      "description": "로고 클릭 시 이동할 페이지를 선택하세요.",
+      "type": "LINK"
+    },
+    {
+      "id": "logo.padding.top",
+      "label": "로고 상단 여백",
+      "description": "로고 위쪽 안쪽 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "logo.padding.bottom",
+      "label": "로고 하단 여백",
+      "description": "로고 아래쪽 안쪽 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "logo.padding.left",
+      "label": "로고 좌측 여백",
+      "description": "로고 왼쪽 안쪽 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "logo.padding.right",
+      "label": "로고 우측 여백",
+      "description": "로고 오른쪽 안쪽 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📍 헤더 위치 및 레이아웃"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더의 위치 지정 방식과 다른 섹션과의 관계를 설정합니다."
+    },
+    {
+      "id": "header.position",
+      "label": "헤더 위치 모드",
+      "description": "헤더의 위치 지정 방식을 선택하세요.",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "일반 (Relative)",
+          "value": "relative"
+        },
+        {
+          "label": "상단 고정 (Fixed)",
+          "value": "fixed"
+        },
+        {
+          "label": "절대 위치 (Absolute)",
+          "value": "absolute"
+        },
+        {
+          "label": "스크롤 고정 (Sticky)",
+          "value": "sticky"
+        }
+      ]
+    },
+    {
+      "id": "header.overlap",
+      "label": "다음 섹션과 겹침",
+      "description": "체크하면 헤더가 다음 섹션(히어로 등)과 겹쳐서 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "header.zIndex",
+      "label": "Z-Index (레이어 순서)",
+      "description": "헤더의 레이어 순서입니다. 높을수록 위에 표시됩니다.",
+      "type": "RANGE",
+      "min": 1,
+      "max": 9999,
+      "step": 1,
+      "unit": ""
+    },
+    {
+      "id": "header.height",
+      "label": "헤더 높이",
+      "description": "헤더의 세로 높이입니다. 미니멀 60~70px, 일반 70~90px, 큰 로고 90~120px.",
+      "type": "RANGE",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "header.padding.left",
+      "label": "헤더 좌측 여백",
+      "description": "헤더 내부 콘텐츠의 좌측 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "id": "header.padding.right",
+      "label": "헤더 우측 여백",
+      "description": "헤더 내부 콘텐츠의 우측 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px"
     },
 
     {
@@ -50,7 +168,7 @@
     {
       "id": "colors.background",
       "label": "헤더 배경색",
-      "description": "헤더 전체의 배경 색상입니다. 밝은 테마는 흰색, 어두운 테마는 검정을 추천합니다.",
+      "description": "헤더 전체의 배경 색상입니다. 색상 선택기로 투명도도 조절할 수 있습니다.",
       "type": "COLOR_PICKER"
     },
     {
@@ -62,19 +180,89 @@
     {
       "id": "colors.hover",
       "label": "호버 색상",
-      "description": "메뉴에 마우스를 올렸을 때 표시되는 강조 색상입니다. 브랜드 컬러를 사용하세요.",
+      "description": "메뉴에 마우스를 올렸을 때 표시되는 강조 색상입니다.",
       "type": "COLOR_PICKER"
     },
     {
       "id": "colors.dropdownBg",
       "label": "드롭다운 배경색",
-      "description": "드롭다운 메뉴의 배경 색상입니다. 헤더 배경과 같거나 약간 다르게 설정하세요.",
+      "description": "드롭다운 메뉴의 배경 색상입니다.",
       "type": "COLOR_PICKER"
+    },
+    {
+      "id": "design.shadow.enabled",
+      "label": "헤더 그림자 표시",
+      "description": "체크하면 헤더 하단에 그림자가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "design.shadow.color",
+      "label": "헤더 그림자 색상",
+      "description": "헤더 그림자의 색상과 투명도를 설정합니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "design.shadow.blur",
+      "label": "헤더 그림자 흐림 정도",
+      "description": "그림자의 블러(흐림) 효과 강도입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "design.shadow.offsetY",
+      "label": "헤더 그림자 세로 위치",
+      "description": "그림자의 세로 방향 오프셋입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "design.backdrop.enabled",
+      "label": "배경 흐림 효과 (Backdrop Blur)",
+      "description": "체크하면 반투명 헤더 뒤의 콘텐츠가 흐려집니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "design.backdrop.blur",
+      "label": "배경 흐림 강도",
+      "description": "배경 블러 효과의 강도입니다. 10~20px 권장.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "design.border.enabled",
+      "label": "헤더 하단 테두리 표시",
+      "description": "체크하면 헤더 하단에 얇은 테두리가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "design.border.color",
+      "label": "테두리 색상",
+      "description": "헤더 하단 테두리의 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "design.border.thickness",
+      "label": "테두리 두께",
+      "description": "테두리의 두께입니다.",
+      "type": "RANGE",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px"
     },
     {
       "id": "design.fontFamily",
       "label": "폰트",
-      "description": "헤더에 사용할 글꼴입니다. 한글 사이트는 Noto Sans KR 또는 Pretendard 권장.",
+      "description": "헤더에 사용할 글꼴입니다.",
       "type": "SELECT",
       "options": [
         {
@@ -96,14 +284,146 @@
       ]
     },
     {
-      "id": "header.height",
-      "label": "헤더 높이",
-      "description": "헤더의 세로 높이입니다. 미니멀 60~70px, 일반 70~90px, 큰 로고 90~120px.",
+      "id": "design.fontSize",
+      "label": "메뉴 글자 크기",
+      "description": "메인 메뉴 텍스트의 크기입니다.",
       "type": "RANGE",
-      "min": 60,
-      "max": 120,
-      "step": 5,
+      "min": 12,
+      "max": 20,
+      "step": 1,
       "unit": "px"
+    },
+    {
+      "id": "design.fontWeight",
+      "label": "메뉴 글자 두께",
+      "description": "메뉴 텍스트의 굵기입니다.",
+      "type": "SELECT",
+      "options": [
+        {"label": "Light (300)", "value": "300"},
+        {"label": "Normal (400)", "value": "400"},
+        {"label": "Medium (500)", "value": "500"},
+        {"label": "SemiBold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "design.letterSpacing",
+      "label": "글자 간격",
+      "description": "메뉴 텍스트의 자간입니다.",
+      "type": "RANGE",
+      "min": -2,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📦 드롭다운 메뉴 디자인"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "드롭다운 메뉴의 상세 디자인을 설정합니다."
+    },
+    {
+      "id": "dropdown.padding.top",
+      "label": "드롭다운 상단 여백",
+      "description": "드롭다운 내부 상단 패딩입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "dropdown.padding.bottom",
+      "label": "드롭다운 하단 여백",
+      "description": "드롭다운 내부 하단 패딩입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "dropdown.borderRadius",
+      "label": "드롭다운 모서리 둥글기",
+      "description": "드롭다운 메뉴의 border-radius 값입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "dropdown.shadow.enabled",
+      "label": "드롭다운 그림자 표시",
+      "description": "체크하면 드롭다운에 그림자가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "dropdown.shadow.color",
+      "label": "드롭다운 그림자 색상",
+      "description": "드롭다운 그림자의 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "dropdown.shadow.blur",
+      "label": "드롭다운 그림자 흐림",
+      "description": "드롭다운 그림자의 블러 강도입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "dropdown.border.enabled",
+      "label": "드롭다운 테두리 표시",
+      "description": "체크하면 드롭다운에 테두리가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "dropdown.border.color",
+      "label": "드롭다운 테두리 색상",
+      "description": "드롭다운 테두리의 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "dropdown.border.thickness",
+      "label": "드롭다운 테두리 두께",
+      "description": "드롭다운 테두리의 두께입니다.",
+      "type": "RANGE",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "dropdown.item.fontSize",
+      "label": "드롭다운 항목 글자 크기",
+      "description": "드롭다운 메뉴 항목의 텍스트 크기입니다.",
+      "type": "RANGE",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "dropdown.item.padding",
+      "label": "드롭다운 항목 여백",
+      "description": "각 항목의 상하 패딩입니다.",
+      "type": "RANGE",
+      "min": 6,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "dropdown.item.hoverBg",
+      "label": "드롭다운 항목 호버 배경색",
+      "description": "항목에 마우스를 올렸을 때 배경색입니다.",
+      "type": "COLOR_PICKER"
     },
 
     {
@@ -124,9 +444,8 @@
     {
       "id": "menu1.link",
       "label": "메뉴 링크",
-      "description": "메뉴 클릭 시 이동할 페이지입니다. 비워두면 드롭다운만 표시됩니다.",
-      "type": "TEXT",
-      "placeholder": "예: /about"
+      "description": "메뉴 클릭 시 이동할 페이지를 선택하세요.",
+      "type": "LINK"
     },
     {
       "id": "menu1.items",
@@ -154,9 +473,8 @@
     {
       "id": "menu2.link",
       "label": "메뉴 링크",
-      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
-      "type": "TEXT",
-      "placeholder": "예: /services"
+      "description": "메뉴 클릭 시 이동할 페이지를 선택하세요.",
+      "type": "LINK"
     },
     {
       "id": "menu2.isMega",
@@ -225,9 +543,8 @@
     {
       "id": "menu3.link",
       "label": "메뉴 링크",
-      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
-      "type": "TEXT",
-      "placeholder": "예: /support"
+      "description": "메뉴 클릭 시 이동할 페이지를 선택하세요.",
+      "type": "LINK"
     },
     {
       "id": "menu3.items",
@@ -255,9 +572,8 @@
     {
       "id": "menu4.link",
       "label": "메뉴 링크",
-      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
-      "type": "TEXT",
-      "placeholder": "예: /careers"
+      "description": "메뉴 클릭 시 이동할 페이지를 선택하세요.",
+      "type": "LINK"
     },
     {
       "id": "menu4.items",
@@ -285,9 +601,8 @@
     {
       "id": "utility.link1.url",
       "label": "링크 1 주소",
-      "description": "첫 번째 링크의 URL 주소입니다.",
-      "type": "TEXT",
-      "placeholder": "예: /contact"
+      "description": "첫 번째 링크의 페이지를 선택하세요.",
+      "type": "LINK"
     },
     {
       "id": "utility.link2.text",
@@ -299,9 +614,8 @@
     {
       "id": "utility.link2.url",
       "label": "링크 2 주소",
-      "description": "두 번째 링크의 URL 주소입니다.",
-      "type": "TEXT",
-      "placeholder": "예: /portal"
+      "description": "두 번째 링크의 페이지를 선택하세요.",
+      "type": "LINK"
     },
     {
       "id": "utility.link3.text",
@@ -313,9 +627,28 @@
     {
       "id": "utility.link3.url",
       "label": "링크 3 주소",
-      "description": "세 번째 링크의 URL 주소입니다.",
-      "type": "TEXT",
-      "placeholder": "예: /login"
+      "description": "세 번째 링크의 페이지를 선택하세요.",
+      "type": "LINK"
+    },
+    {
+      "id": "utility.fontSize",
+      "label": "유틸리티 메뉴 글자 크기",
+      "description": "유틸리티 링크의 텍스트 크기입니다.",
+      "type": "RANGE",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "utility.gap",
+      "label": "유틸리티 메뉴 간격",
+      "description": "유틸리티 링크들 사이의 간격입니다.",
+      "type": "RANGE",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
     },
 
     {
@@ -342,9 +675,8 @@
     {
       "id": "language.lang1.url",
       "label": "언어 1 URL",
-      "description": "첫 번째 언어로 전환 시 이동할 페이지 주소입니다.",
-      "type": "TEXT",
-      "placeholder": "예: /"
+      "description": "첫 번째 언어로 전환 시 이동할 페이지를 선택하세요.",
+      "type": "LINK"
     },
     {
       "id": "language.lang2.text",
@@ -356,9 +688,8 @@
     {
       "id": "language.lang2.url",
       "label": "언어 2 URL",
-      "description": "두 번째 언어로 전환 시 이동할 페이지 주소입니다.",
-      "type": "TEXT",
-      "placeholder": "예: /en"
+      "description": "두 번째 언어로 전환 시 이동할 페이지를 선택하세요.",
+      "type": "LINK"
     },
     {
       "id": "language.current",
@@ -415,6 +746,34 @@
       "step": 8,
       "unit": "px"
     },
+    {
+      "id": "mobile.hamburgerIcon",
+      "label": "햄버거 메뉴 아이콘",
+      "description": "햄버거 버튼에 표시할 아이콘 이미지입니다. 비우면 기본 막대 스타일이 표시됩니다.",
+      "type": "IMAGE_PICKER"
+    },
+    {
+      "id": "mobile.hamburgerIconClose",
+      "label": "닫기 아이콘",
+      "description": "메뉴가 열렸을 때 표시할 닫기 아이콘입니다. 비우면 X 애니메이션이 표시됩니다.",
+      "type": "IMAGE_PICKER"
+    },
+    {
+      "id": "mobile.hamburgerSize",
+      "label": "햄버거 아이콘 크기",
+      "description": "햄버거 메뉴 아이콘의 크기입니다.",
+      "type": "RANGE",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobile.hamburgerColor",
+      "label": "햄버거 막대 색상",
+      "description": "기본 막대 스타일을 사용할 때의 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
 
     {
       "type": "TITLE",
@@ -425,16 +784,16 @@
       "content": "헤더의 동작 방식과 세부 스타일을 조정하는 고급 옵션입니다."
     },
     {
-      "id": "advanced.sticky",
-      "label": "스크롤 시 헤더 고정",
-      "description": "체크하면 페이지를 스크롤해도 헤더가 화면 상단에 고정됩니다.",
-      "type": "CHECKBOX"
-    },
-    {
       "id": "advanced.showOverlay",
       "label": "드롭다운 배경 오버레이",
       "description": "체크하면 드롭다운 메뉴가 열릴 때 페이지 전체에 어두운 배경이 표시됩니다.",
       "type": "CHECKBOX"
+    },
+    {
+      "id": "advanced.overlayColor",
+      "label": "오버레이 색상",
+      "description": "드롭다운 배경 오버레이의 색상과 투명도입니다.",
+      "type": "COLOR_PICKER"
     },
     {
       "id": "advanced.transitionSpeed",
@@ -449,7 +808,7 @@
     {
       "id": "advanced.maxWidth",
       "label": "헤더 최대 너비",
-      "description": "헤더 내부 콘텐츠의 최대 너비입니다. 0은 제한 없음. 일반적으로 1200~1440px.",
+      "description": "헤더 내부 콘텐츠의 최대 너비입니다. 0은 제한 없음.",
       "type": "RANGE",
       "min": 0,
       "max": 1920,
@@ -459,7 +818,7 @@
     {
       "id": "advanced.menuGap",
       "label": "메뉴 간격",
-      "description": "메인 메뉴 항목들 사이의 가로 간격입니다. 넓은 간격 50~60px, 좁은 간격 30~40px.",
+      "description": "메인 메뉴 항목들 사이의 가로 간격입니다.",
       "type": "RANGE",
       "min": 20,
       "max": 80,
@@ -473,7 +832,23 @@
       "image": "",
       "alt": "회사 로고",
       "height": 32,
-      "link": "/"
+      "link": "/",
+      "padding": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      }
+    },
+    "header": {
+      "position": "sticky",
+      "overlap": false,
+      "zIndex": 1000,
+      "height": 80,
+      "padding": {
+        "left": 40,
+        "right": 40
+      }
     },
     "colors": {
       "background": "#FFFFFFFF",
@@ -482,10 +857,47 @@
       "dropdownBg": "#FFFFFFFF"
     },
     "design": {
-      "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif"
+      "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif",
+      "fontSize": 16,
+      "fontWeight": "500",
+      "letterSpacing": 0,
+      "shadow": {
+        "enabled": true,
+        "color": "#00000014",
+        "blur": 8,
+        "offsetY": 2
+      },
+      "backdrop": {
+        "enabled": false,
+        "blur": 10
+      },
+      "border": {
+        "enabled": false,
+        "color": "#E0E0E0FF",
+        "thickness": 1
+      }
     },
-    "header": {
-      "height": 80
+    "dropdown": {
+      "padding": {
+        "top": 20,
+        "bottom": 20
+      },
+      "borderRadius": 8,
+      "shadow": {
+        "enabled": true,
+        "color": "#0000001F",
+        "blur": 24
+      },
+      "border": {
+        "enabled": false,
+        "color": "#E0E0E0FF",
+        "thickness": 1
+      },
+      "item": {
+        "fontSize": 14,
+        "padding": 12,
+        "hoverBg": "#F5F5F5FF"
+      }
     },
     "menu1": {
       "title": "회사소개",
@@ -531,7 +943,9 @@
       "link3": {
         "text": "로그인",
         "url": "/login"
-      }
+      },
+      "fontSize": 13,
+      "gap": 20
     },
     "language": {
       "show": true,
@@ -548,11 +962,15 @@
     "mobile": {
       "headerHeight": 60,
       "logoHeight": 24,
-      "breakpoint": 768
+      "breakpoint": 768,
+      "hamburgerIcon": "",
+      "hamburgerIconClose": "",
+      "hamburgerSize": 24,
+      "hamburgerColor": "#000000FF"
     },
     "advanced": {
-      "sticky": false,
       "showOverlay": true,
+      "overlayColor": "#00000080",
       "transitionSpeed": 300,
       "maxWidth": 1440,
       "menuGap": 50
