@@ -1,0 +1,414 @@
+{
+  "name": "미라콤 스타일 헤더",
+  "description": "3단계 네비게이션과 메가 메뉴를 지원하는 반응형 헤더",
+  "category": "header",
+  "icon": "menu",
+  "settings": [
+    {
+      "type": "header",
+      "content": "로고 설정"
+    },
+    {
+      "type": "image_picker",
+      "id": "logoImage",
+      "label": "로고 이미지",
+      "info": "SVG 또는 PNG 이미지를 업로드하세요 (투명 배경 권장)"
+    },
+    {
+      "type": "text",
+      "id": "logoAlt",
+      "label": "로고 대체 텍스트",
+      "default": "회사 로고",
+      "info": "SEO 및 접근성을 위한 텍스트"
+    },
+    {
+      "type": "range",
+      "id": "logoHeight",
+      "label": "로고 높이 (px)",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "url",
+      "id": "logoLink",
+      "label": "로고 링크 URL",
+      "default": "/",
+      "info": "보통 홈페이지 주소를 입력합니다"
+    },
+
+    {
+      "type": "header",
+      "content": "색상 및 스타일"
+    },
+    {
+      "type": "color",
+      "id": "headerBg",
+      "label": "헤더 배경색",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "headerText",
+      "label": "텍스트 색상",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "headerHover",
+      "label": "호버 색상",
+      "default": "#0066cc"
+    },
+    {
+      "type": "color",
+      "id": "dropdownBg",
+      "label": "드롭다운 배경색",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "headerHeight",
+      "label": "헤더 높이 (px)",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "fontFamily",
+      "label": "폰트",
+      "options": [
+        {
+          "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif",
+          "label": "시스템 기본"
+        },
+        {
+          "value": "'Noto Sans KR', 'Malgun Gothic', sans-serif",
+          "label": "Noto Sans KR"
+        },
+        {
+          "value": "'Pretendard', -apple-system, sans-serif",
+          "label": "Pretendard"
+        },
+        {
+          "value": "'Montserrat', sans-serif",
+          "label": "Montserrat"
+        }
+      ],
+      "default": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif"
+    },
+
+    {
+      "type": "header",
+      "content": "메뉴 항목 1"
+    },
+    {
+      "type": "text",
+      "id": "menu1Title",
+      "label": "메뉴 1 제목",
+      "default": "회사 가치"
+    },
+    {
+      "type": "url",
+      "id": "menu1Link",
+      "label": "메뉴 1 링크",
+      "default": "#"
+    },
+    {
+      "type": "textarea",
+      "id": "menu1SubItems",
+      "label": "하위 메뉴 (한 줄에 하나씩)",
+      "default": "핵심 역량|/about/capability",
+      "info": "형식: 메뉴명|링크URL (각 줄마다 하나씩)"
+    },
+
+    {
+      "type": "header",
+      "content": "메뉴 항목 2"
+    },
+    {
+      "type": "text",
+      "id": "menu2Title",
+      "label": "메뉴 2 제목",
+      "default": "서비스 및 솔루션"
+    },
+    {
+      "type": "url",
+      "id": "menu2Link",
+      "label": "메뉴 2 링크",
+      "default": "#"
+    },
+    {
+      "type": "checkbox",
+      "id": "menu2IsWide",
+      "label": "넓은 메가 메뉴 사용",
+      "default": true,
+      "info": "체크하면 3컬럼 레이아웃 표시"
+    },
+    {
+      "type": "textarea",
+      "id": "menu2Category1Title",
+      "label": "카테고리 1 제목",
+      "default": "서비스"
+    },
+    {
+      "type": "textarea",
+      "id": "menu2Category1Items",
+      "label": "카테고리 1 항목",
+      "default": "컨설팅|/services/consulting\nERP 구축|/services/erp\n설비 자동화|/services/automation",
+      "info": "형식: 메뉴명|링크URL (각 줄마다 하나씩)"
+    },
+    {
+      "type": "textarea",
+      "id": "menu2Category2Title",
+      "label": "카테고리 2 제목",
+      "default": "솔루션"
+    },
+    {
+      "type": "textarea",
+      "id": "menu2Category2Items",
+      "label": "카테고리 2 항목",
+      "default": "통합 플랫폼|/solutions/platform\n물류 제어|/solutions/logistics\n데이터 연계|/solutions/integration",
+      "info": "형식: 메뉴명|링크URL (각 줄마다 하나씩)"
+    },
+    {
+      "type": "textarea",
+      "id": "menu2Category3Title",
+      "label": "카테고리 3 제목",
+      "default": "업종"
+    },
+    {
+      "type": "textarea",
+      "id": "menu2Category3Items",
+      "label": "카테고리 3 항목",
+      "default": "반도체/태양광|/industries/semiconductor\n전기/전자|/industries/electronics\n자동차|/industries/automotive",
+      "info": "형식: 메뉴명|링크URL (각 줄마다 하나씩)"
+    },
+
+    {
+      "type": "header",
+      "content": "메뉴 항목 3"
+    },
+    {
+      "type": "text",
+      "id": "menu3Title",
+      "label": "메뉴 3 제목",
+      "default": "고객지원"
+    },
+    {
+      "type": "url",
+      "id": "menu3Link",
+      "label": "메뉴 3 링크",
+      "default": "#"
+    },
+    {
+      "type": "textarea",
+      "id": "menu3SubItems",
+      "label": "하위 메뉴",
+      "default": "인사이트 리포트|/support/insights\n자료실|/support/library\n언론보도|/support/press\n공지사항|/support/notice",
+      "info": "형식: 메뉴명|링크URL (각 줄마다 하나씩)"
+    },
+
+    {
+      "type": "header",
+      "content": "메뉴 항목 4"
+    },
+    {
+      "type": "text",
+      "id": "menu4Title",
+      "label": "메뉴 4 제목",
+      "default": "회사소개"
+    },
+    {
+      "type": "url",
+      "id": "menu4Link",
+      "label": "메뉴 4 링크",
+      "default": "#"
+    },
+    {
+      "type": "textarea",
+      "id": "menu4SubItems",
+      "label": "하위 메뉴",
+      "default": "회사 개요|/company/about\nCEO 메시지|/company/ceo\n연혁|/company/history\n채용|/company/careers\n오시는 길|/company/location",
+      "info": "형식: 메뉴명|링크URL (각 줄마다 하나씩)"
+    },
+
+    {
+      "type": "header",
+      "content": "유틸리티 메뉴"
+    },
+    {
+      "type": "text",
+      "id": "utilLink1Text",
+      "label": "유틸리티 링크 1 텍스트",
+      "default": "문의하기"
+    },
+    {
+      "type": "url",
+      "id": "utilLink1Url",
+      "label": "유틸리티 링크 1 URL",
+      "default": "/contact"
+    },
+    {
+      "type": "text",
+      "id": "utilLink2Text",
+      "label": "유틸리티 링크 2 텍스트",
+      "default": "고객포탈"
+    },
+    {
+      "type": "url",
+      "id": "utilLink2Url",
+      "label": "유틸리티 링크 2 URL",
+      "default": "/portal"
+    },
+    {
+      "type": "text",
+      "id": "utilLink3Text",
+      "label": "유틸리티 링크 3 텍스트",
+      "default": "Cloud"
+    },
+    {
+      "type": "url",
+      "id": "utilLink3Url",
+      "label": "유틸리티 링크 3 URL",
+      "default": "/cloud"
+    },
+
+    {
+      "type": "header",
+      "content": "언어 설정"
+    },
+    {
+      "type": "checkbox",
+      "id": "showLanguageSwitch",
+      "label": "언어 선택 표시",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "lang1Text",
+      "label": "언어 1 텍스트",
+      "default": "KO"
+    },
+    {
+      "type": "url",
+      "id": "lang1Url",
+      "label": "언어 1 URL",
+      "default": "/"
+    },
+    {
+      "type": "text",
+      "id": "lang2Text",
+      "label": "언어 2 텍스트",
+      "default": "EN"
+    },
+    {
+      "type": "url",
+      "id": "lang2Url",
+      "label": "언어 2 URL",
+      "default": "/en"
+    },
+    {
+      "type": "select",
+      "id": "currentLanguage",
+      "label": "현재 언어",
+      "options": [
+        {
+          "value": "lang1",
+          "label": "언어 1"
+        },
+        {
+          "value": "lang2",
+          "label": "언어 2"
+        }
+      ],
+      "default": "lang1"
+    },
+
+    {
+      "type": "header",
+      "content": "모바일 설정"
+    },
+    {
+      "type": "range",
+      "id": "mobileHeaderHeight",
+      "label": "모바일 헤더 높이 (px)",
+      "min": 50,
+      "max": 80,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobileLogoHeight",
+      "label": "모바일 로고 높이 (px)",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobileBreakpoint",
+      "label": "모바일 브레이크포인트 (px)",
+      "min": 600,
+      "max": 992,
+      "step": 8,
+      "default": 768,
+      "unit": "px",
+      "info": "이 값 이하에서 모바일 메뉴로 전환"
+    },
+
+    {
+      "type": "header",
+      "content": "고급 설정"
+    },
+    {
+      "type": "checkbox",
+      "id": "stickyHeader",
+      "label": "스크롤 시 헤더 고정",
+      "default": false,
+      "info": "헤더가 스크롤해도 상단에 고정됩니다"
+    },
+    {
+      "type": "checkbox",
+      "id": "showDropdownOverlay",
+      "label": "드롭다운 배경 오버레이 표시",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "transitionSpeed",
+      "label": "애니메이션 속도 (ms)",
+      "min": 100,
+      "max": 800,
+      "step": 50,
+      "default": 300,
+      "unit": "ms"
+    },
+    {
+      "type": "number",
+      "id": "maxWidth",
+      "label": "최대 너비 (px)",
+      "default": 1440,
+      "info": "헤더 내부 콘텐츠의 최대 너비 (0 = 무제한)"
+    },
+    {
+      "type": "range",
+      "id": "menuGap",
+      "label": "메뉴 간격 (px)",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "default": 50,
+      "unit": "px",
+      "info": "1depth 메뉴 항목 사이의 간격"
+    }
+  ]
+}

@@ -1,0 +1,704 @@
+<!--
+=================================================================
+식스샵 프로 블록 메이커 - 미라콤 스타일 헤더 (설정 기능 포함)
+=================================================================
+
+사용 방법:
+1. 식스샵 프로 "블록 메이커"에서 새 블록 생성
+2. 이 코드를 HTML 영역에 붙여넣기
+3. sixshop-header-settings.json 내용을 세팅 빌더에 붙여넣기
+4. 에디터 패널에서 로고, 색상, 메뉴 등을 설정
+5. 저장 후 페이지에 블록 추가
+
+주의사항:
+- 블록 메이커의 Context 객체를 활용한 동적 블록입니다
+- Handlebars.js 문법으로 설정값에 접근합니다
+- 에디터 패널에서 모든 설정을 변경할 수 있습니다
+=================================================================
+-->
+
+<style>
+/* CSS 변수는 Context property에서 동적으로 설정 */
+:root {
+  --header-height: {{property.headerHeight}}px;
+  --header-bg: {{property.headerBg}};
+  --header-text: {{property.headerText}};
+  --header-hover: {{property.headerHover}};
+  --dropdown-bg: {{property.dropdownBg}};
+  --transition-speed: {{property.transitionSpeed}}ms;
+  --font-family: {{property.fontFamily}};
+  --mobile-header-height: {{property.mobileHeaderHeight}}px;
+  --mobile-breakpoint: {{property.mobileBreakpoint}}px;
+  --menu-gap: {{property.menuGap}}px;
+}
+
+/* 기본 헤더 스타일 */
+.miracom-header * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.miracom-header {
+  position: {{#if property.stickyHeader}}sticky{{else}}relative{{/if}};
+  top: 0;
+  width: 100%;
+  background: var(--header-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  font-family: var(--font-family);
+}
+
+.miracom-header-inner {
+  {{#if property.maxWidth}}
+  max-width: {{property.maxWidth}}px;
+  {{/if}}
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+}
+
+/* ===============================================
+   로고 영역
+   =============================================== */
+.miracom-logo {
+  flex-shrink: 0;
+  z-index: 1001;
+}
+
+.miracom-logo a {
+  display: block;
+  text-decoration: none;
+}
+
+.miracom-logo img {
+  height: {{property.logoHeight}}px;
+  width: auto;
+  display: block;
+}
+
+/* ===============================================
+   글로벌 네비게이션 (GNB)
+   =============================================== */
+.miracom-gnb {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.gnb-depth1 {
+  display: flex;
+  list-style: none;
+  gap: var(--menu-gap);
+  align-items: center;
+}
+
+.gnb-depth1 > li {
+  position: relative;
+}
+
+.gnb-depth1 > li > a {
+  display: block;
+  padding: 28px 0;
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+  white-space: nowrap;
+}
+
+.gnb-depth1 > li > a:hover {
+  color: var(--header-hover);
+}
+
+/* ===============================================
+   드롭다운 배경 오버레이
+   =============================================== */
+.gnb-depth2-bg {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity var(--transition-speed), height 0s var(--transition-speed);
+  pointer-events: none;
+  z-index: 998;
+  {{#unless property.showDropdownOverlay}}
+  display: none;
+  {{/unless}}
+}
+
+.miracom-gnb:hover .gnb-depth2-bg {
+  height: 100vh;
+  opacity: 1;
+  transition: opacity var(--transition-speed), height 0s;
+}
+
+/* ===============================================
+   2단계 드롭다운 메뉴
+   =============================================== */
+.gnb-depth1-hover {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dropdown-bg);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-speed), visibility var(--transition-speed);
+  min-width: 200px;
+  padding: 20px 0;
+  z-index: 999;
+}
+
+.gnb-depth1 > li:hover .gnb-depth1-hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gnb-depth2 {
+  list-style: none;
+}
+
+.gnb-depth2 > li {
+  position: relative;
+}
+
+.gnb-depth2 > li > a,
+.gnb-depth2 > li > span {
+  display: block;
+  padding: 12px 24px;
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 14px;
+  transition: background var(--transition-speed), color var(--transition-speed);
+  white-space: nowrap;
+}
+
+.gnb-depth2 > li > a:hover {
+  background: #f5f5f5;
+  color: var(--header-hover);
+}
+
+/* ===============================================
+   넓은 드롭다운 (메가 메뉴)
+   =============================================== */
+.gnb-depth1-hover.wide {
+  min-width: 900px;
+  max-width: 1200px;
+}
+
+.gnb-depth1-hover-category {
+  display: flex;
+  gap: 40px;
+  padding: 20px 30px;
+}
+
+.gnb-depth1-hover-category > dl {
+  flex: 1;
+  min-width: 0;
+}
+
+.gnb-depth1-hover-category > dl > dt {
+  font-size: 12px;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.gnb-depth1-hover-category .gnb-depth2 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ===============================================
+   유틸리티 메뉴
+   =============================================== */
+.miracom-top-util {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.miracom-top-util a {
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color var(--transition-speed);
+  white-space: nowrap;
+}
+
+.miracom-top-util a:hover {
+  color: var(--header-hover);
+}
+
+/* 언어 선택기 */
+.miracom-language {
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  margin-left: 12px;
+  padding-left: 20px;
+  border-left: 1px solid #e0e0e0;
+}
+
+.miracom-language li a {
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+}
+
+.miracom-language li.on a {
+  color: var(--header-hover);
+}
+
+/* 모바일 메뉴 버튼 */
+.miracom-mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 12px;
+}
+
+.miracom-mobile-menu-btn span {
+  width: 24px;
+  height: 2px;
+  background: var(--header-text);
+  transition: all var(--transition-speed);
+}
+
+/* ===============================================
+   모바일 반응형
+   =============================================== */
+@media (max-width: {{property.mobileBreakpoint}}px) {
+  .miracom-header-inner {
+    padding: 0 20px;
+    height: var(--mobile-header-height);
+  }
+
+  .miracom-logo img {
+    height: {{property.mobileLogoHeight}}px;
+  }
+
+  /* 모바일에서 GNB 숨김 */
+  .miracom-gnb {
+    position: fixed;
+    top: var(--mobile-header-height);
+    left: 0;
+    width: 100%;
+    height: calc(100vh - var(--mobile-header-height));
+    background: var(--dropdown-bg);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 20px;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform var(--transition-speed);
+    z-index: 999;
+  }
+
+  .miracom-gnb.active {
+    transform: translateX(0);
+  }
+
+  .gnb-depth1 {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  .gnb-depth1 > li {
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .gnb-depth1 > li > a {
+    padding: 16px 0;
+  }
+
+  /* 모바일 드롭다운 */
+  .gnb-depth1-hover {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0 0 12px 20px;
+    opacity: 1;
+    visibility: visible;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-speed);
+  }
+
+  .gnb-depth1 > li.active .gnb-depth1-hover {
+    max-height: 2000px;
+  }
+
+  .gnb-depth1-hover.wide {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .gnb-depth1-hover-category {
+    flex-direction: column;
+    gap: 20px;
+    padding: 12px 0;
+  }
+
+  .gnb-depth2-bg {
+    display: none;
+  }
+
+  /* 모바일 유틸리티 메뉴 */
+  .miracom-top-util {
+    gap: 12px;
+  }
+
+  .miracom-top-util a {
+    font-size: 11px;
+  }
+
+  .miracom-language {
+    margin-left: 8px;
+    padding-left: 12px;
+  }
+
+  /* 모바일 메뉴 버튼 표시 */
+  .miracom-mobile-menu-btn {
+    display: flex;
+  }
+
+  /* 메뉴 활성화 시 햄버거 아이콘 변경 */
+  .miracom-mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+
+  .miracom-mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .miracom-mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+}
+</style>
+
+<!-- HTML 구조 -->
+<header class="miracom-header" id="miracomHeader">
+  <div class="miracom-header-inner">
+
+    <!-- 로고 -->
+    <div class="miracom-logo">
+      <a href="{{property.logoLink}}" title="{{property.logoAlt}}">
+        {{#if property.logoImage}}
+        <img src="{{property.logoImage}}" alt="{{property.logoAlt}}">
+        {{else}}
+        <!-- 로고 이미지가 없을 경우 대체 텍스트 -->
+        <span style="font-size: 20px; font-weight: bold; color: var(--header-text);">LOGO</span>
+        {{/if}}
+      </a>
+    </div>
+
+    <!-- 글로벌 네비게이션 -->
+    <nav class="miracom-gnb" id="miracomGnb">
+      <div class="gnb-depth2-bg"></div>
+
+      <ul class="gnb-depth1">
+
+        <!-- 메뉴 1 -->
+        {{#if property.menu1Title}}
+        <li>
+          <a href="{{property.menu1Link}}" title="{{property.menu1Title}}">{{property.menu1Title}}</a>
+          {{#if property.menu1SubItems}}
+          <div class="gnb-depth1-hover">
+            <ul class="gnb-depth2">
+              {{#each (split property.menu1SubItems "\n")}}
+              {{#if this}}
+              {{#with (split this "|")}}
+              <li><a href="{{lookup this 1}}" title="{{lookup this 0}}">{{lookup this 0}}</a></li>
+              {{/with}}
+              {{/if}}
+              {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+        </li>
+        {{/if}}
+
+        <!-- 메뉴 2 (서비스 및 솔루션 - 메가 메뉴) -->
+        {{#if property.menu2Title}}
+        <li>
+          <a href="{{property.menu2Link}}" title="{{property.menu2Title}}">{{property.menu2Title}}</a>
+          <div class="gnb-depth1-hover {{#if property.menu2IsWide}}wide{{/if}}">
+            {{#if property.menu2IsWide}}
+            <div class="gnb-depth1-hover-category">
+
+              <!-- 카테고리 1 -->
+              {{#if property.menu2Category1Title}}
+              <dl>
+                <dt>{{property.menu2Category1Title}}</dt>
+                <dd>
+                  <ul class="gnb-depth2">
+                    {{#each (split property.menu2Category1Items "\n")}}
+                    {{#if this}}
+                    {{#with (split this "|")}}
+                    <li><a href="{{lookup this 1}}" title="{{lookup this 0}}">{{lookup this 0}}</a></li>
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
+                  </ul>
+                </dd>
+              </dl>
+              {{/if}}
+
+              <!-- 카테고리 2 -->
+              {{#if property.menu2Category2Title}}
+              <dl>
+                <dt>{{property.menu2Category2Title}}</dt>
+                <dd>
+                  <ul class="gnb-depth2">
+                    {{#each (split property.menu2Category2Items "\n")}}
+                    {{#if this}}
+                    {{#with (split this "|")}}
+                    <li><a href="{{lookup this 1}}" title="{{lookup this 0}}">{{lookup this 0}}</a></li>
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
+                  </ul>
+                </dd>
+              </dl>
+              {{/if}}
+
+              <!-- 카테고리 3 -->
+              {{#if property.menu2Category3Title}}
+              <dl>
+                <dt>{{property.menu2Category3Title}}</dt>
+                <dd>
+                  <ul class="gnb-depth2">
+                    {{#each (split property.menu2Category3Items "\n")}}
+                    {{#if this}}
+                    {{#with (split this "|")}}
+                    <li><a href="{{lookup this 1}}" title="{{lookup this 0}}">{{lookup this 0}}</a></li>
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
+                  </ul>
+                </dd>
+              </dl>
+              {{/if}}
+
+            </div>
+            {{else}}
+            <!-- 일반 드롭다운 -->
+            <ul class="gnb-depth2">
+              {{#each (split property.menu2Category1Items "\n")}}
+              {{#if this}}
+              {{#with (split this "|")}}
+              <li><a href="{{lookup this 1}}" title="{{lookup this 0}}">{{lookup this 0}}</a></li>
+              {{/with}}
+              {{/if}}
+              {{/each}}
+            </ul>
+            {{/if}}
+          </div>
+        </li>
+        {{/if}}
+
+        <!-- 메뉴 3 -->
+        {{#if property.menu3Title}}
+        <li>
+          <a href="{{property.menu3Link}}" title="{{property.menu3Title}}">{{property.menu3Title}}</a>
+          {{#if property.menu3SubItems}}
+          <div class="gnb-depth1-hover">
+            <ul class="gnb-depth2">
+              {{#each (split property.menu3SubItems "\n")}}
+              {{#if this}}
+              {{#with (split this "|")}}
+              <li><a href="{{lookup this 1}}" title="{{lookup this 0}}">{{lookup this 0}}</a></li>
+              {{/with}}
+              {{/if}}
+              {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+        </li>
+        {{/if}}
+
+        <!-- 메뉴 4 -->
+        {{#if property.menu4Title}}
+        <li>
+          <a href="{{property.menu4Link}}" title="{{property.menu4Title}}">{{property.menu4Title}}</a>
+          {{#if property.menu4SubItems}}
+          <div class="gnb-depth1-hover">
+            <ul class="gnb-depth2">
+              {{#each (split property.menu4SubItems "\n")}}
+              {{#if this}}
+              {{#with (split this "|")}}
+              <li><a href="{{lookup this 1}}" title="{{lookup this 0}}">{{lookup this 0}}</a></li>
+              {{/with}}
+              {{/if}}
+              {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+        </li>
+        {{/if}}
+
+      </ul>
+    </nav>
+
+    <!-- 유틸리티 메뉴 -->
+    <div class="miracom-top-util">
+      {{#if property.utilLink1Text}}
+      <a href="{{property.utilLink1Url}}" title="{{property.utilLink1Text}}">{{property.utilLink1Text}}</a>
+      {{/if}}
+      {{#if property.utilLink2Text}}
+      <a href="{{property.utilLink2Url}}" title="{{property.utilLink2Text}}">{{property.utilLink2Text}}</a>
+      {{/if}}
+      {{#if property.utilLink3Text}}
+      <a href="{{property.utilLink3Url}}" title="{{property.utilLink3Text}}">{{property.utilLink3Text}}</a>
+      {{/if}}
+
+      <!-- 언어 선택 -->
+      {{#if property.showLanguageSwitch}}
+      <ul class="miracom-language">
+        <li class="{{#ifEquals property.currentLanguage 'lang1'}}on{{/ifEquals}}">
+          <a href="{{property.lang1Url}}" title="{{property.lang1Text}}">{{property.lang1Text}}</a>
+        </li>
+        <li class="{{#ifEquals property.currentLanguage 'lang2'}}on{{/ifEquals}}">
+          <a href="{{property.lang2Url}}" title="{{property.lang2Text}}">{{property.lang2Text}}</a>
+        </li>
+      </ul>
+      {{/if}}
+
+      <!-- 모바일 메뉴 버튼 -->
+      <button type="button" class="miracom-mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<script>
+// ===============================================
+// JavaScript 인터랙션
+// ===============================================
+
+(function() {
+  'use strict';
+
+  // 모바일 메뉴 토글
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const gnbNav = document.getElementById('miracomGnb');
+
+  if (mobileMenuBtn && gnbNav) {
+    mobileMenuBtn.addEventListener('click', function() {
+      this.classList.toggle('active');
+      gnbNav.classList.toggle('active');
+
+      // 스크롤 방지
+      if (gnbNav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  // 모바일에서 1depth 클릭 시 서브메뉴 토글
+  const depth1Items = document.querySelectorAll('.gnb-depth1 > li');
+  const mobileBreakpoint = {{property.mobileBreakpoint}};
+
+  function handleDepth1Click(e) {
+    if (window.innerWidth <= mobileBreakpoint) {
+      const parentLi = e.currentTarget;
+      const hasDropdown = parentLi.querySelector('.gnb-depth1-hover');
+
+      if (hasDropdown) {
+        e.preventDefault();
+
+        // 다른 열린 메뉴 닫기
+        depth1Items.forEach(item => {
+          if (item !== parentLi) {
+            item.classList.remove('active');
+          }
+        });
+
+        // 현재 메뉴 토글
+        parentLi.classList.toggle('active');
+      }
+    }
+  }
+
+  depth1Items.forEach(item => {
+    const link = item.querySelector('a');
+    if (link) {
+      link.addEventListener('click', handleDepth1Click.bind(item));
+    }
+  });
+
+  // 윈도우 리사이즈 시 모바일 메뉴 상태 초기화
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      if (window.innerWidth > mobileBreakpoint) {
+        if (gnbNav.classList.contains('active')) {
+          gnbNav.classList.remove('active');
+          mobileMenuBtn.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        depth1Items.forEach(item => {
+          item.classList.remove('active');
+        });
+      }
+    }, 250);
+  });
+
+})();
+</script>
+
+<!--
+=================================================================
+Handlebars.js 헬퍼 함수 (식스샵 프로에서 자동 제공되는 경우 생략 가능)
+=================================================================
+
+아래 헬퍼 함수들이 식스샵 프로에서 기본 제공되지 않는 경우,
+블록 메이커의 "헬퍼 함수" 영역에 추가해야 할 수 있습니다:
+
+// 문자열 분할 헬퍼
+Handlebars.registerHelper('split', function(str, delimiter) {
+  if (!str) return [];
+  return str.split(delimiter);
+});
+
+// 조건 비교 헬퍼
+Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+  return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
+});
+
+=================================================================
+-->
