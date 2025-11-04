@@ -81,23 +81,44 @@
   .nova-header__mega-menu {
     position: absolute;
     top: 100%;
+    {{#if property.megamenu.fullWidth}}
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 100vw;
+    max-width: 100vw;
+    {{else}}
     left: 50%;
     transform: translateX(-50%);
     min-width: 800px;
+    {{/if}}
     background: {{property.design.dropdownBg}};
     border-radius: 8px;
-    padding: 40px;
-    margin-top: 10px;
+    padding: {{property.megamenu.paddingY}}px {{property.megamenu.paddingX}}px;
+    margin-top: {{add property.megamenu.offsetY 10}}px;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    {{#if property.megamenu.hoverBackdrop}}
+    backdrop-filter: blur({{property.megamenu.hoverBackdropBlur}}px);
+    {{/if}}
   }
 
   .nova-header__menu-item:hover .nova-header__mega-menu {
     opacity: 1;
     visibility: visible;
-    margin-top: 0;
+    margin-top: {{property.megamenu.offsetY}}px;
+  }
+
+  .nova-header__menu-item:hover ~ .nova-header__utility,
+  .nova-header__menu-item:hover {
+    {{#if property.megamenu.hoverBg}}
+    background: {{property.megamenu.hoverBg}};
+    {{#if property.megamenu.hoverBackdrop}}
+    backdrop-filter: blur({{property.megamenu.hoverBackdropBlur}}px);
+    {{/if}}
+    {{/if}}
   }
 
   .nova-header__mega-content {
@@ -166,6 +187,15 @@
     text-decoration: none;
     font-size: {{property.design.utilityFontSize}}px;
     transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nova-header__utility-link svg {
+    width: 16px;
+    height: 16px;
+    display: block;
   }
 
   .nova-header__utility-link:hover {
@@ -188,10 +218,19 @@
     opacity: 0.6;
   }
 
-  .nova-header__lang-btn:hover,
-  .nova-header__lang-btn.active {
+  .nova-header__lang-btn:hover {
     opacity: 1;
     background: rgba(255, 255, 255, 0.1);
+  }
+
+  .nova-header__lang-btn.active {
+    opacity: 1;
+    {{#if (or (eq property.language.activeStyle "color") (eq property.language.activeStyle "both"))}}
+    color: {{property.language.activeColor}};
+    {{/if}}
+    {{#if (or (eq property.language.activeStyle "underline") (eq property.language.activeStyle "both"))}}
+    border-bottom: 2px solid {{property.language.activeColor}};
+    {{/if}}
   }
 
   /* Hamburger Button */
@@ -412,10 +451,19 @@
     opacity: 0.6;
   }
 
-  .nova-mobile-menu__lang-btn:hover,
-  .nova-mobile-menu__lang-btn.active {
+  .nova-mobile-menu__lang-btn:hover {
     opacity: 1;
     background: rgba(255, 255, 255, 0.1);
+  }
+
+  .nova-mobile-menu__lang-btn.active {
+    opacity: 1;
+    {{#if (or (eq property.language.activeStyle "color") (eq property.language.activeStyle "both"))}}
+    color: {{property.language.activeColor}};
+    {{/if}}
+    {{#if (or (eq property.language.activeStyle "underline") (eq property.language.activeStyle "both"))}}
+    border-bottom: 2px solid {{property.language.activeColor}};
+    {{/if}}
   }
 
   /* Mobile Responsive */
@@ -542,21 +590,33 @@
             {{#if property.utility.link1.show}}
               <a href="{{property.utility.link1.url.value}}" class="nova-header__utility-link">
                 {{property.utility.link1.text}}
+                {{#if property.utility.link1.icon}}
+                  {{{property.utility.link1.icon}}}
+                {{/if}}
               </a>
             {{/if}}
             {{#if property.utility.link2.show}}
               <a href="{{property.utility.link2.url.value}}" class="nova-header__utility-link">
                 {{property.utility.link2.text}}
+                {{#if property.utility.link2.icon}}
+                  {{{property.utility.link2.icon}}}
+                {{/if}}
               </a>
             {{/if}}
             {{#if property.utility.link3.show}}
               <a href="{{property.utility.link3.url.value}}" class="nova-header__utility-link">
                 {{property.utility.link3.text}}
+                {{#if property.utility.link3.icon}}
+                  {{{property.utility.link3.icon}}}
+                {{/if}}
               </a>
             {{/if}}
             {{#if property.utility.link4.show}}
               <a href="{{property.utility.link4.url.value}}" class="nova-header__utility-link">
                 {{property.utility.link4.text}}
+                {{#if property.utility.link4.icon}}
+                  {{{property.utility.link4.icon}}}
+                {{/if}}
               </a>
             {{/if}}
           </div>
