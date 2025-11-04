@@ -1,0 +1,797 @@
+<!--
+=================================================================
+식스샵 프로 - 미라콤 스타일 글로벌 네비게이션 헤더
+=================================================================
+
+사용 방법:
+1. 식스샵 프로 에디터에서 "HTML 섹션" 추가
+2. 아래 전체 코드를 복사하여 붙여넣기
+3. 링크 URL을 본인의 페이지 주소로 수정
+4. 로고 이미지 경로 수정 (업로드한 이미지 URL로 변경)
+5. 저장 후 미리보기로 확인
+
+주의사항:
+- 모든 링크 URL(href="#")을 실제 페이지 주소로 변경해야 합니다
+- 로고 이미지를 식스샵에 업로드한 후 경로를 수정하세요
+- 모바일 반응형이 자동 적용됩니다
+=================================================================
+-->
+
+<style>
+/* ===============================================
+   기본 리셋 및 변수 설정
+   =============================================== */
+:root {
+  --header-height: 80px;
+  --header-bg: #ffffff;
+  --header-text: #000000;
+  --header-hover: #0066cc;
+  --dropdown-bg: #ffffff;
+  --dropdown-shadow: rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}
+
+/* 기본 헤더 스타일 */
+.miracom-header * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.miracom-header {
+  position: relative;
+  width: 100%;
+  background: var(--header-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  font-family: var(--font-family);
+}
+
+.miracom-header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+}
+
+/* ===============================================
+   로고 영역
+   =============================================== */
+.miracom-logo {
+  flex-shrink: 0;
+  z-index: 1001;
+}
+
+.miracom-logo a {
+  display: block;
+  text-decoration: none;
+}
+
+.miracom-logo img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+/* ===============================================
+   글로벌 네비게이션 (GNB)
+   =============================================== */
+.miracom-gnb {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.gnb-depth1 {
+  display: flex;
+  list-style: none;
+  gap: 50px;
+  align-items: center;
+}
+
+.gnb-depth1 > li {
+  position: relative;
+}
+
+.gnb-depth1 > li > a {
+  display: block;
+  padding: 28px 0;
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+  white-space: nowrap;
+}
+
+.gnb-depth1 > li > a:hover {
+  color: var(--header-hover);
+}
+
+/* ===============================================
+   드롭다운 배경 오버레이
+   =============================================== */
+.gnb-depth2-bg {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity var(--transition-speed), height 0s var(--transition-speed);
+  pointer-events: none;
+  z-index: 998;
+}
+
+.miracom-gnb:hover .gnb-depth2-bg {
+  height: 100vh;
+  opacity: 1;
+  transition: opacity var(--transition-speed), height 0s;
+}
+
+/* ===============================================
+   2단계 드롭다운 메뉴 (일반형)
+   =============================================== */
+.gnb-depth1-hover {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dropdown-bg);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px var(--dropdown-shadow);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-speed), visibility var(--transition-speed);
+  min-width: 200px;
+  padding: 20px 0;
+  z-index: 999;
+}
+
+.gnb-depth1 > li:hover .gnb-depth1-hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gnb-depth2 {
+  list-style: none;
+}
+
+.gnb-depth2 > li {
+  position: relative;
+}
+
+.gnb-depth2 > li > a,
+.gnb-depth2 > li > span {
+  display: block;
+  padding: 12px 24px;
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 14px;
+  transition: background var(--transition-speed), color var(--transition-speed);
+  white-space: nowrap;
+}
+
+.gnb-depth2 > li > a:hover {
+  background: #f5f5f5;
+  color: var(--header-hover);
+}
+
+.gnb-depth2 > li > span {
+  font-weight: 600;
+  cursor: default;
+}
+
+/* ===============================================
+   3단계 서브메뉴
+   =============================================== */
+.gnb-depth3 {
+  list-style: none;
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+.gnb-depth3 > li > a {
+  display: block;
+  padding: 8px 24px;
+  color: #666;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color var(--transition-speed);
+}
+
+.gnb-depth3 > li > a:hover {
+  color: var(--header-hover);
+}
+
+/* ===============================================
+   넓은 드롭다운 (서비스 및 솔루션용)
+   =============================================== */
+.gnb-depth1-hover.wide {
+  min-width: 900px;
+  max-width: 1200px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.gnb-depth1-hover-category {
+  display: flex;
+  gap: 40px;
+  padding: 20px 30px;
+}
+
+.gnb-depth1-hover-category > dl {
+  flex: 1;
+  min-width: 0;
+}
+
+.gnb-depth1-hover-category > dl > dt {
+  font-size: 12px;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.gnb-depth1-hover-category .gnb-depth2 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* 솔루션 설명 텍스트 */
+.gnb-depth2 .descrip {
+  display: block;
+  font-size: 11px;
+  color: #999;
+  margin-top: 4px;
+  line-height: 1.4;
+  padding-left: 24px;
+}
+
+.gnb-depth2 .icon-area {
+  position: relative;
+  padding-left: 32px;
+}
+
+.gnb-depth2 .icon-area::before {
+  content: "★";
+  position: absolute;
+  left: 24px;
+  color: var(--header-hover);
+  font-size: 12px;
+}
+
+/* ===============================================
+   유틸리티 메뉴 (우측 상단)
+   =============================================== */
+.miracom-top-util {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.miracom-top-util a {
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color var(--transition-speed);
+  white-space: nowrap;
+}
+
+.miracom-top-util a:hover {
+  color: var(--header-hover);
+}
+
+/* 언어 선택기 */
+.miracom-language {
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  margin-left: 12px;
+  padding-left: 20px;
+  border-left: 1px solid #e0e0e0;
+}
+
+.miracom-language li a {
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+}
+
+.miracom-language li.on a {
+  color: var(--header-hover);
+}
+
+/* 모바일 메뉴 버튼 */
+.miracom-mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 12px;
+}
+
+.miracom-mobile-menu-btn span {
+  width: 24px;
+  height: 2px;
+  background: var(--header-text);
+  transition: all var(--transition-speed);
+}
+
+/* ===============================================
+   모바일 반응형 (768px 이하)
+   =============================================== */
+@media (max-width: 768px) {
+  .miracom-header-inner {
+    padding: 0 20px;
+    height: 60px;
+  }
+
+  :root {
+    --header-height: 60px;
+  }
+
+  .miracom-logo img {
+    height: 24px;
+  }
+
+  /* 모바일에서 GNB 숨김 */
+  .miracom-gnb {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background: var(--dropdown-bg);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 20px;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform var(--transition-speed);
+    z-index: 999;
+  }
+
+  .miracom-gnb.active {
+    transform: translateX(0);
+  }
+
+  .gnb-depth1 {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  .gnb-depth1 > li {
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .gnb-depth1 > li > a {
+    padding: 16px 0;
+  }
+
+  /* 모바일 드롭다운 */
+  .gnb-depth1-hover {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0 0 12px 20px;
+    opacity: 1;
+    visibility: visible;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-speed);
+  }
+
+  .gnb-depth1 > li.active .gnb-depth1-hover {
+    max-height: 1000px;
+  }
+
+  .gnb-depth1-hover.wide {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .gnb-depth1-hover-category {
+    flex-direction: column;
+    gap: 20px;
+    padding: 12px 0;
+  }
+
+  .gnb-depth2-bg {
+    display: none;
+  }
+
+  /* 모바일 유틸리티 메뉴 */
+  .miracom-top-util {
+    gap: 12px;
+  }
+
+  .miracom-top-util a {
+    font-size: 11px;
+  }
+
+  .miracom-top-util a:nth-child(n+3) {
+    display: none; /* 모바일에서는 일부 링크만 표시 */
+  }
+
+  .miracom-language {
+    margin-left: 8px;
+    padding-left: 12px;
+  }
+
+  /* 모바일 메뉴 버튼 표시 */
+  .miracom-mobile-menu-btn {
+    display: flex;
+  }
+
+  /* 메뉴 활성화 시 햄버거 아이콘 변경 */
+  .miracom-mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+
+  .miracom-mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .miracom-mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+}
+
+/* ===============================================
+   태블릿 반응형 (769px ~ 1024px)
+   =============================================== */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .miracom-header-inner {
+    padding: 0 30px;
+  }
+
+  .gnb-depth1 {
+    gap: 30px;
+  }
+
+  .gnb-depth1 > li > a {
+    font-size: 15px;
+  }
+
+  .gnb-depth1-hover.wide {
+    min-width: 600px;
+    max-width: 800px;
+  }
+
+  .miracom-top-util {
+    gap: 16px;
+  }
+
+  .miracom-top-util a {
+    font-size: 12px;
+  }
+}
+</style>
+
+<!-- HTML 구조 -->
+<header class="miracom-header" id="miracomHeader">
+  <div class="miracom-header-inner">
+
+    <!-- 로고 -->
+    <div class="miracom-logo">
+      <a href="/" title="홈으로 이동">
+        <!-- ⚠️ 로고 이미지를 업로드한 후 src를 변경하세요 -->
+        <img src="/path/to/your-logo.svg" alt="Your Company Logo">
+      </a>
+    </div>
+
+    <!-- 글로벌 네비게이션 -->
+    <nav class="miracom-gnb" id="miracomGnb">
+      <div class="gnb-depth2-bg"></div>
+
+      <ul class="gnb-depth1">
+
+        <!-- 1. 미라콤의 가치 (단순 구조) -->
+        <li>
+          <a href="#" title="회사 가치">회사 가치</a>
+          <div class="gnb-depth1-hover">
+            <ul class="gnb-depth2">
+              <li><a href="#" title="핵심 역량">핵심 역량</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- 2. 서비스 및 솔루션 (넓은 드롭다운) -->
+        <li>
+          <a href="#" title="서비스 및 솔루션">서비스 및 솔루션</a>
+          <div class="gnb-depth1-hover wide">
+            <div class="gnb-depth1-hover-category">
+
+              <!-- 서비스 카테고리 -->
+              <dl>
+                <dt>서비스</dt>
+                <dd>
+                  <ul class="gnb-depth2">
+                    <li><a href="#" title="컨설팅">컨설팅</a></li>
+                    <li>
+                      <span>시스템 구축</span>
+                      <ul class="gnb-depth3">
+                        <li><a href="#" title="On-Premise"><span>On-Premise</span></a></li>
+                        <li><a href="#" title="Cloud"><span>Cloud</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#" title="ERP 구축">ERP 구축</a></li>
+                    <li><a href="#" title="설비 자동화">설비 자동화</a></li>
+                    <li><a href="#" title="물류 자동화">물류 자동화</a></li>
+                    <li><a href="#" title="에너지 관리">에너지 관리</a></li>
+                    <li><a href="#" title="IT 인프라">IT 인프라</a></li>
+                    <li><a href="#" title="시스템 운영">시스템 운영</a></li>
+                    <li><a href="#" title="IT 운영">IT 운영 (ITO)</a></li>
+                  </ul>
+                </dd>
+              </dl>
+
+              <!-- 솔루션 카테고리 -->
+              <dl>
+                <dt>솔루션</dt>
+                <dd>
+                  <ul class="gnb-depth2">
+                    <li>
+                      <span>통합 플랫폼</span>
+                      <ul class="gnb-depth3">
+                        <li>
+                          <a href="#" title="Core System" class="icon-area">
+                            <span>Core System</span>
+                            <span class="descrip">플랫폼 기반 통합 관리</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" title="Quality">
+                            <span>Quality</span>
+                            <span class="descrip">품질 개선을 통한 생산성 혁신</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" title="Engineering">
+                            <span>Engineering</span>
+                            <span class="descrip">실시간 데이터 분석 솔루션</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" title="Control">
+                            <span>Control</span>
+                            <span class="descrip">양방향 설비 온라인/자동화</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#" title="물류 제어 시스템">
+                        물류 제어 시스템
+                      </a>
+                      <span class="descrip">설비 연동을 통한 반송/보관 제어</span>
+                    </li>
+                    <li>
+                      <a href="#" title="통합 연계 솔루션">
+                        통합 연계 솔루션
+                      </a>
+                      <span class="descrip">다양한 시스템간 빠르고 쉬운 연계</span>
+                    </li>
+                  </ul>
+                </dd>
+              </dl>
+
+              <!-- 업종 카테고리 -->
+              <dl>
+                <dt>업종</dt>
+                <dd>
+                  <ul class="gnb-depth2">
+                    <li><a href="#" title="반도체/태양광">반도체/태양광</a></li>
+                    <li><a href="#" title="전기/전자">전기/전자</a></li>
+                    <li><a href="#" title="자동차">자동차</a></li>
+                    <li><a href="#" title="배터리">배터리</a></li>
+                    <li><a href="#" title="식음료/제약">식음료/제약</a></li>
+                    <li><a href="#" title="화학/소재">화학/소재</a></li>
+                    <li><a href="#" title="기계/금속">기계/금속</a></li>
+                  </ul>
+                </dd>
+              </dl>
+
+            </div>
+          </div>
+        </li>
+
+        <!-- 3. 고객지원 -->
+        <li>
+          <a href="#" title="고객지원">고객지원</a>
+          <div class="gnb-depth1-hover">
+            <ul class="gnb-depth2">
+              <li><a href="#" title="인사이트 리포트">인사이트 리포트</a></li>
+              <li><a href="#" title="자료실">자료실</a></li>
+              <li><a href="#" title="언론보도">언론보도</a></li>
+              <li><a href="#" title="공지사항">공지사항</a></li>
+              <li><a href="#" title="뉴스레터">뉴스레터</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- 4. 회사소개 -->
+        <li>
+          <a href="#" title="회사소개">회사소개</a>
+          <div class="gnb-depth1-hover">
+            <ul class="gnb-depth2">
+              <li><a href="#" title="회사 개요">회사 개요</a></li>
+              <li><a href="#" title="CEO 메시지">CEO 메시지</a></li>
+              <li><a href="#" title="연혁">연혁</a></li>
+              <li><a href="#" title="윤리경영">윤리경영</a></li>
+              <li><a href="#" title="보안제보">보안제보</a></li>
+              <li><a href="#" title="채용">채용</a></li>
+              <li><a href="#" title="복리후생">복리후생</a></li>
+              <li><a href="#" title="투자정보">투자정보</a></li>
+              <li><a href="#" title="오시는 길">오시는 길</a></li>
+            </ul>
+          </div>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- 유틸리티 메뉴 -->
+    <div class="miracom-top-util">
+      <a href="#" title="문의하기">문의하기</a>
+      <a href="#" title="고객포탈">고객포탈</a>
+      <a href="#" title="클라우드">Cloud</a>
+      <a href="#" title="수준진단">수준진단</a>
+
+      <!-- 언어 선택 -->
+      <ul class="miracom-language">
+        <li class="on"><a href="#" title="한국어">KO</a></li>
+        <li><a href="#" title="English">EN</a></li>
+      </ul>
+
+      <!-- 모바일 메뉴 버튼 -->
+      <button type="button" class="miracom-mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<script>
+// ===============================================
+// JavaScript 인터랙션
+// ===============================================
+
+(function() {
+  'use strict';
+
+  // 모바일 메뉴 토글
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const gnbNav = document.getElementById('miracomGnb');
+
+  if (mobileMenuBtn && gnbNav) {
+    mobileMenuBtn.addEventListener('click', function() {
+      this.classList.toggle('active');
+      gnbNav.classList.toggle('active');
+
+      // 스크롤 방지
+      if (gnbNav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  // 모바일에서 1depth 클릭 시 서브메뉴 토글
+  const depth1Items = document.querySelectorAll('.gnb-depth1 > li');
+
+  function handleDepth1Click(e) {
+    if (window.innerWidth <= 768) {
+      // 모바일에서만 작동
+      const parentLi = e.currentTarget;
+      const hasDropdown = parentLi.querySelector('.gnb-depth1-hover');
+
+      if (hasDropdown) {
+        e.preventDefault();
+
+        // 다른 열린 메뉴 닫기
+        depth1Items.forEach(item => {
+          if (item !== parentLi) {
+            item.classList.remove('active');
+          }
+        });
+
+        // 현재 메뉴 토글
+        parentLi.classList.toggle('active');
+      }
+    }
+  }
+
+  depth1Items.forEach(item => {
+    const link = item.querySelector('a');
+    if (link) {
+      link.addEventListener('click', handleDepth1Click.bind(item));
+    }
+  });
+
+  // 윈도우 리사이즈 시 모바일 메뉴 상태 초기화
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      if (window.innerWidth > 768) {
+        // 데스크톱 모드로 전환 시
+        if (gnbNav.classList.contains('active')) {
+          gnbNav.classList.remove('active');
+          mobileMenuBtn.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        // 모바일 메뉴 활성 상태 제거
+        depth1Items.forEach(item => {
+          item.classList.remove('active');
+        });
+      }
+    }, 250);
+  });
+
+  // 배경 클릭 시 메뉴 닫기 (모바일)
+  const depth2Bg = document.querySelector('.gnb-depth2-bg');
+  if (depth2Bg) {
+    depth2Bg.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        gnbNav.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+})();
+</script>
+
+<!--
+=================================================================
+커스터마이징 가이드
+=================================================================
+
+1. 색상 변경:
+   - CSS 상단의 :root 변수들을 수정하세요
+   - --header-bg: 헤더 배경색
+   - --header-text: 텍스트 색상
+   - --header-hover: 호버 색상
+
+2. 로고 변경:
+   - img src 속성을 업로드한 로고 경로로 변경
+   - height 값으로 크기 조절 (기본 32px)
+
+3. 메뉴 항목 수정:
+   - 각 li 태그를 복사하여 추가/삭제
+   - href="#"를 실제 페이지 URL로 변경
+
+4. 드롭다운 너비 조정:
+   - .gnb-depth1-hover의 min-width 값 조정
+   - wide 클래스의 min-width/max-width 조정
+
+5. 모바일 브레이크포인트 변경:
+   - @media (max-width: 768px) 값 수정
+
+=================================================================
+-->
