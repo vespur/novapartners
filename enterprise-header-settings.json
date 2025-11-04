@@ -11,20 +11,20 @@
     {
       "id": "logo.image",
       "label": "로고 이미지",
-      "description": "웹사이트 로고 이미지를 선택하세요. SVG 형식을 권장하며, 투명 배경의 PNG도 적합합니다. 가로로 긴 형태의 이미지가 헤더에 잘 어울립니다.",
+      "description": "웹사이트 로고 이미지를 선택하세요. SVG 또는 투명 배경 PNG를 권장합니다.",
       "type": "IMAGE_PICKER"
     },
     {
       "id": "logo.alt",
       "label": "로고 대체 텍스트",
-      "description": "이미지가 로드되지 않을 때 표시되는 텍스트입니다. 검색엔진 최적화(SEO)와 접근성을 위해 회사명을 입력하세요.",
+      "description": "검색엔진 최적화(SEO)와 접근성을 위한 텍스트입니다. 회사명을 입력하세요.",
       "type": "TEXT",
       "placeholder": "예: 회사명"
     },
     {
       "id": "logo.height",
       "label": "로고 높이",
-      "description": "로고의 세로 크기를 픽셀 단위로 설정합니다. 일반적으로 24~40px이 적당하며, 헤더 높이의 40~50% 정도가 균형있어 보입니다.",
+      "description": "로고의 세로 크기(px)입니다. 일반적으로 24~40px이 적당합니다.",
       "type": "RANGE",
       "min": 20,
       "max": 60,
@@ -34,7 +34,7 @@
     {
       "id": "logo.link",
       "label": "로고 클릭 링크",
-      "description": "로고를 클릭했을 때 이동할 페이지 주소입니다. 일반적으로 홈페이지(/)로 설정합니다.",
+      "description": "로고 클릭 시 이동할 페이지입니다. 일반적으로 홈페이지(/)로 설정합니다.",
       "type": "TEXT",
       "placeholder": "/"
     },
@@ -50,31 +50,31 @@
     {
       "id": "colors.background",
       "label": "헤더 배경색",
-      "description": "헤더 전체의 배경 색상입니다. 밝은 테마는 흰색(#FFFFFF), 어두운 테마는 검정(#000000)을 추천합니다.",
+      "description": "헤더 전체의 배경 색상입니다. 밝은 테마는 흰색, 어두운 테마는 검정을 추천합니다.",
       "type": "COLOR_PICKER"
     },
     {
       "id": "colors.text",
       "label": "텍스트 색상",
-      "description": "메뉴 텍스트의 기본 색상입니다. 배경색과 충분한 대비를 유지해야 가독성이 좋습니다.",
+      "description": "메뉴 텍스트의 기본 색상입니다. 배경색과 충분한 대비를 유지하세요.",
       "type": "COLOR_PICKER"
     },
     {
       "id": "colors.hover",
       "label": "호버 색상",
-      "description": "메뉴에 마우스를 올렸을 때 표시되는 강조 색상입니다. 브랜드 포인트 컬러를 사용하세요.",
+      "description": "메뉴에 마우스를 올렸을 때 표시되는 강조 색상입니다. 브랜드 컬러를 사용하세요.",
       "type": "COLOR_PICKER"
     },
     {
       "id": "colors.dropdownBg",
       "label": "드롭다운 배경색",
-      "description": "드롭다운 메뉴의 배경 색상입니다. 헤더 배경색과 같거나 약간 밝게/어둡게 설정할 수 있습니다.",
+      "description": "드롭다운 메뉴의 배경 색상입니다. 헤더 배경과 같거나 약간 다르게 설정하세요.",
       "type": "COLOR_PICKER"
     },
     {
       "id": "design.fontFamily",
       "label": "폰트",
-      "description": "헤더에 사용할 글꼴을 선택하세요. 한글 사이트는 Noto Sans KR 또는 Pretendard를 권장합니다.",
+      "description": "헤더에 사용할 글꼴입니다. 한글 사이트는 Noto Sans KR 또는 Pretendard 권장.",
       "type": "SELECT",
       "options": [
         {
@@ -98,7 +98,7 @@
     {
       "id": "header.height",
       "label": "헤더 높이",
-      "description": "헤더의 세로 높이를 설정합니다. 미니멀 디자인은 60~70px, 일반적인 디자인은 70~90px, 큰 로고는 90~120px를 사용합니다.",
+      "description": "헤더의 세로 높이입니다. 미니멀 60~70px, 일반 70~90px, 큰 로고 90~120px.",
       "type": "RANGE",
       "min": 60,
       "max": 120,
@@ -124,14 +124,14 @@
     {
       "id": "menu1.link",
       "label": "메뉴 링크",
-      "description": "메뉴를 클릭했을 때 이동할 페이지 주소입니다. 비워두면 드롭다운만 표시됩니다.",
+      "description": "메뉴 클릭 시 이동할 페이지입니다. 비워두면 드롭다운만 표시됩니다.",
       "type": "TEXT",
       "placeholder": "예: /about"
     },
     {
       "id": "menu1.items",
       "label": "하위 메뉴 목록",
-      "description": "드롭다운에 표시할 하위 메뉴들입니다. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.\n\n예시:\n회사 개요|/about/overview\nCEO 메시지|/about/ceo\n연혁|/about/history",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
       "placeholder": "회사 개요|/about/overview\nCEO 메시지|/about/ceo\n연혁|/about/history"
     },
@@ -142,7 +142,7 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "두 번째 메인 메뉴를 설정합니다. '메가 메뉴'를 활성화하면 3개의 카테고리로 구성된 넓은 드롭다운이 표시됩니다."
+      "content": "두 번째 메인 메뉴를 설정합니다. 메가 메뉴를 활성화하면 3개 카테고리로 구성된 넓은 드롭다운이 표시됩니다."
     },
     {
       "id": "menu2.title",
@@ -154,14 +154,14 @@
     {
       "id": "menu2.link",
       "label": "메뉴 링크",
-      "description": "메뉴를 클릭했을 때 이동할 페이지 주소입니다.",
+      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
       "type": "TEXT",
       "placeholder": "예: /services"
     },
     {
       "id": "menu2.isMega",
       "label": "메가 메뉴 사용",
-      "description": "체크하면 3개의 카테고리로 구성된 넓은 메가 메뉴가 표시됩니다. 많은 하위 메뉴가 있을 때 유용합니다.",
+      "description": "체크하면 3개 카테고리로 구성된 넓은 메가 메뉴가 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
@@ -174,7 +174,7 @@
     {
       "id": "menu2.cat1.items",
       "label": "카테고리 1 항목",
-      "description": "첫 번째 카테고리의 메뉴 항목들입니다. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.\n\n예시:\n전략 컨설팅|/services/consulting/strategy\n프로세스 개선|/services/consulting/process",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
       "placeholder": "전략 컨설팅|/services/consulting/strategy\n프로세스 개선|/services/consulting/process"
     },
@@ -188,7 +188,7 @@
     {
       "id": "menu2.cat2.items",
       "label": "카테고리 2 항목",
-      "description": "두 번째 카테고리의 메뉴 항목들입니다. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
       "placeholder": "통합 플랫폼|/solutions/platform\n데이터 분석|/solutions/analytics"
     },
@@ -202,7 +202,7 @@
     {
       "id": "menu2.cat3.items",
       "label": "카테고리 3 항목",
-      "description": "세 번째 카테고리의 메뉴 항목들입니다. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
       "placeholder": "제조업|/industries/manufacturing\n금융|/industries/finance"
     },
@@ -225,14 +225,14 @@
     {
       "id": "menu3.link",
       "label": "메뉴 링크",
-      "description": "메뉴를 클릭했을 때 이동할 페이지 주소입니다.",
+      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
       "type": "TEXT",
       "placeholder": "예: /support"
     },
     {
       "id": "menu3.items",
       "label": "하위 메뉴 목록",
-      "description": "드롭다운에 표시할 하위 메뉴들입니다. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
       "placeholder": "자료실|/support/library\nFAQ|/support/faq\n문의하기|/support/contact"
     },
@@ -255,14 +255,14 @@
     {
       "id": "menu4.link",
       "label": "메뉴 링크",
-      "description": "메뉴를 클릭했을 때 이동할 페이지 주소입니다.",
+      "description": "메뉴 클릭 시 이동할 페이지 주소입니다.",
       "type": "TEXT",
       "placeholder": "예: /careers"
     },
     {
       "id": "menu4.items",
       "label": "하위 메뉴 목록",
-      "description": "드롭다운에 표시할 하위 메뉴들입니다. 각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
+      "description": "각 줄에 '메뉴명|링크주소' 형식으로 입력하세요.",
       "type": "TEXTAREA",
       "placeholder": "채용 공고|/careers/jobs\n인재상|/careers/culture\n지원하기|/careers/apply"
     },
@@ -273,7 +273,7 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "헤더 우측에 표시되는 추가 링크들입니다. 문의하기, 고객포탈, 로그인 등의 링크를 설정할 수 있습니다."
+      "content": "헤더 우측에 표시되는 추가 링크들입니다. 문의하기, 고객포탈, 로그인 등을 설정할 수 있습니다."
     },
     {
       "id": "utility.link1.text",
@@ -329,7 +329,7 @@
     {
       "id": "language.show",
       "label": "언어 선택 표시",
-      "description": "체크하면 언어 선택기가 헤더 우측에 표시됩니다. 다국어 사이트가 아니면 체크를 해제하세요.",
+      "description": "체크하면 언어 선택기가 헤더 우측에 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
@@ -342,7 +342,7 @@
     {
       "id": "language.lang1.url",
       "label": "언어 1 URL",
-      "description": "첫 번째 언어로 전환했을 때 이동할 페이지 주소입니다.",
+      "description": "첫 번째 언어로 전환 시 이동할 페이지 주소입니다.",
       "type": "TEXT",
       "placeholder": "예: /"
     },
@@ -356,7 +356,7 @@
     {
       "id": "language.lang2.url",
       "label": "언어 2 URL",
-      "description": "두 번째 언어로 전환했을 때 이동할 페이지 주소입니다.",
+      "description": "두 번째 언어로 전환 시 이동할 페이지 주소입니다.",
       "type": "TEXT",
       "placeholder": "예: /en"
     },
@@ -383,12 +383,12 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "모바일 기기에서의 헤더 표시 방식을 설정합니다. 화면이 작은 기기에서는 햄버거 메뉴가 자동으로 표시됩니다."
+      "content": "모바일 기기에서의 헤더 표시 방식을 설정합니다. 화면이 작은 기기에서는 햄버거 메뉴가 표시됩니다."
     },
     {
       "id": "mobile.headerHeight",
       "label": "모바일 헤더 높이",
-      "description": "모바일 화면에서의 헤더 높이입니다. PC보다 작게 설정하여 화면 공간을 확보하세요. 일반적으로 50~60px가 적당합니다.",
+      "description": "모바일 화면에서의 헤더 높이입니다. 일반적으로 50~60px가 적당합니다.",
       "type": "RANGE",
       "min": 50,
       "max": 80,
@@ -408,7 +408,7 @@
     {
       "id": "mobile.breakpoint",
       "label": "모바일 전환 기준",
-      "description": "이 픽셀 값 이하의 화면에서 모바일 메뉴로 전환됩니다. 768px은 태블릿 세로/모바일, 992px은 태블릿 가로까지 포함합니다.",
+      "description": "이 픽셀 값 이하에서 모바일 메뉴로 전환됩니다. 768px은 태블릿 세로/모바일 기준.",
       "type": "RANGE",
       "min": 600,
       "max": 992,
@@ -427,19 +427,19 @@
     {
       "id": "advanced.sticky",
       "label": "스크롤 시 헤더 고정",
-      "description": "체크하면 페이지를 스크롤해도 헤더가 화면 상단에 고정됩니다. 사용자가 언제든 메뉴에 접근할 수 있어 편리합니다.",
+      "description": "체크하면 페이지를 스크롤해도 헤더가 화면 상단에 고정됩니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "advanced.showOverlay",
       "label": "드롭다운 배경 오버레이",
-      "description": "체크하면 드롭다운 메뉴가 열릴 때 페이지 전체에 어두운 배경이 표시되어 메뉴가 더욱 강조됩니다.",
+      "description": "체크하면 드롭다운 메뉴가 열릴 때 페이지 전체에 어두운 배경이 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "advanced.transitionSpeed",
       "label": "애니메이션 속도",
-      "description": "메뉴 전환 애니메이션의 속도입니다. 빠른 속도는 200ms, 일반은 300ms, 느린 속도는 400~500ms를 사용하세요.",
+      "description": "메뉴 전환 애니메이션 속도입니다. 빠름 200ms, 일반 300ms, 느림 400~500ms.",
       "type": "RANGE",
       "min": 100,
       "max": 800,
@@ -449,7 +449,7 @@
     {
       "id": "advanced.maxWidth",
       "label": "헤더 최대 너비",
-      "description": "헤더 내부 콘텐츠의 최대 너비를 제한합니다. 0을 입력하면 제한이 없습니다. 일반적으로 1200~1440px를 사용합니다.",
+      "description": "헤더 내부 콘텐츠의 최대 너비입니다. 0은 제한 없음. 일반적으로 1200~1440px.",
       "type": "RANGE",
       "min": 0,
       "max": 1920,
@@ -459,7 +459,7 @@
     {
       "id": "advanced.menuGap",
       "label": "메뉴 간격",
-      "description": "메인 메뉴 항목들 사이의 가로 간격입니다. 넓은 간격은 50~60px, 좁은 간격은 30~40px를 사용하세요.",
+      "description": "메인 메뉴 항목들 사이의 가로 간격입니다. 넓은 간격 50~60px, 좁은 간격 30~40px.",
       "type": "RANGE",
       "min": 20,
       "max": 80,
