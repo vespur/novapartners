@@ -164,6 +164,80 @@
 }
 ```
 
+### 🚨 중요: LINK 타입 사용 규칙
+
+**필수 규칙:**
+- ✅ 링크 필드는 반드시 `type: "LINK"` 사용 (TEXT/TEXTAREA 금지)
+- ✅ property 기본값은 문자열이 아닌 `{id, type, label, value}` 객체
+- ✅ 템플릿에서 `.value` (URL)와 `.label` (표시 텍스트) 사용
+
+**왜 LINK 타입을 써야 하나?**
+
+LINK 타입을 사용해야 에디터에서:
+- 내부 리소스(상품/카테고리/페이지) 선택 UI 제공
+- 외부 URL 입력 모두 지원
+- TEXT 타입은 URL 텍스트 입력만 가능 (드롭다운 링크 피커 없음)
+
+**올바른 구현 방법:**
+
+```json
+// 1) Settings 스키마
+{
+  "id": "ctaLink",
+  "label": "버튼 링크",
+  "description": "내부 리소스 또는 외부 URL을 연결해요.",
+  "type": "LINK"  // ✅ TEXT 아님!
+}
+
+// 2) Property 기본값
+"property": {
+  "ctaLink": {
+    "id": null,     // ✅ 문자열이 아닌 객체!
+    "type": "",
+    "label": "",
+    "value": ""
+  }
+}
+
+// 3) Template 사용
+{{#if property.ctaLink.value}}
+  <a href="{{property.ctaLink.value}}">
+    {{property.ctaLink.label}}
+  </a>
+{{/if}}
+```
+
+**빠른 점검 체크리스트:**
+- [ ] 세팅에 `type: "LINK"` 사용 (TEXT/TEXTAREA 금지)
+- [ ] property가 문자열이 아닌 `{id, type, label, value}` 객체
+- [ ] 템플릿에서 `.value`와 `.label` 사용
+- [ ] (선택) 새 창 옵션은 별도 CHECKBOX로 구현
+
+**잘못된 예시 (❌):**
+```json
+// 세팅
+{"id": "link", "type": "TEXT"}  // ❌
+
+// 프로퍼티
+"link": "/about"  // ❌ 문자열
+
+// 템플릿
+{{property.link}}  // ❌
+```
+
+**올바른 예시 (✅):**
+```json
+// 세팅
+{"id": "link", "type": "LINK"}  // ✅
+
+// 프로퍼티
+"link": {"id": null, "type": "", "label": "", "value": ""}  // ✅
+
+// 템플릿
+{{property.link.value}}  // ✅
+{{property.link.label}}  // ✅
+```
+
 ### ID 네이밍 규칙
 
 - ✅ 영문/숫자/점(.) 만 사용

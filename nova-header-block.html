@@ -1,0 +1,917 @@
+<style>
+  .nova-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: {{property.design.headerHeight}}px;
+    background: {{property.design.backgroundColor}};
+    color: {{property.design.textColor}};
+    z-index: 1000;
+    transition: all 0.3s ease;
+  }
+
+  .nova-header.scrolled {
+    {{#if property.scroll.enabled}}
+    background: {{property.scroll.backgroundColor}};
+    {{#if property.scroll.shadow}}
+    box-shadow: 0 2px 16px {{property.scroll.shadowColor}};
+    {{/if}}
+    {{/if}}
+  }
+
+  .nova-header__container {
+    max-width: 1400px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Logo */
+  .nova-header__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .nova-header__logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .nova-header__logo img {
+    height: {{property.logo.height}}px;
+    width: auto;
+    display: block;
+  }
+
+  /* Desktop Navigation */
+  .nova-header__nav {
+    display: flex;
+    align-items: center;
+    gap: {{property.design.menuGap}}px;
+    margin: 0 auto;
+  }
+
+  .nova-header__menu-item {
+    position: relative;
+  }
+
+  .nova-header__menu-link {
+    display: block;
+    padding: 10px 0;
+    color: {{property.design.textColor}};
+    text-decoration: none;
+    font-size: {{property.design.fontSize}}px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .nova-header__menu-link:hover {
+    color: {{property.design.textHoverColor}};
+  }
+
+  /* Mega Menu Dropdown */
+  .nova-header__mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 800px;
+    background: {{property.design.dropdownBg}};
+    border-radius: 8px;
+    padding: 40px;
+    margin-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .nova-header__menu-item:hover .nova-header__mega-menu {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 0;
+  }
+
+  .nova-header__mega-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+  }
+
+  .nova-header__mega-category {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .nova-header__mega-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nova-header__mega-title {
+    color: {{property.design.dropdownTextColor}};
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .nova-header__mega-subtitle {
+    color: {{property.design.dropdownTextColor}};
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 4px;
+  }
+
+  .nova-header__mega-link {
+    color: {{property.design.dropdownTextColor}};
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    padding-left: 12px;
+  }
+
+  .nova-header__mega-link:hover {
+    opacity: 1;
+    padding-left: 16px;
+  }
+
+  /* Utility Area */
+  .nova-header__utility {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .nova-header__utility-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nova-header__utility-link {
+    color: {{property.design.textColor}};
+    text-decoration: none;
+    font-size: {{property.design.utilityFontSize}}px;
+    transition: color 0.2s ease;
+  }
+
+  .nova-header__utility-link:hover {
+    color: {{property.design.textHoverColor}};
+  }
+
+  /* Language Switcher */
+  .nova-header__language {
+    display: flex;
+    gap: 8px;
+  }
+
+  .nova-header__lang-btn {
+    color: {{property.design.textColor}};
+    text-decoration: none;
+    font-size: {{property.design.utilityFontSize}}px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+  }
+
+  .nova-header__lang-btn:hover,
+  .nova-header__lang-btn.active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Hamburger Button */
+  .nova-header__hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: {{property.design.textColor}};
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .nova-header__hamburger svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Mobile Menu */
+  .nova-mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 400px;
+    background: #000000;
+    z-index: 2000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nova-mobile-menu.active {
+    transform: translateX(0);
+  }
+
+  .nova-mobile-menu__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .nova-mobile-menu__overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nova-mobile-menu__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nova-mobile-menu__logo img {
+    height: {{property.logo.height}}px;
+    width: auto;
+  }
+
+  .nova-mobile-menu__close {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .nova-mobile-menu__close svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  .nova-mobile-menu__content {
+    flex: 1;
+    padding: 20px;
+  }
+
+  /* Mobile Accordion */
+  .nova-mobile-menu__item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nova-mobile-menu__trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    text-align: left;
+    padding: 16px 0;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nova-mobile-menu__icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.25s ease;
+  }
+
+  .nova-mobile-menu__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .nova-mobile-menu__item.active .nova-mobile-menu__icon {
+    transform: rotate(180deg);
+  }
+
+  .nova-mobile-menu__dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+
+  .nova-mobile-menu__item.active .nova-mobile-menu__dropdown {
+    max-height: 1000px;
+  }
+
+  .nova-mobile-menu__category {
+    margin-bottom: 20px;
+  }
+
+  .nova-mobile-menu__category-title {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    opacity: 0.9;
+  }
+
+  .nova-mobile-menu__subcategory {
+    margin-bottom: 16px;
+  }
+
+  .nova-mobile-menu__subcategory-title {
+    color: #CCCCCC;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .nova-mobile-menu__link {
+    display: block;
+    color: #999999;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 0 6px 16px;
+    transition: color 0.2s ease;
+  }
+
+  .nova-mobile-menu__link:hover {
+    color: #FFFFFF;
+  }
+
+  /* Mobile Footer */
+  .nova-mobile-menu__footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nova-mobile-menu__social {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .nova-mobile-menu__social-link {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    transition: background 0.2s ease;
+  }
+
+  .nova-mobile-menu__social-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .nova-mobile-menu__social-link svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nova-mobile-menu__language {
+    display: flex;
+    gap: 12px;
+  }
+
+  .nova-mobile-menu__lang-btn {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+    opacity: 0.6;
+  }
+
+  .nova-mobile-menu__lang-btn:hover,
+  .nova-mobile-menu__lang-btn.active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: {{property.mobile.breakpoint}}px) {
+    .nova-header {
+      height: {{property.design.headerHeightMobile}}px;
+    }
+
+    .nova-header__nav,
+    .nova-header__utility-links,
+    .nova-header__language {
+      display: none;
+    }
+
+    .nova-header__hamburger {
+      display: block;
+    }
+
+    .nova-header__logo img {
+      height: {{property.logo.height}}px;
+    }
+  }
+
+  /* Desktop Only */
+  @media (min-width: {{property.mobile.breakpoint}}px) {
+    .nova-mobile-menu,
+    .nova-mobile-menu__overlay {
+      display: none !important;
+    }
+  }
+
+  /* Body scroll lock */
+  body.nova-menu-open {
+    overflow: hidden;
+  }
+</style>
+
+<template>
+  <!-- Desktop Header -->
+  <header class="nova-header" data-header="main">
+    <div class="nova-header__container">
+      <!-- Logo -->
+      <div class="nova-header__logo">
+        {{#if property.logo.link.value}}
+          <a href="{{property.logo.link.value}}">
+            {{#if property.logo.image}}
+              <img src="{{property.logo.image}}" alt="{{property.logo.link.label}}" loading="eager">
+            {{/if}}
+          </a>
+        {{else}}
+          {{#if property.logo.image}}
+            <img src="{{property.logo.image}}" alt="Logo" loading="eager">
+          {{/if}}
+        {{/if}}
+      </div>
+
+      <!-- Main Navigation -->
+      <nav class="nova-header__nav">
+        {{#if property.menu1.show}}
+          <div class="nova-header__menu-item" data-menu="menu1">
+            {{#if property.menu1.link.value}}
+              <a href="{{property.menu1.link.value}}" class="nova-header__menu-link">
+                {{property.menu1.title}}
+              </a>
+            {{else}}
+              <span class="nova-header__menu-link">{{property.menu1.title}}</span>
+            {{/if}}
+            {{#if property.menu1.isMega}}
+              <div class="nova-header__mega-menu" data-mega="menu1"></div>
+            {{/if}}
+          </div>
+        {{/if}}
+
+        {{#if property.menu2.show}}
+          <div class="nova-header__menu-item" data-menu="menu2">
+            {{#if property.menu2.link.value}}
+              <a href="{{property.menu2.link.value}}" class="nova-header__menu-link">
+                {{property.menu2.title}}
+              </a>
+            {{else}}
+              <span class="nova-header__menu-link">{{property.menu2.title}}</span>
+            {{/if}}
+            {{#if property.menu2.isMega}}
+              <div class="nova-header__mega-menu" data-mega="menu2"></div>
+            {{/if}}
+          </div>
+        {{/if}}
+
+        {{#if property.menu3.show}}
+          <div class="nova-header__menu-item" data-menu="menu3">
+            {{#if property.menu3.link.value}}
+              <a href="{{property.menu3.link.value}}" class="nova-header__menu-link">
+                {{property.menu3.title}}
+              </a>
+            {{else}}
+              <span class="nova-header__menu-link">{{property.menu3.title}}</span>
+            {{/if}}
+            {{#if property.menu3.isMega}}
+              <div class="nova-header__mega-menu" data-mega="menu3"></div>
+            {{/if}}
+          </div>
+        {{/if}}
+
+        {{#if property.menu4.show}}
+          <div class="nova-header__menu-item" data-menu="menu4">
+            {{#if property.menu4.link.value}}
+              <a href="{{property.menu4.link.value}}" class="nova-header__menu-link">
+                {{property.menu4.title}}
+              </a>
+            {{else}}
+              <span class="nova-header__menu-link">{{property.menu4.title}}</span>
+            {{/if}}
+            {{#if property.menu4.isMega}}
+              <div class="nova-header__mega-menu" data-mega="menu4"></div>
+            {{/if}}
+          </div>
+        {{/if}}
+      </nav>
+
+      <!-- Utility Area -->
+      <div class="nova-header__utility">
+        {{#if property.utility.show}}
+          <div class="nova-header__utility-links">
+            {{#if property.utility.link1.show}}
+              <a href="{{property.utility.link1.url.value}}" class="nova-header__utility-link">
+                {{property.utility.link1.text}}
+              </a>
+            {{/if}}
+            {{#if property.utility.link2.show}}
+              <a href="{{property.utility.link2.url.value}}" class="nova-header__utility-link">
+                {{property.utility.link2.text}}
+              </a>
+            {{/if}}
+            {{#if property.utility.link3.show}}
+              <a href="{{property.utility.link3.url.value}}" class="nova-header__utility-link">
+                {{property.utility.link3.text}}
+              </a>
+            {{/if}}
+            {{#if property.utility.link4.show}}
+              <a href="{{property.utility.link4.url.value}}" class="nova-header__utility-link">
+                {{property.utility.link4.text}}
+              </a>
+            {{/if}}
+          </div>
+        {{/if}}
+
+        {{#if property.language.show}}
+          <div class="nova-header__language">
+            <a
+              href="{{property.language.lang1.url.value}}"
+              class="nova-header__lang-btn {{#if (eq property.language.current 'lang1')}}active{{/if}}"
+            >
+              {{property.language.lang1.text}}
+            </a>
+            <a
+              href="{{property.language.lang2.url.value}}"
+              class="nova-header__lang-btn {{#if (eq property.language.current 'lang2')}}active{{/if}}"
+            >
+              {{property.language.lang2.text}}
+            </a>
+          </div>
+        {{/if}}
+
+        <button class="nova-header__hamburger" data-action="open-menu">
+          {{{property.mobile.hamburgerIcon}}}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="nova-mobile-menu__overlay" data-element="overlay"></div>
+
+  <!-- Mobile Menu -->
+  <div class="nova-mobile-menu" data-element="mobile-menu">
+    <div class="nova-mobile-menu__header">
+      <div class="nova-mobile-menu__logo">
+        {{#if property.logo.image}}
+          <img src="{{property.logo.image}}" alt="{{property.logo.link.label}}" loading="eager">
+        {{/if}}
+      </div>
+      <button class="nova-mobile-menu__close" data-action="close-menu">
+        {{{property.mobile.closeIcon}}}
+      </button>
+    </div>
+
+    <div class="nova-mobile-menu__content">
+      {{#if property.menu1.show}}
+        <div class="nova-mobile-menu__item" data-mobile-item="menu1">
+          <button class="nova-mobile-menu__trigger" data-action="toggle-accordion">
+            <span>{{property.menu1.title}}</span>
+            {{#if property.menu1.isMega}}
+              <span class="nova-mobile-menu__icon">{{{property.mobile.accordionIcon}}}</span>
+            {{/if}}
+          </button>
+          {{#if property.menu1.isMega}}
+            <div class="nova-mobile-menu__dropdown" data-mobile-dropdown="menu1"></div>
+          {{/if}}
+        </div>
+      {{/if}}
+
+      {{#if property.menu2.show}}
+        <div class="nova-mobile-menu__item" data-mobile-item="menu2">
+          <button class="nova-mobile-menu__trigger" data-action="toggle-accordion">
+            <span>{{property.menu2.title}}</span>
+            {{#if property.menu2.isMega}}
+              <span class="nova-mobile-menu__icon">{{{property.mobile.accordionIcon}}}</span>
+            {{/if}}
+          </button>
+          {{#if property.menu2.isMega}}
+            <div class="nova-mobile-menu__dropdown" data-mobile-dropdown="menu2"></div>
+          {{/if}}
+        </div>
+      {{/if}}
+
+      {{#if property.menu3.show}}
+        <div class="nova-mobile-menu__item" data-mobile-item="menu3">
+          <button class="nova-mobile-menu__trigger" data-action="toggle-accordion">
+            <span>{{property.menu3.title}}</span>
+            {{#if property.menu3.isMega}}
+              <span class="nova-mobile-menu__icon">{{{property.mobile.accordionIcon}}}</span>
+            {{/if}}
+          </button>
+          {{#if property.menu3.isMega}}
+            <div class="nova-mobile-menu__dropdown" data-mobile-dropdown="menu3"></div>
+          {{/if}}
+        </div>
+      {{/if}}
+
+      {{#if property.menu4.show}}
+        <div class="nova-mobile-menu__item" data-mobile-item="menu4">
+          <button class="nova-mobile-menu__trigger" data-action="toggle-accordion">
+            <span>{{property.menu4.title}}</span>
+            {{#if property.menu4.isMega}}
+              <span class="nova-mobile-menu__icon">{{{property.mobile.accordionIcon}}}</span>
+            {{/if}}
+          </button>
+          {{#if property.menu4.isMega}}
+            <div class="nova-mobile-menu__dropdown" data-mobile-dropdown="menu4"></div>
+          {{/if}}
+        </div>
+      {{/if}}
+    </div>
+
+    {{#if (or property.social.show property.language.show)}}
+      <div class="nova-mobile-menu__footer">
+        {{#if property.social.show}}
+          <div class="nova-mobile-menu__social">
+            {{#if property.social.icon1.show}}
+              <a href="{{property.social.icon1.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
+                {{{property.social.icon1.svg}}}
+              </a>
+            {{/if}}
+            {{#if property.social.icon2.show}}
+              <a href="{{property.social.icon2.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
+                {{{property.social.icon2.svg}}}
+              </a>
+            {{/if}}
+            {{#if property.social.icon3.show}}
+              <a href="{{property.social.icon3.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
+                {{{property.social.icon3.svg}}}
+              </a>
+            {{/if}}
+            {{#if property.social.icon4.show}}
+              <a href="{{property.social.icon4.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
+                {{{property.social.icon4.svg}}}
+              </a>
+            {{/if}}
+          </div>
+        {{/if}}
+
+        {{#if property.language.show}}
+          <div class="nova-mobile-menu__language">
+            <a
+              href="{{property.language.lang1.url.value}}"
+              class="nova-mobile-menu__lang-btn {{#if (eq property.language.current 'lang1')}}active{{/if}}"
+            >
+              {{property.language.lang1.text}}
+            </a>
+            <a
+              href="{{property.language.lang2.url.value}}"
+              class="nova-mobile-menu__lang-btn {{#if (eq property.language.current 'lang2')}}active{{/if}}"
+            >
+              {{property.language.lang2.text}}
+            </a>
+          </div>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  // Parse mega menu items into structured data
+  function parseMegaItems(itemsText) {
+    if (!itemsText || !itemsText.trim()) return {};
+
+    const lines = itemsText.trim().split('\n');
+    const structure = {};
+
+    lines.forEach(line => {
+      const parts = line.split('|').map(p => p.trim());
+      if (parts.length !== 4) return;
+
+      const [category, subcategory, item, url] = parts;
+
+      if (!structure[category]) {
+        structure[category] = {};
+      }
+
+      if (!structure[category][subcategory]) {
+        structure[category][subcategory] = [];
+      }
+
+      structure[category][subcategory].push({ item, url });
+    });
+
+    return structure;
+  }
+
+  // Render mega menu HTML
+  function renderMegaMenu(structure) {
+    const categories = Object.keys(structure);
+    if (categories.length === 0) return '';
+
+    let html = '<div class="nova-header__mega-content">';
+
+    categories.forEach(category => {
+      html += '<div class="nova-header__mega-category">';
+      html += `<div class="nova-header__mega-title">${category}</div>`;
+
+      const subcategories = Object.keys(structure[category]);
+      subcategories.forEach(subcategory => {
+        html += '<div class="nova-header__mega-section">';
+        html += `<div class="nova-header__mega-subtitle">${subcategory}</div>`;
+
+        structure[category][subcategory].forEach(({ item, url }) => {
+          html += `<a href="${url}" class="nova-header__mega-link">${item}</a>`;
+        });
+
+        html += '</div>';
+      });
+
+      html += '</div>';
+    });
+
+    html += '</div>';
+    return html;
+  }
+
+  // Render mobile menu HTML
+  function renderMobileMenu(structure) {
+    const categories = Object.keys(structure);
+    if (categories.length === 0) return '';
+
+    let html = '';
+
+    categories.forEach(category => {
+      html += '<div class="nova-mobile-menu__category">';
+      html += `<div class="nova-mobile-menu__category-title">${category}</div>`;
+
+      const subcategories = Object.keys(structure[category]);
+      subcategories.forEach(subcategory => {
+        html += '<div class="nova-mobile-menu__subcategory">';
+        html += `<div class="nova-mobile-menu__subcategory-title">${subcategory}</div>`;
+
+        structure[category][subcategory].forEach(({ item, url }) => {
+          html += `<a href="${url}" class="nova-mobile-menu__link">${item}</a>`;
+        });
+
+        html += '</div>';
+      });
+
+      html += '</div>';
+    });
+
+    return html;
+  }
+
+  // Initialize mega menus
+  function initMegaMenus() {
+    ['menu1', 'menu2', 'menu3', 'menu4'].forEach(menuKey => {
+      const menuData = context.property[menuKey];
+      if (!menuData || !menuData.show || !menuData.isMega) return;
+
+      const structure = parseMegaItems(menuData.megaItems);
+
+      // Desktop mega menu
+      const megaElement = container.querySelector(`[data-mega="${menuKey}"]`);
+      if (megaElement) {
+        megaElement.innerHTML = renderMegaMenu(structure);
+      }
+
+      // Mobile menu
+      const mobileElement = container.querySelector(`[data-mobile-dropdown="${menuKey}"]`);
+      if (mobileElement) {
+        mobileElement.innerHTML = renderMobileMenu(structure);
+      }
+    });
+  }
+
+  // Mobile menu toggle
+  function toggleMobileMenu(open) {
+    const mobileMenu = container.querySelector('[data-element="mobile-menu"]');
+    const overlay = container.querySelector('[data-element="overlay"]');
+
+    if (open) {
+      mobileMenu.classList.add('active');
+      overlay.classList.add('active');
+      document.body.classList.add('nova-menu-open');
+    } else {
+      mobileMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.classList.remove('nova-menu-open');
+    }
+  }
+
+  // Accordion toggle
+  function toggleAccordion(item) {
+    const isActive = item.classList.contains('active');
+
+    // Close all accordions
+    container.querySelectorAll('[data-mobile-item]').forEach(el => {
+      el.classList.remove('active');
+    });
+
+    // Open clicked accordion if it wasn't active
+    if (!isActive) {
+      item.classList.add('active');
+    }
+  }
+
+  // Scroll handler
+  function handleScroll() {
+    if (!context.property.scroll.enabled) return;
+
+    const header = container.querySelector('[data-header="main"]');
+    const threshold = context.property.scroll.threshold || 50;
+
+    if (window.scrollY > threshold) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+
+  // Event delegation
+  container.addEventListener('click', (e) => {
+    const target = e.target.closest('[data-action]');
+    if (!target) return;
+
+    const action = target.dataset.action;
+
+    if (action === 'open-menu') {
+      toggleMobileMenu(true);
+    } else if (action === 'close-menu') {
+      toggleMobileMenu(false);
+    } else if (action === 'toggle-accordion') {
+      const item = target.closest('[data-mobile-item]');
+      if (item) toggleAccordion(item);
+    }
+  }, true);
+
+  // Close on overlay click
+  container.addEventListener('click', (e) => {
+    if (e.target.matches('[data-element="overlay"]')) {
+      toggleMobileMenu(false);
+    }
+  }, true);
+
+  // Close on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      toggleMobileMenu(false);
+    }
+  });
+
+  // Scroll listener
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  // Initialize
+  initMegaMenus();
+  handleScroll();
+
+  // Context change
+  bm.onContextChange = () => {
+    initMegaMenus();
+    handleScroll();
+  };
+
+  // Cleanup
+  bm.onDestroy = () => {
+    document.body.classList.remove('nova-menu-open');
+    window.removeEventListener('scroll', handleScroll);
+  };
+</script>

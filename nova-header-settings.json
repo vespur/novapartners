@@ -1,0 +1,784 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📸 로고 설정"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더 좌측에 표시될 로고를 설정합니다. SVG 또는 투명 배경 PNG를 권장합니다."
+    },
+    {
+      "id": "logo.image",
+      "label": "로고 이미지",
+      "description": "헤더에 표시될 로고 이미지를 선택하세요.",
+      "type": "IMAGE_PICKER"
+    },
+    {
+      "id": "logo.link",
+      "label": "로고 링크",
+      "description": "로고 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "logo.height",
+      "label": "로고 높이",
+      "description": "로고의 세로 크기(px)입니다. 일반적으로 28~40px.",
+      "type": "RANGE",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📋 메인 메뉴 1"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "첫 번째 메인 메뉴를 설정합니다. 메가메뉴를 활성화하면 3단계 계층 구조의 드롭다운이 표시됩니다."
+    },
+    {
+      "id": "menu1.show",
+      "label": "메뉴 1 표시",
+      "description": "체크하면 메뉴 1이 헤더에 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menu1.title",
+      "label": "메뉴 제목",
+      "description": "메뉴에 표시될 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "마라콤의 가치"
+    },
+    {
+      "id": "menu1.link",
+      "label": "메뉴 링크",
+      "description": "메뉴 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "menu1.isMega",
+      "label": "메가메뉴 사용",
+      "description": "체크하면 3단계 계층의 메가메뉴가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menu1.megaItems",
+      "label": "메가메뉴 항목",
+      "description": "각 줄에 '대분류|중분류|소분류|링크' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "서비스|Nexplant MESplus|MES|/service/mes\n서비스|Nexplant MESplus|QMS|/service/qms\n서비스|MES 구축|On-Premise|/service/onpremise\n솔루션|제조 솔루션|ERP|/solution/erp"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📋 메인 메뉴 2"
+    },
+    {
+      "id": "menu2.show",
+      "label": "메뉴 2 표시",
+      "description": "체크하면 메뉴 2가 헤더에 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menu2.title",
+      "label": "메뉴 제목",
+      "description": "메뉴에 표시될 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "서비스 및 솔루션"
+    },
+    {
+      "id": "menu2.link",
+      "label": "메뉴 링크",
+      "description": "메뉴 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "menu2.isMega",
+      "label": "메가메뉴 사용",
+      "description": "체크하면 3단계 계층의 메가메뉴가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menu2.megaItems",
+      "label": "메가메뉴 항목",
+      "description": "각 줄에 '대분류|중분류|소분류|링크' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "서비스|스마트팩토리 컨설팅|현장 분석|/service/analysis\n서비스|MES 구축|Cloud MES|/service/cloud"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📋 메인 메뉴 3"
+    },
+    {
+      "id": "menu3.show",
+      "label": "메뉴 3 표시",
+      "description": "체크하면 메뉴 3이 헤더에 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menu3.title",
+      "label": "메뉴 제목",
+      "description": "메뉴에 표시될 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "고객지원"
+    },
+    {
+      "id": "menu3.link",
+      "label": "메뉴 링크",
+      "description": "메뉴 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "menu3.isMega",
+      "label": "메가메뉴 사용",
+      "description": "체크하면 3단계 계층의 메가메뉴가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menu3.megaItems",
+      "label": "메가메뉴 항목",
+      "description": "각 줄에 '대분류|중분류|소분류|링크' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "고객지원|기술문서|사용자 가이드|/support/guide\n고객지원|다운로드|소프트웨어|/support/download"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📋 메인 메뉴 4"
+    },
+    {
+      "id": "menu4.show",
+      "label": "메뉴 4 표시",
+      "description": "체크하면 메뉴 4가 헤더에 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menu4.title",
+      "label": "메뉴 제목",
+      "description": "메뉴에 표시될 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "회사소개"
+    },
+    {
+      "id": "menu4.link",
+      "label": "메뉴 링크",
+      "description": "메뉴 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "menu4.isMega",
+      "label": "메가메뉴 사용",
+      "description": "체크하면 3단계 계층의 메가메뉴가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menu4.megaItems",
+      "label": "메가메뉴 항목",
+      "description": "각 줄에 '대분류|중분류|소분류|링크' 형식으로 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "회사소개|기업정보|회사 개요|/about/overview\n회사소개|기업정보|CEO 메시지|/about/ceo\n회사소개|인재채용|채용공고|/about/jobs"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🔗 유틸리티 링크"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더 우측 상단에 표시될 빠른 링크들을 설정합니다."
+    },
+    {
+      "id": "utility.show",
+      "label": "유틸리티 영역 표시",
+      "description": "체크하면 유틸리티 링크가 헤더에 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "utility.link1.show",
+      "label": "링크 1 표시",
+      "description": "체크하면 유틸리티 링크 1이 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "utility.link1.text",
+      "label": "링크 1 텍스트",
+      "description": "링크에 표시될 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "문의하기"
+    },
+    {
+      "id": "utility.link1.url",
+      "label": "링크 1 URL",
+      "description": "링크 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "utility.link2.show",
+      "label": "링크 2 표시",
+      "description": "체크하면 유틸리티 링크 2가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "utility.link2.text",
+      "label": "링크 2 텍스트",
+      "description": "링크에 표시될 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "고객포털"
+    },
+    {
+      "id": "utility.link2.url",
+      "label": "링크 2 URL",
+      "description": "링크 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "utility.link3.show",
+      "label": "링크 3 표시",
+      "description": "체크하면 유틸리티 링크 3이 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "utility.link3.text",
+      "label": "링크 3 텍스트",
+      "description": "링크에 표시될 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "Cloud MES"
+    },
+    {
+      "id": "utility.link3.url",
+      "label": "링크 3 URL",
+      "description": "링크 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "utility.link4.show",
+      "label": "링크 4 표시",
+      "description": "체크하면 유틸리티 링크 4가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "utility.link4.text",
+      "label": "링크 4 텍스트",
+      "description": "링크에 표시될 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "스마트 팩토리 수준진단"
+    },
+    {
+      "id": "utility.link4.url",
+      "label": "링크 4 URL",
+      "description": "링크 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🌐 언어 선택"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "다국어 지원을 위한 언어 선택 버튼을 설정합니다."
+    },
+    {
+      "id": "language.show",
+      "label": "언어 선택 표시",
+      "description": "체크하면 언어 선택 버튼이 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "language.current",
+      "label": "현재 활성 언어",
+      "description": "현재 활성화된 언어를 선택하세요.",
+      "type": "SELECT",
+      "options": [
+        {"label": "한국어", "value": "lang1"},
+        {"label": "English", "value": "lang2"}
+      ]
+    },
+    {
+      "id": "language.lang1.text",
+      "label": "언어 1 텍스트",
+      "description": "첫 번째 언어 버튼의 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "KO"
+    },
+    {
+      "id": "language.lang1.url",
+      "label": "언어 1 URL",
+      "description": "첫 번째 언어 선택 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "language.lang2.text",
+      "label": "언어 2 텍스트",
+      "description": "두 번째 언어 버튼의 텍스트입니다.",
+      "type": "TEXT",
+      "placeholder": "EN"
+    },
+    {
+      "id": "language.lang2.url",
+      "label": "언어 2 URL",
+      "description": "두 번째 언어 선택 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📱 소셜 미디어"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "모바일 메뉴 하단에 표시될 소셜 미디어 아이콘을 설정합니다."
+    },
+    {
+      "id": "social.show",
+      "label": "소셜 아이콘 표시",
+      "description": "체크하면 모바일 메뉴에 소셜 아이콘이 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "social.icon1.show",
+      "label": "아이콘 1 표시",
+      "description": "체크하면 소셜 아이콘 1이 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "social.icon1.url",
+      "label": "아이콘 1 링크",
+      "description": "아이콘 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "social.icon1.svg",
+      "label": "아이콘 1 SVG 코드",
+      "description": "SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "social.icon2.show",
+      "label": "아이콘 2 표시",
+      "description": "체크하면 소셜 아이콘 2가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "social.icon2.url",
+      "label": "아이콘 2 링크",
+      "description": "아이콘 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "social.icon2.svg",
+      "label": "아이콘 2 SVG 코드",
+      "description": "SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "social.icon3.show",
+      "label": "아이콘 3 표시",
+      "description": "체크하면 소셜 아이콘 3이 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "social.icon3.url",
+      "label": "아이콘 3 링크",
+      "description": "아이콘 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "social.icon3.svg",
+      "label": "아이콘 3 SVG 코드",
+      "description": "SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "social.icon4.show",
+      "label": "아이콘 4 표시",
+      "description": "체크하면 소셜 아이콘 4가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "social.icon4.url",
+      "label": "아이콘 4 링크",
+      "description": "아이콘 클릭 시 이동할 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "social.icon4.svg",
+      "label": "아이콘 4 SVG 코드",
+      "description": "SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "모바일 환경에서의 헤더 및 메뉴 동작을 설정합니다."
+    },
+    {
+      "id": "mobile.breakpoint",
+      "label": "모바일 브레이크포인트",
+      "description": "이 값 이하에서 모바일 레이아웃으로 전환됩니다.",
+      "type": "RANGE",
+      "min": 640,
+      "max": 1024,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "mobile.hamburgerIcon",
+      "label": "햄버거 아이콘 SVG",
+      "description": "모바일 메뉴 열기 버튼의 SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "mobile.closeIcon",
+      "label": "닫기 아이콘 SVG",
+      "description": "모바일 메뉴 닫기 버튼의 SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "mobile.accordionIcon",
+      "label": "아코디언 아이콘 SVG",
+      "description": "메뉴 확장/축소 아이콘의 SVG 코드를 입력하세요.",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🎨 디자인 설정"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더의 색상, 크기, 간격 등 디자인 요소를 설정합니다."
+    },
+    {
+      "id": "design.headerHeight",
+      "label": "헤더 높이 (Desktop)",
+      "description": "데스크톱에서 헤더의 높이(px)입니다.",
+      "type": "RANGE",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "design.headerHeightMobile",
+      "label": "헤더 높이 (Mobile)",
+      "description": "모바일에서 헤더의 높이(px)입니다.",
+      "type": "RANGE",
+      "min": 50,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "design.backgroundColor",
+      "label": "헤더 배경색",
+      "description": "헤더의 배경 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "design.textColor",
+      "label": "텍스트 색상",
+      "description": "메뉴 텍스트의 기본 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "design.textHoverColor",
+      "label": "텍스트 호버 색상",
+      "description": "메뉴 텍스트에 마우스를 올렸을 때의 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "design.menuGap",
+      "label": "메뉴 간격",
+      "description": "메인 메뉴 항목 사이의 간격(px)입니다.",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "design.fontSize",
+      "label": "메뉴 폰트 크기",
+      "description": "메인 메뉴의 폰트 크기(px)입니다.",
+      "type": "RANGE",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "design.utilityFontSize",
+      "label": "유틸리티 폰트 크기",
+      "description": "유틸리티 링크의 폰트 크기(px)입니다.",
+      "type": "RANGE",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "design.dropdownBg",
+      "label": "드롭다운 배경색",
+      "description": "메가메뉴 드롭다운의 배경 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "design.dropdownTextColor",
+      "label": "드롭다운 텍스트 색상",
+      "description": "드롭다운 내 텍스트의 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📜 스크롤 효과"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "페이지 스크롤 시 헤더의 스타일을 변경합니다."
+    },
+    {
+      "id": "scroll.enabled",
+      "label": "스크롤 효과 사용",
+      "description": "체크하면 스크롤 시 헤더 스타일이 변경됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scroll.threshold",
+      "label": "스크롤 기준점",
+      "description": "이 값(px) 이상 스크롤하면 스타일이 변경됩니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "scroll.backgroundColor",
+      "label": "스크롤 시 배경색",
+      "description": "스크롤 내렸을 때의 배경색입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "scroll.shadow",
+      "label": "스크롤 시 그림자",
+      "description": "체크하면 스크롤 시 그림자가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scroll.shadowColor",
+      "label": "그림자 색상",
+      "description": "그림자의 색상입니다.",
+      "type": "COLOR_PICKER"
+    }
+  ],
+  "property": {
+    "logo": {
+      "image": "",
+      "link": {
+        "id": null,
+        "type": "",
+        "label": "홈",
+        "value": "/"
+      },
+      "height": 32
+    },
+    "menu1": {
+      "show": true,
+      "title": "About NOVA",
+      "link": {
+        "id": null,
+        "type": "",
+        "label": "About NOVA",
+        "value": "/about"
+      },
+      "isMega": true,
+      "megaItems": "비전|기업 비전|지속가능한 성장|/value/vision\n비전|기업 비전|고객 중심|/value/customer\n핵심가치|우리의 가치|혁신|/value/innovation\n핵심가치|우리의 가치|신뢰|/value/trust"
+    },
+    "menu2": {
+      "show": true,
+      "title": "서비스 및 솔루션",
+      "link": {
+        "id": null,
+        "type": "",
+        "label": "서비스 및 솔루션",
+        "value": "/service"
+      },
+      "isMega": true,
+      "megaItems": "서비스|스마트팩토리 컨설팅|현장 분석|/service/analysis\n서비스|스마트팩토리 컨설팅|프로세스 개선|/service/process\n서비스|MES 구축|On-Premise|/service/onpremise\n서비스|MES 구축|Cloud MES|/service/cloud\n솔루션|Nexplant MESplus|MES|/solution/mes\n솔루션|Nexplant MESplus|QMS|/solution/qms\n솔루션|Nexplant MESplus|EES|/solution/ees"
+    },
+    "menu3": {
+      "show": true,
+      "title": "고객지원",
+      "link": {
+        "id": null,
+        "type": "",
+        "label": "고객지원",
+        "value": "/support"
+      },
+      "isMega": true,
+      "megaItems": "고객지원|기술문서|사용자 가이드|/support/guide\n고객지원|기술문서|API 문서|/support/api\n고객지원|다운로드|소프트웨어|/support/download\n고객지원|FAQ|자주 묻는 질문|/support/faq"
+    },
+    "menu4": {
+      "show": true,
+      "title": "Contact",
+      "link": {
+        "id": null,
+        "type": "",
+        "label": "Contact",
+        "value": "/contact"
+      },
+      "isMega": true,
+      "megaItems": "회사소개|기업정보|회사 개요|/about/overview\n회사소개|기업정보|CEO 메시지|/about/ceo\n회사소개|기업정보|연혁|/about/history\n회사소개|인재채용|채용공고|/about/jobs\n회사소개|인재채용|인재상|/about/talent"
+    },
+    "utility": {
+      "show": true,
+      "link1": {
+        "show": true,
+        "text": "문의하기",
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "문의하기",
+          "value": "/contact"
+        }
+      },
+      "link2": {
+        "show": true,
+        "text": "고객포털",
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "고객포털",
+          "value": "/portal"
+        }
+      },
+      "link3": {
+        "show": true,
+        "text": "Cloud MES",
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "Cloud MES",
+          "value": "/cloud"
+        }
+      },
+      "link4": {
+        "show": true,
+        "text": "스마트 팩토리 수준진단",
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "스마트 팩토리 수준진단",
+          "value": "/diagnosis"
+        }
+      }
+    },
+    "language": {
+      "show": true,
+      "current": "lang1",
+      "lang1": {
+        "text": "KO",
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "한국어",
+          "value": "/"
+        }
+      },
+      "lang2": {
+        "text": "EN",
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "English",
+          "value": "/en"
+        }
+      }
+    },
+    "social": {
+      "show": true,
+      "icon1": {
+        "show": true,
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "Facebook",
+          "value": "https://facebook.com"
+        },
+        "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z\"/></svg>"
+      },
+      "icon2": {
+        "show": true,
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "YouTube",
+          "value": "https://youtube.com"
+        },
+        "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z\"/></svg>"
+      },
+      "icon3": {
+        "show": true,
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "LinkedIn",
+          "value": "https://linkedin.com"
+        },
+        "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z\"/></svg>"
+      },
+      "icon4": {
+        "show": true,
+        "url": {
+          "id": null,
+          "type": "",
+          "label": "Instagram",
+          "value": "https://instagram.com"
+        },
+        "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z\"/></svg>"
+      }
+    },
+    "mobile": {
+      "breakpoint": 768,
+      "hamburgerIcon": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 12h18M3 6h18M3 18h18\"/></svg>",
+      "closeIcon": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M18 6L6 18M6 6l12 12\"/></svg>",
+      "accordionIcon": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M8 11L3 6h10l-5 5z\"/></svg>"
+    },
+    "design": {
+      "headerHeight": 90,
+      "headerHeightMobile": 60,
+      "backgroundColor": "#000000F2",
+      "textColor": "#FFFFFFFF",
+      "textHoverColor": "#CCCCCCFF",
+      "menuGap": 40,
+      "fontSize": 15,
+      "utilityFontSize": 13,
+      "dropdownBg": "#1A1A1AFF",
+      "dropdownTextColor": "#E0E0E0FF"
+    },
+    "scroll": {
+      "enabled": true,
+      "threshold": 50,
+      "backgroundColor": "#000000FF",
+      "shadow": true,
+      "shadowColor": "#00000040"
+    }
+  }
+}
