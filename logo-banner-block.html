@@ -1,0 +1,111 @@
+<style>
+  .logo-banner {
+    width: 100%;
+    overflow: hidden;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.paddingY}}px {{property.paddingX}}px;
+    position: relative;
+  }
+
+  .logo-track {
+    display: flex;
+    align-items: center;
+    animation: scroll-{{property.direction}} {{property.speed}}s linear infinite;
+    gap: {{property.logoSpacing}}px;
+    width: max-content;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .logo-item {
+    flex-shrink: 0;
+    height: {{property.logoHeight}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: grayscale({{property.grayscale}}%);
+    opacity: {{property.opacity}};
+    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    will-change: filter, opacity, transform;
+  }
+
+  .logo-item:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .logo-item img {
+    max-height: 100%;
+    max-width: 200px;
+    object-fit: contain;
+    width: auto;
+  }
+
+  @keyframes scroll-left {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes scroll-right {
+    from {
+      transform: translate3d(-50%, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .logo-banner:hover .logo-track {
+    animation-play-state: {{property.pauseOnHover}};
+  }
+
+  @media (max-width: 768px) {
+    .logo-banner {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .logo-item {
+      height: {{property.mobileLogoHeight}}px;
+    }
+
+    .logo-track {
+      gap: {{property.mobileLogoSpacing}}px;
+    }
+  }
+</style>
+
+<template>
+  <div class="logo-banner">
+    <div class="logo-track">
+      {{#each property.logos}}
+        <div class="logo-item">
+          <img src="{{image}}" alt="{{name}}" loading="lazy" onerror="this.src='https://ss3-prod-static-files.s3.ap-northeast-2.amazonaws.com/block-image-library/lifestyle/image1.jpg'">
+        </div>
+      {{/each}}
+      {{#each property.logos}}
+        <div class="logo-item">
+          <img src="{{image}}" alt="{{name}}" loading="lazy" onerror="this.src='https://ss3-prod-static-files.s3.ap-northeast-2.amazonaws.com/block-image-library/lifestyle/image1.jpg'">
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  bm.onContextChange = () => {
+    // CSS 애니메이션만 사용하므로 별도 처리 불필요
+  };
+
+  bm.onDestroy = () => {
+    // 자원 해제
+  };
+</script>
