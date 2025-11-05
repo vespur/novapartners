@@ -588,54 +588,66 @@
         {{#if property.utility.show}}
           <div class="nova-header__utility-links">
             {{#if property.utility.link1.show}}
-              <a href="{{property.utility.link1.url.value}}" class="nova-header__utility-link">
-                {{property.utility.link1.text}}
-                {{#if property.utility.link1.icon}}
-                  {{{property.utility.link1.icon}}}
-                {{/if}}
-              </a>
+              {{#if property.utility.link1.url.value}}
+                <a href="{{property.utility.link1.url.value}}" class="nova-header__utility-link">
+                  {{property.utility.link1.text}}
+                  {{#if property.utility.link1.icon}}
+                    {{{property.utility.link1.icon}}}
+                  {{/if}}
+                </a>
+              {{/if}}
             {{/if}}
             {{#if property.utility.link2.show}}
-              <a href="{{property.utility.link2.url.value}}" class="nova-header__utility-link">
-                {{property.utility.link2.text}}
-                {{#if property.utility.link2.icon}}
-                  {{{property.utility.link2.icon}}}
-                {{/if}}
-              </a>
+              {{#if property.utility.link2.url.value}}
+                <a href="{{property.utility.link2.url.value}}" class="nova-header__utility-link">
+                  {{property.utility.link2.text}}
+                  {{#if property.utility.link2.icon}}
+                    {{{property.utility.link2.icon}}}
+                  {{/if}}
+                </a>
+              {{/if}}
             {{/if}}
             {{#if property.utility.link3.show}}
-              <a href="{{property.utility.link3.url.value}}" class="nova-header__utility-link">
-                {{property.utility.link3.text}}
-                {{#if property.utility.link3.icon}}
-                  {{{property.utility.link3.icon}}}
-                {{/if}}
-              </a>
+              {{#if property.utility.link3.url.value}}
+                <a href="{{property.utility.link3.url.value}}" class="nova-header__utility-link">
+                  {{property.utility.link3.text}}
+                  {{#if property.utility.link3.icon}}
+                    {{{property.utility.link3.icon}}}
+                  {{/if}}
+                </a>
+              {{/if}}
             {{/if}}
             {{#if property.utility.link4.show}}
-              <a href="{{property.utility.link4.url.value}}" class="nova-header__utility-link">
-                {{property.utility.link4.text}}
-                {{#if property.utility.link4.icon}}
-                  {{{property.utility.link4.icon}}}
-                {{/if}}
-              </a>
+              {{#if property.utility.link4.url.value}}
+                <a href="{{property.utility.link4.url.value}}" class="nova-header__utility-link">
+                  {{property.utility.link4.text}}
+                  {{#if property.utility.link4.icon}}
+                    {{{property.utility.link4.icon}}}
+                  {{/if}}
+                </a>
+              {{/if}}
             {{/if}}
           </div>
         {{/if}}
 
         {{#if property.language.show}}
           <div class="nova-header__language">
-            <a
-              href="{{property.language.lang1.url.value}}"
-              class="nova-header__lang-btn {{#if (eq property.language.current 'lang1')}}active{{/if}}"
-            >
-              {{property.language.lang1.text}}
-            </a>
-            <a
-              href="{{property.language.lang2.url.value}}"
-              class="nova-header__lang-btn {{#if (eq property.language.current 'lang2')}}active{{/if}}"
-            >
-              {{property.language.lang2.text}}
-            </a>
+            {{#if property.language.lang1.url.value}}
+              <a
+                href="{{property.language.lang1.url.value}}"
+                class="nova-header__lang-btn {{#if (eq property.language.current 'lang1')}}active{{/if}}"
+              >
+                {{property.language.lang1.text}}
+              </a>
+            {{/if}}
+            {{#if property.language.lang2.url.value}}
+              <a
+                href="{{property.language.lang2.url.value}}"
+                class="nova-header__lang-btn {{#if (eq property.language.current 'lang2')}}active{{/if}}"
+              >
+                {{property.language.lang2.text}}
+              </a>
+            {{/if}}
           </div>
         {{/if}}
 
@@ -725,42 +737,54 @@
         {{#if property.social.show}}
           <div class="nova-mobile-menu__social">
             {{#if property.social.icon1.show}}
-              <a href="{{property.social.icon1.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
-                {{{property.social.icon1.svg}}}
-              </a>
+              {{#if property.social.icon1.url.value}}
+                <a href="{{property.social.icon1.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
+                  {{{property.social.icon1.svg}}}
+                </a>
+              {{/if}}
             {{/if}}
             {{#if property.social.icon2.show}}
-              <a href="{{property.social.icon2.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
-                {{{property.social.icon2.svg}}}
-              </a>
+              {{#if property.social.icon2.url.value}}
+                <a href="{{property.social.icon2.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
+                  {{{property.social.icon2.svg}}}
+                </a>
+              {{/if}}
             {{/if}}
             {{#if property.social.icon3.show}}
-              <a href="{{property.social.icon3.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
-                {{{property.social.icon3.svg}}}
-              </a>
+              {{#if property.social.icon3.url.value}}
+                <a href="{{property.social.icon3.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
+                  {{{property.social.icon3.svg}}}
+                </a>
+              {{/if}}
             {{/if}}
             {{#if property.social.icon4.show}}
-              <a href="{{property.social.icon4.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
-                {{{property.social.icon4.svg}}}
-              </a>
+              {{#if property.social.icon4.url.value}}
+                <a href="{{property.social.icon4.url.value}}" class="nova-mobile-menu__social-link" target="_blank">
+                  {{{property.social.icon4.svg}}}
+                </a>
+              {{/if}}
             {{/if}}
           </div>
         {{/if}}
 
         {{#if property.language.show}}
           <div class="nova-mobile-menu__language">
-            <a
-              href="{{property.language.lang1.url.value}}"
-              class="nova-mobile-menu__lang-btn {{#if (eq property.language.current 'lang1')}}active{{/if}}"
-            >
-              {{property.language.lang1.text}}
-            </a>
-            <a
-              href="{{property.language.lang2.url.value}}"
-              class="nova-mobile-menu__lang-btn {{#if (eq property.language.current 'lang2')}}active{{/if}}"
-            >
-              {{property.language.lang2.text}}
-            </a>
+            {{#if property.language.lang1.url.value}}
+              <a
+                href="{{property.language.lang1.url.value}}"
+                class="nova-mobile-menu__lang-btn {{#if (eq property.language.current 'lang1')}}active{{/if}}"
+              >
+                {{property.language.lang1.text}}
+              </a>
+            {{/if}}
+            {{#if property.language.lang2.url.value}}
+              <a
+                href="{{property.language.lang2.url.value}}"
+                class="nova-mobile-menu__lang-btn {{#if (eq property.language.current 'lang2')}}active{{/if}}"
+              >
+                {{property.language.lang2.text}}
+              </a>
+            {{/if}}
           </div>
         {{/if}}
       </div>

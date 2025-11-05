@@ -199,7 +199,7 @@ LINK 타입을 사용해야 에디터에서:
   }
 }
 
-// 3) Template 사용
+// 3) Template 사용 (⚠️ 반드시 #if 가드 필요)
 {{#if property.ctaLink.value}}
   <a href="{{property.ctaLink.value}}">
     {{property.ctaLink.label}}
@@ -207,10 +207,28 @@ LINK 타입을 사용해야 에디터에서:
 {{/if}}
 ```
 
+**⚠️ 중요: LINK 필드는 반드시 #if 가드로 감싸기**
+
+LINK 필드를 클릭하면 에디터가 피커를 열면서 값을 읽는데, 이때 `{{property.xxx.value}}`를 #if 없이 직접 참조하면:
+- 초기 로드 시 값이 undefined → 런타임 에러
+- 에디터 화면이 검게 변하며 "client-side exception" 에러 발생
+
+**해결책:**
+```handlebars
+❌ 잘못된 사용
+<a href="{{property.myLink.value}}">링크</a>
+
+✅ 올바른 사용
+{{#if property.myLink.value}}
+  <a href="{{property.myLink.value}}">링크</a>
+{{/if}}
+```
+
 **빠른 점검 체크리스트:**
 - [ ] 세팅에 `type: "LINK"` 사용 (TEXT/TEXTAREA 금지)
 - [ ] property가 문자열이 아닌 `{id, type, label, value}` 객체
 - [ ] 템플릿에서 `.value`와 `.label` 사용
+- [ ] **템플릿에서 반드시 `{{#if property.xxx.value}}` 가드 사용** ⭐
 - [ ] (선택) 새 창 옵션은 별도 CHECKBOX로 구현
 
 **잘못된 예시 (❌):**
