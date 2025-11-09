@@ -334,15 +334,18 @@
   const overlay = container.querySelector('.overlay');
 
   function handleScroll() {
-    if (!context.property.enableScrollStyle) return;
+    if (!context.property.enableScrollStyle) {
+      header.classList.remove('scrolled');
+      return;
+    }
 
-    // 에디터 프리뷰 모드
+    // 에디터에서는 previewScrolled가 true이면 항상 스크롤 상태 표시
     if (context.property.previewScrolled) {
       header.classList.add('scrolled');
       return;
     }
 
-    // 실제 웹사이트
+    // 실제 웹사이트에서는 스크롤 위치에 따라
     if (window.scrollY > context.property.scrollThreshold) {
       header.classList.add('scrolled');
     } else {

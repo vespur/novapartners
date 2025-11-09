@@ -429,7 +429,7 @@
     "headerBorder": 0,
     "headerBorderColor": "#E0E0E0FF",
     "enableScrollStyle": false,
-    "previewScrolled": false,
+    "previewScrolled": true,
     "scrollThreshold": 50,
     "scrollBgType": "solid",
     "scrollBg": "#FFFFFFFF",
