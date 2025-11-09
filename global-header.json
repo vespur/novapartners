@@ -36,6 +36,7 @@
       "label": "메뉴 항목",
       "description": "헤더 메뉴",
       "type": "LIST",
+      "maxCount": 10,
       "settings": [
         {
           "id": "name",
