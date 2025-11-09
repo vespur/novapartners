@@ -32,10 +32,22 @@
       "content": "메뉴"
     },
     {
-      "id": "menus",
+      "id": "menuItems",
       "label": "메뉴 항목",
       "description": "헤더 메뉴",
-      "type": "MENU"
+      "type": "LIST",
+      "settings": [
+        {
+          "id": "name",
+          "label": "메뉴 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "link",
+          "label": "링크",
+          "type": "LINK"
+        }
+      ]
     },
     {
       "id": "menuColorDesktop",
@@ -116,7 +128,7 @@
       "label": "/",
       "value": "/"
     },
-    "menus": [],
+    "menuItems": [],
     "menuColorDesktop": "#000000FF",
     "menuSizeDesktop": 16,
     "menuGapDesktop": 30,
