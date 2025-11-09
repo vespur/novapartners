@@ -15,7 +15,7 @@
       "label": "로고 너비",
       "description": "로고 이미지 너비 (px)",
       "type": "RANGE",
-      "min": 80,
+      "min": 0,
       "max": 300,
       "step": 10,
       "unit": "px"
@@ -92,7 +92,7 @@
       "label": "메뉴 크기 (데스크탑)",
       "description": "데스크탑 메뉴 글자 크기",
       "type": "RANGE",
-      "min": 12,
+      "min": 0,
       "max": 24,
       "step": 1,
       "unit": "px"
@@ -102,7 +102,7 @@
       "label": "메뉴 간격 (데스크탑)",
       "description": "메뉴 항목 사이 간격",
       "type": "RANGE",
-      "min": 10,
+      "min": 0,
       "max": 60,
       "step": 5,
       "unit": "px"
@@ -118,7 +118,7 @@
       "label": "메뉴 크기 (모바일)",
       "description": "모바일 메뉴 글자 크기",
       "type": "RANGE",
-      "min": 14,
+      "min": 0,
       "max": 28,
       "step": 1,
       "unit": "px"
@@ -164,7 +164,7 @@
       "label": "헤더 높이",
       "description": "헤더 높이 (px)",
       "type": "RANGE",
-      "min": 60,
+      "min": 0,
       "max": 120,
       "step": 5,
       "unit": "px"
@@ -174,7 +174,7 @@
       "label": "헤더 좌우 여백",
       "description": "헤더 내부 좌우 여백 (px)",
       "type": "RANGE",
-      "min": 20,
+      "min": 0,
       "max": 100,
       "step": 10,
       "unit": "px"
@@ -197,20 +197,62 @@
       "content": "헤더 초기 디자인 (스크롤 최상단)"
     },
     {
+      "id": "headerBgType",
+      "label": "배경 타입",
+      "description": "단색 또는 그라디언트",
+      "type": "RADIO",
+      "options": [
+        { "label": "단색", "value": "solid" },
+        { "label": "그라디언트", "value": "gradient" }
+      ]
+    },
+    {
       "id": "headerBg",
       "label": "배경색",
       "description": "헤더 배경색",
-      "type": "COLOR_PICKER"
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'solid'"
+    },
+    {
+      "id": "headerGradientStart",
+      "label": "그라디언트 시작색",
+      "description": "그라디언트 시작 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientEnd",
+      "label": "그라디언트 끝색",
+      "description": "그라디언트 끝 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientAngle",
+      "label": "그라디언트 각도",
+      "description": "그라디언트 방향 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.headerBgType === 'gradient'"
     },
     {
       "id": "headerShadow",
-      "label": "그림자",
-      "description": "그림자 강도",
+      "label": "그림자 강도",
+      "description": "그림자 크기",
       "type": "RANGE",
       "min": 0,
       "max": 30,
       "step": 2,
       "unit": "px"
+    },
+    {
+      "id": "headerShadowColor",
+      "label": "그림자 색상",
+      "description": "그림자 색상 및 투명도",
+      "type": "COLOR_PICKER"
     },
     {
       "id": "headerBlur",
@@ -250,14 +292,32 @@
       "type": "CHECKBOX"
     },
     {
+      "id": "previewScrolled",
+      "label": "에디터에서 스크롤 디자인 미리보기",
+      "description": "에디터에서 스크롤된 상태의 디자인을 미리 확인",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
       "id": "scrollThreshold",
       "label": "스크롤 감지 지점",
       "description": "디자인이 변경될 스크롤 위치 (px)",
       "type": "RANGE",
-      "min": 10,
+      "min": 0,
       "max": 300,
       "step": 10,
       "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBgType",
+      "label": "스크롤 배경 타입",
+      "description": "단색 또는 그라디언트",
+      "type": "RADIO",
+      "options": [
+        { "label": "단색", "value": "solid" },
+        { "label": "그라디언트", "value": "gradient" }
+      ],
       "isVisible": "property.enableScrollStyle === true"
     },
     {
@@ -265,17 +325,49 @@
       "label": "스크롤 배경색",
       "description": "스크롤 시 배경색",
       "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true"
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid'"
+    },
+    {
+      "id": "scrollGradientStart",
+      "label": "스크롤 그라디언트 시작색",
+      "description": "스크롤 시 그라디언트 시작 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
+    },
+    {
+      "id": "scrollGradientEnd",
+      "label": "스크롤 그라디언트 끝색",
+      "description": "스크롤 시 그라디언트 끝 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
+    },
+    {
+      "id": "scrollGradientAngle",
+      "label": "스크롤 그라디언트 각도",
+      "description": "스크롤 시 그라디언트 방향 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
     },
     {
       "id": "scrollShadow",
-      "label": "스크롤 그림자",
-      "description": "스크롤 시 그림자 강도",
+      "label": "스크롤 그림자 강도",
+      "description": "스크롤 시 그림자 크기",
       "type": "RANGE",
       "min": 0,
       "max": 30,
       "step": 2,
       "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollShadowColor",
+      "label": "스크롤 그림자 색상",
+      "description": "스크롤 시 그림자 색상 및 투명도",
+      "type": "COLOR_PICKER",
       "isVisible": "property.enableScrollStyle === true"
     },
     {
@@ -326,15 +418,26 @@
     "headerPadding": 40,
     "isSticky": true,
     "isOverlay": false,
+    "headerBgType": "solid",
     "headerBg": "#FFFFFFEE",
+    "headerGradientStart": "#FFFFFFFF",
+    "headerGradientEnd": "#F0F0F0FF",
+    "headerGradientAngle": 180,
     "headerShadow": 0,
+    "headerShadowColor": "#00000033",
     "headerBlur": 0,
     "headerBorder": 0,
     "headerBorderColor": "#E0E0E0FF",
     "enableScrollStyle": false,
+    "previewScrolled": false,
     "scrollThreshold": 50,
+    "scrollBgType": "solid",
     "scrollBg": "#FFFFFFFF",
+    "scrollGradientStart": "#FFFFFFFF",
+    "scrollGradientEnd": "#E0E0E0FF",
+    "scrollGradientAngle": 180,
     "scrollShadow": 4,
+    "scrollShadowColor": "#00000033",
     "scrollBlur": 8,
     "scrollBorder": 1
   }

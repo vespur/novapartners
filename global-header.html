@@ -2,9 +2,13 @@
   .global-header {
     width: 100%;
     height: {{property.headerHeight}}px;
+    {{#if (eq property.headerBgType 'gradient')}}
+    background: linear-gradient({{property.headerGradientAngle}}deg, {{property.headerGradientStart}}, {{property.headerGradientEnd}});
+    {{else}}
     background: {{property.headerBg}};
+    {{/if}}
     {{#if (gt property.headerShadow 0)}}
-    box-shadow: 0 2px {{property.headerShadow}}px rgba(0,0,0,0.1);
+    box-shadow: 0 2px {{property.headerShadow}}px {{property.headerShadowColor}};
     {{/if}}
     {{#if (gt property.headerBlur 0)}}
     backdrop-filter: blur({{property.headerBlur}}px);
@@ -32,9 +36,13 @@
 
   {{#if property.enableScrollStyle}}
   .global-header.scrolled {
+    {{#if (eq property.scrollBgType 'gradient')}}
+    background: linear-gradient({{property.scrollGradientAngle}}deg, {{property.scrollGradientStart}}, {{property.scrollGradientEnd}}) !important;
+    {{else}}
     background: {{property.scrollBg}} !important;
+    {{/if}}
     {{#if (gt property.scrollShadow 0)}}
-    box-shadow: 0 2px {{property.scrollShadow}}px rgba(0,0,0,0.1) !important;
+    box-shadow: 0 2px {{property.scrollShadow}}px {{property.scrollShadowColor}} !important;
     {{else}}
     box-shadow: none !important;
     {{/if}}
@@ -328,6 +336,13 @@
   function handleScroll() {
     if (!context.property.enableScrollStyle) return;
 
+    // 에디터 프리뷰 모드
+    if (context.property.previewScrolled) {
+      header.classList.add('scrolled');
+      return;
+    }
+
+    // 실제 웹사이트
     if (window.scrollY > context.property.scrollThreshold) {
       header.classList.add('scrolled');
     } else {
@@ -361,9 +376,7 @@
   }
 
   bm.onContextChange = () => {
-    if (context.property.enableScrollStyle) {
-      handleScroll();
-    }
+    handleScroll();
   };
 
   bm.onDestroy = () => {
