@@ -123,11 +123,16 @@
     margin: {{property.menuMarginY}}px {{property.menuMarginX}}px;
   }
 
-  .nav-desktop a {
+  .menu-item {
+    position: relative;
+  }
+
+  .nav-desktop > .menu-item > a {
     color: {{property.menuColorDesktop}};
     font-size: {{property.menuSizeDesktop}}px;
     text-decoration: none;
     white-space: nowrap;
+    display: block;
     {{#if (eq property.menuHoverEffect 'opacity')}}
     transition: opacity 0.2s;
     {{else if (eq property.menuHoverEffect 'color')}}
@@ -139,7 +144,7 @@
     {{/if}}
   }
 
-  .nav-desktop a:hover {
+  .nav-desktop > .menu-item > a:hover {
     {{#if (eq property.menuHoverEffect 'opacity')}}
     opacity: 0.6;
     {{else if (eq property.menuHoverEffect 'color')}}
@@ -151,22 +156,89 @@
     {{/if}}
   }
 
-  .utility-menu {
-    display: flex;
-    gap: {{property.utilityIconGap}}px;
-    align-items: center;
+  {{#if property.enableSubmenu}}
+  .submenu-overlay {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    {{#if property.enableOverlay}}
+    background: {{property.overlayBg}};
+    {{else}}
+    background: transparent;
+    {{/if}}
+    {{#if (and property.enableOverlay (gt property.overlayShadow 0))}}
+    box-shadow: 0 4px {{property.overlayShadow}}px {{property.overlayShadowColor}};
+    {{/if}}
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 999;
   }
 
-  .utility-items {
+  .menu-item:hover .submenu-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .submenu {
+    background: {{property.submenuBg}};
+    padding: {{property.submenuPadding}}px;
+    display: flex;
+    flex-direction: column;
+    gap: {{property.submenuGap}}px;
+  }
+
+  .submenu a {
+    color: {{property.submenuColor}};
+    font-size: {{property.submenuSize}}px;
+    text-decoration: none;
+    white-space: nowrap;
+    {{#if (eq property.submenuHoverEffect 'opacity')}}
+    transition: opacity 0.2s;
+    {{else if (eq property.submenuHoverEffect 'color')}}
+    transition: color 0.2s;
+    {{else if (eq property.submenuHoverEffect 'background')}}
+    transition: background 0.2s;
+    padding: 5px 10px;
+    border-radius: 4px;
+    {{else}}
+    transition: all 0.2s;
+    {{/if}}
+  }
+
+  .submenu a:hover {
+    {{#if (eq property.submenuHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.submenuHoverEffect 'color')}}
+    color: {{property.submenuHoverColor}};
+    {{else if (eq property.submenuHoverEffect 'underline')}}
+    text-decoration: underline;
+    {{else if (eq property.submenuHoverEffect 'background')}}
+    background: {{property.submenuHoverBg}};
+    {{/if}}
+  }
+  {{/if}}
+
+  .utility-menu {
     display: flex;
     gap: {{property.utilityMenuGap}}px;
     align-items: center;
+    {{#if (gt property.utilityMenuMarginX 0)}}
+    margin-left: {{property.utilityMenuMarginX}}px;
+    {{/if}}
   }
 
   .utility-item {
     display: flex;
     align-items: center;
     gap: 6px;
+  }
+
+  .utility-item .item-icon svg {
+    width: {{property.utilityIconSize}}px;
+    height: {{property.utilityIconSize}}px;
+    stroke: {{property.utilityIconColor}};
+    fill: {{property.utilityIconColor}};
   }
 
   .utility-menu a {
@@ -196,39 +268,25 @@
     {{/if}}
   }
 
-  .utility-icon {
-    display: flex;
-    align-items: center;
-  }
-
-  .utility-icon svg {
-    width: {{property.utilityIconSize}}px;
-    height: {{property.utilityIconSize}}px;
-    stroke: {{property.utilityIconColor}};
-    fill: {{property.utilityIconColor}};
-  }
-
-  .language-selector {
+  .language-btn {
     background: {{property.languageButtonBg}};
     border: {{property.languageButtonBorder}}px solid {{property.languageButtonBorderColor}};
     border-radius: {{property.languageButtonRadius}}px;
     padding: {{property.languageButtonPadding}}px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-  .language-item {
     color: {{property.languageButtonColor}};
     font-size: {{property.languageButtonSize}}px;
     cursor: pointer;
     text-decoration: none;
+    white-space: nowrap;
+    {{#if (gt property.languageButtonMarginX 0)}}
+    margin-left: {{property.languageButtonMarginX}}px;
+    {{/if}}
     {{#if (eq property.languageButtonHoverEffect 'opacity')}}
     transition: opacity 0.2s;
     {{else if (eq property.languageButtonHoverEffect 'color')}}
     transition: color 0.2s;
     {{else if (eq property.languageButtonHoverEffect 'background')}}
-    transition: background 0.2s, padding 0.2s;
+    transition: background 0.2s;
     {{else if (eq property.languageButtonHoverEffect 'scale')}}
     transition: transform 0.2s;
     {{else}}
@@ -236,7 +294,7 @@
     {{/if}}
   }
 
-  .language-item:hover {
+  .language-btn:hover {
     {{#if (eq property.languageButtonHoverEffect 'opacity')}}
     opacity: 0.6;
     {{else if (eq property.languageButtonHoverEffect 'color')}}
@@ -248,25 +306,6 @@
     {{else if (eq property.languageButtonHoverEffect 'scale')}}
     transform: scale(1.05);
     {{/if}}
-  }
-
-  .language-item.selected {
-    {{#if (eq property.languageDisplayStyle 'bold')}}
-    font-weight: bold;
-    {{else if (eq property.languageDisplayStyle 'underline')}}
-    text-decoration: underline;
-    {{else if (eq property.languageDisplayStyle 'background')}}
-    background: {{property.languageSelectedColor}};
-    padding: 2px 6px;
-    border-radius: 3px;
-    {{else if (eq property.languageDisplayStyle 'color')}}
-    color: {{property.languageSelectedColor}};
-    {{/if}}
-  }
-
-  .language-divider {
-    color: {{property.languageButtonColor}};
-    opacity: 0.3;
   }
 
   .hamburger {
@@ -369,7 +408,7 @@
       display: none;
     }
 
-    .language-selector {
+    .language-btn {
       display: none;
     }
 
@@ -396,7 +435,18 @@
         {{#if (eq property.menuAlign 'left')}}
         <nav class="nav-desktop">
           {{#each property.menuItems}}
-          <a href="{{link.value}}">{{name}}</a>
+          <div class="menu-item">
+            <a href="{{link.value}}">{{name}}</a>
+            {{#if (and ../property.enableSubmenu (gt (size subMenuItems) 0))}}
+            <div class="submenu-overlay" style="top: {{../property.headerHeight}}px;">
+              <div class="submenu">
+                {{#each subMenuItems}}
+                <a href="{{link.value}}">{{name}}</a>
+                {{/each}}
+              </div>
+            </div>
+            {{/if}}
+          </div>
           {{/each}}
         </nav>
         {{/if}}
@@ -416,7 +466,18 @@
         {{#if (eq property.menuAlign 'center')}}
         <nav class="nav-desktop">
           {{#each property.menuItems}}
-          <a href="{{link.value}}">{{name}}</a>
+          <div class="menu-item">
+            <a href="{{link.value}}">{{name}}</a>
+            {{#if (and ../property.enableSubmenu (gt (size subMenuItems) 0))}}
+            <div class="submenu-overlay" style="top: {{../property.headerHeight}}px;">
+              <div class="submenu">
+                {{#each subMenuItems}}
+                <a href="{{link.value}}">{{name}}</a>
+                {{/each}}
+              </div>
+            </div>
+            {{/if}}
+          </div>
           {{/each}}
         </nav>
         {{/if}}
@@ -437,37 +498,37 @@
           {{#if (eq property.menuAlign 'right')}}
           <nav class="nav-desktop">
             {{#each property.menuItems}}
-            <a href="{{link.value}}">{{name}}</a>
+            <div class="menu-item">
+              <a href="{{link.value}}">{{name}}</a>
+              {{#if (and ../property.enableSubmenu (gt (size subMenuItems) 0))}}
+              <div class="submenu-overlay" style="top: {{../property.headerHeight}}px;">
+                <div class="submenu">
+                  {{#each subMenuItems}}
+                  <a href="{{link.value}}">{{name}}</a>
+                  {{/each}}
+                </div>
+              </div>
+              {{/if}}
+            </div>
             {{/each}}
           </nav>
           {{/if}}
 
           {{#if (gt (size property.utilityMenuItems) 0)}}
           <nav class="utility-menu">
-            <div class="utility-items">
-              {{#each property.utilityMenuItems}}
-              <div class="utility-item">
-                <a href="{{link.value}}">{{name}}</a>
-              </div>
-              {{/each}}
+            {{#each property.utilityMenuItems}}
+            <div class="utility-item">
+              {{#if iconSvg}}
+              <div class="item-icon">{{{iconSvg}}}</div>
+              {{/if}}
+              <a href="{{link.value}}">{{name}}</a>
             </div>
-            {{#if property.utilityIconSvg}}
-            <div class="utility-icon">
-              {{{property.utilityIconSvg}}}
-            </div>
-            {{/if}}
+            {{/each}}
           </nav>
           {{/if}}
 
           {{#if property.enableLanguage}}
-          {{#if (gt (size property.languageItems) 0)}}
-          <div class="language-selector">
-            {{#each property.languageItems}}
-            <span class="language-item {{#if (eq code ../property.defaultLanguage)}}selected{{/if}}" data-lang="{{code}}">{{code}}</span>
-            {{#unless @last}}<span class="language-divider">/</span>{{/unless}}
-            {{/each}}
-          </div>
-          {{/if}}
+          <a href="{{property.languageButtonLink.value}}" class="language-btn">{{property.languageButtonText}}</a>
           {{/if}}
         </div>
 
@@ -506,7 +567,6 @@
   const context = bm.context;
 
   function handleScroll() {
-    // DOM이 재생성될 수 있으므로 매번 새로 쿼리
     const header = container.querySelector('.global-header');
     if (!header) return;
 
@@ -515,13 +575,11 @@
       return;
     }
 
-    // previewScrolled가 명시적으로 false가 아니면 에디터에서 스크롤 디자인 표시
     if (context.property.previewScrolled !== false) {
       header.classList.add('scrolled');
       return;
     }
 
-    // 실제 웹사이트
     if (window.scrollY > context.property.scrollThreshold) {
       header.classList.add('scrolled');
     } else {
@@ -549,18 +607,6 @@
       navMobile.classList.remove('active');
       overlay.classList.remove('active');
       document.body.style.overflow = '';
-    }
-
-    if (e.target.matches('.language-item')) {
-      const selectedLang = e.target.getAttribute('data-lang');
-      const languageItems = container.querySelectorAll('.language-item');
-      languageItems.forEach(item => {
-        if (item.getAttribute('data-lang') === selectedLang) {
-          item.classList.add('selected');
-        } else {
-          item.classList.remove('selected');
-        }
-      });
     }
   }, true);
 

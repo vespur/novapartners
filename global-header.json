@@ -78,6 +78,25 @@
           "id": "link",
           "label": "링크",
           "type": "LINK"
+        },
+        {
+          "id": "subMenuItems",
+          "label": "하위 메뉴",
+          "description": "드롭다운 메뉴 항목",
+          "type": "LIST",
+          "maxCount": 20,
+          "settings": [
+            {
+              "id": "name",
+              "label": "하위 메뉴 이름",
+              "type": "TEXT"
+            },
+            {
+              "id": "link",
+              "label": "링크",
+              "type": "LINK"
+            }
+          ]
         }
       ]
     },
@@ -320,6 +339,13 @@
           "id": "link",
           "label": "링크",
           "type": "LINK"
+        },
+        {
+          "id": "iconSvg",
+          "label": "아이콘 SVG",
+          "description": "메뉴 앞에 표시할 아이콘 (선택)",
+          "type": "TEXTAREA",
+          "placeholder": "<svg>...</svg>"
         }
       ]
     },
@@ -369,16 +395,9 @@
       "isVisible": "property.utilityMenuHoverEffect === 'color'"
     },
     {
-      "id": "utilityIconSvg",
-      "label": "유틸리티 아이콘 SVG",
-      "description": "유틸리티 메뉴 우측에 표시할 아이콘 (SVG 코드)",
-      "type": "TEXTAREA",
-      "placeholder": "<svg>...</svg>"
-    },
-    {
       "id": "utilityIconSize",
       "label": "유틸리티 아이콘 크기",
-      "description": "아이콘 크기",
+      "description": "메뉴별 아이콘 크기",
       "type": "RANGE",
       "min": 0,
       "max": 30,
@@ -388,17 +407,17 @@
     {
       "id": "utilityIconColor",
       "label": "유틸리티 아이콘 색상",
-      "description": "아이콘 색상",
+      "description": "메뉴별 아이콘 색상",
       "type": "COLOR_PICKER"
     },
     {
-      "id": "utilityIconGap",
-      "label": "유틸리티 아이콘 간격",
-      "description": "유틸리티 메뉴와 아이콘 사이 간격",
+      "id": "utilityMenuMarginX",
+      "label": "유틸리티 메뉴 여백",
+      "description": "유틸리티 메뉴 영역 좌측 여백",
       "type": "RANGE",
       "min": 0,
-      "max": 40,
-      "step": 2,
+      "max": 100,
+      "step": 5,
       "unit": "px"
     },
 
@@ -409,58 +428,23 @@
     {
       "id": "enableLanguage",
       "label": "다국어 버튼 사용",
-      "description": "다국어 전환 버튼 표시",
+      "description": "다국어 버튼 표시",
       "type": "CHECKBOX"
     },
     {
-      "id": "languageItems",
-      "label": "언어 목록",
-      "description": "지원할 언어 목록",
-      "type": "LIST",
-      "maxCount": 10,
-      "isVisible": "property.enableLanguage === true",
-      "settings": [
-        {
-          "id": "code",
-          "label": "언어 코드",
-          "description": "예: KR, EN, JP",
-          "type": "TEXT"
-        },
-        {
-          "id": "label",
-          "label": "표시 이름",
-          "description": "예: 한국어, English, 日本語",
-          "type": "TEXT"
-        }
-      ]
-    },
-    {
-      "id": "defaultLanguage",
-      "label": "기본 언어",
-      "description": "초기 선택 언어 (언어 코드)",
+      "id": "languageButtonText",
+      "label": "다국어 버튼 텍스트",
+      "description": "버튼에 표시할 텍스트",
       "type": "TEXT",
-      "placeholder": "예: KR",
+      "placeholder": "예: KR / EN",
       "isVisible": "property.enableLanguage === true"
     },
     {
-      "id": "languageDisplayStyle",
-      "label": "선택 언어 표시 스타일",
-      "description": "현재 선택된 언어를 어떻게 표시할지",
-      "type": "SELECT",
-      "options": [
-        { "label": "굵게", "value": "bold" },
-        { "label": "밑줄", "value": "underline" },
-        { "label": "배경색", "value": "background" },
-        { "label": "색상 변경", "value": "color" }
-      ],
+      "id": "languageButtonLink",
+      "label": "다국어 버튼 링크",
+      "description": "버튼 클릭 시 이동 경로",
+      "type": "LINK",
       "isVisible": "property.enableLanguage === true"
-    },
-    {
-      "id": "languageSelectedColor",
-      "label": "선택 언어 강조 색상",
-      "description": "선택 언어 표시 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableLanguage === true && (property.languageDisplayStyle === 'color' || property.languageDisplayStyle === 'background')"
     },
     {
       "id": "languageButtonColor",
@@ -554,6 +538,134 @@
       "description": "호버 시 배경색",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableLanguage === true && property.languageButtonHoverEffect === 'background'"
+    },
+    {
+      "id": "languageButtonMarginX",
+      "label": "다국어 버튼 여백",
+      "description": "다국어 버튼 좌측 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableLanguage === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "하위 메뉴 및 오버레이"
+    },
+    {
+      "id": "enableSubmenu",
+      "label": "하위 메뉴 사용",
+      "description": "메뉴 호버 시 하위 메뉴 표시",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "submenuBg",
+      "label": "하위 메뉴 배경색",
+      "description": "드롭다운 메뉴 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableSubmenu === true"
+    },
+    {
+      "id": "submenuColor",
+      "label": "하위 메뉴 색상",
+      "description": "하위 메뉴 글자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableSubmenu === true"
+    },
+    {
+      "id": "submenuSize",
+      "label": "하위 메뉴 크기",
+      "description": "하위 메뉴 글자 크기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableSubmenu === true"
+    },
+    {
+      "id": "submenuPadding",
+      "label": "하위 메뉴 여백",
+      "description": "하위 메뉴 내부 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableSubmenu === true"
+    },
+    {
+      "id": "submenuGap",
+      "label": "하위 메뉴 간격",
+      "description": "하위 메뉴 항목 사이 간격",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableSubmenu === true"
+    },
+    {
+      "id": "submenuHoverEffect",
+      "label": "하위 메뉴 호버 효과",
+      "description": "하위 메뉴 호버 시 효과",
+      "type": "SELECT",
+      "options": [
+        { "label": "투명도 변경", "value": "opacity" },
+        { "label": "색상 변경", "value": "color" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "배경색 변경", "value": "background" }
+      ],
+      "isVisible": "property.enableSubmenu === true"
+    },
+    {
+      "id": "submenuHoverColor",
+      "label": "하위 메뉴 호버 색상",
+      "description": "호버 시 글자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableSubmenu === true && property.submenuHoverEffect === 'color'"
+    },
+    {
+      "id": "submenuHoverBg",
+      "label": "하위 메뉴 호버 배경",
+      "description": "호버 시 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableSubmenu === true && property.submenuHoverEffect === 'background'"
+    },
+    {
+      "id": "enableOverlay",
+      "label": "오버레이 배경 사용",
+      "description": "메뉴 호버 시 헤더 배경과 오버레이 표시",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableSubmenu === true"
+    },
+    {
+      "id": "overlayBg",
+      "label": "오버레이 배경색",
+      "description": "오버레이 배경색 (화면 전체 가로)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableSubmenu === true && property.enableOverlay === true"
+    },
+    {
+      "id": "overlayShadow",
+      "label": "오버레이 그림자",
+      "description": "오버레이 하단 그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableSubmenu === true && property.enableOverlay === true"
+    },
+    {
+      "id": "overlayShadowColor",
+      "label": "오버레이 그림자 색상",
+      "description": "그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableSubmenu === true && property.enableOverlay === true"
     },
 
     {
@@ -703,15 +815,17 @@
     "utilityMenuGap": 12,
     "utilityMenuHoverEffect": "opacity",
     "utilityMenuHoverColor": "#000000FF",
-    "utilityIconSvg": "",
     "utilityIconSize": 16,
     "utilityIconColor": "#666666FF",
-    "utilityIconGap": 12,
+    "utilityMenuMarginX": 0,
     "enableLanguage": false,
-    "languageItems": [],
-    "defaultLanguage": "KR",
-    "languageDisplayStyle": "bold",
-    "languageSelectedColor": "#000000FF",
+    "languageButtonText": "KR / EN",
+    "languageButtonLink": {
+      "id": null,
+      "type": "url",
+      "label": "/",
+      "value": "/"
+    },
     "languageButtonColor": "#666666FF",
     "languageButtonSize": 13,
     "languageButtonBg": "#00000000",
@@ -721,6 +835,20 @@
     "languageButtonBorderColor": "#CCCCCCFF",
     "languageButtonHoverEffect": "opacity",
     "languageButtonHoverColor": "#000000FF",
-    "languageButtonHoverBg": "#F5F5F5FF"
+    "languageButtonHoverBg": "#F5F5F5FF",
+    "languageButtonMarginX": 0,
+    "enableSubmenu": false,
+    "submenuBg": "#FFFFFFFF",
+    "submenuColor": "#000000FF",
+    "submenuSize": 14,
+    "submenuPadding": 20,
+    "submenuGap": 10,
+    "submenuHoverEffect": "opacity",
+    "submenuHoverColor": "#666666FF",
+    "submenuHoverBg": "#F5F5F5FF",
+    "enableOverlay": false,
+    "overlayBg": "#FFFFFFEE",
+    "overlayShadow": 10,
+    "overlayShadowColor": "#00000033"
   }
 }
