@@ -283,6 +283,83 @@
 
     {
       "type": "TITLE",
+      "content": "유틸리티 메뉴"
+    },
+    {
+      "id": "utilityMenuItems",
+      "label": "유틸리티 메뉴 항목",
+      "description": "헤더 우측 상단 유틸리티 메뉴 (로그인, 마이페이지 등)",
+      "type": "LIST",
+      "maxCount": 5,
+      "settings": [
+        {
+          "id": "name",
+          "label": "메뉴 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "link",
+          "label": "링크",
+          "type": "LINK"
+        }
+      ]
+    },
+    {
+      "id": "utilityMenuColor",
+      "label": "유틸리티 메뉴 색상",
+      "description": "유틸리티 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "utilityMenuSize",
+      "label": "유틸리티 메뉴 크기",
+      "description": "유틸리티 메뉴 글자 크기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "다국어 버튼"
+    },
+    {
+      "id": "enableLanguage",
+      "label": "다국어 버튼 사용",
+      "description": "다국어 전환 버튼 표시",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "languageButtonText",
+      "label": "다국어 버튼 텍스트",
+      "description": "다국어 버튼에 표시할 텍스트",
+      "type": "TEXT",
+      "placeholder": "예: KR / EN",
+      "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonColor",
+      "label": "다국어 버튼 색상",
+      "description": "다국어 버튼 글자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonSize",
+      "label": "다국어 버튼 크기",
+      "description": "다국어 버튼 글자 크기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableLanguage === true"
+    },
+
+    {
+      "type": "TITLE",
       "content": "헤더 스크롤 디자인 (스크롤 시)"
     },
     {
@@ -373,7 +450,7 @@
       "step": 2,
       "unit": "px",
       "isVisible": "property.enableScrollStyle === true"
-    },
+    }
   ],
   "property": {
     "logoImage": "",
@@ -426,6 +503,6 @@
     "enableLanguage": false,
     "languageButtonText": "KR / EN",
     "languageButtonColor": "#666666FF",
-    "languageButtonSize": 13,
+    "languageButtonSize": 13
   }
 }
