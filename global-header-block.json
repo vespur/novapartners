@@ -26,7 +26,7 @@
       "isVisible": "property.logoType === 'image'"
     },
     {
-      "id": "logoWidth_desktop",
+      "id": "logoWidthDesktop",
       "label": "로고 너비 (데스크탑)",
       "description": "데스크탑에서 로고 이미지 너비",
       "type": "RANGE",
@@ -37,7 +37,7 @@
       "isVisible": "property.logoType === 'image'"
     },
     {
-      "id": "logoWidth_mobile",
+      "id": "logoWidthMobile",
       "label": "로고 너비 (모바일)",
       "description": "모바일에서 로고 이미지 너비",
       "type": "RANGE",
@@ -56,7 +56,7 @@
       "isVisible": "property.logoType === 'text'"
     },
     {
-      "id": "logoFontSize_desktop",
+      "id": "logoFontSizeDesktop",
       "label": "로고 글자 크기 (데스크탑)",
       "description": "데스크탑에서 로고 텍스트 크기",
       "type": "RANGE",
@@ -67,7 +67,7 @@
       "isVisible": "property.logoType === 'text'"
     },
     {
-      "id": "logoFontSize_mobile",
+      "id": "logoFontSizeMobile",
       "label": "로고 글자 크기 (모바일)",
       "description": "모바일에서 로고 텍스트 크기",
       "type": "RANGE",
@@ -106,7 +106,7 @@
       "type": "MENU"
     },
     {
-      "id": "menuFontSize_desktop",
+      "id": "menuFontSizeDesktop",
       "label": "메뉴 글자 크기 (데스크탑)",
       "description": "데스크탑에서 메뉴 텍스트 크기",
       "type": "RANGE",
@@ -116,7 +116,7 @@
       "unit": "px"
     },
     {
-      "id": "menuFontSize_mobile",
+      "id": "menuFontSizeMobile",
       "label": "메뉴 글자 크기 (모바일)",
       "description": "모바일 메뉴에서 텍스트 크기",
       "type": "RANGE",
@@ -138,7 +138,7 @@
       "type": "COLOR_PICKER"
     },
     {
-      "id": "menuSpacing_desktop",
+      "id": "menuSpacingDesktop",
       "label": "메뉴 간격 (데스크탑)",
       "description": "데스크탑에서 메뉴 항목 사이 간격",
       "type": "RANGE",
@@ -157,7 +157,7 @@
       "content": "헤더의 크기, 정렬, 고정 여부를 설정합니다"
     },
     {
-      "id": "headerHeight_desktop",
+      "id": "headerHeightDesktop",
       "label": "헤더 높이 (데스크탑)",
       "description": "데스크탑에서 헤더 높이",
       "type": "RANGE",
@@ -167,7 +167,7 @@
       "unit": "px"
     },
     {
-      "id": "headerHeight_mobile",
+      "id": "headerHeightMobile",
       "label": "헤더 높이 (모바일)",
       "description": "모바일에서 헤더 높이",
       "type": "RANGE",
@@ -177,7 +177,7 @@
       "unit": "px"
     },
     {
-      "id": "headerPadding_desktop",
+      "id": "headerPaddingDesktop",
       "label": "헤더 좌우 여백 (데스크탑)",
       "description": "데스크탑에서 헤더 내부 좌우 여백",
       "type": "RANGE",
@@ -187,7 +187,7 @@
       "unit": "px"
     },
     {
-      "id": "headerPadding_mobile",
+      "id": "headerPaddingMobile",
       "label": "헤더 좌우 여백 (모바일)",
       "description": "모바일에서 헤더 내부 좌우 여백",
       "type": "RANGE",
@@ -342,11 +342,11 @@
   "property": {
     "logoType": "text",
     "logoImage": "",
-    "logoWidth_desktop": 150,
-    "logoWidth_mobile": 100,
+    "logoWidthDesktop": 150,
+    "logoWidthMobile": 100,
     "logoText": "NOVA",
-    "logoFontSize_desktop": 24,
-    "logoFontSize_mobile": 20,
+    "logoFontSizeDesktop": 24,
+    "logoFontSizeMobile": 20,
     "logoColor": "#000000FF",
     "logoLink": {
       "id": null,
@@ -355,15 +355,15 @@
       "value": "/"
     },
     "navigationMenus": [],
-    "menuFontSize_desktop": 16,
-    "menuFontSize_mobile": 18,
+    "menuFontSizeDesktop": 16,
+    "menuFontSizeMobile": 18,
     "menuColor": "#000000FF",
     "menuHoverColor": "#0066FFFF",
-    "menuSpacing_desktop": 30,
-    "headerHeight_desktop": 80,
-    "headerHeight_mobile": 60,
-    "headerPadding_desktop": 40,
-    "headerPadding_mobile": 20,
+    "menuSpacingDesktop": 30,
+    "headerHeightDesktop": 80,
+    "headerHeightMobile": 60,
+    "headerPaddingDesktop": 40,
+    "headerPaddingMobile": 20,
     "isSticky": true,
     "menuAlignment": "right",
     "headerBgColor": "#FFFFFFEE",

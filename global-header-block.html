@@ -2,7 +2,7 @@
   /* 헤더 컨테이너 */
   .global-header {
     width: 100%;
-    height: {{property.headerHeight_desktop}}px;
+    height: {{property.headerHeightDesktop}}px;
     background-color: {{property.headerBgColor}};
     border-bottom: {{property.headerBorderBottom}}px solid {{property.headerBorderColor}};
     box-shadow: 0 {{property.headerShadow}}px {{multiply property.headerShadow 2}}px rgba(0, 0, 0, 0.1);
@@ -35,7 +35,7 @@
   .header-inner {
     max-width: 100%;
     height: 100%;
-    padding: 0 {{property.headerPadding_desktop}}px;
+    padding: 0 {{property.headerPaddingDesktop}}px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -50,13 +50,13 @@
 
   {{#if (eq property.logoType 'image')}}
   .header-logo img {
-    width: {{property.logoWidth_desktop}}px;
+    width: {{property.logoWidthDesktop}}px;
     height: auto;
     display: block;
   }
   {{else}}
   .header-logo-text {
-    font-size: {{property.logoFontSize_desktop}}px;
+    font-size: {{property.logoFontSizeDesktop}}px;
     font-weight: 700;
     color: {{property.logoColor}};
     letter-spacing: -0.5px;
@@ -67,7 +67,7 @@
   .header-nav {
     display: flex;
     align-items: center;
-    gap: {{property.menuSpacing_desktop}}px;
+    gap: {{property.menuSpacingDesktop}}px;
     {{#if (eq property.menuAlignment 'center')}}
     position: absolute;
     left: 50%;
@@ -76,7 +76,7 @@
   }
 
   .header-nav a {
-    font-size: {{property.menuFontSize_desktop}}px;
+    font-size: {{property.menuFontSizeDesktop}}px;
     color: {{property.menuColor}};
     text-decoration: none;
     transition: color 0.3s ease;
@@ -186,7 +186,7 @@
 
   .mobile-menu-nav a {
     display: block;
-    font-size: {{property.menuFontSize_mobile}}px;
+    font-size: {{property.menuFontSizeMobile}}px;
     color: {{property.menuColor}};
     text-decoration: none;
     padding: 15px 0;
@@ -220,20 +220,20 @@
   /* 모바일 반응형 */
   @media (max-width: 768px) {
     .global-header {
-      height: {{property.headerHeight_mobile}}px;
+      height: {{property.headerHeightMobile}}px;
     }
 
     .header-inner {
-      padding: 0 {{property.headerPadding_mobile}}px;
+      padding: 0 {{property.headerPaddingMobile}}px;
     }
 
     {{#if (eq property.logoType 'image')}}
     .header-logo img {
-      width: {{property.logoWidth_mobile}}px;
+      width: {{property.logoWidthMobile}}px;
     }
     {{else}}
     .header-logo-text {
-      font-size: {{property.logoFontSize_mobile}}px;
+      font-size: {{property.logoFontSizeMobile}}px;
     }
     {{/if}}
 
