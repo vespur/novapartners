@@ -1,0 +1,129 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "로고"
+    },
+    {
+      "id": "logoImage",
+      "label": "로고 이미지",
+      "description": "헤더에 표시할 로고 이미지",
+      "type": "IMAGE_PICKER"
+    },
+    {
+      "id": "logoWidth",
+      "label": "로고 너비",
+      "description": "로고 이미지 너비 (px)",
+      "type": "RANGE",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "logoLink",
+      "label": "로고 링크",
+      "description": "로고 클릭 시 이동 경로",
+      "type": "LINK"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "메뉴"
+    },
+    {
+      "id": "navMenus",
+      "label": "메뉴 항목",
+      "description": "헤더 메뉴",
+      "type": "MENU"
+    },
+    {
+      "id": "menuColorDesktop",
+      "label": "메뉴 색상 (데스크탑)",
+      "description": "데스크탑 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuSizeDesktop",
+      "label": "메뉴 크기 (데스크탑)",
+      "description": "데스크탑 메뉴 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "menuGapDesktop",
+      "label": "메뉴 간격 (데스크탑)",
+      "description": "메뉴 항목 사이 간격",
+      "type": "RANGE",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "menuColorMobile",
+      "label": "메뉴 색상 (모바일)",
+      "description": "모바일 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuSizeMobile",
+      "label": "메뉴 크기 (모바일)",
+      "description": "모바일 메뉴 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "헤더 설정"
+    },
+    {
+      "id": "headerBg",
+      "label": "배경색",
+      "description": "헤더 배경색 (투명도 조절 가능)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerHeight",
+      "label": "헤더 높이",
+      "description": "헤더 높이 (px)",
+      "type": "RANGE",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "isSticky",
+      "label": "상단 고정",
+      "description": "스크롤 시 헤더 고정",
+      "type": "CHECKBOX"
+    }
+  ],
+  "property": {
+    "logoImage": "",
+    "logoWidth": 150,
+    "logoLink": {
+      "id": null,
+      "type": "url",
+      "label": "/",
+      "value": "/"
+    },
+    "navMenus": [],
+    "menuColorDesktop": "#000000FF",
+    "menuSizeDesktop": 16,
+    "menuGapDesktop": 30,
+    "menuColorMobile": "#000000FF",
+    "menuSizeMobile": 18,
+    "headerBg": "#FFFFFFEE",
+    "headerHeight": 80,
+    "isSticky": true
+  }
+}
