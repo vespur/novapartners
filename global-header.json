@@ -32,7 +32,7 @@
       "content": "메뉴"
     },
     {
-      "id": "navMenus",
+      "id": "menus",
       "label": "메뉴 항목",
       "description": "헤더 메뉴",
       "type": "MENU"
@@ -116,7 +116,7 @@
       "label": "/",
       "value": "/"
     },
-    "navMenus": [],
+    "menus": [],
     "menuColorDesktop": "#000000FF",
     "menuSizeDesktop": 16,
     "menuGapDesktop": 30,
