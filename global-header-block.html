@@ -263,7 +263,7 @@
 
       <!-- 데스크탑 메뉴 -->
       <nav class="header-nav">
-        {{#each property.menus}}
+        {{#each property.navigationMenus}}
           <a href="{{link.value}}">{{name}}</a>
         {{/each}}
       </nav>
@@ -286,7 +286,7 @@
       </button>
     </div>
     <nav class="mobile-menu-nav">
-      {{#each property.menus}}
+      {{#each property.navigationMenus}}
         <a href="{{link.value}}">{{name}}</a>
       {{/each}}
     </nav>
