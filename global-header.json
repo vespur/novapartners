@@ -473,6 +473,7 @@
     "menuAlign": "right",
     "menuMarginX": 0,
     "menuMarginY": 0,
+    "menuHoverEffect": "opacity",
     "headerHeight": 80,
     "headerPadding": 40,
     "isSticky": true,
@@ -500,9 +501,22 @@
     "utilityMenuItems": [],
     "utilityMenuColor": "#666666FF",
     "utilityMenuSize": 13,
+    "utilityMenuGap": 12,
+    "utilityMenuHoverEffect": "opacity",
+    "utilityMenuHoverColor": "#000000FF",
+    "utilityIconSvg": "",
+    "utilityIconSize": 16,
+    "utilityIconColor": "#666666FF",
     "enableLanguage": false,
     "languageButtonText": "KR / EN",
     "languageButtonColor": "#666666FF",
-    "languageButtonSize": 13
+    "languageButtonSize": 13,
+    "languageButtonBg": "#00000000",
+    "languageButtonPadding": 8,
+    "languageButtonRadius": 4,
+    "languageButtonBorder": 1,
+    "languageButtonBorderColor": "#CCCCCCFF",
+    "languageButtonHoverEffect": "opacity",
+    "languageButtonHoverBg": "#F5F5F5FF"
   }
 }

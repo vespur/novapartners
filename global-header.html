@@ -57,46 +57,6 @@
     max-width: 100%;
     height: 100%;
     padding: 0 {{property.headerPadding}}px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .header-top {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 15px;
-    padding-bottom: 8px;
-  }
-
-  .utility-menu {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .utility-menu a {
-    color: {{property.utilityMenuColor}};
-    font-size: {{property.utilityMenuSize}}px;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-
-  .utility-menu a:hover {
-    opacity: 0.7;
-  }
-
-  .language-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: {{property.languageButtonColor}};
-    font-size: {{property.languageButtonSize}}px;
-    padding: 0;
-  }
-
-  .header-main {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
@@ -121,6 +81,8 @@
 
   .header-right {
     display: flex;
+    align-items: center;
+    gap: 20px;
     {{#if (eq property.menuAlign 'left')}}
     justify-content: flex-start;
     {{else if (eq property.menuAlign 'center')}}
@@ -128,6 +90,12 @@
     {{else}}
     justify-content: flex-end;
     {{/if}}
+  }
+
+  .header-right-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 
   .logo {
@@ -159,12 +127,106 @@
     color: {{property.menuColorDesktop}};
     font-size: {{property.menuSizeDesktop}}px;
     text-decoration: none;
-    transition: opacity 0.2s;
     white-space: nowrap;
+    {{#if (eq property.menuHoverEffect 'opacity')}}
+    transition: opacity 0.2s;
+    {{else if (eq property.menuHoverEffect 'color')}}
+    transition: color 0.2s;
+    {{else if (eq property.menuHoverEffect 'scale')}}
+    transition: transform 0.2s;
+    {{else}}
+    transition: all 0.2s;
+    {{/if}}
   }
 
   .nav-desktop a:hover {
-    opacity: 0.7;
+    {{#if (eq property.menuHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.menuHoverEffect 'color')}}
+    color: {{property.menuHoverColor}};
+    {{else if (eq property.menuHoverEffect 'underline')}}
+    text-decoration: underline;
+    {{else if (eq property.menuHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{/if}}
+  }
+
+  .utility-menu {
+    display: flex;
+    gap: {{property.utilityMenuGap}}px;
+    align-items: center;
+  }
+
+  .utility-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .utility-menu a {
+    color: {{property.utilityMenuColor}};
+    font-size: {{property.utilityMenuSize}}px;
+    text-decoration: none;
+    {{#if (eq property.utilityMenuHoverEffect 'opacity')}}
+    transition: opacity 0.2s;
+    {{else if (eq property.utilityMenuHoverEffect 'color')}}
+    transition: color 0.2s;
+    {{else if (eq property.utilityMenuHoverEffect 'scale')}}
+    transition: transform 0.2s;
+    {{else}}
+    transition: all 0.2s;
+    {{/if}}
+  }
+
+  .utility-menu a:hover {
+    {{#if (eq property.utilityMenuHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.utilityMenuHoverEffect 'color')}}
+    color: {{property.utilityMenuHoverColor}};
+    {{else if (eq property.utilityMenuHoverEffect 'underline')}}
+    text-decoration: underline;
+    {{else if (eq property.utilityMenuHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{/if}}
+  }
+
+  .utility-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .utility-icon svg {
+    width: {{property.utilityIconSize}}px;
+    height: {{property.utilityIconSize}}px;
+    stroke: {{property.utilityIconColor}};
+    fill: {{property.utilityIconColor}};
+  }
+
+  .language-btn {
+    background: {{property.languageButtonBg}};
+    border: {{property.languageButtonBorder}}px solid {{property.languageButtonBorderColor}};
+    border-radius: {{property.languageButtonRadius}}px;
+    padding: {{property.languageButtonPadding}}px;
+    cursor: pointer;
+    color: {{property.languageButtonColor}};
+    font-size: {{property.languageButtonSize}}px;
+    {{#if (eq property.languageButtonHoverEffect 'opacity')}}
+    transition: opacity 0.2s;
+    {{else if (eq property.languageButtonHoverEffect 'background')}}
+    transition: background 0.2s;
+    {{else if (eq property.languageButtonHoverEffect 'scale')}}
+    transition: transform 0.2s;
+    {{/if}}
+  }
+
+  .language-btn:hover {
+    {{#if (eq property.languageButtonHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.languageButtonHoverEffect 'background')}}
+    background: {{property.languageButtonHoverBg}};
+    {{else if (eq property.languageButtonHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{/if}}
   }
 
   .hamburger {
@@ -250,11 +312,7 @@
   }
 
   @media (max-width: 768px) {
-    .header-top {
-      display: none;
-    }
-
-    .header-main {
+    .header-container {
       padding: 0 20px;
       grid-template-columns: 1fr auto;
     }
@@ -267,6 +325,14 @@
       display: none;
     }
 
+    .utility-menu {
+      display: none;
+    }
+
+    .language-btn {
+      display: none;
+    }
+
     .hamburger {
       display: block;
     }
@@ -276,23 +342,6 @@
 <template>
   <header class="global-header">
     <div class="header-container">
-      {{#if (or (gt (size property.utilityMenuItems) 0) property.enableLanguage)}}
-      <div class="header-top">
-        {{#if (gt (size property.utilityMenuItems) 0)}}
-        <nav class="utility-menu">
-          {{#each property.utilityMenuItems}}
-          <a href="{{link.value}}">{{name}}</a>
-          {{/each}}
-        </nav>
-        {{/if}}
-
-        {{#if property.enableLanguage}}
-        <button class="language-btn">{{property.languageButtonText}}</button>
-        {{/if}}
-      </div>
-      {{/if}}
-
-      <div class="header-main">
       <div class="header-left">
         {{#if (eq property.logoAlign 'left')}}
         <div class="logo">
@@ -334,23 +383,44 @@
       </div>
 
       <div class="header-right">
-        {{#if (eq property.logoAlign 'right')}}
-        <div class="logo">
-          {{#if property.logoImage}}
-          <a href="{{property.logoLink.value}}">
-            <img src="{{property.logoImage}}" alt="Logo" />
-          </a>
+        <div class="header-right-content">
+          {{#if (eq property.logoAlign 'right')}}
+          <div class="logo">
+            {{#if property.logoImage}}
+            <a href="{{property.logoLink.value}}">
+              <img src="{{property.logoImage}}" alt="Logo" />
+            </a>
+            {{/if}}
+          </div>
+          {{/if}}
+
+          {{#if (eq property.menuAlign 'right')}}
+          <nav class="nav-desktop">
+            {{#each property.menuItems}}
+            <a href="{{link.value}}">{{name}}</a>
+            {{/each}}
+          </nav>
+          {{/if}}
+
+          {{#if (gt (size property.utilityMenuItems) 0)}}
+          <nav class="utility-menu">
+            {{#each property.utilityMenuItems}}
+            <div class="utility-item">
+              <a href="{{link.value}}">{{name}}</a>
+            </div>
+            {{/each}}
+            {{#if property.utilityIconSvg}}
+            <div class="utility-icon">
+              {{{property.utilityIconSvg}}}
+            </div>
+            {{/if}}
+          </nav>
+          {{/if}}
+
+          {{#if property.enableLanguage}}
+          <button class="language-btn">{{property.languageButtonText}}</button>
           {{/if}}
         </div>
-        {{/if}}
-
-        {{#if (eq property.menuAlign 'right')}}
-        <nav class="nav-desktop">
-          {{#each property.menuItems}}
-          <a href="{{link.value}}">{{name}}</a>
-          {{/each}}
-        </nav>
-        {{/if}}
 
         <button class="hamburger">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
@@ -359,7 +429,6 @@
             <line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
-      </div>
       </div>
     </div>
   </header>
