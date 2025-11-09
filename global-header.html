@@ -329,18 +329,18 @@
 <script>
   const container = bm.container;
   const context = bm.context;
-  const header = container.querySelector('.global-header');
-  const navMobile = container.querySelector('.nav-mobile');
-  const overlay = container.querySelector('.overlay');
 
   function handleScroll() {
+    // DOM이 재생성될 수 있으므로 매번 새로 쿼리
+    const header = container.querySelector('.global-header');
+    if (!header) return;
+
     if (!context.property.enableScrollStyle) {
       header.classList.remove('scrolled');
       return;
     }
 
     // previewScrolled가 명시적으로 false가 아니면 에디터에서 스크롤 디자인 표시
-    // (undefined, null, true 모두 true 처리 - 기존 블록 호환)
     if (context.property.previewScrolled !== false) {
       header.classList.add('scrolled');
       return;
@@ -355,6 +355,9 @@
   }
 
   container.addEventListener('click', (e) => {
+    const navMobile = container.querySelector('.nav-mobile');
+    const overlay = container.querySelector('.overlay');
+
     if (e.target.closest('.hamburger')) {
       navMobile.classList.add('active');
       overlay.classList.add('active');
