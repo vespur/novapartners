@@ -293,8 +293,8 @@
     },
     {
       "id": "previewScrolled",
-      "label": "에디터에서 스크롤 디자인 미리보기",
-      "description": "에디터에서 스크롤된 상태의 디자인을 미리 확인",
+      "label": "초기 디자인 보기 (에디터 전용)",
+      "description": "체크 해제 시 에디터에서 초기 디자인 표시",
       "type": "CHECKBOX",
       "isVisible": "property.enableScrollStyle === true"
     },

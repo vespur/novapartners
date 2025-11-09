@@ -339,13 +339,14 @@
       return;
     }
 
-    // 에디터에서는 previewScrolled가 true이면 항상 스크롤 상태 표시
-    if (context.property.previewScrolled) {
+    // previewScrolled가 명시적으로 false가 아니면 에디터에서 스크롤 디자인 표시
+    // (undefined, null, true 모두 true 처리 - 기존 블록 호환)
+    if (context.property.previewScrolled !== false) {
       header.classList.add('scrolled');
       return;
     }
 
-    // 실제 웹사이트에서는 스크롤 위치에 따라
+    // 실제 웹사이트
     if (window.scrollY > context.property.scrollThreshold) {
       header.classList.add('scrolled');
     } else {
