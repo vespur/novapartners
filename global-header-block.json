@@ -1,0 +1,382 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "로고 설정"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더 좌측에 표시될 로고를 설정합니다"
+    },
+    {
+      "id": "logoType",
+      "label": "로고 타입",
+      "description": "이미지 또는 텍스트 로고 선택",
+      "type": "RADIO",
+      "options": [
+        { "label": "이미지", "value": "image" },
+        { "label": "텍스트", "value": "text" }
+      ]
+    },
+    {
+      "id": "logoImage",
+      "label": "로고 이미지",
+      "description": "로고로 사용할 이미지를 업로드하세요",
+      "type": "IMAGE_PICKER",
+      "isVisible": "property.logoType === 'image'"
+    },
+    {
+      "id": "logoWidth_desktop",
+      "label": "로고 너비 (데스크탑)",
+      "description": "데스크탑에서 로고 이미지 너비",
+      "type": "RANGE",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.logoType === 'image'"
+    },
+    {
+      "id": "logoWidth_mobile",
+      "label": "로고 너비 (모바일)",
+      "description": "모바일에서 로고 이미지 너비",
+      "type": "RANGE",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.logoType === 'image'"
+    },
+    {
+      "id": "logoText",
+      "label": "로고 텍스트",
+      "description": "텍스트 로고로 표시할 내용",
+      "type": "TEXT",
+      "placeholder": "예: NOVA",
+      "isVisible": "property.logoType === 'text'"
+    },
+    {
+      "id": "logoFontSize_desktop",
+      "label": "로고 글자 크기 (데스크탑)",
+      "description": "데스크탑에서 로고 텍스트 크기",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.logoType === 'text'"
+    },
+    {
+      "id": "logoFontSize_mobile",
+      "label": "로고 글자 크기 (모바일)",
+      "description": "모바일에서 로고 텍스트 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.logoType === 'text'"
+    },
+    {
+      "id": "logoColor",
+      "label": "로고 텍스트 색상",
+      "description": "텍스트 로고의 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.logoType === 'text'"
+    },
+    {
+      "id": "logoLink",
+      "label": "로고 링크",
+      "description": "로고 클릭 시 이동할 페이지 (보통 홈페이지)",
+      "type": "LINK"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "메뉴 설정"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더에 표시될 네비게이션 메뉴를 설정합니다"
+    },
+    {
+      "id": "menus",
+      "label": "메뉴 항목",
+      "description": "헤더에 표시할 메뉴 목록",
+      "type": "MENU"
+    },
+    {
+      "id": "menuFontSize_desktop",
+      "label": "메뉴 글자 크기 (데스크탑)",
+      "description": "데스크탑에서 메뉴 텍스트 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "menuFontSize_mobile",
+      "label": "메뉴 글자 크기 (모바일)",
+      "description": "모바일 메뉴에서 텍스트 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "menuColor",
+      "label": "메뉴 텍스트 색상",
+      "description": "메뉴 항목의 기본 텍스트 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuHoverColor",
+      "label": "메뉴 호버 색상",
+      "description": "메뉴에 마우스를 올렸을 때 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuSpacing_desktop",
+      "label": "메뉴 간격 (데스크탑)",
+      "description": "데스크탑에서 메뉴 항목 사이 간격",
+      "type": "RANGE",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "헤더 레이아웃"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더의 크기, 정렬, 고정 여부를 설정합니다"
+    },
+    {
+      "id": "headerHeight_desktop",
+      "label": "헤더 높이 (데스크탑)",
+      "description": "데스크탑에서 헤더 높이",
+      "type": "RANGE",
+      "min": 60,
+      "max": 140,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "headerHeight_mobile",
+      "label": "헤더 높이 (모바일)",
+      "description": "모바일에서 헤더 높이",
+      "type": "RANGE",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "headerPadding_desktop",
+      "label": "헤더 좌우 여백 (데스크탑)",
+      "description": "데스크탑에서 헤더 내부 좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "headerPadding_mobile",
+      "label": "헤더 좌우 여백 (모바일)",
+      "description": "모바일에서 헤더 내부 좌우 여백",
+      "type": "RANGE",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "isSticky",
+      "label": "고정 헤더",
+      "description": "스크롤 시 헤더를 상단에 고정합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "menuAlignment",
+      "label": "메뉴 정렬",
+      "description": "메뉴의 정렬 위치 (데스크탑)",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "가운데", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+
+    {
+      "type": "TITLE",
+      "content": "헤더 스타일"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더의 배경색, 외곽선, 그림자 등을 설정합니다"
+    },
+    {
+      "id": "headerBgColor",
+      "label": "배경 색상",
+      "description": "헤더의 기본 배경색 (투명도 조절 가능)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerBorderBottom",
+      "label": "하단 외곽선 두께",
+      "description": "헤더 하단 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorderColor",
+      "label": "외곽선 색상",
+      "description": "헤더 하단 테두리 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerShadow",
+      "label": "그림자 강도",
+      "description": "헤더에 적용할 그림자 강도 (0은 그림자 없음)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerBlur",
+      "label": "배경 블러",
+      "description": "반투명 배경 사용 시 뒷배경 블러 효과",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "스크롤 효과"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "페이지를 스크롤할 때 헤더의 변화를 설정합니다"
+    },
+    {
+      "id": "enableScrollEffect",
+      "label": "스크롤 효과 사용",
+      "description": "스크롤 시 헤더 스타일이 변경됩니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scrollBgColor",
+      "label": "스크롤 시 배경색",
+      "description": "스크롤 후 변경될 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollEffect === true"
+    },
+    {
+      "id": "scrollThreshold",
+      "label": "효과 시작 스크롤",
+      "description": "몇 픽셀 스크롤 시 효과를 적용할지",
+      "type": "RANGE",
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollEffect === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "모바일 햄버거 메뉴"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "모바일에서 표시될 햄버거 메뉴를 설정합니다"
+    },
+    {
+      "id": "hamburgerIconSvg",
+      "label": "햄버거 아이콘 SVG",
+      "description": "햄버거 메뉴 아이콘 (SVG 코드 입력)",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "closeIconSvg",
+      "label": "닫기 아이콘 SVG",
+      "description": "모바일 메뉴 닫기 아이콘 (SVG 코드 입력)",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "mobileMenuBgColor",
+      "label": "모바일 메뉴 배경색",
+      "description": "모바일 메뉴 패널 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileMenuAnimation",
+      "label": "모바일 메뉴 애니메이션",
+      "description": "모바일 메뉴가 나타나는 효과",
+      "type": "SELECT",
+      "options": [
+        { "label": "슬라이드 (왼쪽)", "value": "slideLeft" },
+        { "label": "슬라이드 (오른쪽)", "value": "slideRight" },
+        { "label": "페이드 인", "value": "fadeIn" },
+        { "label": "줌 인", "value": "zoomIn" }
+      ]
+    }
+  ],
+  "property": {
+    "logoType": "text",
+    "logoImage": "",
+    "logoWidth_desktop": 150,
+    "logoWidth_mobile": 100,
+    "logoText": "NOVA",
+    "logoFontSize_desktop": 24,
+    "logoFontSize_mobile": 20,
+    "logoColor": "#000000FF",
+    "logoLink": {
+      "id": null,
+      "type": "url",
+      "label": "/",
+      "value": "/"
+    },
+    "menus": [],
+    "menuFontSize_desktop": 16,
+    "menuFontSize_mobile": 18,
+    "menuColor": "#000000FF",
+    "menuHoverColor": "#0066FFFF",
+    "menuSpacing_desktop": 30,
+    "headerHeight_desktop": 80,
+    "headerHeight_mobile": 60,
+    "headerPadding_desktop": 40,
+    "headerPadding_mobile": 20,
+    "isSticky": true,
+    "menuAlignment": "right",
+    "headerBgColor": "#FFFFFFEE",
+    "headerBorderBottom": 1,
+    "headerBorderColor": "#E0E0E0FF",
+    "headerShadow": 4,
+    "headerBlur": 8,
+    "enableScrollEffect": true,
+    "scrollBgColor": "#FFFFFFFF",
+    "scrollThreshold": 50,
+    "hamburgerIconSvg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><line x1=\"3\" y1=\"6\" x2=\"21\" y2=\"6\"/><line x1=\"3\" y1=\"12\" x2=\"21\" y2=\"12\"/><line x1=\"3\" y1=\"18\" x2=\"21\" y2=\"18\"/></svg>",
+    "closeIconSvg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>",
+    "mobileMenuBgColor": "#FFFFFFFF",
+    "mobileMenuAnimation": "slideRight"
+  }
+}

@@ -1,0 +1,373 @@
+<style>
+  /* 헤더 컨테이너 */
+  .global-header {
+    width: 100%;
+    height: {{property.headerHeight_desktop}}px;
+    background-color: {{property.headerBgColor}};
+    border-bottom: {{property.headerBorderBottom}}px solid {{property.headerBorderColor}};
+    box-shadow: 0 {{property.headerShadow}}px {{multiply property.headerShadow 2}}px rgba(0, 0, 0, 0.1);
+    {{#if (gt property.headerBlur 0)}}
+    backdrop-filter: blur({{property.headerBlur}}px);
+    -webkit-backdrop-filter: blur({{property.headerBlur}}px);
+    {{/if}}
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  {{#if property.isSticky}}
+  .global-header {
+    position: sticky;
+    top: 0;
+  }
+  {{else}}
+  .global-header {
+    position: relative;
+  }
+  {{/if}}
+
+  /* 스크롤 효과 */
+  {{#if property.enableScrollEffect}}
+  .global-header.scrolled {
+    background-color: {{property.scrollBgColor}};
+  }
+  {{/if}}
+
+  .header-inner {
+    max-width: 100%;
+    height: 100%;
+    padding: 0 {{property.headerPadding_desktop}}px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* 로고 영역 */
+  .header-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  {{#if (eq property.logoType 'image')}}
+  .header-logo img {
+    width: {{property.logoWidth_desktop}}px;
+    height: auto;
+    display: block;
+  }
+  {{else}}
+  .header-logo-text {
+    font-size: {{property.logoFontSize_desktop}}px;
+    font-weight: 700;
+    color: {{property.logoColor}};
+    letter-spacing: -0.5px;
+  }
+  {{/if}}
+
+  /* 메뉴 영역 */
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: {{property.menuSpacing_desktop}}px;
+    {{#if (eq property.menuAlignment 'center')}}
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    {{/if}}
+  }
+
+  .header-nav a {
+    font-size: {{property.menuFontSize_desktop}}px;
+    color: {{property.menuColor}};
+    text-decoration: none;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .header-nav a:hover {
+    color: {{property.menuHoverColor}};
+  }
+
+  /* 햄버거 메뉴 버튼 (모바일) */
+  .hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: {{property.menuColor}};
+  }
+
+  .hamburger-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* 모바일 메뉴 패널 */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background-color: {{property.mobileMenuBgColor}};
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+    transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow-y: auto;
+  }
+
+  .mobile-menu.active {
+    right: 0;
+  }
+
+  {{#if (eq property.mobileMenuAnimation 'slideLeft')}}
+  .mobile-menu {
+    right: auto;
+    left: -100%;
+  }
+  .mobile-menu.active {
+    left: 0;
+    right: auto;
+  }
+  {{/if}}
+
+  {{#if (eq property.mobileMenuAnimation 'fadeIn')}}
+  .mobile-menu {
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  {{/if}}
+
+  {{#if (eq property.mobileMenuAnimation 'zoomIn')}}
+  .mobile-menu {
+    right: 0;
+    transform: scale(0.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .mobile-menu.active {
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+  {{/if}}
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: {{property.menuColor}};
+  }
+
+  .close-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mobile-menu-nav {
+    padding: 20px;
+  }
+
+  .mobile-menu-nav a {
+    display: block;
+    font-size: {{property.menuFontSize_mobile}}px;
+    color: {{property.menuColor}};
+    text-decoration: none;
+    padding: 15px 0;
+    border-bottom: 1px solid #f5f5f5;
+    transition: color 0.3s ease;
+  }
+
+  .mobile-menu-nav a:hover {
+    color: {{property.menuHoverColor}};
+  }
+
+  /* 모바일 메뉴 오버레이 */
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .global-header {
+      height: {{property.headerHeight_mobile}}px;
+    }
+
+    .header-inner {
+      padding: 0 {{property.headerPadding_mobile}}px;
+    }
+
+    {{#if (eq property.logoType 'image')}}
+    .header-logo img {
+      width: {{property.logoWidth_mobile}}px;
+    }
+    {{else}}
+    .header-logo-text {
+      font-size: {{property.logoFontSize_mobile}}px;
+    }
+    {{/if}}
+
+    .header-nav {
+      display: none;
+    }
+
+    .hamburger-btn {
+      display: block;
+    }
+  }
+</style>
+
+<template>
+  <header class="global-header">
+    <div class="header-inner">
+      <!-- 로고 -->
+      <a href="{{property.logoLink.value}}" class="header-logo">
+        {{#if (eq property.logoType 'image')}}
+          {{#if property.logoImage}}
+            <img src="{{property.logoImage}}" alt="Logo" loading="lazy" />
+          {{/if}}
+        {{else}}
+          <span class="header-logo-text">{{property.logoText}}</span>
+        {{/if}}
+      </a>
+
+      <!-- 데스크탑 메뉴 -->
+      <nav class="header-nav">
+        {{#each property.menus}}
+          <a href="{{link.value}}">{{name}}</a>
+        {{/each}}
+      </nav>
+
+      <!-- 햄버거 버튼 (모바일) -->
+      <button class="hamburger-btn" aria-label="메뉴 열기">
+        {{{property.hamburgerIconSvg}}}
+      </button>
+    </div>
+  </header>
+
+  <!-- 모바일 메뉴 오버레이 -->
+  <div class="mobile-overlay"></div>
+
+  <!-- 모바일 메뉴 패널 -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <button class="close-btn" aria-label="메뉴 닫기">
+        {{{property.closeIconSvg}}}
+      </button>
+    </div>
+    <nav class="mobile-menu-nav">
+      {{#each property.menus}}
+        <a href="{{link.value}}">{{name}}</a>
+      {{/each}}
+    </nav>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  const header = container.querySelector('.global-header');
+  const hamburgerBtn = container.querySelector('.hamburger-btn');
+  const closeBtn = container.querySelector('.close-btn');
+  const mobileMenu = container.querySelector('.mobile-menu');
+  const mobileOverlay = container.querySelector('.mobile-overlay');
+  const mobileMenuLinks = container.querySelectorAll('.mobile-menu-nav a');
+
+  // 스크롤 효과
+  function handleScroll() {
+    if (!context.property.enableScrollEffect) return;
+
+    if (window.scrollY > context.property.scrollThreshold) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+
+  // 모바일 메뉴 열기
+  function openMobileMenu() {
+    mobileMenu.classList.add('active');
+    mobileOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // 모바일 메뉴 닫기
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('active');
+    mobileOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // 이벤트 위임
+  container.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // 햄버거 버튼 클릭
+    if (e.target.closest('.hamburger-btn')) {
+      openMobileMenu();
+    }
+
+    // 닫기 버튼 클릭
+    if (e.target.closest('.close-btn')) {
+      closeMobileMenu();
+    }
+
+    // 오버레이 클릭
+    if (e.target.matches('.mobile-overlay')) {
+      closeMobileMenu();
+    }
+
+    // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+    if (e.target.matches('.mobile-menu-nav a')) {
+      closeMobileMenu();
+    }
+  }, true);
+
+  // 스크롤 이벤트 등록
+  if (context.property.enableScrollEffect) {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  // 컨텍스트 변경 시 (프리뷰 지원)
+  bm.onContextChange = () => {
+    // 스크롤 효과 재확인
+    handleScroll();
+  };
+
+  // 블록 제거 시 정리
+  bm.onDestroy = () => {
+    window.removeEventListener('scroll', handleScroll);
+    document.body.style.overflow = '';
+  };
+</script>
