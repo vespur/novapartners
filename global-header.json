@@ -135,6 +135,18 @@
       ]
     },
     {
+      "id": "menuHoverEffect",
+      "label": "메뉴 호버 효과",
+      "description": "메뉴에 마우스 올렸을 때 효과",
+      "type": "SELECT",
+      "options": [
+        { "label": "투명도 변경", "value": "opacity" },
+        { "label": "색상 변경", "value": "color" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "확대", "value": "scale" }
+      ]
+    },
+    {
       "id": "menuMarginX",
       "label": "메뉴 가로 여백",
       "description": "메뉴 좌우 여백 (px)",
@@ -320,6 +332,58 @@
       "step": 1,
       "unit": "px"
     },
+    {
+      "id": "utilityMenuGap",
+      "label": "유틸리티 메뉴 간격",
+      "description": "유틸리티 메뉴 항목 사이 간격",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "utilityMenuHoverEffect",
+      "label": "유틸리티 메뉴 호버 효과",
+      "description": "유틸리티 메뉴 호버 시 효과",
+      "type": "SELECT",
+      "options": [
+        { "label": "투명도 변경", "value": "opacity" },
+        { "label": "색상 변경", "value": "color" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "확대", "value": "scale" }
+      ]
+    },
+    {
+      "id": "utilityMenuHoverColor",
+      "label": "유틸리티 호버 색상",
+      "description": "호버 효과가 '색상 변경'일 때 적용될 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.utilityMenuHoverEffect === 'color'"
+    },
+    {
+      "id": "utilityIconSvg",
+      "label": "유틸리티 아이콘 SVG",
+      "description": "유틸리티 메뉴 우측에 표시할 아이콘 (SVG 코드)",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "utilityIconSize",
+      "label": "유틸리티 아이콘 크기",
+      "description": "아이콘 크기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "utilityIconColor",
+      "label": "유틸리티 아이콘 색상",
+      "description": "아이콘 색상",
+      "type": "COLOR_PICKER"
+    },
 
     {
       "type": "TITLE",
@@ -356,6 +420,72 @@
       "step": 1,
       "unit": "px",
       "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonBg",
+      "label": "다국어 버튼 배경색",
+      "description": "버튼 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonPadding",
+      "label": "다국어 버튼 여백",
+      "description": "버튼 내부 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonRadius",
+      "label": "다국어 버튼 모서리",
+      "description": "버튼 모서리 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonBorder",
+      "label": "다국어 버튼 테두리",
+      "description": "버튼 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonBorderColor",
+      "label": "다국어 버튼 테두리 색상",
+      "description": "버튼 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonHoverEffect",
+      "label": "다국어 버튼 호버 효과",
+      "description": "호버 시 효과",
+      "type": "SELECT",
+      "options": [
+        { "label": "투명도 변경", "value": "opacity" },
+        { "label": "배경색 변경", "value": "background" },
+        { "label": "확대", "value": "scale" }
+      ],
+      "isVisible": "property.enableLanguage === true"
+    },
+    {
+      "id": "languageButtonHoverBg",
+      "label": "다국어 호버 배경색",
+      "description": "호버 시 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableLanguage === true && property.languageButtonHoverEffect === 'background'"
     },
 
     {
