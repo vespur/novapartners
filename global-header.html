@@ -153,6 +153,12 @@
 
   .utility-menu {
     display: flex;
+    gap: {{property.utilityIconGap}}px;
+    align-items: center;
+  }
+
+  .utility-items {
+    display: flex;
     gap: {{property.utilityMenuGap}}px;
     align-items: center;
   }
@@ -202,31 +208,65 @@
     fill: {{property.utilityIconColor}};
   }
 
-  .language-btn {
+  .language-selector {
     background: {{property.languageButtonBg}};
     border: {{property.languageButtonBorder}}px solid {{property.languageButtonBorderColor}};
     border-radius: {{property.languageButtonRadius}}px;
     padding: {{property.languageButtonPadding}}px;
-    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .language-item {
     color: {{property.languageButtonColor}};
     font-size: {{property.languageButtonSize}}px;
+    cursor: pointer;
+    text-decoration: none;
     {{#if (eq property.languageButtonHoverEffect 'opacity')}}
     transition: opacity 0.2s;
+    {{else if (eq property.languageButtonHoverEffect 'color')}}
+    transition: color 0.2s;
     {{else if (eq property.languageButtonHoverEffect 'background')}}
-    transition: background 0.2s;
+    transition: background 0.2s, padding 0.2s;
     {{else if (eq property.languageButtonHoverEffect 'scale')}}
     transition: transform 0.2s;
+    {{else}}
+    transition: all 0.2s;
     {{/if}}
   }
 
-  .language-btn:hover {
+  .language-item:hover {
     {{#if (eq property.languageButtonHoverEffect 'opacity')}}
     opacity: 0.6;
+    {{else if (eq property.languageButtonHoverEffect 'color')}}
+    color: {{property.languageButtonHoverColor}};
     {{else if (eq property.languageButtonHoverEffect 'background')}}
     background: {{property.languageButtonHoverBg}};
+    {{else if (eq property.languageButtonHoverEffect 'underline')}}
+    text-decoration: underline;
     {{else if (eq property.languageButtonHoverEffect 'scale')}}
     transform: scale(1.05);
     {{/if}}
+  }
+
+  .language-item.selected {
+    {{#if (eq property.languageDisplayStyle 'bold')}}
+    font-weight: bold;
+    {{else if (eq property.languageDisplayStyle 'underline')}}
+    text-decoration: underline;
+    {{else if (eq property.languageDisplayStyle 'background')}}
+    background: {{property.languageSelectedColor}};
+    padding: 2px 6px;
+    border-radius: 3px;
+    {{else if (eq property.languageDisplayStyle 'color')}}
+    color: {{property.languageSelectedColor}};
+    {{/if}}
+  }
+
+  .language-divider {
+    color: {{property.languageButtonColor}};
+    opacity: 0.3;
   }
 
   .hamburger {
@@ -329,7 +369,7 @@
       display: none;
     }
 
-    .language-btn {
+    .language-selector {
       display: none;
     }
 
@@ -404,11 +444,13 @@
 
           {{#if (gt (size property.utilityMenuItems) 0)}}
           <nav class="utility-menu">
-            {{#each property.utilityMenuItems}}
-            <div class="utility-item">
-              <a href="{{link.value}}">{{name}}</a>
+            <div class="utility-items">
+              {{#each property.utilityMenuItems}}
+              <div class="utility-item">
+                <a href="{{link.value}}">{{name}}</a>
+              </div>
+              {{/each}}
             </div>
-            {{/each}}
             {{#if property.utilityIconSvg}}
             <div class="utility-icon">
               {{{property.utilityIconSvg}}}
@@ -418,7 +460,14 @@
           {{/if}}
 
           {{#if property.enableLanguage}}
-          <button class="language-btn">{{property.languageButtonText}}</button>
+          {{#if (gt (size property.languageItems) 0)}}
+          <div class="language-selector">
+            {{#each property.languageItems}}
+            <span class="language-item {{#if (eq code ../property.defaultLanguage)}}selected{{/if}}" data-lang="{{code}}">{{code}}</span>
+            {{#unless @last}}<span class="language-divider">/</span>{{/unless}}
+            {{/each}}
+          </div>
+          {{/if}}
           {{/if}}
         </div>
 
@@ -500,6 +549,18 @@
       navMobile.classList.remove('active');
       overlay.classList.remove('active');
       document.body.style.overflow = '';
+    }
+
+    if (e.target.matches('.language-item')) {
+      const selectedLang = e.target.getAttribute('data-lang');
+      const languageItems = container.querySelectorAll('.language-item');
+      languageItems.forEach(item => {
+        if (item.getAttribute('data-lang') === selectedLang) {
+          item.classList.add('selected');
+        } else {
+          item.classList.remove('selected');
+        }
+      });
     }
   }, true);
 
