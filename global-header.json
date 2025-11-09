@@ -80,23 +80,104 @@
           "type": "LINK"
         },
         {
-          "id": "subMenuItems",
-          "label": "하위 메뉴",
-          "description": "드롭다운 메뉴 항목",
-          "type": "LIST",
-          "maxCount": 20,
-          "settings": [
-            {
-              "id": "name",
-              "label": "하위 메뉴 이름",
-              "type": "TEXT"
-            },
-            {
-              "id": "link",
-              "label": "링크",
-              "type": "LINK"
-            }
-          ]
+          "id": "sub1Name",
+          "label": "하위메뉴 1 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub1Link",
+          "label": "하위메뉴 1 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub2Name",
+          "label": "하위메뉴 2 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub2Link",
+          "label": "하위메뉴 2 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub3Name",
+          "label": "하위메뉴 3 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub3Link",
+          "label": "하위메뉴 3 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub4Name",
+          "label": "하위메뉴 4 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub4Link",
+          "label": "하위메뉴 4 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub5Name",
+          "label": "하위메뉴 5 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub5Link",
+          "label": "하위메뉴 5 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub6Name",
+          "label": "하위메뉴 6 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub6Link",
+          "label": "하위메뉴 6 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub7Name",
+          "label": "하위메뉴 7 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub7Link",
+          "label": "하위메뉴 7 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub8Name",
+          "label": "하위메뉴 8 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub8Link",
+          "label": "하위메뉴 8 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub9Name",
+          "label": "하위메뉴 9 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub9Link",
+          "label": "하위메뉴 9 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "sub10Name",
+          "label": "하위메뉴 10 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "sub10Link",
+          "label": "하위메뉴 10 링크",
+          "type": "LINK"
         }
       ]
     },
