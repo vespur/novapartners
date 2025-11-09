@@ -292,13 +292,6 @@
       "type": "CHECKBOX"
     },
     {
-      "id": "previewScrolled",
-      "label": "초기 디자인 보기 (에디터 전용)",
-      "description": "체크 해제 시 에디터에서 초기 디자인 표시",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
       "id": "scrollThreshold",
       "label": "스크롤 감지 지점",
       "description": "디자인이 변경될 스크롤 위치 (px)",
@@ -381,17 +374,6 @@
       "unit": "px",
       "isVisible": "property.enableScrollStyle === true"
     },
-    {
-      "id": "scrollBorder",
-      "label": "스크롤 테두리",
-      "description": "스크롤 시 하단 테두리 두께",
-      "type": "RANGE",
-      "min": 0,
-      "max": 5,
-      "step": 1,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true"
-    }
   ],
   "property": {
     "logoImage": "",
@@ -429,7 +411,6 @@
     "headerBorder": 0,
     "headerBorderColor": "#E0E0E0FF",
     "enableScrollStyle": false,
-    "previewScrolled": true,
     "scrollThreshold": 50,
     "scrollBgType": "solid",
     "scrollBg": "#FFFFFFFF",
@@ -439,6 +420,12 @@
     "scrollShadow": 4,
     "scrollShadowColor": "#00000033",
     "scrollBlur": 8,
-    "scrollBorder": 1
+    "utilityMenuItems": [],
+    "utilityMenuColor": "#666666FF",
+    "utilityMenuSize": 13,
+    "enableLanguage": false,
+    "languageButtonText": "KR / EN",
+    "languageButtonColor": "#666666FF",
+    "languageButtonSize": 13,
   }
 }
