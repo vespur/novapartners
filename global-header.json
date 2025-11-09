@@ -26,6 +26,37 @@
       "description": "로고 클릭 시 이동 경로",
       "type": "LINK"
     },
+    {
+      "id": "logoAlign",
+      "label": "로고 위치",
+      "description": "로고 정렬 위치",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
+      "id": "logoMarginX",
+      "label": "로고 가로 여백",
+      "description": "로고 좌우 여백 (px)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "logoMarginY",
+      "label": "로고 세로 여백",
+      "description": "로고 상하 여백 (px)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
 
     {
       "type": "TITLE",
@@ -92,16 +123,41 @@
       "step": 1,
       "unit": "px"
     },
+    {
+      "id": "menuAlign",
+      "label": "메뉴 위치",
+      "description": "메뉴 정렬 위치",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
+      "id": "menuMarginX",
+      "label": "메뉴 가로 여백",
+      "description": "메뉴 좌우 여백 (px)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "menuMarginY",
+      "label": "메뉴 세로 여백",
+      "description": "메뉴 상하 여백 (px)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
 
     {
       "type": "TITLE",
       "content": "헤더 설정"
-    },
-    {
-      "id": "headerBg",
-      "label": "배경색",
-      "description": "헤더 배경색 (투명도 조절 가능)",
-      "type": "COLOR_PICKER"
     },
     {
       "id": "headerHeight",
@@ -114,10 +170,135 @@
       "unit": "px"
     },
     {
+      "id": "headerPadding",
+      "label": "헤더 좌우 여백",
+      "description": "헤더 내부 좌우 여백 (px)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px"
+    },
+    {
       "id": "isSticky",
       "label": "상단 고정",
-      "description": "스크롤 시 헤더 고정",
+      "description": "스크롤 시 헤더 상단 고정",
       "type": "CHECKBOX"
+    },
+    {
+      "id": "isOverlay",
+      "label": "섹션 겹침",
+      "description": "헤더를 아래 섹션 위에 겹쳐서 표시",
+      "type": "CHECKBOX"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "헤더 초기 디자인 (스크롤 최상단)"
+    },
+    {
+      "id": "headerBg",
+      "label": "배경색",
+      "description": "헤더 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerShadow",
+      "label": "그림자",
+      "description": "그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerBlur",
+      "label": "배경 블러",
+      "description": "배경 블러 효과",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorder",
+      "label": "하단 테두리",
+      "description": "하단 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorderColor",
+      "label": "테두리 색상",
+      "description": "하단 테두리 색상",
+      "type": "COLOR_PICKER"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "헤더 스크롤 디자인 (스크롤 시)"
+    },
+    {
+      "id": "enableScrollStyle",
+      "label": "스크롤 디자인 변경",
+      "description": "스크롤 시 헤더 디자인 변경 활성화",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scrollThreshold",
+      "label": "스크롤 감지 지점",
+      "description": "디자인이 변경될 스크롤 위치 (px)",
+      "type": "RANGE",
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBg",
+      "label": "스크롤 배경색",
+      "description": "스크롤 시 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollShadow",
+      "label": "스크롤 그림자",
+      "description": "스크롤 시 그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBlur",
+      "label": "스크롤 블러",
+      "description": "스크롤 시 배경 블러",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBorder",
+      "label": "스크롤 테두리",
+      "description": "스크롤 시 하단 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
     }
   ],
   "property": {
@@ -129,14 +310,32 @@
       "label": "/",
       "value": "/"
     },
+    "logoAlign": "left",
+    "logoMarginX": 0,
+    "logoMarginY": 0,
     "menuItems": [],
     "menuColorDesktop": "#000000FF",
     "menuSizeDesktop": 16,
     "menuGapDesktop": 30,
     "menuColorMobile": "#000000FF",
     "menuSizeMobile": 18,
-    "headerBg": "#FFFFFFEE",
+    "menuAlign": "right",
+    "menuMarginX": 0,
+    "menuMarginY": 0,
     "headerHeight": 80,
-    "isSticky": true
+    "headerPadding": 40,
+    "isSticky": true,
+    "isOverlay": false,
+    "headerBg": "#FFFFFFEE",
+    "headerShadow": 0,
+    "headerBlur": 0,
+    "headerBorder": 0,
+    "headerBorderColor": "#E0E0E0FF",
+    "enableScrollStyle": false,
+    "scrollThreshold": 50,
+    "scrollBg": "#FFFFFFFF",
+    "scrollShadow": 4,
+    "scrollBlur": 8,
+    "scrollBorder": 1
   }
 }
