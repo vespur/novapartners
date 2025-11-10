@@ -171,14 +171,17 @@
     {{#if property.submenuBlurEnabled}}
     backdrop-filter: blur({{property.submenuBlur}}px);
     -webkit-backdrop-filter: blur({{property.submenuBlur}}px);
-    /* 블러 효과를 위한 레이어 최적화 */
+    /* 블러 효과를 위한 독립적인 레이어 생성 */
+    /* transform을 사용하여 새로운 stacking context를 생성하고 GPU 레이어를 분리 */
+    /* 이렇게 하면 부모(.global-header)의 backdrop-filter와 독립적으로 작동함 */
+    transform: translateZ(0);
     isolation: isolate;
     will-change: backdrop-filter;
     {{/if}}
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease;
-    z-index: 1000;
+    z-index: 10001; /* 헤더(1000)보다 높게 설정하여 완전히 분리 */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
@@ -654,7 +657,7 @@
               <div class="submenu">
                 <div class="submenu-content">
                   <div class="submenu-left">
-                    {{#if (and (eq ../property.logoAlign 'left') (eq ../property.menuAlign 'left') ../property.logoImage)}}
+                    {{#if (and (eq ../property.logoAlign 'left') ../property.logoImage)}}
                     <div class="submenu-logo-placeholder" style="width: {{../property.logoWidth}}px; margin-right: 20px;"></div>
                     {{/if}}
                     {{#if (eq ../property.menuAlign 'left')}}
@@ -693,7 +696,7 @@
                     {{/if}}
                   </div>
                   <div class="submenu-center">
-                    {{#if (and (eq ../property.logoAlign 'center') (eq ../property.menuAlign 'center') ../property.logoImage)}}
+                    {{#if (and (eq ../property.logoAlign 'center') ../property.logoImage)}}
                     <div class="submenu-logo-placeholder" style="width: {{../property.logoWidth}}px; margin-right: 20px;"></div>
                     {{/if}}
                     {{#if (eq ../property.menuAlign 'center')}}
@@ -732,7 +735,7 @@
                     {{/if}}
                   </div>
                   <div class="submenu-right">
-                    {{#if (and (eq ../property.logoAlign 'right') (eq ../property.menuAlign 'right') ../property.logoImage)}}
+                    {{#if (and (eq ../property.logoAlign 'right') ../property.logoImage)}}
                     <div class="submenu-logo-placeholder" style="width: {{../property.logoWidth}}px; margin-right: 20px;"></div>
                     {{/if}}
                     {{#if (eq ../property.menuAlign 'right')}}
@@ -825,7 +828,7 @@
               <div class="submenu">
                 <div class="submenu-content">
                   <div class="submenu-left">
-                    {{#if (and (eq ../property.logoAlign 'left') (eq ../property.menuAlign 'left') ../property.logoImage)}}
+                    {{#if (and (eq ../property.logoAlign 'left') ../property.logoImage)}}
                     <div class="submenu-logo-placeholder" style="width: {{../property.logoWidth}}px; margin-right: 20px;"></div>
                     {{/if}}
                     {{#if (eq ../property.menuAlign 'left')}}
@@ -864,7 +867,7 @@
                     {{/if}}
                   </div>
                   <div class="submenu-center">
-                    {{#if (and (eq ../property.logoAlign 'center') (eq ../property.menuAlign 'center') ../property.logoImage)}}
+                    {{#if (and (eq ../property.logoAlign 'center') ../property.logoImage)}}
                     <div class="submenu-logo-placeholder" style="width: {{../property.logoWidth}}px; margin-right: 20px;"></div>
                     {{/if}}
                     {{#if (eq ../property.menuAlign 'center')}}
@@ -903,7 +906,7 @@
                     {{/if}}
                   </div>
                   <div class="submenu-right">
-                    {{#if (and (eq ../property.logoAlign 'right') (eq ../property.menuAlign 'right') ../property.logoImage)}}
+                    {{#if (and (eq ../property.logoAlign 'right') ../property.logoImage)}}
                     <div class="submenu-logo-placeholder" style="width: {{../property.logoWidth}}px; margin-right: 20px;"></div>
                     {{/if}}
                     {{#if (eq ../property.menuAlign 'right')}}
