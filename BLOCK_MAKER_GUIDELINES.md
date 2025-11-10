@@ -304,6 +304,20 @@ console.error('test');
 }
 ```
 
+**⚠️ 중요: DIVIDER 타입은 지원하지 않음**
+```json
+// ❌ 지원하지 않는 타입 - 저장 오류 발생
+{
+  "type": "DIVIDER"
+}
+
+// ✅ TITLE 타입만 사용하면 자동으로 구분선 생성됨
+{
+  "type": "TITLE",
+  "content": "섹션 제목"
+}
+```
+
 #### isVisible 사용법
 ```json
 // 일반 설정
@@ -660,6 +674,27 @@ bm.container.addEventListener('click', (e) => {
 **원인:** 2중 괄호 사용 (`{{iconSvg}}`)
 **해결:** 3중 괄호 사용 (`{{{iconSvg}}}`)
 
+#### 에러 6: "지원하지 않는 settingType입니다. (Input: DIVIDER)"
+**증상:** 블록 저장 시 오류 발생
+**원인:** DIVIDER 타입은 SixShop Pro Block Maker에서 지원하지 않음
+**해결:** DIVIDER를 모두 제거하고 TITLE 타입만 사용
+```json
+// ❌ 잘못된 예시
+{
+  "type": "TITLE",
+  "content": "섹션 제목"
+},
+{
+  "type": "DIVIDER"  // 오류 발생!
+},
+
+// ✅ 올바른 예시
+{
+  "type": "TITLE",
+  "content": "섹션 제목"  // TITLE만으로도 구분선이 자동 생성됨
+},
+```
+
 ---
 
 ## 8. 최종 체크리스트
@@ -679,6 +714,7 @@ bm.container.addEventListener('click', (e) => {
 - [ ] LIST 중첩 없음
 - [ ] LIST 내부 LINK 필드 최소화 (1-2개)
 - [ ] TITLE로 섹션 구분
+- [ ] DIVIDER 타입 미사용 (지원하지 않음)
 - [ ] isVisible 적절히 사용
 - [ ] 모든 문구 한글 작성
 
@@ -878,6 +914,10 @@ Grid 안의 Flex 안의 Flex 같은 중첩 구조:
 
 ## 버전 이력
 
+- **v1.3** (2025-11-10): DIVIDER 타입 지원 불가 문서화
+  - DIVIDER 타입 미지원 명시 (섹션 4-1)
+  - 에러 6 추가: DIVIDER 저장 오류 해결법 (섹션 7-2)
+  - 최종 체크리스트에 DIVIDER 미사용 항목 추가 (섹션 8)
 - **v1.2** (2025-11-10): CSS 레이아웃 디버깅 프로토콜 추가 (섹션 11)
   - 24시간 허비 사례 분석
   - Flexbox/Grid 정렬 원칙
