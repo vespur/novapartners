@@ -78,6 +78,48 @@
           "id": "link",
           "label": "링크",
           "type": "LINK"
+        },
+        {
+          "id": "hasSubmenu",
+          "label": "하위 메뉴 사용",
+          "description": "이 메뉴에 하위 메뉴를 추가합니다",
+          "type": "CHECKBOX"
+        },
+        {
+          "id": "sub1Name",
+          "label": "하위 메뉴 1 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub1Link",
+          "label": "하위 메뉴 1 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub2Name",
+          "label": "하위 메뉴 2 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub2Link",
+          "label": "하위 메뉴 2 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub3Name",
+          "label": "하위 메뉴 3 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub3Link",
+          "label": "하위 메뉴 3 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
         }
       ]
     },
@@ -200,6 +242,44 @@
       "max": 50,
       "step": 5,
       "unit": "px"
+    },
+    {
+      "id": "submenuBg",
+      "label": "하위 메뉴 배경색",
+      "description": "드롭다운 하위 메뉴의 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuColor",
+      "label": "하위 메뉴 글자 색상",
+      "description": "하위 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuSize",
+      "label": "하위 메뉴 글자 크기",
+      "description": "하위 메뉴 글자 크기",
+      "type": "RANGE",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "submenuPadding",
+      "label": "하위 메뉴 여백",
+      "description": "하위 메뉴 내부 여백",
+      "type": "RANGE",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "submenuHoverBg",
+      "label": "하위 메뉴 호버 배경색",
+      "description": "하위 메뉴 호버 시 배경색",
+      "type": "COLOR_PICKER"
     },
 
     {
@@ -448,6 +528,16 @@
       "type": "COLOR_PICKER"
     },
     {
+      "id": "utilityIconPosition",
+      "label": "유틸리티 아이콘 위치",
+      "description": "아이콘을 텍스트 앞/뒤에 배치",
+      "type": "RADIO",
+      "options": [
+        { "label": "텍스트 앞 (좌측)", "value": "left" },
+        { "label": "텍스트 뒤 (우측)", "value": "right" }
+      ]
+    },
+    {
       "id": "headerRightMargin",
       "label": "우측 영역 여백",
       "description": "화면 우측 끝과의 여백",
@@ -478,6 +568,12 @@
           "id": "link",
           "label": "버튼 링크",
           "type": "LINK"
+        },
+        {
+          "id": "isActive",
+          "label": "활성화 표시",
+          "description": "현재 선택된 언어로 표시",
+          "type": "CHECKBOX"
         }
       ]
     },
@@ -575,6 +671,50 @@
       "description": "호버 시 배경색",
       "type": "COLOR_PICKER",
       "isVisible": "property.languageButtonHoverEffect === 'background'"
+    },
+    {
+      "id": "languageActiveStyle",
+      "label": "활성화 표시 효과",
+      "description": "활성화된 언어 버튼의 표시 효과",
+      "type": "SELECT",
+      "options": [
+        { "label": "배경색 변경", "value": "background" },
+        { "label": "테두리 강조", "value": "border" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "굵게", "value": "bold" },
+        { "label": "배경+테두리", "value": "background-border" }
+      ]
+    },
+    {
+      "id": "languageActiveBg",
+      "label": "활성화 배경색",
+      "description": "활성화된 버튼의 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.languageActiveStyle === 'background' || property.languageActiveStyle === 'background-border'"
+    },
+    {
+      "id": "languageActiveBorderColor",
+      "label": "활성화 테두리 색상",
+      "description": "활성화된 버튼의 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.languageActiveStyle === 'border' || property.languageActiveStyle === 'background-border'"
+    },
+    {
+      "id": "languageActiveBorderWidth",
+      "label": "활성화 테두리 두께",
+      "description": "활성화된 버튼의 테두리 두께",
+      "type": "RANGE",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.languageActiveStyle === 'border' || property.languageActiveStyle === 'background-border'"
+    },
+    {
+      "id": "languageActiveTextColor",
+      "label": "활성화 텍스트 색상",
+      "description": "활성화된 버튼의 텍스트 색상",
+      "type": "COLOR_PICKER"
     },
 
     {
@@ -733,6 +873,11 @@
     "menuHoverBgColor": "#F5F5F5FF",
     "menuUnderlineColor": "#000000FF",
     "menuUnderlineThickness": 2,
+    "submenuBg": "#FFFFFFFF",
+    "submenuColor": "#333333FF",
+    "submenuSize": 14,
+    "submenuPadding": 10,
+    "submenuHoverBg": "#F5F5F5FF",
     "headerHeight": 80,
     "headerPadding": 40,
     "containerMaxWidthEnabled": false,
@@ -772,6 +917,7 @@
     "utilityMenuHoverColor": "#000000FF",
     "utilityIconSize": 16,
     "utilityIconColor": "#666666FF",
+    "utilityIconPosition": "right",
     "headerRightMargin": 20,
     "languageButtons": [],
     "languageButtonColor": "#666666FF",
@@ -784,6 +930,11 @@
     "languageButtonBorderColor": "#CCCCCCFF",
     "languageButtonHoverEffect": "opacity",
     "languageButtonHoverColor": "#000000FF",
-    "languageButtonHoverBg": "#F5F5F5FF"
+    "languageButtonHoverBg": "#F5F5F5FF",
+    "languageActiveStyle": "background",
+    "languageActiveBg": "#000000FF",
+    "languageActiveBorderColor": "#000000FF",
+    "languageActiveBorderWidth": 2,
+    "languageActiveTextColor": "#FFFFFFFF"
   }
 }

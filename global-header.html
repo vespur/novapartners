@@ -140,7 +140,54 @@
     margin: {{property.menuMarginY}}px {{property.menuMarginX}}px;
   }
 
-  .nav-desktop a {
+  .menu-item-wrapper {
+    position: relative;
+  }
+
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: {{property.submenuBg}};
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    margin-top: 8px;
+  }
+
+  .menu-item-wrapper:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .submenu a {
+    display: block;
+    color: {{property.submenuColor}} !important;
+    font-size: {{property.submenuSize}}px !important;
+    padding: {{property.submenuPadding}}px;
+    text-decoration: none !important;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .submenu a:hover {
+    background: {{property.submenuHoverBg}} !important;
+    transform: none !important;
+  }
+
+  .submenu a::after,
+  .submenu a::before {
+    display: none !important;
+  }
+
+  .nav-desktop > a,
+  .menu-item-wrapper > a {
     color: {{property.menuColorDesktop}};
     font-size: {{property.menuSizeDesktop}}px;
     text-decoration: none;
@@ -163,7 +210,8 @@
   }
 
   {{#if (eq property.menuHoverEffect 'underline-slide')}}
-  .nav-desktop a::after {
+  .nav-desktop > a::after,
+  .menu-item-wrapper > a::after {
     content: '';
     position: absolute;
     bottom: -4px;
@@ -173,11 +221,13 @@
     background: {{property.menuUnderlineColor}};
     transition: width 0.3s ease;
   }
-  .nav-desktop a:hover::after {
+  .nav-desktop > a:hover::after,
+  .menu-item-wrapper > a:hover::after {
     width: 100%;
   }
   {{else if (eq property.menuHoverEffect 'underline-center')}}
-  .nav-desktop a::after {
+  .nav-desktop > a::after,
+  .menu-item-wrapper > a::after {
     content: '';
     position: absolute;
     bottom: -4px;
@@ -188,11 +238,13 @@
     background: {{property.menuUnderlineColor}};
     transition: width 0.3s ease;
   }
-  .nav-desktop a:hover::after {
+  .nav-desktop > a:hover::after,
+  .menu-item-wrapper > a:hover::after {
     width: 100%;
   }
   {{else if (eq property.menuHoverEffect 'background-slide')}}
-  .nav-desktop a::before {
+  .nav-desktop > a::before,
+  .menu-item-wrapper > a::before {
     content: '';
     position: absolute;
     top: 0;
@@ -203,12 +255,14 @@
     transition: width 0.3s ease;
     z-index: -1;
   }
-  .nav-desktop a:hover::before {
+  .nav-desktop > a:hover::before,
+  .menu-item-wrapper > a:hover::before {
     width: 100%;
   }
   {{/if}}
 
-  .nav-desktop a:hover {
+  .nav-desktop > a:hover,
+  .menu-item-wrapper > a:hover {
     {{#if (eq property.menuHoverEffect 'opacity')}}
     opacity: 0.6;
     {{else if (eq property.menuHoverEffect 'color')}}
@@ -313,6 +367,27 @@
     text-decoration: underline;
     {{else if (eq property.languageButtonHoverEffect 'scale')}}
     transform: scale(1.05);
+    {{/if}}
+  }
+
+  .language-btn.active {
+    {{#if (eq property.languageActiveStyle 'background')}}
+    background: {{property.languageActiveBg}} !important;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'border')}}
+    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'underline')}}
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'bold')}}
+    font-weight: bold;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'background-border')}}
+    background: {{property.languageActiveBg}} !important;
+    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
+    color: {{property.languageActiveTextColor}} !important;
     {{/if}}
   }
 
@@ -443,7 +518,18 @@
         {{#if (eq property.menuAlign 'left')}}
         <nav class="nav-desktop">
           {{#each property.menuItems}}
-          <a href="{{link.value}}">{{name}}</a>
+            {{#if hasSubmenu}}
+            <div class="menu-item-wrapper">
+              <a href="{{link.value}}">{{name}}</a>
+              <div class="submenu">
+                {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
+                {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
+                {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
+              </div>
+            </div>
+            {{else}}
+            <a href="{{link.value}}">{{name}}</a>
+            {{/if}}
           {{/each}}
         </nav>
         {{/if}}
@@ -463,7 +549,18 @@
         {{#if (eq property.menuAlign 'center')}}
         <nav class="nav-desktop">
           {{#each property.menuItems}}
-          <a href="{{link.value}}">{{name}}</a>
+            {{#if hasSubmenu}}
+            <div class="menu-item-wrapper">
+              <a href="{{link.value}}">{{name}}</a>
+              <div class="submenu">
+                {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
+                {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
+                {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
+              </div>
+            </div>
+            {{else}}
+            <a href="{{link.value}}">{{name}}</a>
+            {{/if}}
           {{/each}}
         </nav>
         {{/if}}
@@ -484,7 +581,18 @@
           {{#if (eq property.menuAlign 'right')}}
           <nav class="nav-desktop">
             {{#each property.menuItems}}
-            <a href="{{link.value}}">{{name}}</a>
+              {{#if hasSubmenu}}
+              <div class="menu-item-wrapper">
+                <a href="{{link.value}}">{{name}}</a>
+                <div class="submenu">
+                  {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
+                  {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
+                  {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
+                </div>
+              </div>
+              {{else}}
+              <a href="{{link.value}}">{{name}}</a>
+              {{/if}}
             {{/each}}
           </nav>
           {{/if}}
@@ -493,8 +601,13 @@
           <nav class="utility-menu">
             {{#each property.utilityMenuItems}}
             <div class="utility-item">
-              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
-              <a href="{{link.value}}">{{name}}</a>
+              {{#if (eq ../property.utilityIconPosition 'left')}}
+                {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+                <a href="{{link.value}}">{{name}}</a>
+              {{else}}
+                <a href="{{link.value}}">{{name}}</a>
+                {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+              {{/if}}
             </div>
             {{/each}}
           </nav>
@@ -503,7 +616,7 @@
           {{#if (gt (size property.languageButtons) 0)}}
           <div class="language-buttons">
             {{#each property.languageButtons}}
-            <a href="{{link.value}}" class="language-btn">{{text}}</a>
+            <a href="{{link.value}}" class="language-btn {{#if isActive}}active{{/if}}">{{text}}</a>
             {{/each}}
           </div>
           {{/if}}
@@ -534,6 +647,11 @@
     <div class="mobile-menu">
       {{#each property.menuItems}}
       <a href="{{link.value}}">{{name}}</a>
+      {{#if hasSubmenu}}
+        {{#if sub1Name}}<a href="{{sub1Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub1Name}}</a>{{/if}}
+        {{#if sub2Name}}<a href="{{sub2Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub2Name}}</a>{{/if}}
+        {{#if sub3Name}}<a href="{{sub3Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub3Name}}</a>{{/if}}
+      {{/if}}
       {{/each}}
     </div>
   </div>
