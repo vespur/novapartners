@@ -280,8 +280,13 @@
     display: flex;
     gap: {{property.utilityMenuGap}}px;
     align-items: center;
+  }
+
+  {{#if (eq property.utilityMenuAlign 'right')}}
+  .header-right .utility-menu {
     margin-right: {{property.headerRightMargin}}px;
   }
+  {{/if}}
 
   .utility-item {
     display: flex;
@@ -330,8 +335,13 @@
     display: flex;
     gap: {{property.languageButtonGap}}px;
     align-items: center;
+  }
+
+  {{#if (eq property.languageButtonAlign 'right')}}
+  .header-right .language-buttons {
     margin-right: {{property.headerRightMargin}}px;
   }
+  {{/if}}
 
   .language-btn {
     background: {{property.languageButtonBg}};
@@ -546,6 +556,30 @@
           {{/each}}
         </nav>
         {{/if}}
+
+        {{#if (and (eq property.utilityMenuAlign 'left') (gt (size property.utilityMenuItems) 0))}}
+        <nav class="utility-menu">
+          {{#each property.utilityMenuItems}}
+          <div class="utility-item">
+            {{#if (eq ../property.utilityIconPosition 'left')}}
+              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+              <a href="{{link.value}}">{{name}}</a>
+            {{else}}
+              <a href="{{link.value}}">{{name}}</a>
+              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+            {{/if}}
+          </div>
+          {{/each}}
+        </nav>
+        {{/if}}
+
+        {{#if (and (eq property.languageButtonAlign 'left') (gt (size property.languageButtons) 0))}}
+        <div class="language-buttons">
+          {{#each property.languageButtons}}
+          <a href="{{link.value}}" class="language-btn {{#if isActive}}active{{/if}}">{{text}}</a>
+          {{/each}}
+        </div>
+        {{/if}}
       </div>
 
       <div class="header-center">
@@ -584,6 +618,30 @@
           {{/each}}
         </nav>
         {{/if}}
+
+        {{#if (and (eq property.utilityMenuAlign 'center') (gt (size property.utilityMenuItems) 0))}}
+        <nav class="utility-menu">
+          {{#each property.utilityMenuItems}}
+          <div class="utility-item">
+            {{#if (eq ../property.utilityIconPosition 'left')}}
+              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+              <a href="{{link.value}}">{{name}}</a>
+            {{else}}
+              <a href="{{link.value}}">{{name}}</a>
+              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+            {{/if}}
+          </div>
+          {{/each}}
+        </nav>
+        {{/if}}
+
+        {{#if (and (eq property.languageButtonAlign 'center') (gt (size property.languageButtons) 0))}}
+        <div class="language-buttons">
+          {{#each property.languageButtons}}
+          <a href="{{link.value}}" class="language-btn {{#if isActive}}active{{/if}}">{{text}}</a>
+          {{/each}}
+        </div>
+        {{/if}}
       </div>
 
       <div class="header-right">
@@ -617,7 +675,7 @@
           </nav>
           {{/if}}
 
-          {{#if (gt (size property.utilityMenuItems) 0)}}
+          {{#if (and (eq property.utilityMenuAlign 'right') (gt (size property.utilityMenuItems) 0))}}
           <nav class="utility-menu">
             {{#each property.utilityMenuItems}}
             <div class="utility-item">
@@ -633,7 +691,7 @@
           </nav>
           {{/if}}
 
-          {{#if (gt (size property.languageButtons) 0)}}
+          {{#if (and (eq property.languageButtonAlign 'right') (gt (size property.languageButtons) 0))}}
           <div class="language-buttons">
             {{#each property.languageButtons}}
             <a href="{{link.value}}" class="language-btn {{#if isActive}}active{{/if}}">{{text}}</a>

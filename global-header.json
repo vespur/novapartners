@@ -622,6 +622,17 @@
       ]
     },
     {
+      "id": "utilityMenuAlign",
+      "label": "유틸리티 메뉴 배치",
+      "description": "유틸리티 메뉴 전체 위치",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
       "id": "headerRightMargin",
       "label": "우측 영역 여백",
       "description": "화면 우측 끝과의 여백",
@@ -686,6 +697,17 @@
       "max": 30,
       "step": 2,
       "unit": "px"
+    },
+    {
+      "id": "languageButtonAlign",
+      "label": "다국어 버튼 배치",
+      "description": "다국어 버튼 전체 위치",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
     },
     {
       "id": "languageButtonBg",
@@ -1003,11 +1025,13 @@
     "utilityIconSize": 16,
     "utilityIconColor": "#666666FF",
     "utilityIconPosition": "right",
+    "utilityMenuAlign": "right",
     "headerRightMargin": 20,
     "languageButtons": [],
     "languageButtonColor": "#666666FF",
     "languageButtonSize": 13,
     "languageButtonGap": 8,
+    "languageButtonAlign": "right",
     "languageButtonBg": "#00000000",
     "languageButtonPadding": 8,
     "languageButtonRadius": 4,
