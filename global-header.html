@@ -154,42 +154,22 @@
   }
 
   .menu-item-wrapper {
-    position: relative;
-  }
-
-  /* 오버레이 배경 */
-  .menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: {{property.overlayBg}};
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 999;
-  }
-
-  .menu-item-wrapper:hover .menu-overlay {
-    opacity: 1;
-    visibility: visible;
+    position: static;
   }
 
   /* 하위 메뉴 컨테이너 */
   .submenu {
-    position: fixed;
+    position: absolute;
     top: {{property.headerHeight}}px;
     left: 0;
     width: 100%;
     background: {{property.submenuBg}};
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
     transition: all 0.3s ease;
     z-index: 1000;
-    max-height: calc(100vh - {{property.headerHeight}}px);
-    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
   .menu-item-wrapper:hover .submenu {
@@ -198,50 +178,63 @@
     transform: translateY(0);
   }
 
-  /* 하위 메뉴 내용 */
+  /* 하위 메뉴 내용 - 그룹들을 가로로 배치 */
   .submenu-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: {{property.submenuPadding}}px;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
   }
 
-  /* 하위 메뉴 제목 */
-  .submenu-title {
-    display: block;
+  /* 그룹 컨테이너 */
+  .submenu-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  /* 그룹 제목 */
+  .submenu-group-title {
     color: {{property.submenuTitleColor}} !important;
     font-size: {{property.submenuTitleSize}}px !important;
     font-weight: bold;
-    padding: {{property.submenuPadding}}px;
-    text-decoration: none !important;
+    padding-bottom: 8px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
-    margin-bottom: 10px;
-  }
-
-  .submenu-title:hover {
-    text-decoration: underline !important;
+    margin-bottom: 4px;
+    pointer-events: none;
   }
 
   /* 하위 메뉴 항목 */
-  .submenu a:not(.submenu-title) {
+  .submenu-item {
     display: block;
     color: {{property.submenuColor}} !important;
     font-size: {{property.submenuSize}}px !important;
     padding: {{property.submenuPadding}}px;
     text-decoration: none !important;
-    transition: background 0.2s;
+    transition: all 0.2s;
     border-radius: 4px;
   }
 
-  .submenu a:not(.submenu-title):hover {
+  .submenu-item:hover {
+    {{#if (eq property.submenuHoverEffect 'background')}}
     background: {{property.submenuHoverBg}} !important;
+    {{else if (eq property.submenuHoverEffect 'underline')}}
+    text-decoration: underline !important;
+    {{else if (eq property.submenuHoverEffect 'bold')}}
+    font-weight: bold;
+    {{else if (eq property.submenuHoverEffect 'background-bold')}}
+    background: {{property.submenuHoverBg}} !important;
+    font-weight: bold;
+    {{/if}}
     transform: none !important;
   }
 
-  .submenu a::after,
-  .submenu a::before {
+  .submenu-item::after,
+  .submenu-item::before {
     display: none !important;
   }
 
@@ -590,22 +583,38 @@
             {{#if hasSubmenu}}
             <div class="menu-item-wrapper">
               <a href="{{link.value}}">{{name}}</a>
-              <div class="menu-overlay"></div>
               <div class="submenu">
                 <div class="submenu-content">
-                  {{#if submenuTitle}}
-                  <a class="submenu-title" href="{{#if submenuTitleLink}}{{submenuTitleLink.value}}{{else}}{{link.value}}{{/if}}">{{submenuTitle}}</a>
+                  {{#if group1Title}}
+                  <div class="submenu-group">
+                    <div class="submenu-group-title">{{group1Title}}</div>
+                    {{#if group1Item1Name}}<a class="submenu-item" href="{{group1Item1Link.value}}">{{group1Item1Name}}</a>{{/if}}
+                    {{#if group1Item2Name}}<a class="submenu-item" href="{{group1Item2Link.value}}">{{group1Item2Name}}</a>{{/if}}
+                    {{#if group1Item3Name}}<a class="submenu-item" href="{{group1Item3Link.value}}">{{group1Item3Name}}</a>{{/if}}
+                    {{#if group1Item4Name}}<a class="submenu-item" href="{{group1Item4Link.value}}">{{group1Item4Name}}</a>{{/if}}
+                    {{#if group1Item5Name}}<a class="submenu-item" href="{{group1Item5Link.value}}">{{group1Item5Name}}</a>{{/if}}
+                  </div>
                   {{/if}}
-                  {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
-                  {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
-                  {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
-                  {{#if sub4Name}}<a href="{{sub4Link.value}}">{{sub4Name}}</a>{{/if}}
-                  {{#if sub5Name}}<a href="{{sub5Link.value}}">{{sub5Name}}</a>{{/if}}
-                  {{#if sub6Name}}<a href="{{sub6Link.value}}">{{sub6Name}}</a>{{/if}}
-                  {{#if sub7Name}}<a href="{{sub7Link.value}}">{{sub7Name}}</a>{{/if}}
-                  {{#if sub8Name}}<a href="{{sub8Link.value}}">{{sub8Name}}</a>{{/if}}
-                  {{#if sub9Name}}<a href="{{sub9Link.value}}">{{sub9Name}}</a>{{/if}}
-                  {{#if sub10Name}}<a href="{{sub10Link.value}}">{{sub10Name}}</a>{{/if}}
+                  {{#if group2Title}}
+                  <div class="submenu-group">
+                    <div class="submenu-group-title">{{group2Title}}</div>
+                    {{#if group2Item1Name}}<a class="submenu-item" href="{{group2Item1Link.value}}">{{group2Item1Name}}</a>{{/if}}
+                    {{#if group2Item2Name}}<a class="submenu-item" href="{{group2Item2Link.value}}">{{group2Item2Name}}</a>{{/if}}
+                    {{#if group2Item3Name}}<a class="submenu-item" href="{{group2Item3Link.value}}">{{group2Item3Name}}</a>{{/if}}
+                    {{#if group2Item4Name}}<a class="submenu-item" href="{{group2Item4Link.value}}">{{group2Item4Name}}</a>{{/if}}
+                    {{#if group2Item5Name}}<a class="submenu-item" href="{{group2Item5Link.value}}">{{group2Item5Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
+                  {{#if group3Title}}
+                  <div class="submenu-group">
+                    <div class="submenu-group-title">{{group3Title}}</div>
+                    {{#if group3Item1Name}}<a class="submenu-item" href="{{group3Item1Link.value}}">{{group3Item1Name}}</a>{{/if}}
+                    {{#if group3Item2Name}}<a class="submenu-item" href="{{group3Item2Link.value}}">{{group3Item2Name}}</a>{{/if}}
+                    {{#if group3Item3Name}}<a class="submenu-item" href="{{group3Item3Link.value}}">{{group3Item3Name}}</a>{{/if}}
+                    {{#if group3Item4Name}}<a class="submenu-item" href="{{group3Item4Link.value}}">{{group3Item4Name}}</a>{{/if}}
+                    {{#if group3Item5Name}}<a class="submenu-item" href="{{group3Item5Link.value}}">{{group3Item5Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
                 </div>
               </div>
             </div>
@@ -658,22 +667,38 @@
             {{#if hasSubmenu}}
             <div class="menu-item-wrapper">
               <a href="{{link.value}}">{{name}}</a>
-              <div class="menu-overlay"></div>
               <div class="submenu">
                 <div class="submenu-content">
-                  {{#if submenuTitle}}
-                  <a class="submenu-title" href="{{#if submenuTitleLink}}{{submenuTitleLink.value}}{{else}}{{link.value}}{{/if}}">{{submenuTitle}}</a>
+                  {{#if group1Title}}
+                  <div class="submenu-group">
+                    <div class="submenu-group-title">{{group1Title}}</div>
+                    {{#if group1Item1Name}}<a class="submenu-item" href="{{group1Item1Link.value}}">{{group1Item1Name}}</a>{{/if}}
+                    {{#if group1Item2Name}}<a class="submenu-item" href="{{group1Item2Link.value}}">{{group1Item2Name}}</a>{{/if}}
+                    {{#if group1Item3Name}}<a class="submenu-item" href="{{group1Item3Link.value}}">{{group1Item3Name}}</a>{{/if}}
+                    {{#if group1Item4Name}}<a class="submenu-item" href="{{group1Item4Link.value}}">{{group1Item4Name}}</a>{{/if}}
+                    {{#if group1Item5Name}}<a class="submenu-item" href="{{group1Item5Link.value}}">{{group1Item5Name}}</a>{{/if}}
+                  </div>
                   {{/if}}
-                  {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
-                  {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
-                  {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
-                  {{#if sub4Name}}<a href="{{sub4Link.value}}">{{sub4Name}}</a>{{/if}}
-                  {{#if sub5Name}}<a href="{{sub5Link.value}}">{{sub5Name}}</a>{{/if}}
-                  {{#if sub6Name}}<a href="{{sub6Link.value}}">{{sub6Name}}</a>{{/if}}
-                  {{#if sub7Name}}<a href="{{sub7Link.value}}">{{sub7Name}}</a>{{/if}}
-                  {{#if sub8Name}}<a href="{{sub8Link.value}}">{{sub8Name}}</a>{{/if}}
-                  {{#if sub9Name}}<a href="{{sub9Link.value}}">{{sub9Name}}</a>{{/if}}
-                  {{#if sub10Name}}<a href="{{sub10Link.value}}">{{sub10Name}}</a>{{/if}}
+                  {{#if group2Title}}
+                  <div class="submenu-group">
+                    <div class="submenu-group-title">{{group2Title}}</div>
+                    {{#if group2Item1Name}}<a class="submenu-item" href="{{group2Item1Link.value}}">{{group2Item1Name}}</a>{{/if}}
+                    {{#if group2Item2Name}}<a class="submenu-item" href="{{group2Item2Link.value}}">{{group2Item2Name}}</a>{{/if}}
+                    {{#if group2Item3Name}}<a class="submenu-item" href="{{group2Item3Link.value}}">{{group2Item3Name}}</a>{{/if}}
+                    {{#if group2Item4Name}}<a class="submenu-item" href="{{group2Item4Link.value}}">{{group2Item4Name}}</a>{{/if}}
+                    {{#if group2Item5Name}}<a class="submenu-item" href="{{group2Item5Link.value}}">{{group2Item5Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
+                  {{#if group3Title}}
+                  <div class="submenu-group">
+                    <div class="submenu-group-title">{{group3Title}}</div>
+                    {{#if group3Item1Name}}<a class="submenu-item" href="{{group3Item1Link.value}}">{{group3Item1Name}}</a>{{/if}}
+                    {{#if group3Item2Name}}<a class="submenu-item" href="{{group3Item2Link.value}}">{{group3Item2Name}}</a>{{/if}}
+                    {{#if group3Item3Name}}<a class="submenu-item" href="{{group3Item3Link.value}}">{{group3Item3Name}}</a>{{/if}}
+                    {{#if group3Item4Name}}<a class="submenu-item" href="{{group3Item4Link.value}}">{{group3Item4Name}}</a>{{/if}}
+                    {{#if group3Item5Name}}<a class="submenu-item" href="{{group3Item5Link.value}}">{{group3Item5Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
                 </div>
               </div>
             </div>
@@ -804,16 +829,30 @@
       {{#each property.menuItems}}
       <a href="{{link.value}}">{{name}}</a>
       {{#if hasSubmenu}}
-        {{#if sub1Name}}<a href="{{sub1Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub1Name}}</a>{{/if}}
-        {{#if sub2Name}}<a href="{{sub2Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub2Name}}</a>{{/if}}
-        {{#if sub3Name}}<a href="{{sub3Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub3Name}}</a>{{/if}}
-        {{#if sub4Name}}<a href="{{sub4Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub4Name}}</a>{{/if}}
-        {{#if sub5Name}}<a href="{{sub5Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub5Name}}</a>{{/if}}
-        {{#if sub6Name}}<a href="{{sub6Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub6Name}}</a>{{/if}}
-        {{#if sub7Name}}<a href="{{sub7Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub7Name}}</a>{{/if}}
-        {{#if sub8Name}}<a href="{{sub8Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub8Name}}</a>{{/if}}
-        {{#if sub9Name}}<a href="{{sub9Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub9Name}}</a>{{/if}}
-        {{#if sub10Name}}<a href="{{sub10Link.value}}" style="padding-left: 20px; font-size: 0.9em;">{{sub10Name}}</a>{{/if}}
+        {{#if group1Title}}
+          <div style="padding-left: 20px; font-weight: bold; font-size: 0.9em; color: #666; margin-top: 8px;">{{group1Title}}</div>
+          {{#if group1Item1Name}}<a href="{{group1Item1Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item1Name}}</a>{{/if}}
+          {{#if group1Item2Name}}<a href="{{group1Item2Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item2Name}}</a>{{/if}}
+          {{#if group1Item3Name}}<a href="{{group1Item3Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item3Name}}</a>{{/if}}
+          {{#if group1Item4Name}}<a href="{{group1Item4Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item4Name}}</a>{{/if}}
+          {{#if group1Item5Name}}<a href="{{group1Item5Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item5Name}}</a>{{/if}}
+        {{/if}}
+        {{#if group2Title}}
+          <div style="padding-left: 20px; font-weight: bold; font-size: 0.9em; color: #666; margin-top: 8px;">{{group2Title}}</div>
+          {{#if group2Item1Name}}<a href="{{group2Item1Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item1Name}}</a>{{/if}}
+          {{#if group2Item2Name}}<a href="{{group2Item2Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item2Name}}</a>{{/if}}
+          {{#if group2Item3Name}}<a href="{{group2Item3Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item3Name}}</a>{{/if}}
+          {{#if group2Item4Name}}<a href="{{group2Item4Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item4Name}}</a>{{/if}}
+          {{#if group2Item5Name}}<a href="{{group2Item5Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item5Name}}</a>{{/if}}
+        {{/if}}
+        {{#if group3Title}}
+          <div style="padding-left: 20px; font-weight: bold; font-size: 0.9em; color: #666; margin-top: 8px;">{{group3Title}}</div>
+          {{#if group3Item1Name}}<a href="{{group3Item1Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item1Name}}</a>{{/if}}
+          {{#if group3Item2Name}}<a href="{{group3Item2Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item2Name}}</a>{{/if}}
+          {{#if group3Item3Name}}<a href="{{group3Item3Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item3Name}}</a>{{/if}}
+          {{#if group3Item4Name}}<a href="{{group3Item4Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item4Name}}</a>{{/if}}
+          {{#if group3Item5Name}}<a href="{{group3Item5Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item5Name}}</a>{{/if}}
+        {{/if}}
       {{/if}}
       {{/each}}
     </div>

@@ -86,136 +86,203 @@
           "type": "CHECKBOX"
         },
         {
-          "id": "submenuTitle",
-          "label": "하위 메뉴 제목",
-          "description": "하위 메뉴 그룹 상단에 표시될 제목 (선택사항)",
+          "id": "group1Title",
+          "label": "그룹 1 제목",
+          "description": "첫 번째 그룹의 제목 (링크 기능 없음)",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "submenuTitleLink",
-          "label": "하위 메뉴 제목 링크",
-          "description": "하위 메뉴 제목 클릭 시 이동할 링크 (선택사항)",
+          "id": "group1Item1Name",
+          "label": "그룹 1 - 항목 1 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item1Link",
+          "label": "그룹 1 - 항목 1 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub1Name",
-          "label": "하위 메뉴 1 이름",
+          "id": "group1Item2Name",
+          "label": "그룹 1 - 항목 2 이름",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub1Link",
-          "label": "하위 메뉴 1 링크",
+          "id": "group1Item2Link",
+          "label": "그룹 1 - 항목 2 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub2Name",
-          "label": "하위 메뉴 2 이름",
+          "id": "group1Item3Name",
+          "label": "그룹 1 - 항목 3 이름",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub2Link",
-          "label": "하위 메뉴 2 링크",
+          "id": "group1Item3Link",
+          "label": "그룹 1 - 항목 3 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub3Name",
-          "label": "하위 메뉴 3 이름",
+          "id": "group1Item4Name",
+          "label": "그룹 1 - 항목 4 이름",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub3Link",
-          "label": "하위 메뉴 3 링크",
+          "id": "group1Item4Link",
+          "label": "그룹 1 - 항목 4 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub4Name",
-          "label": "하위 메뉴 4 이름",
+          "id": "group1Item5Name",
+          "label": "그룹 1 - 항목 5 이름",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub4Link",
-          "label": "하위 메뉴 4 링크",
+          "id": "group1Item5Link",
+          "label": "그룹 1 - 항목 5 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub5Name",
-          "label": "하위 메뉴 5 이름",
+          "id": "group2Title",
+          "label": "그룹 2 제목",
+          "description": "두 번째 그룹의 제목 (링크 기능 없음)",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub5Link",
-          "label": "하위 메뉴 5 링크",
+          "id": "group2Item1Name",
+          "label": "그룹 2 - 항목 1 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item1Link",
+          "label": "그룹 2 - 항목 1 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub6Name",
-          "label": "하위 메뉴 6 이름",
+          "id": "group2Item2Name",
+          "label": "그룹 2 - 항목 2 이름",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub6Link",
-          "label": "하위 메뉴 6 링크",
+          "id": "group2Item2Link",
+          "label": "그룹 2 - 항목 2 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub7Name",
-          "label": "하위 메뉴 7 이름",
+          "id": "group2Item3Name",
+          "label": "그룹 2 - 항목 3 이름",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub7Link",
-          "label": "하위 메뉴 7 링크",
+          "id": "group2Item3Link",
+          "label": "그룹 2 - 항목 3 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub8Name",
-          "label": "하위 메뉴 8 이름",
+          "id": "group2Item4Name",
+          "label": "그룹 2 - 항목 4 이름",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub8Link",
-          "label": "하위 메뉴 8 링크",
+          "id": "group2Item4Link",
+          "label": "그룹 2 - 항목 4 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub9Name",
-          "label": "하위 메뉴 9 이름",
+          "id": "group2Item5Name",
+          "label": "그룹 2 - 항목 5 이름",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub9Link",
-          "label": "하위 메뉴 9 링크",
+          "id": "group2Item5Link",
+          "label": "그룹 2 - 항목 5 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub10Name",
-          "label": "하위 메뉴 10 이름",
+          "id": "group3Title",
+          "label": "그룹 3 제목",
+          "description": "세 번째 그룹의 제목 (링크 기능 없음)",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
-          "id": "sub10Link",
-          "label": "하위 메뉴 10 링크",
+          "id": "group3Item1Name",
+          "label": "그룹 3 - 항목 1 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item1Link",
+          "label": "그룹 3 - 항목 1 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item2Name",
+          "label": "그룹 3 - 항목 2 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item2Link",
+          "label": "그룹 3 - 항목 2 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item3Name",
+          "label": "그룹 3 - 항목 3 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item3Link",
+          "label": "그룹 3 - 항목 3 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item4Name",
+          "label": "그룹 3 - 항목 4 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item4Link",
+          "label": "그룹 3 - 항목 4 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item5Name",
+          "label": "그룹 3 - 항목 5 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item5Link",
+          "label": "그룹 3 - 항목 5 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         }
@@ -374,16 +441,23 @@
       "unit": "px"
     },
     {
+      "id": "submenuHoverEffect",
+      "label": "하위 메뉴 호버 효과",
+      "description": "하위 메뉴 항목 호버 시 효과",
+      "type": "SELECT",
+      "options": [
+        { "label": "배경색 변경", "value": "background" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "굵게", "value": "bold" },
+        { "label": "배경색+굵게", "value": "background-bold" }
+      ]
+    },
+    {
       "id": "submenuHoverBg",
       "label": "하위 메뉴 호버 배경색",
       "description": "하위 메뉴 호버 시 배경색",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "overlayBg",
-      "label": "오버레이 배경색",
-      "description": "하위 메뉴 호버 시 전체 화면 오버레이 배경색",
-      "type": "COLOR_PICKER"
+      "type": "COLOR_PICKER",
+      "isVisible": "property.submenuHoverEffect === 'background' || property.submenuHoverEffect === 'background-bold'"
     },
     {
       "id": "submenuTitleSize",
@@ -1020,8 +1094,8 @@
     "submenuColor": "#333333FF",
     "submenuSize": 14,
     "submenuPadding": 10,
+    "submenuHoverEffect": "background",
     "submenuHoverBg": "#F5F5F5FF",
-    "overlayBg": "#000000CC",
     "submenuTitleSize": 16,
     "submenuTitleColor": "#000000FF",
     "headerHeight": 80,
