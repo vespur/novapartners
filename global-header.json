@@ -413,9 +413,6 @@
       "content": "🎯 하위 메뉴 - 기본 설정"
     },
     {
-      "type": "DIVIDER"
-    },
-    {
       "id": "submenuBg",
       "label": "배경색",
       "description": "💡 하위 메뉴의 배경색입니다. 블러 효과를 사용하려면 투명도를 70~90% 정도로 설정하세요.",
@@ -476,9 +473,6 @@
       "content": "✨ 하위 메뉴 - 블러 효과"
     },
     {
-      "type": "DIVIDER"
-    },
-    {
       "id": "submenuBlurEnabled",
       "label": "블러 효과 활성화",
       "description": "💡 하위 메뉴 뒤의 배경을 흐리게 만듭니다. 배경색의 투명도를 낮춰야 효과가 잘 보입니다.",
@@ -498,9 +492,6 @@
     {
       "type": "TITLE",
       "content": "📋 하위 메뉴 - 그룹 제목"
-    },
-    {
-      "type": "DIVIDER"
     },
     {
       "id": "submenuTitleColor",
@@ -590,9 +581,6 @@
       "content": "📝 하위 메뉴 - 항목"
     },
     {
-      "type": "DIVIDER"
-    },
-    {
       "id": "submenuColor",
       "label": "항목 색상",
       "description": "하위 메뉴 항목의 글자 색상입니다.",
@@ -664,9 +652,6 @@
     {
       "type": "TITLE",
       "content": "🎨 하위 메뉴 - 호버 효과"
-    },
-    {
-      "type": "DIVIDER"
     },
     {
       "id": "submenuHoverEffect",
