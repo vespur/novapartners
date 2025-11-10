@@ -743,6 +743,7 @@
 
   bm.onContextChange = () => {
     handleScroll();
+    bm.apply(); // 템플릿 강제 재렌더링
   };
 
   bm.onDestroy = () => {
