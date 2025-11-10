@@ -409,118 +409,142 @@
       "unit": "px"
     },
     {
+      "type": "TITLE",
+      "content": "🎯 하위 메뉴 - 기본 설정"
+    },
+    {
+      "type": "DIVIDER"
+    },
+    {
       "id": "submenuBg",
-      "label": "하위 메뉴 배경색",
-      "description": "드롭다운 하위 메뉴의 배경색",
+      "label": "배경색",
+      "description": "💡 하위 메뉴의 배경색입니다. 블러 효과를 사용하려면 투명도를 70~90% 정도로 설정하세요.",
       "type": "COLOR_PICKER"
     },
     {
-      "id": "submenuColor",
-      "label": "하위 메뉴 글자 색상",
-      "description": "하위 메뉴 글자 색상",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuSize",
-      "label": "하위 메뉴 글자 크기",
-      "description": "하위 메뉴 글자 크기",
+      "id": "submenuPaddingTop",
+      "label": "상단 여백",
+      "description": "하위 메뉴 내용의 위쪽 여백입니다.",
       "type": "RANGE",
-      "min": 10,
-      "max": 20,
-      "step": 1,
-      "unit": "px"
-    },
-    {
-      "id": "submenuPadding",
-      "label": "하위 메뉴 여백",
-      "description": "하위 메뉴 내부 여백",
-      "type": "RANGE",
-      "min": 5,
-      "max": 30,
+      "min": 0,
+      "max": 60,
       "step": 5,
       "unit": "px"
     },
     {
-      "id": "submenuHoverEffect",
-      "label": "하위 메뉴 호버 효과",
-      "description": "하위 메뉴 항목 호버 시 효과",
-      "type": "SELECT",
-      "options": [
-        { "label": "배경색 변경", "value": "background" },
-        { "label": "밑줄", "value": "underline" },
-        { "label": "굵게", "value": "bold" },
-        { "label": "배경색+굵게", "value": "background-bold" },
-        { "label": "글자색 변경", "value": "color" },
-        { "label": "글자색+굵게", "value": "color-bold" },
-        { "label": "확대", "value": "scale" },
-        { "label": "그림자", "value": "shadow" },
-        { "label": "배경색+글자색", "value": "background-color" }
-      ]
+      "id": "submenuPaddingBottom",
+      "label": "하단 여백",
+      "description": "하위 메뉴 내용의 아래쪽 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
     },
     {
-      "id": "submenuHoverBg",
-      "label": "하위 메뉴 호버 배경색",
-      "description": "하위 메뉴 호버 시 배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.submenuHoverEffect === 'background' || property.submenuHoverEffect === 'background-bold' || property.submenuHoverEffect === 'background-color'"
+      "id": "submenuPaddingLeft",
+      "label": "좌측 여백",
+      "description": "하위 메뉴 내용의 왼쪽 여백입니다. (헤더의 가로 여백에 추가로 적용됩니다)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
     },
     {
-      "id": "submenuHoverColor",
-      "label": "하위 메뉴 호버 글자색",
-      "description": "하위 메뉴 호버 시 글자색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.submenuHoverEffect === 'color' || property.submenuHoverEffect === 'color-bold' || property.submenuHoverEffect === 'background-color'"
+      "id": "submenuPaddingRight",
+      "label": "우측 여백",
+      "description": "하위 메뉴 내용의 오른쪽 여백입니다. (헤더의 가로 여백에 추가로 적용됩니다)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "submenuGroupGap",
+      "label": "그룹 간 간격",
+      "description": "각 하위 메뉴 그룹 사이의 가로 간격입니다.",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "✨ 하위 메뉴 - 블러 효과"
+    },
+    {
+      "type": "DIVIDER"
     },
     {
       "id": "submenuBlurEnabled",
-      "label": "하위 메뉴 배경 블러 효과",
-      "description": "하위 메뉴 배경에 블러 효과를 적용합니다",
+      "label": "블러 효과 활성화",
+      "description": "💡 하위 메뉴 뒤의 배경을 흐리게 만듭니다. 배경색의 투명도를 낮춰야 효과가 잘 보입니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "submenuBlur",
-      "label": "하위 메뉴 블러 강도",
-      "description": "하위 메뉴 배경 블러 강도 (px)",
+      "label": "블러 강도",
+      "description": "배경 블러의 강도입니다. 높을수록 더 흐려집니다.",
       "type": "RANGE",
       "min": 0,
-      "max": 20,
-      "step": 1,
+      "max": 30,
+      "step": 2,
       "unit": "px",
       "isVisible": "property.submenuBlurEnabled === true"
     },
     {
+      "type": "TITLE",
+      "content": "📋 하위 메뉴 - 그룹 제목"
+    },
+    {
+      "type": "DIVIDER"
+    },
+    {
+      "id": "submenuTitleColor",
+      "label": "제목 색상",
+      "description": "그룹 제목의 글자 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
       "id": "submenuTitleSize",
-      "label": "하위 메뉴 제목 크기",
-      "description": "하위 메뉴 제목 글자 크기",
+      "label": "제목 크기",
+      "description": "그룹 제목의 글자 크기입니다.",
       "type": "RANGE",
       "min": 12,
-      "max": 24,
+      "max": 28,
       "step": 1,
       "unit": "px"
     },
     {
-      "id": "submenuTitleColor",
-      "label": "하위 메뉴 제목 색상",
-      "description": "하위 메뉴 제목 글자 색상",
-      "type": "COLOR_PICKER"
-    },
-    {
       "id": "submenuTitleWeight",
-      "label": "하위 메뉴 제목 굵기",
-      "description": "하위 메뉴 제목 글자 굵기",
+      "label": "제목 굵기",
+      "description": "그룹 제목의 글자 굵기입니다.",
       "type": "SELECT",
       "options": [
-        { "label": "얇게", "value": "300" },
-        { "label": "보통", "value": "400" },
-        { "label": "중간", "value": "500" },
-        { "label": "굵게", "value": "600" },
-        { "label": "매우 굵게", "value": "700" }
+        { "label": "얇게 (300)", "value": "300" },
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
       ]
     },
     {
-      "id": "submenuTitlePadding",
-      "label": "하위 메뉴 제목 여백",
-      "description": "하위 메뉴 제목 내부 여백 (px)",
+      "id": "submenuTitlePaddingX",
+      "label": "제목 가로 여백",
+      "description": "그룹 제목의 좌우 안쪽 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "submenuTitlePaddingY",
+      "label": "제목 세로 여백",
+      "description": "그룹 제목의 상하 안쪽 여백입니다.",
       "type": "RANGE",
       "min": 0,
       "max": 30,
@@ -529,8 +553,8 @@
     },
     {
       "id": "submenuTitleMarginBottom",
-      "label": "하위 메뉴 제목 하단 간격",
-      "description": "하위 메뉴 제목과 항목 사이 간격 (px)",
+      "label": "제목 하단 간격",
+      "description": "그룹 제목과 첫 번째 항목 사이의 간격입니다.",
       "type": "RANGE",
       "min": 0,
       "max": 30,
@@ -539,14 +563,14 @@
     },
     {
       "id": "submenuTitleUnderline",
-      "label": "하위 메뉴 제목 밑줄",
-      "description": "하위 메뉴 제목에 밑줄을 표시합니다",
+      "label": "제목 밑줄 표시",
+      "description": "그룹 제목 아래에 밑줄을 표시합니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "submenuTitleUnderlineWidth",
-      "label": "하위 메뉴 제목 밑줄 두께",
-      "description": "하위 메뉴 제목 밑줄 두께 (px)",
+      "label": "밑줄 두께",
+      "description": "그룹 제목 밑줄의 두께입니다.",
       "type": "RANGE",
       "min": 1,
       "max": 5,
@@ -556,38 +580,71 @@
     },
     {
       "id": "submenuTitleUnderlineColor",
-      "label": "하위 메뉴 제목 밑줄 색상",
-      "description": "하위 메뉴 제목 밑줄 색상",
+      "label": "밑줄 색상",
+      "description": "그룹 제목 밑줄의 색상입니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.submenuTitleUnderline === true"
     },
     {
+      "type": "TITLE",
+      "content": "📝 하위 메뉴 - 항목"
+    },
+    {
+      "type": "DIVIDER"
+    },
+    {
+      "id": "submenuColor",
+      "label": "항목 색상",
+      "description": "하위 메뉴 항목의 글자 색상입니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuSize",
+      "label": "항목 크기",
+      "description": "하위 메뉴 항목의 글자 크기입니다.",
+      "type": "RANGE",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
       "id": "submenuItemWeight",
-      "label": "하위 메뉴 항목 굵기",
-      "description": "하위 메뉴 항목 글자 굵기",
+      "label": "항목 굵기",
+      "description": "하위 메뉴 항목의 글자 굵기입니다.",
       "type": "SELECT",
       "options": [
-        { "label": "얇게", "value": "300" },
-        { "label": "보통", "value": "400" },
-        { "label": "중간", "value": "500" },
-        { "label": "굵게", "value": "600" },
-        { "label": "매우 굵게", "value": "700" }
+        { "label": "얇게 (300)", "value": "300" },
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
       ]
     },
     {
-      "id": "submenuItemPadding",
-      "label": "하위 메뉴 항목 여백",
-      "description": "하위 메뉴 항목 내부 여백 (px)",
+      "id": "submenuItemPaddingX",
+      "label": "항목 가로 여백",
+      "description": "하위 메뉴 항목의 좌우 안쪽 여백입니다.",
       "type": "RANGE",
       "min": 0,
-      "max": 30,
+      "max": 40,
       "step": 2,
       "unit": "px"
     },
     {
+      "id": "submenuItemPaddingY",
+      "label": "항목 세로 여백",
+      "description": "하위 메뉴 항목의 상하 안쪽 여백입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
       "id": "submenuItemMargin",
-      "label": "하위 메뉴 항목 간격",
-      "description": "하위 메뉴 항목 사이 간격 (px)",
+      "label": "항목 간 간격",
+      "description": "하위 메뉴 항목들 사이의 세로 간격입니다.",
       "type": "RANGE",
       "min": 0,
       "max": 20,
@@ -596,13 +653,51 @@
     },
     {
       "id": "submenuItemRadius",
-      "label": "하위 메뉴 항목 둥글기",
-      "description": "하위 메뉴 항목 모서리 둥글기 (px)",
+      "label": "항목 모서리 둥글기",
+      "description": "하위 메뉴 항목의 모서리 둥글기입니다.",
       "type": "RANGE",
       "min": 0,
       "max": 20,
       "step": 2,
       "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 하위 메뉴 - 호버 효과"
+    },
+    {
+      "type": "DIVIDER"
+    },
+    {
+      "id": "submenuHoverEffect",
+      "label": "호버 효과 종류",
+      "description": "💡 마우스를 올렸을 때 적용될 효과를 선택하세요.",
+      "type": "SELECT",
+      "options": [
+        { "label": "배경색 변경", "value": "background" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "굵게", "value": "bold" },
+        { "label": "배경색 + 굵게", "value": "background-bold" },
+        { "label": "글자색 변경", "value": "color" },
+        { "label": "글자색 + 굵게", "value": "color-bold" },
+        { "label": "확대 (1.05배)", "value": "scale" },
+        { "label": "그림자", "value": "shadow" },
+        { "label": "배경색 + 글자색", "value": "background-color" }
+      ]
+    },
+    {
+      "id": "submenuHoverBg",
+      "label": "호버 배경색",
+      "description": "마우스를 올렸을 때의 배경색입니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.submenuHoverEffect === 'background' || property.submenuHoverEffect === 'background-bold' || property.submenuHoverEffect === 'background-color'"
+    },
+    {
+      "id": "submenuHoverColor",
+      "label": "호버 글자색",
+      "description": "마우스를 올렸을 때의 글자 색상입니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.submenuHoverEffect === 'color' || property.submenuHoverEffect === 'color-bold' || property.submenuHoverEffect === 'background-color'"
     },
 
     {
@@ -1219,27 +1314,33 @@
     "menuHoverBgColor": "#F5F5F5FF",
     "menuUnderlineColor": "#000000FF",
     "menuUnderlineThickness": 2,
-    "submenuBg": "#FFFFFFFF",
-    "submenuColor": "#333333FF",
-    "submenuSize": 14,
-    "submenuPadding": 10,
-    "submenuHoverEffect": "background",
-    "submenuHoverBg": "#F5F5F5FF",
-    "submenuHoverColor": "#000000FF",
+    "submenuBg": "#FFFFFFEE",
+    "submenuPaddingTop": 20,
+    "submenuPaddingBottom": 20,
+    "submenuPaddingLeft": 0,
+    "submenuPaddingRight": 0,
+    "submenuGroupGap": 40,
     "submenuBlurEnabled": false,
     "submenuBlur": 10,
-    "submenuTitleSize": 16,
     "submenuTitleColor": "#000000FF",
+    "submenuTitleSize": 16,
     "submenuTitleWeight": "600",
-    "submenuTitlePadding": 10,
+    "submenuTitlePaddingX": 10,
+    "submenuTitlePaddingY": 8,
     "submenuTitleMarginBottom": 8,
     "submenuTitleUnderline": false,
     "submenuTitleUnderlineWidth": 1,
     "submenuTitleUnderlineColor": "#E0E0E0FF",
+    "submenuColor": "#333333FF",
+    "submenuSize": 14,
     "submenuItemWeight": "400",
-    "submenuItemPadding": 10,
+    "submenuItemPaddingX": 10,
+    "submenuItemPaddingY": 8,
     "submenuItemMargin": 2,
     "submenuItemRadius": 4,
+    "submenuHoverEffect": "background",
+    "submenuHoverBg": "#F5F5F5FF",
+    "submenuHoverColor": "#000000FF",
     "headerHeight": 80,
     "headerPadding": 40,
     "containerMaxWidthEnabled": false,

@@ -194,14 +194,14 @@
     {{#if property.containerMaxWidthEnabled}}
     max-width: {{property.containerMaxWidth}}px;
     margin: 0 auto;
-    padding: {{property.submenuPadding}}px {{property.containerPaddingDesktop}}px;
+    padding: {{property.submenuPaddingTop}}px calc({{property.containerPaddingDesktop}}px + {{property.submenuPaddingLeft}}px) {{property.submenuPaddingBottom}}px calc({{property.containerPaddingDesktop}}px + {{property.submenuPaddingRight}}px);
     {{else}}
     max-width: 100%;
-    padding: {{property.submenuPadding}}px {{property.headerPadding}}px;
+    padding: {{property.submenuPaddingTop}}px calc({{property.headerPadding}}px + {{property.submenuPaddingLeft}}px) {{property.submenuPaddingBottom}}px calc({{property.headerPadding}}px + {{property.submenuPaddingRight}}px);
     {{/if}}
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: {{property.submenuGroupGap}}px;
     align-items: flex-start;
   }
 
@@ -218,7 +218,7 @@
     color: {{property.submenuTitleColor}} !important;
     font-size: {{property.submenuTitleSize}}px !important;
     font-weight: {{property.submenuTitleWeight}};
-    padding: {{property.submenuTitlePadding}}px;
+    padding: {{property.submenuTitlePaddingY}}px {{property.submenuTitlePaddingX}}px;
     margin-bottom: {{property.submenuTitleMarginBottom}}px;
     pointer-events: none;
     {{#if property.submenuTitleUnderline}}
@@ -232,7 +232,7 @@
     color: {{property.submenuColor}} !important;
     font-size: {{property.submenuSize}}px !important;
     font-weight: {{property.submenuItemWeight}};
-    padding: {{property.submenuItemPadding}}px;
+    padding: {{property.submenuItemPaddingY}}px {{property.submenuItemPaddingX}}px;
     margin: {{property.submenuItemMargin}}px 0;
     text-decoration: none !important;
     transition: all 0.2s;
