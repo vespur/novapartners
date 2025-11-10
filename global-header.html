@@ -160,29 +160,45 @@
   /* 하위 메뉴 컨테이너 */
   .submenu {
     position: absolute;
+    {{#if (and property.enableScrollStyle property.scrollHeaderHeightEnabled)}}
     top: {{property.headerHeight}}px;
+    {{else}}
+    top: {{property.headerHeight}}px;
+    {{/if}}
     left: 0;
     width: 100%;
     background: {{property.submenuBg}};
+    {{#if property.submenuBlurEnabled}}
+    backdrop-filter: blur({{property.submenuBlur}}px);
+    {{/if}}
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .global-header.scrolled .submenu {
+    {{#if (and property.enableScrollStyle property.scrollHeaderHeightEnabled)}}
+    top: {{property.scrollHeaderHeight}}px;
+    {{/if}}
   }
 
   .menu-item-wrapper:hover .submenu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
   }
 
   /* 하위 메뉴 내용 - 그룹들을 가로로 배치 */
   .submenu-content {
-    max-width: 1200px;
+    {{#if property.containerMaxWidthEnabled}}
+    max-width: {{property.containerMaxWidth}}px;
     margin: 0 auto;
-    padding: {{property.submenuPadding}}px;
+    padding: {{property.submenuPadding}}px {{property.containerPaddingDesktop}}px;
+    {{else}}
+    max-width: 100%;
+    padding: {{property.submenuPadding}}px {{property.headerPadding}}px;
+    {{/if}}
     display: flex;
     flex-direction: row;
     gap: 40px;
@@ -201,11 +217,13 @@
   .submenu-group-title {
     color: {{property.submenuTitleColor}} !important;
     font-size: {{property.submenuTitleSize}}px !important;
-    font-weight: bold;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    margin-bottom: 4px;
+    font-weight: {{property.submenuTitleWeight}};
+    padding: {{property.submenuTitlePadding}}px;
+    margin-bottom: {{property.submenuTitleMarginBottom}}px;
     pointer-events: none;
+    {{#if property.submenuTitleUnderline}}
+    border-bottom: {{property.submenuTitleUnderlineWidth}}px solid {{property.submenuTitleUnderlineColor}};
+    {{/if}}
   }
 
   /* 하위 메뉴 항목 */
@@ -213,10 +231,12 @@
     display: block;
     color: {{property.submenuColor}} !important;
     font-size: {{property.submenuSize}}px !important;
-    padding: {{property.submenuPadding}}px;
+    font-weight: {{property.submenuItemWeight}};
+    padding: {{property.submenuItemPadding}}px;
+    margin: {{property.submenuItemMargin}}px 0;
     text-decoration: none !important;
     transition: all 0.2s;
-    border-radius: 4px;
+    border-radius: {{property.submenuItemRadius}}px;
   }
 
   .submenu-item:hover {
@@ -229,8 +249,19 @@
     {{else if (eq property.submenuHoverEffect 'background-bold')}}
     background: {{property.submenuHoverBg}} !important;
     font-weight: bold;
+    {{else if (eq property.submenuHoverEffect 'color')}}
+    color: {{property.submenuHoverColor}} !important;
+    {{else if (eq property.submenuHoverEffect 'color-bold')}}
+    color: {{property.submenuHoverColor}} !important;
+    font-weight: bold;
+    {{else if (eq property.submenuHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{else if (eq property.submenuHoverEffect 'shadow')}}
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    {{else if (eq property.submenuHoverEffect 'background-color')}}
+    background: {{property.submenuHoverBg}} !important;
+    color: {{property.submenuHoverColor}} !important;
     {{/if}}
-    transform: none !important;
   }
 
   .submenu-item::after,
