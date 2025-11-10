@@ -174,21 +174,22 @@
     padding: {{property.submenuPaddingTop}}px 0 {{property.submenuPaddingBottom}}px;
   }
 
-  /* 하위 메뉴 배경 - position: fixed로 header의 backdrop-filter 영향 벗어남 */
+  /* 하위 메뉴 배경 - 좌우로만 확장, 높이는 submenu에 맞춤 */
   .submenu::before {
     content: '';
-    position: fixed; /* viewport 기준으로 렌더링 - header DOM 자식이지만 rendering context 독립 */
+    position: absolute; /* submenu 기준 배치 - 영역 제한됨 */
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: calc(-50vw + 50%); /* 화면 중앙 기준으로 좌측 확장 */
+    right: calc(-50vw + 50%); /* 화면 중앙 기준으로 우측 확장 */
+    width: 100vw; /* 전체 화면 너비 */
+    height: 100%;
     background: {{property.submenuBg}};
     {{#if property.submenuBlurEnabled}}
     backdrop-filter: blur({{property.submenuBlur}}px);
     -webkit-backdrop-filter: blur({{property.submenuBlur}}px);
     {{/if}}
-    pointer-events: none; /* 클릭 이벤트가 뒤의 요소로 전달되도록 */
-    z-index: -1; /* submenu 내용보다 뒤, 하지만 header보다 위 (submenu z-index: 10001) */
+    z-index: -1; /* submenu 내용보다 뒤 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
   /* 스크롤 시 submenu 위치는 자동으로 조정됨 (menu-item 기준이므로) */
