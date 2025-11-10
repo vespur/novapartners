@@ -111,7 +111,6 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-right: {{property.headerRightMargin}}px;
   }
 
   .logo {
@@ -281,6 +280,7 @@
     display: flex;
     gap: {{property.utilityMenuGap}}px;
     align-items: center;
+    margin-right: {{property.headerRightMargin}}px;
   }
 
   .utility-item {
@@ -330,6 +330,7 @@
     display: flex;
     gap: {{property.languageButtonGap}}px;
     align-items: center;
+    margin-right: {{property.headerRightMargin}}px;
   }
 
   .language-btn {
@@ -383,6 +384,11 @@
     color: {{property.languageActiveTextColor}} !important;
     {{else if (eq property.languageActiveStyle 'bold')}}
     font-weight: bold;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'bold-underline')}}
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 4px;
     color: {{property.languageActiveTextColor}} !important;
     {{else if (eq property.languageActiveStyle 'background-border')}}
     background: {{property.languageActiveBg}} !important;
