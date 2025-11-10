@@ -120,6 +120,90 @@
           "label": "하위 메뉴 3 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub4Name",
+          "label": "하위 메뉴 4 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub4Link",
+          "label": "하위 메뉴 4 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub5Name",
+          "label": "하위 메뉴 5 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub5Link",
+          "label": "하위 메뉴 5 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub6Name",
+          "label": "하위 메뉴 6 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub6Link",
+          "label": "하위 메뉴 6 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub7Name",
+          "label": "하위 메뉴 7 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub7Link",
+          "label": "하위 메뉴 7 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub8Name",
+          "label": "하위 메뉴 8 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub8Link",
+          "label": "하위 메뉴 8 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub9Name",
+          "label": "하위 메뉴 9 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub9Link",
+          "label": "하위 메뉴 9 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub10Name",
+          "label": "하위 메뉴 10 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "sub10Link",
+          "label": "하위 메뉴 10 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
         }
       ]
     },
