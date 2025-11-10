@@ -113,14 +113,16 @@
     gap: 20px;
   }
 
-  /* 오른쪽 끝 요소를 화면 끝에 붙이기 위해 container padding 상쇄 */
+  /* 오른쪽 끝으로 밀어내기: container padding을 음수 margin으로 상쇄 */
   {{#if property.containerMaxWidthEnabled}}
-  .header-right-content > *:last-child {
-    margin-right: calc({{property.headerRightMargin}}px - {{property.containerPaddingDesktop}}px) !important;
+  .header-right-content {
+    margin-right: -{{property.containerPaddingDesktop}}px;
+    padding-right: {{property.headerRightMargin}}px;
   }
   {{else}}
-  .header-right-content > *:last-child {
-    margin-right: calc({{property.headerRightMargin}}px - {{property.headerPadding}}px) !important;
+  .header-right-content {
+    margin-right: -{{property.headerPadding}}px;
+    padding-right: {{property.headerRightMargin}}px;
   }
   {{/if}}
 
