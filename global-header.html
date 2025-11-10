@@ -741,9 +741,25 @@
     handleScroll();
   }
 
+  let isApplying = false;
   bm.onContextChange = () => {
-    handleScroll();
-    bm.apply(); // 템플릿 강제 재렌더링
+    // 무한 루프 방지: apply 중에는 다시 호출하지 않음
+    if (isApplying) {
+      return;
+    }
+
+    isApplying = true;
+
+    // 템플릿 강제 재렌더링
+    bm.apply();
+
+    // 재렌더링 완료 후 스크롤 처리 및 플래그 리셋
+    setTimeout(() => {
+      if (context.property.enableScrollStyle) {
+        handleScroll();
+      }
+      isApplying = false;
+    }, 50);
   };
 
   bm.onDestroy = () => {
