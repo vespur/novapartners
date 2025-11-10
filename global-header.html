@@ -19,6 +19,7 @@
     {{/if}}
     transition: all 0.3s ease;
     z-index: 1000;
+    overflow: visible; /* submenu가 밖으로 나갈 수 있도록 */
 
     {{#if property.isOverlay}}
     position: {{#if property.isSticky}}fixed{{else}}absolute{{/if}};
@@ -185,6 +186,10 @@
     {{#if property.submenuBlurEnabled}}
     backdrop-filter: blur({{property.submenuBlur}}px);
     -webkit-backdrop-filter: blur({{property.submenuBlur}}px);
+    /* 독립적인 GPU 레이어 생성하여 header의 backdrop-filter와 분리 */
+    transform: translateZ(0);
+    isolation: isolate;
+    will-change: backdrop-filter;
     {{/if}}
     z-index: -1; /* 내용 뒤로 */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -203,7 +208,7 @@
     flex-direction: row;
     gap: {{property.submenuGroupGap}}px;
     align-items: flex-start;
-    padding: 0 20px; /* 좌우 여백 */
+    /* padding 제거 - 메뉴 텍스트와 완벽히 정렬하기 위해 */
   }
 
   /* 그룹 컨테이너 */
