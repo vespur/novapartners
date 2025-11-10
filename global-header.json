@@ -199,6 +199,34 @@
       "unit": "px"
     },
     {
+      "id": "containerMaxWidthEnabled",
+      "label": "컨테이너 최대 너비 제한 (데스크톱)",
+      "description": "헤더 내부 콘텐츠의 최대 너비를 제한합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "description": "헤더 내부 콘텐츠의 최대 너비 (px)",
+      "type": "RANGE",
+      "min": 800,
+      "max": 1920,
+      "step": 40,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "id": "containerPaddingDesktop",
+      "label": "컨테이너 좌우 여백 (데스크톱)",
+      "description": "헤더 내부 콘텐츠의 좌우 여백 (px)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
       "id": "isSticky",
       "label": "상단 고정",
       "description": "스크롤 시 헤더 상단 고정",
@@ -640,6 +668,9 @@
     "menuHoverColor": "#000000FF",
     "headerHeight": 80,
     "headerPadding": 40,
+    "containerMaxWidthEnabled": false,
+    "containerMaxWidth": 1200,
+    "containerPaddingDesktop": 40,
     "isSticky": true,
     "isOverlay": false,
     "headerBgType": "solid",
