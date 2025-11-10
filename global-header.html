@@ -50,7 +50,16 @@
     backdrop-filter: blur({{property.scrollBlur}}px) !important;
     -webkit-backdrop-filter: blur({{property.scrollBlur}}px) !important;
     {{/if}}
+    {{#if property.scrollHeaderHeightEnabled}}
+    height: {{property.scrollHeaderHeight}}px !important;
+    {{/if}}
   }
+
+  {{#if property.scrollLogoWidthEnabled}}
+  .global-header.scrolled .logo img {
+    width: {{property.scrollLogoWidth}}px !important;
+  }
+  {{/if}}
   {{/if}}
 
   .header-container {
@@ -120,6 +129,7 @@
   .logo img {
     width: {{property.logoWidth}}px;
     height: auto;
+    transition: width 0.3s ease;
   }
   {{/if}}
 
@@ -135,16 +145,68 @@
     font-size: {{property.menuSizeDesktop}}px;
     text-decoration: none;
     white-space: nowrap;
+    position: relative;
+    display: inline-block;
     {{#if (eq property.menuHoverEffect 'opacity')}}
-    transition: opacity 0.2s;
+    transition: opacity 0.3s;
     {{else if (eq property.menuHoverEffect 'color')}}
-    transition: color 0.2s;
+    transition: color 0.3s;
     {{else if (eq property.menuHoverEffect 'scale')}}
-    transition: transform 0.2s;
+    transition: transform 0.3s;
+    {{else if (eq property.menuHoverEffect 'background-slide')}}
+    padding: 8px 16px;
+    overflow: hidden;
+    transition: color 0.3s;
     {{else}}
-    transition: all 0.2s;
+    transition: all 0.3s;
     {{/if}}
   }
+
+  {{#if (eq property.menuHoverEffect 'underline-slide')}}
+  .nav-desktop a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: {{property.menuUnderlineThickness}}px;
+    background: {{property.menuUnderlineColor}};
+    transition: width 0.3s ease;
+  }
+  .nav-desktop a:hover::after {
+    width: 100%;
+  }
+  {{else if (eq property.menuHoverEffect 'underline-center')}}
+  .nav-desktop a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: {{property.menuUnderlineThickness}}px;
+    background: {{property.menuUnderlineColor}};
+    transition: width 0.3s ease;
+  }
+  .nav-desktop a:hover::after {
+    width: 100%;
+  }
+  {{else if (eq property.menuHoverEffect 'background-slide')}}
+  .nav-desktop a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: {{property.menuHoverBgColor}};
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+  .nav-desktop a:hover::before {
+    width: 100%;
+  }
+  {{/if}}
 
   .nav-desktop a:hover {
     {{#if (eq property.menuHoverEffect 'opacity')}}
@@ -153,6 +215,9 @@
     color: {{property.menuHoverColor}};
     {{else if (eq property.menuHoverEffect 'underline')}}
     text-decoration: underline;
+    text-decoration-color: {{property.menuUnderlineColor}};
+    text-decoration-thickness: {{property.menuUnderlineThickness}}px;
+    text-underline-offset: 4px;
     {{else if (eq property.menuHoverEffect 'scale')}}
     transform: scale(1.05);
     {{/if}}

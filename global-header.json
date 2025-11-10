@@ -143,6 +143,9 @@
         { "label": "투명도 변경", "value": "opacity" },
         { "label": "색상 변경", "value": "color" },
         { "label": "밑줄", "value": "underline" },
+        { "label": "밑줄 슬라이드 (좌→우)", "value": "underline-slide" },
+        { "label": "밑줄 확장 (중앙→양쪽)", "value": "underline-center" },
+        { "label": "배경 슬라이드", "value": "background-slide" },
         { "label": "확대", "value": "scale" }
       ]
     },
@@ -152,6 +155,31 @@
       "description": "호버 효과가 '색상 변경'일 때 적용될 색상",
       "type": "COLOR_PICKER",
       "isVisible": "property.menuHoverEffect === 'color'"
+    },
+    {
+      "id": "menuHoverBgColor",
+      "label": "메뉴 호버 배경색",
+      "description": "호버 효과가 '배경 슬라이드'일 때 적용될 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffect === 'background-slide'"
+    },
+    {
+      "id": "menuUnderlineColor",
+      "label": "메뉴 언더라인 색상",
+      "description": "밑줄 효과의 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffect === 'underline' || property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center'"
+    },
+    {
+      "id": "menuUnderlineThickness",
+      "label": "메뉴 언더라인 두께",
+      "description": "밑줄 효과의 두께",
+      "type": "RANGE",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.menuHoverEffect === 'underline' || property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center'"
     },
     {
       "id": "menuMarginX",
@@ -641,6 +669,42 @@
       "step": 2,
       "unit": "px",
       "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollHeaderHeightEnabled",
+      "label": "스크롤 시 헤더 높이 축소",
+      "description": "스크롤 시 헤더 높이를 축소합니다",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollHeaderHeight",
+      "label": "스크롤 시 헤더 높이",
+      "description": "스크롤 시 적용될 헤더 높이 (px)",
+      "type": "RANGE",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.scrollHeaderHeightEnabled === true"
+    },
+    {
+      "id": "scrollLogoWidthEnabled",
+      "label": "스크롤 시 로고 크기 축소",
+      "description": "스크롤 시 로고 크기를 축소합니다",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollLogoWidth",
+      "label": "스크롤 시 로고 너비",
+      "description": "스크롤 시 적용될 로고 너비 (px)",
+      "type": "RANGE",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.scrollLogoWidthEnabled === true"
     }
   ],
   "property": {
@@ -666,6 +730,9 @@
     "menuMarginY": 0,
     "menuHoverEffect": "opacity",
     "menuHoverColor": "#000000FF",
+    "menuHoverBgColor": "#F5F5F5FF",
+    "menuUnderlineColor": "#000000FF",
+    "menuUnderlineThickness": 2,
     "headerHeight": 80,
     "headerPadding": 40,
     "containerMaxWidthEnabled": false,
@@ -693,6 +760,10 @@
     "scrollShadow": 4,
     "scrollShadowColor": "#00000033",
     "scrollBlur": 8,
+    "scrollHeaderHeightEnabled": false,
+    "scrollHeaderHeight": 60,
+    "scrollLogoWidthEnabled": false,
+    "scrollLogoWidth": 100,
     "utilityMenuItems": [],
     "utilityMenuColor": "#666666FF",
     "utilityMenuSize": 13,
