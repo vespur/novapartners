@@ -212,11 +212,34 @@
   }
 
   /* 하위 메뉴의 좌/중/우 컬럼 */
-  .submenu-left,
-  .submenu-center,
+  .submenu-left {
+    display: flex;
+    align-items: flex-start;
+    {{#if (eq property.logoAlign 'left')}}
+    justify-content: flex-start;
+    {{else if (eq property.logoAlign 'center')}}
+    justify-content: center;
+    {{else}}
+    justify-content: flex-end;
+    {{/if}}
+  }
+
+  .submenu-center {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
   .submenu-right {
     display: flex;
     align-items: flex-start;
+    {{#if (eq property.menuAlign 'left')}}
+    justify-content: flex-start;
+    {{else if (eq property.menuAlign 'center')}}
+    justify-content: center;
+    {{else}}
+    justify-content: flex-end;
+    {{/if}}
   }
 
   /* 로고 자리 차지용 */
