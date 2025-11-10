@@ -86,6 +86,20 @@
           "type": "CHECKBOX"
         },
         {
+          "id": "submenuTitle",
+          "label": "하위 메뉴 제목",
+          "description": "하위 메뉴 그룹 상단에 표시될 제목 (선택사항)",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "submenuTitleLink",
+          "label": "하위 메뉴 제목 링크",
+          "description": "하위 메뉴 제목 클릭 시 이동할 링크 (선택사항)",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
           "id": "sub1Name",
           "label": "하위 메뉴 1 이름",
           "type": "TEXT",
@@ -363,6 +377,28 @@
       "id": "submenuHoverBg",
       "label": "하위 메뉴 호버 배경색",
       "description": "하위 메뉴 호버 시 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "overlayBg",
+      "label": "오버레이 배경색",
+      "description": "하위 메뉴 호버 시 전체 화면 오버레이 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuTitleSize",
+      "label": "하위 메뉴 제목 크기",
+      "description": "하위 메뉴 제목 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "submenuTitleColor",
+      "label": "하위 메뉴 제목 색상",
+      "description": "하위 메뉴 제목 글자 색상",
       "type": "COLOR_PICKER"
     },
 
@@ -716,13 +752,13 @@
       "type": "COLOR_PICKER"
     },
     {
-      "id": "languageButtonPadding",
-      "label": "다국어 버튼 여백",
-      "description": "버튼 내부 여백",
+      "id": "languageButtonMarginRight",
+      "label": "다국어 버튼 우측 여백",
+      "description": "다국어 버튼 영역의 우측 여백",
       "type": "RANGE",
       "min": 0,
-      "max": 20,
-      "step": 2,
+      "max": 100,
+      "step": 5,
       "unit": "px"
     },
     {
@@ -985,6 +1021,9 @@
     "submenuSize": 14,
     "submenuPadding": 10,
     "submenuHoverBg": "#F5F5F5FF",
+    "overlayBg": "#000000CC",
+    "submenuTitleSize": 16,
+    "submenuTitleColor": "#000000FF",
     "headerHeight": 80,
     "headerPadding": 40,
     "containerMaxWidthEnabled": false,
@@ -1033,7 +1072,7 @@
     "languageButtonGap": 8,
     "languageButtonAlign": "right",
     "languageButtonBg": "#00000000",
-    "languageButtonPadding": 8,
+    "languageButtonMarginRight": 0,
     "languageButtonRadius": 4,
     "languageButtonBorder": 1,
     "languageButtonBorderColor": "#CCCCCCFF",

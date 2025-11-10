@@ -157,20 +157,39 @@
     position: relative;
   }
 
-  .submenu {
-    position: absolute;
-    top: 100%;
+  /* 오버레이 배경 */
+  .menu-overlay {
+    position: fixed;
+    top: 0;
     left: 0;
-    background: {{property.submenuBg}};
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 4px;
-    min-width: 200px;
+    width: 100%;
+    height: 100%;
+    background: {{property.overlayBg}};
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 999;
+  }
+
+  .menu-item-wrapper:hover .menu-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 하위 메뉴 컨테이너 */
+  .submenu {
+    position: fixed;
+    top: {{property.headerHeight}}px;
+    left: 0;
+    width: 100%;
+    background: {{property.submenuBg}};
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
     transition: all 0.3s ease;
     z-index: 1000;
-    margin-top: 8px;
+    max-height: calc(100vh - {{property.headerHeight}}px);
+    overflow-y: auto;
   }
 
   .menu-item-wrapper:hover .submenu {
@@ -179,17 +198,44 @@
     transform: translateY(0);
   }
 
-  .submenu a {
+  /* 하위 메뉴 내용 */
+  .submenu-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: {{property.submenuPadding}}px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* 하위 메뉴 제목 */
+  .submenu-title {
+    display: block;
+    color: {{property.submenuTitleColor}} !important;
+    font-size: {{property.submenuTitleSize}}px !important;
+    font-weight: bold;
+    padding: {{property.submenuPadding}}px;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+  }
+
+  .submenu-title:hover {
+    text-decoration: underline !important;
+  }
+
+  /* 하위 메뉴 항목 */
+  .submenu a:not(.submenu-title) {
     display: block;
     color: {{property.submenuColor}} !important;
     font-size: {{property.submenuSize}}px !important;
     padding: {{property.submenuPadding}}px;
     text-decoration: none !important;
     transition: background 0.2s;
-    white-space: nowrap;
+    border-radius: 4px;
   }
 
-  .submenu a:hover {
+  .submenu a:not(.submenu-title):hover {
     background: {{property.submenuHoverBg}} !important;
     transform: none !important;
   }
@@ -345,11 +391,16 @@
     align-items: center;
   }
 
+  {{#if (eq property.languageButtonAlign 'right')}}
+  .header-right .language-buttons {
+    margin-right: {{property.languageButtonMarginRight}}px;
+  }
+  {{/if}}
+
   .language-btn {
     background: {{property.languageButtonBg}};
     border: {{property.languageButtonBorder}}px solid {{property.languageButtonBorderColor}};
     border-radius: {{property.languageButtonRadius}}px;
-    padding: {{property.languageButtonPadding}}px;
     color: {{property.languageButtonColor}};
     font-size: {{property.languageButtonSize}}px;
     cursor: pointer;
@@ -539,17 +590,23 @@
             {{#if hasSubmenu}}
             <div class="menu-item-wrapper">
               <a href="{{link.value}}">{{name}}</a>
+              <div class="menu-overlay"></div>
               <div class="submenu">
-                {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
-                {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
-                {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
-                {{#if sub4Name}}<a href="{{sub4Link.value}}">{{sub4Name}}</a>{{/if}}
-                {{#if sub5Name}}<a href="{{sub5Link.value}}">{{sub5Name}}</a>{{/if}}
-                {{#if sub6Name}}<a href="{{sub6Link.value}}">{{sub6Name}}</a>{{/if}}
-                {{#if sub7Name}}<a href="{{sub7Link.value}}">{{sub7Name}}</a>{{/if}}
-                {{#if sub8Name}}<a href="{{sub8Link.value}}">{{sub8Name}}</a>{{/if}}
-                {{#if sub9Name}}<a href="{{sub9Link.value}}">{{sub9Name}}</a>{{/if}}
-                {{#if sub10Name}}<a href="{{sub10Link.value}}">{{sub10Name}}</a>{{/if}}
+                <div class="submenu-content">
+                  {{#if submenuTitle}}
+                  <a class="submenu-title" href="{{#if submenuTitleLink}}{{submenuTitleLink.value}}{{else}}{{link.value}}{{/if}}">{{submenuTitle}}</a>
+                  {{/if}}
+                  {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
+                  {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
+                  {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
+                  {{#if sub4Name}}<a href="{{sub4Link.value}}">{{sub4Name}}</a>{{/if}}
+                  {{#if sub5Name}}<a href="{{sub5Link.value}}">{{sub5Name}}</a>{{/if}}
+                  {{#if sub6Name}}<a href="{{sub6Link.value}}">{{sub6Name}}</a>{{/if}}
+                  {{#if sub7Name}}<a href="{{sub7Link.value}}">{{sub7Name}}</a>{{/if}}
+                  {{#if sub8Name}}<a href="{{sub8Link.value}}">{{sub8Name}}</a>{{/if}}
+                  {{#if sub9Name}}<a href="{{sub9Link.value}}">{{sub9Name}}</a>{{/if}}
+                  {{#if sub10Name}}<a href="{{sub10Link.value}}">{{sub10Name}}</a>{{/if}}
+                </div>
               </div>
             </div>
             {{else}}
@@ -601,17 +658,23 @@
             {{#if hasSubmenu}}
             <div class="menu-item-wrapper">
               <a href="{{link.value}}">{{name}}</a>
+              <div class="menu-overlay"></div>
               <div class="submenu">
-                {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
-                {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
-                {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
-                {{#if sub4Name}}<a href="{{sub4Link.value}}">{{sub4Name}}</a>{{/if}}
-                {{#if sub5Name}}<a href="{{sub5Link.value}}">{{sub5Name}}</a>{{/if}}
-                {{#if sub6Name}}<a href="{{sub6Link.value}}">{{sub6Name}}</a>{{/if}}
-                {{#if sub7Name}}<a href="{{sub7Link.value}}">{{sub7Name}}</a>{{/if}}
-                {{#if sub8Name}}<a href="{{sub8Link.value}}">{{sub8Name}}</a>{{/if}}
-                {{#if sub9Name}}<a href="{{sub9Link.value}}">{{sub9Name}}</a>{{/if}}
-                {{#if sub10Name}}<a href="{{sub10Link.value}}">{{sub10Name}}</a>{{/if}}
+                <div class="submenu-content">
+                  {{#if submenuTitle}}
+                  <a class="submenu-title" href="{{#if submenuTitleLink}}{{submenuTitleLink.value}}{{else}}{{link.value}}{{/if}}">{{submenuTitle}}</a>
+                  {{/if}}
+                  {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
+                  {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
+                  {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
+                  {{#if sub4Name}}<a href="{{sub4Link.value}}">{{sub4Name}}</a>{{/if}}
+                  {{#if sub5Name}}<a href="{{sub5Link.value}}">{{sub5Name}}</a>{{/if}}
+                  {{#if sub6Name}}<a href="{{sub6Link.value}}">{{sub6Name}}</a>{{/if}}
+                  {{#if sub7Name}}<a href="{{sub7Link.value}}">{{sub7Name}}</a>{{/if}}
+                  {{#if sub8Name}}<a href="{{sub8Link.value}}">{{sub8Name}}</a>{{/if}}
+                  {{#if sub9Name}}<a href="{{sub9Link.value}}">{{sub9Name}}</a>{{/if}}
+                  {{#if sub10Name}}<a href="{{sub10Link.value}}">{{sub10Name}}</a>{{/if}}
+                </div>
               </div>
             </div>
             {{else}}
@@ -664,10 +727,23 @@
               {{#if hasSubmenu}}
               <div class="menu-item-wrapper">
                 <a href="{{link.value}}">{{name}}</a>
+                <div class="menu-overlay"></div>
                 <div class="submenu">
-                  {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
-                  {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
-                  {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
+                  <div class="submenu-content">
+                    {{#if submenuTitle}}
+                    <a class="submenu-title" href="{{#if submenuTitleLink}}{{submenuTitleLink.value}}{{else}}{{link.value}}{{/if}}">{{submenuTitle}}</a>
+                    {{/if}}
+                    {{#if sub1Name}}<a href="{{sub1Link.value}}">{{sub1Name}}</a>{{/if}}
+                    {{#if sub2Name}}<a href="{{sub2Link.value}}">{{sub2Name}}</a>{{/if}}
+                    {{#if sub3Name}}<a href="{{sub3Link.value}}">{{sub3Name}}</a>{{/if}}
+                    {{#if sub4Name}}<a href="{{sub4Link.value}}">{{sub4Name}}</a>{{/if}}
+                    {{#if sub5Name}}<a href="{{sub5Link.value}}">{{sub5Name}}</a>{{/if}}
+                    {{#if sub6Name}}<a href="{{sub6Link.value}}">{{sub6Name}}</a>{{/if}}
+                    {{#if sub7Name}}<a href="{{sub7Link.value}}">{{sub7Name}}</a>{{/if}}
+                    {{#if sub8Name}}<a href="{{sub8Link.value}}">{{sub8Name}}</a>{{/if}}
+                    {{#if sub9Name}}<a href="{{sub9Link.value}}">{{sub9Name}}</a>{{/if}}
+                    {{#if sub10Name}}<a href="{{sub10Link.value}}">{{sub10Name}}</a>{{/if}}
+                  </div>
                 </div>
               </div>
               {{else}}
