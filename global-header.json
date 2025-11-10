@@ -635,7 +635,7 @@
     {
       "id": "headerRightMargin",
       "label": "우측 영역 여백",
-      "description": "화면 우측 끝과의 여백",
+      "description": "화면 우측 끝과의 여백 (기본값 40 = 화면 끝에 붙음, 값을 늘리면 더 떨어짐)",
       "type": "RANGE",
       "min": 0,
       "max": 100,
@@ -1026,7 +1026,7 @@
     "utilityIconColor": "#666666FF",
     "utilityIconPosition": "right",
     "utilityMenuAlign": "right",
-    "headerRightMargin": 20,
+    "headerRightMargin": 40,
     "languageButtons": [],
     "languageButtonColor": "#666666FF",
     "languageButtonSize": 13,

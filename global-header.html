@@ -113,6 +113,17 @@
     gap: 20px;
   }
 
+  /* 오른쪽 끝 요소를 화면 끝에 붙이기 위해 container padding 상쇄 */
+  {{#if property.containerMaxWidthEnabled}}
+  .header-right-content > *:last-child {
+    margin-right: calc({{property.headerRightMargin}}px - {{property.containerPaddingDesktop}}px) !important;
+  }
+  {{else}}
+  .header-right-content > *:last-child {
+    margin-right: calc({{property.headerRightMargin}}px - {{property.headerPadding}}px) !important;
+  }
+  {{/if}}
+
   .logo {
     display: flex;
     align-items: center;
@@ -282,12 +293,6 @@
     align-items: center;
   }
 
-  {{#if (eq property.utilityMenuAlign 'right')}}
-  .header-right .utility-menu {
-    margin-right: {{property.headerRightMargin}}px;
-  }
-  {{/if}}
-
   .utility-item {
     display: flex;
     align-items: center;
@@ -336,12 +341,6 @@
     gap: {{property.languageButtonGap}}px;
     align-items: center;
   }
-
-  {{#if (eq property.languageButtonAlign 'right')}}
-  .header-right .language-buttons {
-    margin-right: {{property.headerRightMargin}}px;
-  }
-  {{/if}}
 
   .language-btn {
     background: {{property.languageButtonBg}};
