@@ -82,19 +82,33 @@
         {
           "id": "hasSubmenu",
           "label": "하위 메뉴 사용",
-          "description": "이 메뉴에 하위 메뉴를 추가합니다",
+          "description": "💡 이 메뉴에 마우스를 올리면 나타나는 하위 메뉴를 활성화합니다",
           "type": "CHECKBOX"
         },
         {
+          "type": "DIVIDER",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "type": "DESCRIPTION",
+          "content": "📌 하위 메뉴 그룹 안내\n\n• 그룹은 하위 메뉴를 세로 컬럼으로 나누는 기능입니다\n• 그룹 1만 사용: 모든 항목(최대 10개)이 한 컬럼에 세로로 나열됩니다\n• 그룹 1, 2 사용: 두 개의 세로 컬럼이 가로로 나란히 표시됩니다\n• 그룹 1, 2, 3 사용: 세 개의 세로 컬럼이 가로로 나란히 표시됩니다\n\n💡 TIP: 항목이 10개 이하라면 그룹 1만 사용하세요!",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "type": "DIVIDER",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
           "id": "group1Title",
-          "label": "그룹 1 제목",
-          "description": "첫 번째 그룹의 제목 (링크 기능 없음)",
+          "label": "📁 그룹 1 제목",
+          "description": "첫 번째 컬럼의 제목입니다 (링크 기능 없음, 선택사항). 제목 없이 항목만 추가할 수도 있습니다.",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
           "id": "group1Item1Name",
           "label": "그룹 1 - 항목 1 이름",
+          "description": "하위 메뉴 항목의 이름입니다. 최대 10개까지 추가할 수 있으며, 모두 아래로 세로로 쌓입니다.",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
@@ -213,9 +227,13 @@
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
+          "type": "DIVIDER",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
           "id": "group2Title",
-          "label": "그룹 2 제목",
-          "description": "두 번째 그룹의 제목 (링크 기능 없음)",
+          "label": "📁 그룹 2 제목 (선택사항)",
+          "description": "두 번째 컬럼의 제목입니다. ⚠️ 이 그룹을 사용하면 그룹 1과 가로로 나란히 표시됩니다. 한 컬럼에만 표시하려면 이 그룹을 비워두세요.",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
@@ -340,9 +358,13 @@
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
+          "type": "DIVIDER",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
           "id": "group3Title",
-          "label": "그룹 3 제목",
-          "description": "세 번째 그룹의 제목 (링크 기능 없음)",
+          "label": "📁 그룹 3 제목 (선택사항)",
+          "description": "세 번째 컬럼의 제목입니다. ⚠️ 이 그룹을 사용하면 그룹 1, 2와 함께 3개 컬럼이 가로로 표시됩니다. 한 컬럼에만 표시하려면 이 그룹을 비워두세요.",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
