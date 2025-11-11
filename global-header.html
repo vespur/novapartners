@@ -172,6 +172,10 @@
     transition: opacity 0.2s ease, visibility 0.2s ease;
     z-index: 10001;
     padding: {{property.submenuPaddingTop}}px 0 {{property.submenuPaddingBottom}}px;
+    /* 명시적 stacking context 생성 - backdrop-filter 영향 차단 */
+    isolation: isolate;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 
   /*
@@ -214,6 +218,8 @@
     gap: {{property.submenuGroupGap}}px;
     align-items: flex-start;
     /* padding 제거 - 메뉴 텍스트와 완벽히 정렬하기 위해 */
+    position: relative;
+    z-index: 1; /* submenu 내에서 확실히 위로 */
   }
 
   /* 그룹 컨테이너 */
