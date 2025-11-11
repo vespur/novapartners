@@ -587,9 +587,22 @@
   .mobile-header {
     padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     flex-shrink: 0;
   }
+
+  .mobile-header-logo {
+    display: flex;
+    align-items: center;
+  }
+
+  {{#if property.drawerShowLogo}}
+  .mobile-header-logo img {
+    width: {{property.mobileLogoWidth}}px;
+    height: auto;
+  }
+  {{/if}}
 
   .close-btn {
     background: none;
@@ -608,18 +621,6 @@
     stroke-width: {{property.closeBtnLineThickness}};
   }
 
-  .drawer-logo {
-    padding: {{property.drawerLogoPaddingY}}px {{property.drawerLogoPaddingX}}px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  .drawer-logo img {
-    width: {{property.mobileLogoWidth}}px;
-    height: auto;
-  }
-
   .drawer-scroll-area {
     flex: 1;
     overflow-y: auto;
@@ -627,16 +628,17 @@
   }
 
   .drawer-bottom-area {
-    border-top: 1px solid #eee;
-    padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
+    {{#if property.drawerBottomBorderShow}}
+    border-top: {{property.drawerBottomBorderThickness}}px solid {{property.drawerBottomBorderColor}};
+    {{/if}}
+    padding: {{property.drawerBottomPaddingY}}px {{property.drawerBottomPaddingX}}px;
     flex-shrink: 0;
   }
 
   .drawer-utility-menu {
     display: flex;
     flex-direction: column;
-    gap: {{property.utilityMenuGap}}px;
-    margin-bottom: {{property.utilityMenuGap}}px;
+    gap: {{property.drawerUtilityGap}}px;
   }
 
   .drawer-utility-item {
@@ -660,8 +662,9 @@
 
   .drawer-language-buttons {
     display: flex;
-    gap: {{property.languageButtonGap}}px;
+    gap: {{property.drawerLanguageGap}}px;
     flex-wrap: wrap;
+    margin-top: {{property.drawerLanguageMarginTop}}px;
   }
 
   .drawer-language-btn {
@@ -700,7 +703,7 @@
     font-size: {{property.mobileMenuFontSize}}px;
     font-weight: {{property.mobileMenuFontWeight}};
     text-decoration: none;
-    padding: {{property.mobileMenuPaddingY}}px {{property.mobileMenuPaddingX}}px;
+    padding: {{property.mobileMenuPaddingTop}}px {{property.mobileMenuPaddingX}}px {{property.mobileMenuPaddingBottom}}px {{property.mobileMenuPaddingX}}px;
     position: relative;
   }
 
@@ -1248,6 +1251,15 @@
 
   <div class="nav-mobile">
     <div class="mobile-header">
+      <div class="mobile-header-logo">
+        {{#if property.drawerShowLogo}}
+        {{#if property.logoImage}}
+        <a href="{{property.logoLink.value}}">
+          <img src="{{property.logoImage}}" alt="Logo" />
+        </a>
+        {{/if}}
+        {{/if}}
+      </div>
       <button class="close-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
           <line x1="18" y1="6" x2="6" y2="18"/>
@@ -1255,12 +1267,6 @@
         </svg>
       </button>
     </div>
-
-    {{#if property.drawerShowLogo}}
-    <div class="drawer-logo">
-      <img src="{{property.mobileLogo.src}}" alt="{{property.mobileLogo.alt}}" />
-    </div>
-    {{/if}}
 
     <div class="drawer-scroll-area">
       <div class="mobile-menu">
@@ -1330,7 +1336,7 @@
     </div>
 
     <div class="drawer-bottom-area">
-      {{#if (gt (size property.utilityMenuItems) 0)}}
+      {{#if (and property.drawerUtilityShow (gt (size property.utilityMenuItems) 0))}}
       <nav class="drawer-utility-menu">
         {{#each property.utilityMenuItems}}
         <div class="drawer-utility-item">
@@ -1346,7 +1352,7 @@
       </nav>
       {{/if}}
 
-      {{#if (gt (size property.languageButtons) 0)}}
+      {{#if (and property.drawerLanguageShow (gt (size property.languageButtons) 0))}}
       <div class="drawer-language-buttons">
         {{#each property.languageButtons}}
         <a href="{{link.value}}" class="drawer-language-btn {{#if isActive}}active{{/if}}">{{text}}</a>

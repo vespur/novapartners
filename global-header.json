@@ -1725,9 +1725,19 @@
       "type": "COLOR_PICKER"
     },
     {
-      "id": "mobileMenuPaddingY",
-      "label": "메뉴 상하 여백",
-      "description": "모바일 메뉴 항목의 상하 안쪽 여백을 설정해주세요",
+      "id": "mobileMenuPaddingTop",
+      "label": "메뉴 위 여백",
+      "description": "모바일 메뉴 항목의 위쪽 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuPaddingBottom",
+      "label": "메뉴 아래 여백",
+      "description": "모바일 메뉴 항목의 아래쪽 안쪽 여백을 설정해주세요",
       "type": "RANGE",
       "min": 10,
       "max": 30,
@@ -1939,6 +1949,100 @@
       "max": 50,
       "step": 5,
       "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🔻 하단 영역 (유틸리티/다국어)"
+    },
+    {
+      "id": "drawerBottomBorderShow",
+      "label": "상단 구분선 표시",
+      "description": "하단 영역 위에 구분선을 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerBottomBorderColor",
+      "label": "구분선 색상",
+      "description": "하단 영역 상단 구분선의 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerBottomBorderShow === true"
+    },
+    {
+      "id": "drawerBottomBorderThickness",
+      "label": "구분선 두께",
+      "description": "하단 영역 상단 구분선의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.drawerBottomBorderShow === true"
+    },
+    {
+      "id": "drawerBottomPaddingY",
+      "label": "영역 상하 여백",
+      "description": "하단 영역의 상하 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerBottomPaddingX",
+      "label": "영역 좌우 여백",
+      "description": "하단 영역의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerUtilityShow",
+      "label": "유틸리티 메뉴 표시",
+      "description": "하단 영역에 유틸리티 메뉴를 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerUtilityGap",
+      "label": "유틸리티 메뉴 간격",
+      "description": "유틸리티 메뉴 항목 간의 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerUtilityShow === true"
+    },
+    {
+      "id": "drawerLanguageShow",
+      "label": "다국어 버튼 표시",
+      "description": "하단 영역에 다국어 버튼을 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerLanguageGap",
+      "label": "다국어 버튼 간격",
+      "description": "다국어 버튼 간의 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageMarginTop",
+      "label": "다국어 버튼 위 여백",
+      "description": "유틸리티 메뉴와 다국어 버튼 사이의 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
     }
   ],
   "property": {
@@ -2080,7 +2184,8 @@
     "mobileMenuFontSize": 16,
     "mobileMenuFontWeight": "500",
     "mobileMenuColor": "#000000FF",
-    "mobileMenuPaddingY": 16,
+    "mobileMenuPaddingTop": 16,
+    "mobileMenuPaddingBottom": 16,
     "mobileMenuPaddingX": 16,
     "mobileMenuDivider": true,
     "mobileMenuDividerColor": "#E0E0E0FF",
@@ -2101,6 +2206,16 @@
     "mobileSubmenuItemFontWeight": "400",
     "mobileSubmenuItemColor": "#666666FF",
     "mobileSubmenuItemPaddingY": 8,
-    "mobileSubmenuItemIndent": 20
+    "mobileSubmenuItemIndent": 20,
+    "drawerBottomBorderShow": true,
+    "drawerBottomBorderColor": "#E0E0E0FF",
+    "drawerBottomBorderThickness": 1,
+    "drawerBottomPaddingY": 20,
+    "drawerBottomPaddingX": 20,
+    "drawerUtilityShow": true,
+    "drawerUtilityGap": 12,
+    "drawerLanguageShow": true,
+    "drawerLanguageGap": 8,
+    "drawerLanguageMarginTop": 12
   }
 }
