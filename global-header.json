@@ -82,20 +82,20 @@
         {
           "id": "hasSubmenu",
           "label": "하위 메뉴 사용",
-          "description": "💡 이 메뉴에 마우스를 올리면 나타나는 하위 메뉴를 활성화합니다.\n\n📌 그룹 안내: 그룹은 하위 메뉴를 세로 컬럼으로 나눕니다. 그룹 1만 사용하면 모든 항목(최대 10개)이 한 컬럼에 세로로 나열되고, 그룹 2, 3을 추가하면 가로로 나란히 표시됩니다. 💡 TIP: 항목이 10개 이하라면 그룹 1만 사용하세요!",
+          "description": "마우스 올릴 때 나타나는 하위 메뉴 활성화. 그룹 1만 사용하면 한 컬럼, 그룹 2-3 추가 시 여러 컬럼으로 표시됩니다.",
           "type": "CHECKBOX"
         },
         {
           "id": "group1Title",
           "label": "📁 그룹 1 제목",
-          "description": "첫 번째 컬럼의 제목입니다 (링크 기능 없음, 선택사항). 제목 없이 항목만 추가할 수도 있습니다.",
+          "description": "첫 번째 컬럼 제목 (선택사항)",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
           "id": "group1Item1Name",
           "label": "그룹 1 - 항목 1 이름",
-          "description": "하위 메뉴 항목의 이름입니다. 최대 10개까지 추가할 수 있으며, 모두 아래로 세로로 쌓입니다.",
+          "description": "하위 메뉴 항목 이름 (최대 10개, 세로로 쌓임)",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
@@ -216,7 +216,7 @@
         {
           "id": "group2Title",
           "label": "📁 그룹 2 제목 (선택사항)",
-          "description": "두 번째 컬럼의 제목입니다. ⚠️ 이 그룹을 사용하면 그룹 1과 가로로 나란히 표시됩니다. 한 컬럼에만 표시하려면 이 그룹을 비워두세요.",
+          "description": "두 번째 컬럼 제목 (그룹1과 가로로 나란히 표시됨)",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
@@ -343,7 +343,7 @@
         {
           "id": "group3Title",
           "label": "📁 그룹 3 제목 (선택사항)",
-          "description": "세 번째 컬럼의 제목입니다. ⚠️ 이 그룹을 사용하면 그룹 1, 2와 함께 3개 컬럼이 가로로 표시됩니다. 한 컬럼에만 표시하려면 이 그룹을 비워두세요.",
+          "description": "세 번째 컬럼 제목 (그룹1-2와 가로로 나란히 표시됨)",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
