@@ -1456,6 +1456,305 @@
       "label": "활성화 텍스트 색상",
       "description": "활성화된 버튼의 텍스트 색상을 선택해주세요",
       "type": "COLOR_PICKER"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 헤더 설정"
+    },
+    {
+      "id": "mobileHeaderHeight",
+      "label": "모바일 헤더 높이",
+      "description": "모바일 환경에서 헤더의 세로 높이를 설정해주세요",
+      "type": "RANGE",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileHeaderPadding",
+      "label": "모바일 헤더 좌우 여백",
+      "description": "모바일 환경에서 헤더 내부의 좌우 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileHeaderBg",
+      "label": "모바일 헤더 배경색",
+      "description": "모바일 환경에서 헤더의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileHeaderShadow",
+      "label": "모바일 헤더 그림자",
+      "description": "모바일 환경에서 헤더 하단 그림자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🍔 햄버거 버튼"
+    },
+    {
+      "id": "hamburgerPosition",
+      "label": "햄버거 버튼 위치",
+      "description": "햄버거 메뉴 버튼의 위치를 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
+      "id": "hamburgerSize",
+      "label": "햄버거 버튼 크기",
+      "description": "햄버거 메뉴 버튼의 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "hamburgerColor",
+      "label": "햄버거 버튼 색상",
+      "description": "햄버거 메뉴 버튼의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "hamburgerLineThickness",
+      "label": "버튼 선 두께",
+      "description": "햄버거 버튼 선의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px"
+    },
+    {
+      "id": "hamburgerLineSpacing",
+      "label": "버튼 선 간격",
+      "description": "햄버거 버튼 선 사이의 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🎭 모바일 드로어 네비게이션"
+    },
+    {
+      "id": "drawerPosition",
+      "label": "드로어 열림 방향",
+      "description": "메뉴 패널이 열리는 방향을 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽에서", "value": "left" },
+        { "label": "오른쪽에서", "value": "right" }
+      ]
+    },
+    {
+      "id": "drawerWidth",
+      "label": "드로어 너비",
+      "description": "메뉴 패널의 너비를 설정해주세요 (화면 대비 %)",
+      "type": "RANGE",
+      "min": 60,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "drawerBg",
+      "label": "드로어 배경색",
+      "description": "메뉴 패널의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "drawerPadding",
+      "label": "드로어 내부 여백",
+      "description": "메뉴 패널 내부의 상하좌우 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerOverlayBg",
+      "label": "오버레이 배경색",
+      "description": "메뉴 뒤 어두운 배경의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📋 모바일 메뉴 스타일"
+    },
+    {
+      "id": "mobileMenuFontSize",
+      "label": "메뉴 글자 크기",
+      "description": "모바일 메뉴 항목의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuColor",
+      "label": "메뉴 글자 색상",
+      "description": "모바일 메뉴 항목의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileMenuFontWeight",
+      "label": "메뉴 글자 굵기",
+      "description": "모바일 메뉴 항목의 글자 굵기를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ]
+    },
+    {
+      "id": "mobileMenuPaddingY",
+      "label": "메뉴 상하 여백",
+      "description": "모바일 메뉴 항목의 상하 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuPaddingX",
+      "label": "메뉴 좌우 여백",
+      "description": "모바일 메뉴 항목의 좌우 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuDivider",
+      "label": "메뉴 구분선 표시",
+      "description": "메뉴 항목 사이에 구분선을 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "mobileMenuDividerColor",
+      "label": "구분선 색상",
+      "description": "메뉴 구분선의 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.mobileMenuDivider === true"
+    },
+    {
+      "id": "mobileMenuDividerThickness",
+      "label": "구분선 두께",
+      "description": "메뉴 구분선의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "isVisible": "property.mobileMenuDivider === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🔽 모바일 하위 메뉴"
+    },
+    {
+      "id": "mobileSubmenuStyle",
+      "label": "하위 메뉴 표시 방식",
+      "description": "모바일에서 하위 메뉴의 표시 방식을 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "아코디언 (클릭 시 펼침)", "value": "accordion" },
+        { "label": "항상 펼쳐짐", "value": "always-open" }
+      ]
+    },
+    {
+      "id": "mobileSubmenuIndent",
+      "label": "하위 메뉴 들여쓰기",
+      "description": "하위 메뉴 항목의 들여쓰기 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSubmenuFontSize",
+      "label": "하위 메뉴 글자 크기",
+      "description": "하위 메뉴 항목의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSubmenuColor",
+      "label": "하위 메뉴 글자 색상",
+      "description": "하위 메뉴 항목의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileSubmenuBg",
+      "label": "하위 메뉴 배경색",
+      "description": "하위 메뉴 영역의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileSubmenuPaddingY",
+      "label": "하위 메뉴 상하 여백",
+      "description": "하위 메뉴 항목의 상하 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🏷️ 모바일 로고"
+    },
+    {
+      "id": "mobileLogoWidth",
+      "label": "모바일 로고 너비",
+      "description": "모바일 환경에서 로고의 너비를 설정해주세요",
+      "type": "RANGE",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "mobileLogoPosition",
+      "label": "모바일 로고 위치",
+      "description": "모바일 환경에서 로고의 위치를 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
     }
   ],
   "property": {
@@ -1570,6 +1869,36 @@
     "languageActiveBg": "#000000FF",
     "languageActiveBorderColor": "#000000FF",
     "languageActiveBorderWidth": 2,
-    "languageActiveTextColor": "#FFFFFFFF"
+    "languageActiveTextColor": "#FFFFFFFF",
+    "mobileHeaderHeight": 60,
+    "mobileHeaderPadding": 20,
+    "mobileHeaderBg": "#FFFFFFFF",
+    "mobileHeaderShadow": 2,
+    "hamburgerPosition": "left",
+    "hamburgerSize": 24,
+    "hamburgerColor": "#000000FF",
+    "hamburgerLineThickness": 2,
+    "hamburgerLineSpacing": 6,
+    "drawerPosition": "left",
+    "drawerWidth": 80,
+    "drawerBg": "#FFFFFFFF",
+    "drawerPadding": 20,
+    "drawerOverlayBg": "#00000080",
+    "mobileMenuFontSize": 16,
+    "mobileMenuColor": "#000000FF",
+    "mobileMenuFontWeight": "500",
+    "mobileMenuPaddingY": 16,
+    "mobileMenuPaddingX": 16,
+    "mobileMenuDivider": true,
+    "mobileMenuDividerColor": "#E0E0E0FF",
+    "mobileMenuDividerThickness": 1,
+    "mobileSubmenuStyle": "accordion",
+    "mobileSubmenuIndent": 20,
+    "mobileSubmenuFontSize": 14,
+    "mobileSubmenuColor": "#666666FF",
+    "mobileSubmenuBg": "#F9F9F9FF",
+    "mobileSubmenuPaddingY": 12,
+    "mobileLogoWidth": 120,
+    "mobileLogoPosition": "center"
   }
 }
