@@ -544,6 +544,7 @@
   .nav-mobile {
     position: fixed;
     top: 0;
+    bottom: 0;
     {{#if (eq property.drawerAnimation 'fade')}}
     left: 50%;
     transform: translateX(-50%);
@@ -556,7 +557,6 @@
     {{/if}}
     width: {{property.drawerWidth}}%;
     max-width: 400px;
-    height: 100vh;
     background: {{property.drawerBg}};
     {{#if (eq property.drawerAnimation 'fade')}}
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
@@ -571,6 +571,8 @@
     z-index: 2000;
     display: flex;
     flex-direction: column;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav-mobile.active {
@@ -634,6 +636,9 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
   }
 
   .drawer-bottom-area {
@@ -1523,6 +1528,38 @@
     }
   }
 
+  // Prevent background scroll on mobile
+  function preventBackgroundScroll() {
+    const navMobile = container.querySelector('.nav-mobile');
+    const drawerScrollArea = container.querySelector('.drawer-scroll-area');
+
+    if (!drawerScrollArea) return;
+
+    let touchStartY = 0;
+
+    drawerScrollArea.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    drawerScrollArea.addEventListener('touchmove', (e) => {
+      const touchY = e.touches[0].clientY;
+      const scrollTop = drawerScrollArea.scrollTop;
+      const scrollHeight = drawerScrollArea.scrollHeight;
+      const clientHeight = drawerScrollArea.clientHeight;
+      const touchDelta = touchY - touchStartY;
+
+      // 상단에서 아래로 스와이프 방지
+      if (scrollTop === 0 && touchDelta > 0) {
+        e.preventDefault();
+      }
+
+      // 하단에서 위로 스와이프 방지
+      if (scrollTop + clientHeight >= scrollHeight && touchDelta < 0) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
+
   // Accordion functionality
   function initAccordion() {
     const accordionHeaders = container.querySelectorAll('.menu-accordion-header');
@@ -1589,19 +1626,36 @@
     if (e.target.closest('.hamburger')) {
       navMobile.classList.add('active');
       overlay.classList.add('active');
+      // 모바일 배경 스크롤 완전 차단
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     }
 
     if (e.target.closest('.close-btn') || e.target.matches('.overlay')) {
       navMobile.classList.remove('active');
       overlay.classList.remove('active');
+      // 모바일 배경 스크롤 복원
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
       document.body.style.overflow = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
 
     if (e.target.matches('.mobile-submenu-item')) {
       navMobile.classList.remove('active');
       overlay.classList.remove('active');
+      // 모바일 배경 스크롤 복원
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
       document.body.style.overflow = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
 
     // 빈 링크 클릭 방지
@@ -1618,6 +1672,7 @@
   // 초기화
   initSubmenuBackdrop();
   initAccordion();
+  preventBackgroundScroll();
 
   if (context.property.enableScrollStyle) {
     window.addEventListener('scroll', handleScrollWithBackdrop, { passive: true });
