@@ -210,6 +210,147 @@
 // 구체적인 코드 예시
 ```
 
+### 0-6) Handlebars 헬퍼 제약사항 ⚠️
+
+**중요:** SixShop Pro는 제한된 Handlebars 헬퍼만 지원. **미지원 헬퍼 사용 시 헤더 전체 사라짐**
+
+#### 지원되는 헬퍼 ✅
+
+**수학 연산:**
+- `{{add}}` - 덧셈
+- `{{sub}}` - 뺄셈
+
+**조건문/논리:**
+- `{{#if}}`, `{{#else}}`, `{{#unless}}`
+- `{{#eq}}` - 같음 비교
+- `{{#gt}}`, `{{#lt}}` - 크기 비교
+- `{{#or}}`, `{{#and}}` - 논리 연산
+
+**반복/유틸:**
+- `{{#each}}`
+- `{{size}}` - 배열/객체 크기
+
+#### 지원되지 않는 헬퍼 ❌
+
+**수학 연산:**
+- `{{div}}` - 나눗셈 ❌
+- `{{mul}}` - 곱셈 ❌
+- `{{mod}}` - 나머지 ❌
+
+**비교 연산:**
+- `{{ne}}` - 같지 않음 ❌
+- `{{gte}}`, `{{lte}}` - 이상/이하 ❌
+
+#### 문제 사례들
+
+**사례 1: {{ne}} 헬퍼 사용 (2025-11-11)**
+```handlebars
+❌ 잘못된 코드 - 헤더 전체 사라짐:
+{{#if (and ../property.accordionIconSvgClosed (ne ../property.accordionIconSvgClosed ""))}}
+  {{{../property.accordionIconSvgClosed}}}
+{{/if}}
+
+✅ 올바른 코드:
+{{#if ../property.accordionIconSvgClosed}}
+  {{{../property.accordionIconSvgClosed}}}
+{{/if}}
+
+이유: 빈 문자열("")은 JavaScript에서 falsy 값이므로 ne 검사 불필요
+```
+
+**사례 2: {{div}} 헬퍼 사용 (2025-11-11)**
+```css
+❌ 잘못된 코드 - 헤더 전체 사라짐:
+.mobile-menu div[style*="font-weight: bold"] {
+  padding-left: {{div property.mobileSubmenuIndent 2}}px !important;
+}
+
+✅ 올바른 코드 (고정값 사용):
+.mobile-menu div[style*="font-weight: bold"] {
+  padding-left: 10px !important;
+}
+
+✅ 또는 별도 옵션 추가:
+.mobile-menu div[style*="font-weight: bold"] {
+  padding-left: {{property.mobileSubmenuTitleIndent}}px !important;
+}
+```
+
+**사례 3: SVG 속성을 CSS로 조작 (2025-11-11)**
+```css
+❌ 잘못된 코드 - 헤더 전체 사라짐:
+.hamburger svg line:nth-child(1) {
+  y1: {{sub 12 property.hamburgerLineSpacing}};
+  y2: {{sub 12 property.hamburgerLineSpacing}};
+}
+
+✅ 올바른 코드:
+SVG 프레젠테이션 속성(x1, y1, x2, y2)은 CSS가 아닌 HTML 속성으로만 설정 가능
+→ 해당 옵션 제거 또는 JavaScript로 동적 설정
+```
+
+#### 회피 전략
+
+**1. 나눗셈이 필요한 경우:**
+```json
+// Option 1: 별도 옵션 추가
+{
+  "id": "paddingFull",
+  "label": "전체 여백"
+},
+{
+  "id": "paddingHalf",
+  "label": "절반 여백"
+}
+
+// Option 2: JavaScript로 계산
+<script>
+const halfValue = context.property.padding / 2;
+container.querySelector('.element').style.padding = `${halfValue}px`;
+</script>
+```
+
+**2. 같지 않음(ne) 비교가 필요한 경우:**
+```handlebars
+❌ {{#if (ne value "something")}}
+
+✅ Option 1: 반대 조건 사용
+{{#unless (eq value "something")}}
+
+✅ Option 2: 빈 값 체크는 그냥 if
+{{#if value}}  // 빈 문자열, null, undefined는 자동으로 false
+```
+
+**3. 곱셈이 필요한 경우:**
+```handlebars
+❌ {{mul property.size 2}}
+
+✅ Option 1: add로 대체
+{{add property.size property.size}}
+
+✅ Option 2: JavaScript 사용
+<script>
+const doubled = context.property.size * 2;
+</script>
+```
+
+#### 체크리스트
+
+**Handlebars 코드 작성 전 확인:**
+- [ ] 수학 연산은 add, sub만 사용
+- [ ] ne, gte, lte 등 비교 연산자 사용 안 함
+- [ ] 빈 값 체크는 단순 {{#if}} 사용
+- [ ] SVG 속성은 HTML에서만 설정
+- [ ] 복잡한 계산은 JavaScript로 이동
+
+#### 증상 및 진단
+
+**헤더가 화면에서 사라진 경우:**
+1. 최근 추가한 Handlebars 코드 확인
+2. 미지원 헬퍼 사용 여부 검사
+3. 해당 헬퍼 제거 또는 대체 방법 적용
+4. CSS에서 SVG 속성 조작 여부 확인
+
 ---
 
 ## 1. 핵심 제약사항
