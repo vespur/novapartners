@@ -544,7 +544,12 @@
   .nav-mobile {
     position: fixed;
     top: 0;
-    {{#if (eq property.drawerPosition 'left')}}
+    {{#if (eq property.drawerAnimation 'fade')}}
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    opacity: 0;
+    {{else if (eq property.drawerAnimation 'left')}}
     left: -100%;
     {{else}}
     right: -100%;
@@ -553,14 +558,24 @@
     max-width: 400px;
     height: 100vh;
     background: {{property.drawerBg}};
-    box-shadow: {{#if (eq property.drawerPosition 'left')}}2px{{else}}-2px{{/if}} 0 10px rgba(0,0,0,0.1);
-    transition: {{#if (eq property.drawerPosition 'left')}}left{{else}}right{{/if}} 0.3s;
+    {{#if (eq property.drawerAnimation 'fade')}}
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    transition: opacity 0.3s;
+    {{else if (eq property.drawerAnimation 'left')}}
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    transition: left 0.3s;
+    {{else}}
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    transition: right 0.3s;
+    {{/if}}
     z-index: 2000;
     overflow-y: auto;
   }
 
   .nav-mobile.active {
-    {{#if (eq property.drawerPosition 'left')}}
+    {{#if (eq property.drawerAnimation 'fade')}}
+    opacity: 1;
+    {{else if (eq property.drawerAnimation 'left')}}
     left: 0;
     {{else}}
     right: 0;
@@ -568,7 +583,7 @@
   }
 
   .mobile-header {
-    padding: {{property.drawerPadding}}px;
+    padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
     display: flex;
     justify-content: flex-end;
     border-bottom: 1px solid #eee;
@@ -588,10 +603,14 @@
   }
 
   .mobile-menu {
-    padding: {{property.drawerPadding}}px;
+    padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
+    margin-top: {{property.mobileMenuMarginTop}}px;
+    margin-bottom: {{property.mobileMenuMarginBottom}}px;
   }
 
-  .mobile-menu a {
+  /* 모바일 메인 메뉴 항목 */
+  .mobile-menu > a,
+  .mobile-menu > .menu-accordion > .menu-accordion-header {
     display: block;
     color: {{property.mobileMenuColor}};
     font-size: {{property.mobileMenuFontSize}}px;
@@ -603,22 +622,63 @@
     {{/if}}
   }
 
-  /* 모바일 하위 메뉴 스타일 */
-  .mobile-menu a[style*="padding-left"] {
-    padding-left: {{property.mobileSubmenuIndent}}px !important;
-    font-size: {{property.mobileSubmenuFontSize}}px !important;
-    color: {{property.mobileSubmenuColor}} !important;
-    background: {{property.mobileSubmenuBg}};
-    padding-top: {{property.mobileSubmenuPaddingY}}px !important;
-    padding-bottom: {{property.mobileSubmenuPaddingY}}px !important;
+  /* 아코디언 헤더 */
+  .menu-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
   }
 
-  /* 모바일 하위 메뉴 그룹 제목 */
-  .mobile-menu div[style*="font-weight: bold"] {
-    padding-left: 10px !important;
-    font-size: {{property.mobileSubmenuFontSize}}px !important;
-    color: {{property.mobileSubmenuColor}} !important;
-    font-weight: bold !important;
+  /* 아코디언 아이콘 */
+  .accordion-icon {
+    width: {{property.accordionIconSize}}px;
+    height: {{property.accordionIconSize}}px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .accordion-icon svg * {
+    stroke: {{property.accordionIconColor}};
+    fill: {{property.accordionIconColor}};
+  }
+
+  /* 아코디언 콘텐츠 */
+  .menu-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .menu-accordion.expanded .menu-accordion-content {
+    max-height: 2000px;
+  }
+
+  /* 하위 메뉴 그룹 제목 */
+  .mobile-submenu-title {
+    font-size: {{property.mobileSubmenuTitleFontSize}}px !important;
+    font-weight: {{property.mobileSubmenuTitleFontWeight}} !important;
+    color: {{property.mobileSubmenuTitleColor}} !important;
+    padding: {{property.mobileSubmenuTitlePaddingY}}px {{property.mobileSubmenuTitlePaddingX}}px !important;
+    pointer-events: none;
+  }
+
+  /* 하위 메뉴 항목 - 구분선 제거 */
+  .mobile-submenu-item {
+    display: block;
+    font-size: {{property.mobileSubmenuItemFontSize}}px !important;
+    font-weight: {{property.mobileSubmenuItemFontWeight}} !important;
+    color: {{property.mobileSubmenuItemColor}} !important;
+    padding: {{property.mobileSubmenuItemPaddingY}}px 0 !important;
+    padding-left: {{property.mobileSubmenuItemIndent}}px !important;
+    text-decoration: none;
+    border-bottom: none !important;
   }
 
   .overlay {
@@ -643,13 +703,14 @@
     .global-header {
       height: {{property.mobileHeaderHeight}}px !important;
       background: {{property.mobileHeaderBg}} !important;
+      padding: {{property.mobileHeaderPaddingY}}px 0 !important;
       {{#if (gt property.mobileHeaderShadow 0)}}
       box-shadow: 0 2px {{property.mobileHeaderShadow}}px rgba(0,0,0,0.15) !important;
       {{/if}}
     }
 
     .header-container {
-      padding: 0 {{property.mobileHeaderPadding}}px;
+      padding: 0 {{property.mobileHeaderPaddingX}}px;
       {{#if (eq property.hamburgerPosition 'left')}}
       grid-template-columns: auto 1fr;
       {{else}}
@@ -661,13 +722,7 @@
       {{#if (eq property.hamburgerPosition 'left')}}
       order: 2;
       {{/if}}
-      {{#if (eq property.mobileLogoPosition 'left')}}
       justify-content: flex-start !important;
-      {{else if (eq property.mobileLogoPosition 'center')}}
-      justify-content: center !important;
-      {{else}}
-      justify-content: flex-end !important;
-      {{/if}}
     }
 
     .header-right {
@@ -675,6 +730,10 @@
       order: 1;
       justify-content: flex-start !important;
       {{/if}}
+    }
+
+    .logo {
+      margin-left: {{property.mobileLogoMarginLeft}}px !important;
     }
 
     .logo img {
@@ -1099,48 +1158,66 @@
     </div>
     <div class="mobile-menu">
       {{#each property.menuItems}}
-      <a href="{{link.value}}">{{name}}</a>
-      {{#if hasSubmenu}}
-        {{#if (or group1Title group1Item1Name group1Item2Name group1Item3Name group1Item4Name group1Item5Name group1Item6Name group1Item7Name group1Item8Name group1Item9Name group1Item10Name)}}
-          {{#if group1Title}}<div style="padding-left: 20px; font-weight: bold; font-size: 0.9em; color: #666; margin-top: 8px;">{{group1Title}}</div>{{/if}}
-          {{#if group1Item1Name}}<a href="{{group1Item1Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item1Name}}</a>{{/if}}
-          {{#if group1Item2Name}}<a href="{{group1Item2Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item2Name}}</a>{{/if}}
-          {{#if group1Item3Name}}<a href="{{group1Item3Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item3Name}}</a>{{/if}}
-          {{#if group1Item4Name}}<a href="{{group1Item4Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item4Name}}</a>{{/if}}
-          {{#if group1Item5Name}}<a href="{{group1Item5Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item5Name}}</a>{{/if}}
-          {{#if group1Item6Name}}<a href="{{group1Item6Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item6Name}}</a>{{/if}}
-          {{#if group1Item7Name}}<a href="{{group1Item7Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item7Name}}</a>{{/if}}
-          {{#if group1Item8Name}}<a href="{{group1Item8Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item8Name}}</a>{{/if}}
-          {{#if group1Item9Name}}<a href="{{group1Item9Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item9Name}}</a>{{/if}}
-          {{#if group1Item10Name}}<a href="{{group1Item10Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group1Item10Name}}</a>{{/if}}
+        {{#if hasSubmenu}}
+        <div class="menu-accordion" data-menu-index="{{@index}}">
+          <div class="menu-accordion-header">
+            <span>{{name}}</span>
+            <div class="accordion-icon">
+              {{#if (and ../property.accordionIconSvgClosed (ne ../property.accordionIconSvgClosed ""))}}
+              {{{../property.accordionIconSvgClosed}}}
+              {{else}}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              {{/if}}
+            </div>
+          </div>
+          <div class="menu-accordion-content">
+            {{#if (or group1Title group1Item1Name group1Item2Name group1Item3Name group1Item4Name group1Item5Name group1Item6Name group1Item7Name group1Item8Name group1Item9Name group1Item10Name)}}
+              {{#if group1Title}}<div class="mobile-submenu-title">{{group1Title}}</div>{{/if}}
+              {{#if group1Item1Name}}<a href="{{group1Item1Link.value}}" class="mobile-submenu-item">{{group1Item1Name}}</a>{{/if}}
+              {{#if group1Item2Name}}<a href="{{group1Item2Link.value}}" class="mobile-submenu-item">{{group1Item2Name}}</a>{{/if}}
+              {{#if group1Item3Name}}<a href="{{group1Item3Link.value}}" class="mobile-submenu-item">{{group1Item3Name}}</a>{{/if}}
+              {{#if group1Item4Name}}<a href="{{group1Item4Link.value}}" class="mobile-submenu-item">{{group1Item4Name}}</a>{{/if}}
+              {{#if group1Item5Name}}<a href="{{group1Item5Link.value}}" class="mobile-submenu-item">{{group1Item5Name}}</a>{{/if}}
+              {{#if group1Item6Name}}<a href="{{group1Item6Link.value}}" class="mobile-submenu-item">{{group1Item6Name}}</a>{{/if}}
+              {{#if group1Item7Name}}<a href="{{group1Item7Link.value}}" class="mobile-submenu-item">{{group1Item7Name}}</a>{{/if}}
+              {{#if group1Item8Name}}<a href="{{group1Item8Link.value}}" class="mobile-submenu-item">{{group1Item8Name}}</a>{{/if}}
+              {{#if group1Item9Name}}<a href="{{group1Item9Link.value}}" class="mobile-submenu-item">{{group1Item9Name}}</a>{{/if}}
+              {{#if group1Item10Name}}<a href="{{group1Item10Link.value}}" class="mobile-submenu-item">{{group1Item10Name}}</a>{{/if}}
+            {{/if}}
+            {{#if (or group2Title group2Item1Name group2Item2Name group2Item3Name group2Item4Name group2Item5Name group2Item6Name group2Item7Name group2Item8Name group2Item9Name group2Item10Name)}}
+              {{#if group2Title}}<div class="mobile-submenu-title">{{group2Title}}</div>{{/if}}
+              {{#if group2Item1Name}}<a href="{{group2Item1Link.value}}" class="mobile-submenu-item">{{group2Item1Name}}</a>{{/if}}
+              {{#if group2Item2Name}}<a href="{{group2Item2Link.value}}" class="mobile-submenu-item">{{group2Item2Name}}</a>{{/if}}
+              {{#if group2Item3Name}}<a href="{{group2Item3Link.value}}" class="mobile-submenu-item">{{group2Item3Name}}</a>{{/if}}
+              {{#if group2Item4Name}}<a href="{{group2Item4Link.value}}" class="mobile-submenu-item">{{group2Item4Name}}</a>{{/if}}
+              {{#if group2Item5Name}}<a href="{{group2Item5Link.value}}" class="mobile-submenu-item">{{group2Item5Name}}</a>{{/if}}
+              {{#if group2Item6Name}}<a href="{{group2Item6Link.value}}" class="mobile-submenu-item">{{group2Item6Name}}</a>{{/if}}
+              {{#if group2Item7Name}}<a href="{{group2Item7Link.value}}" class="mobile-submenu-item">{{group2Item7Name}}</a>{{/if}}
+              {{#if group2Item8Name}}<a href="{{group2Item8Link.value}}" class="mobile-submenu-item">{{group2Item8Name}}</a>{{/if}}
+              {{#if group2Item9Name}}<a href="{{group2Item9Link.value}}" class="mobile-submenu-item">{{group2Item9Name}}</a>{{/if}}
+              {{#if group2Item10Name}}<a href="{{group2Item10Link.value}}" class="mobile-submenu-item">{{group2Item10Name}}</a>{{/if}}
+            {{/if}}
+            {{#if (or group3Title group3Item1Name group3Item2Name group3Item3Name group3Item4Name group3Item5Name group3Item6Name group3Item7Name group3Item8Name group3Item9Name group3Item10Name)}}
+              {{#if group3Title}}<div class="mobile-submenu-title">{{group3Title}}</div>{{/if}}
+              {{#if group3Item1Name}}<a href="{{group3Item1Link.value}}" class="mobile-submenu-item">{{group3Item1Name}}</a>{{/if}}
+              {{#if group3Item2Name}}<a href="{{group3Item2Link.value}}" class="mobile-submenu-item">{{group3Item2Name}}</a>{{/if}}
+              {{#if group3Item3Name}}<a href="{{group3Item3Link.value}}" class="mobile-submenu-item">{{group3Item3Name}}</a>{{/if}}
+              {{#if group3Item4Name}}<a href="{{group3Item4Link.value}}" class="mobile-submenu-item">{{group3Item4Name}}</a>{{/if}}
+              {{#if group3Item5Name}}<a href="{{group3Item5Link.value}}" class="mobile-submenu-item">{{group3Item5Name}}</a>{{/if}}
+              {{#if group3Item6Name}}<a href="{{group3Item6Link.value}}" class="mobile-submenu-item">{{group3Item6Name}}</a>{{/if}}
+              {{#if group3Item7Name}}<a href="{{group3Item7Link.value}}" class="mobile-submenu-item">{{group3Item7Name}}</a>{{/if}}
+              {{#if group3Item8Name}}<a href="{{group3Item8Link.value}}" class="mobile-submenu-item">{{group3Item8Name}}</a>{{/if}}
+              {{#if group3Item9Name}}<a href="{{group3Item9Link.value}}" class="mobile-submenu-item">{{group3Item9Name}}</a>{{/if}}
+              {{#if group3Item10Name}}<a href="{{group3Item10Link.value}}" class="mobile-submenu-item">{{group3Item10Name}}</a>{{/if}}
+            {{/if}}
+          </div>
+        </div>
+        {{else}}
+        <a href="{{link.value}}">{{name}}</a>
         {{/if}}
-        {{#if (or group2Title group2Item1Name group2Item2Name group2Item3Name group2Item4Name group2Item5Name group2Item6Name group2Item7Name group2Item8Name group2Item9Name group2Item10Name)}}
-          {{#if group2Title}}<div style="padding-left: 20px; font-weight: bold; font-size: 0.9em; color: #666; margin-top: 8px;">{{group2Title}}</div>{{/if}}
-          {{#if group2Item1Name}}<a href="{{group2Item1Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item1Name}}</a>{{/if}}
-          {{#if group2Item2Name}}<a href="{{group2Item2Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item2Name}}</a>{{/if}}
-          {{#if group2Item3Name}}<a href="{{group2Item3Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item3Name}}</a>{{/if}}
-          {{#if group2Item4Name}}<a href="{{group2Item4Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item4Name}}</a>{{/if}}
-          {{#if group2Item5Name}}<a href="{{group2Item5Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item5Name}}</a>{{/if}}
-          {{#if group2Item6Name}}<a href="{{group2Item6Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item6Name}}</a>{{/if}}
-          {{#if group2Item7Name}}<a href="{{group2Item7Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item7Name}}</a>{{/if}}
-          {{#if group2Item8Name}}<a href="{{group2Item8Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item8Name}}</a>{{/if}}
-          {{#if group2Item9Name}}<a href="{{group2Item9Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item9Name}}</a>{{/if}}
-          {{#if group2Item10Name}}<a href="{{group2Item10Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group2Item10Name}}</a>{{/if}}
-        {{/if}}
-        {{#if (or group3Title group3Item1Name group3Item2Name group3Item3Name group3Item4Name group3Item5Name group3Item6Name group3Item7Name group3Item8Name group3Item9Name group3Item10Name)}}
-          {{#if group3Title}}<div style="padding-left: 20px; font-weight: bold; font-size: 0.9em; color: #666; margin-top: 8px;">{{group3Title}}</div>{{/if}}
-          {{#if group3Item1Name}}<a href="{{group3Item1Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item1Name}}</a>{{/if}}
-          {{#if group3Item2Name}}<a href="{{group3Item2Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item2Name}}</a>{{/if}}
-          {{#if group3Item3Name}}<a href="{{group3Item3Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item3Name}}</a>{{/if}}
-          {{#if group3Item4Name}}<a href="{{group3Item4Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item4Name}}</a>{{/if}}
-          {{#if group3Item5Name}}<a href="{{group3Item5Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item5Name}}</a>{{/if}}
-          {{#if group3Item6Name}}<a href="{{group3Item6Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item6Name}}</a>{{/if}}
-          {{#if group3Item7Name}}<a href="{{group3Item7Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item7Name}}</a>{{/if}}
-          {{#if group3Item8Name}}<a href="{{group3Item8Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item8Name}}</a>{{/if}}
-          {{#if group3Item9Name}}<a href="{{group3Item9Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item9Name}}</a>{{/if}}
-          {{#if group3Item10Name}}<a href="{{group3Item10Link.value}}" style="padding-left: 30px; font-size: 0.9em;">{{group3Item10Name}}</a>{{/if}}
-        {{/if}}
-      {{/if}}
       {{/each}}
     </div>
   </div>
@@ -1248,6 +1325,65 @@
     }
   }
 
+  // Accordion functionality
+  function initAccordion() {
+    const accordionHeaders = container.querySelectorAll('.menu-accordion-header');
+
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const accordion = header.closest('.menu-accordion');
+        const wasExpanded = accordion.classList.contains('expanded');
+
+        // Auto-collapse all other accordions
+        const allAccordions = container.querySelectorAll('.menu-accordion');
+        allAccordions.forEach(acc => {
+          if (acc !== accordion) {
+            acc.classList.remove('expanded');
+            // Switch icon back to closed
+            const icon = acc.querySelector('.accordion-icon');
+            if (icon && context.property.accordionIconSvgClosed) {
+              icon.innerHTML = context.property.accordionIconSvgClosed || `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              `;
+            }
+          }
+        });
+
+        // Toggle current accordion
+        if (!wasExpanded) {
+          accordion.classList.add('expanded');
+          // Switch icon to open
+          const icon = accordion.querySelector('.accordion-icon');
+          if (icon && context.property.accordionIconSvgOpen) {
+            icon.innerHTML = context.property.accordionIconSvgOpen || `
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            `;
+          }
+        } else {
+          accordion.classList.remove('expanded');
+          // Switch icon back to closed
+          const icon = accordion.querySelector('.accordion-icon');
+          if (icon && context.property.accordionIconSvgClosed) {
+            icon.innerHTML = context.property.accordionIconSvgClosed || `
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            `;
+          }
+        }
+      });
+    });
+  }
+
   container.addEventListener('click', (e) => {
     const navMobile = container.querySelector('.nav-mobile');
     const overlay = container.querySelector('.overlay');
@@ -1264,7 +1400,7 @@
       document.body.style.overflow = '';
     }
 
-    if (e.target.matches('.mobile-menu a')) {
+    if (e.target.matches('.mobile-submenu-item')) {
       navMobile.classList.remove('active');
       overlay.classList.remove('active');
       document.body.style.overflow = '';
@@ -1283,6 +1419,7 @@
 
   // 초기화
   initSubmenuBackdrop();
+  initAccordion();
 
   if (context.property.enableScrollStyle) {
     window.addEventListener('scroll', handleScrollWithBackdrop, { passive: true });
@@ -1314,6 +1451,8 @@
       }
       // Submenu backdrop 재초기화
       initSubmenuBackdrop();
+      // Accordion 재초기화
+      initAccordion();
       isApplying = false;
     }, 50);
   };
