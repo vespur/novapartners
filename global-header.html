@@ -545,10 +545,10 @@
     position: fixed;
     top: 0;
     {{#if (eq property.drawerAnimation 'fade')}}
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 0;
+    visibility: hidden;
     {{else if (eq property.drawerAnimation 'left')}}
     left: -100%;
     {{else}}
@@ -560,7 +560,7 @@
     background: {{property.drawerBg}};
     {{#if (eq property.drawerAnimation 'fade')}}
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, visibility 0.3s;
     {{else if (eq property.drawerAnimation 'left')}}
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
     transition: left 0.3s;
@@ -569,12 +569,14 @@
     transition: right 0.3s;
     {{/if}}
     z-index: 2000;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
   }
 
   .nav-mobile.active {
     {{#if (eq property.drawerAnimation 'fade')}}
     opacity: 1;
+    visibility: visible;
     {{else if (eq property.drawerAnimation 'left')}}
     left: 0;
     {{else}}
@@ -586,7 +588,7 @@
     padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
     display: flex;
     justify-content: flex-end;
-    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
   }
 
   .close-btn {
@@ -597,15 +599,97 @@
   }
 
   .close-btn svg {
-    width: 24px;
-    height: 24px;
-    stroke: {{property.mobileMenuColor}};
+    width: {{property.closeBtnSize}}px;
+    height: {{property.closeBtnSize}}px;
+    stroke: {{property.closeBtnColor}};
+  }
+
+  .close-btn svg line {
+    stroke-width: {{property.closeBtnLineThickness}};
+  }
+
+  .drawer-logo {
+    padding: {{property.drawerLogoPaddingY}}px {{property.drawerLogoPaddingX}}px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .drawer-logo img {
+    width: {{property.mobileLogoWidth}}px;
+    height: auto;
+  }
+
+  .drawer-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .drawer-bottom-area {
+    border-top: 1px solid #eee;
+    padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
+    flex-shrink: 0;
+  }
+
+  .drawer-utility-menu {
+    display: flex;
+    flex-direction: column;
+    gap: {{property.utilityMenuGap}}px;
+    margin-bottom: {{property.utilityMenuGap}}px;
+  }
+
+  .drawer-utility-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .drawer-utility-item a {
+    color: {{property.utilityMenuColor}};
+    font-size: {{property.utilityMenuFontSize}}px;
+    font-weight: {{property.utilityMenuFontWeight}};
+    text-decoration: none;
+  }
+
+  .drawer-utility-item svg {
+    width: {{property.utilityIconSize}}px;
+    height: {{property.utilityIconSize}}px;
+    fill: {{property.utilityIconColor}};
+  }
+
+  .drawer-language-buttons {
+    display: flex;
+    gap: {{property.languageButtonGap}}px;
+    flex-wrap: wrap;
+  }
+
+  .drawer-language-btn {
+    padding: {{property.languageButtonPaddingY}}px {{property.languageButtonPaddingX}}px;
+    border: {{property.languageButtonBorderThickness}}px solid {{property.languageButtonBorderColor}};
+    border-radius: {{property.languageButtonRadius}}px;
+    background: {{property.languageButtonBg}};
+    color: {{property.languageButtonColor}};
+    font-size: {{property.languageButtonFontSize}}px;
+    font-weight: {{property.languageButtonFontWeight}};
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .drawer-language-btn:hover {
+    background: {{property.languageButtonHoverBg}};
+    color: {{property.languageButtonHoverColor}};
+    border-color: {{property.languageButtonHoverBorderColor}};
+  }
+
+  .drawer-language-btn.active {
+    background: {{property.languageButtonActiveBg}};
+    color: {{property.languageButtonActiveColor}};
+    border-color: {{property.languageButtonActiveBorderColor}};
   }
 
   .mobile-menu {
     padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
-    margin-top: {{property.mobileMenuMarginTop}}px;
-    margin-bottom: {{property.mobileMenuMarginBottom}}px;
   }
 
   /* 모바일 메인 메뉴 항목 */
@@ -617,10 +701,22 @@
     font-weight: {{property.mobileMenuFontWeight}};
     text-decoration: none;
     padding: {{property.mobileMenuPaddingY}}px {{property.mobileMenuPaddingX}}px;
-    {{#if property.mobileMenuDivider}}
-    border-bottom: {{property.mobileMenuDividerThickness}}px solid {{property.mobileMenuDividerColor}};
-    {{/if}}
+    position: relative;
   }
+
+  {{#if property.mobileMenuDivider}}
+  .mobile-menu > a::after,
+  .mobile-menu > .menu-accordion > .menu-accordion-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: {{property.mobileMenuDividerPosition}}%;
+    transform: translateY(50%);
+    height: {{property.mobileMenuDividerThickness}}px;
+    background: {{property.mobileMenuDividerColor}};
+  }
+  {{/if}}
 
   /* 아코디언 헤더 */
   .menu-accordion-header {
@@ -635,6 +731,7 @@
   .accordion-icon {
     width: {{property.accordionIconSize}}px;
     height: {{property.accordionIconSize}}px;
+    margin-left: {{property.accordionIconMarginLeft}}px;
     flex-shrink: 0;
     transition: transform 0.3s ease;
   }
@@ -665,7 +762,9 @@
     font-size: {{property.mobileSubmenuTitleFontSize}}px !important;
     font-weight: {{property.mobileSubmenuTitleFontWeight}} !important;
     color: {{property.mobileSubmenuTitleColor}} !important;
-    padding: {{property.mobileSubmenuTitlePaddingY}}px {{property.mobileSubmenuTitlePaddingX}}px !important;
+    margin-top: {{property.mobileSubmenuTitleMarginTop}}px !important;
+    margin-bottom: {{property.mobileSubmenuTitleMarginBottom}}px !important;
+    padding: 0 {{property.mobileSubmenuTitlePaddingX}}px !important;
     pointer-events: none;
   }
 
@@ -1156,7 +1255,15 @@
         </svg>
       </button>
     </div>
-    <div class="mobile-menu">
+
+    {{#if property.drawerShowLogo}}
+    <div class="drawer-logo">
+      <img src="{{property.mobileLogo.src}}" alt="{{property.mobileLogo.alt}}" />
+    </div>
+    {{/if}}
+
+    <div class="drawer-scroll-area">
+      <div class="mobile-menu">
       {{#each property.menuItems}}
         {{#if hasSubmenu}}
         <div class="menu-accordion" data-menu-index="{{@index}}">
@@ -1219,6 +1326,33 @@
         <a href="{{link.value}}">{{name}}</a>
         {{/if}}
       {{/each}}
+      </div>
+    </div>
+
+    <div class="drawer-bottom-area">
+      {{#if (gt (size property.utilityMenuItems) 0)}}
+      <nav class="drawer-utility-menu">
+        {{#each property.utilityMenuItems}}
+        <div class="drawer-utility-item">
+          {{#if (eq ../property.utilityIconPosition 'left')}}
+            {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+            <a href="{{link.value}}">{{name}}</a>
+          {{else}}
+            <a href="{{link.value}}">{{name}}</a>
+            {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+          {{/if}}
+        </div>
+        {{/each}}
+      </nav>
+      {{/if}}
+
+      {{#if (gt (size property.languageButtons) 0)}}
+      <div class="drawer-language-buttons">
+        {{#each property.languageButtons}}
+        <a href="{{link.value}}" class="drawer-language-btn {{#if isActive}}active{{/if}}">{{text}}</a>
+        {{/each}}
+      </div>
+      {{/if}}
     </div>
   </div>
 </template>

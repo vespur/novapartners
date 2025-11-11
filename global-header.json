@@ -1577,7 +1577,66 @@
 
     {
       "type": "TITLE",
+      "content": "❌ X 닫기 버튼"
+    },
+    {
+      "id": "closeBtnSize",
+      "label": "버튼 크기",
+      "description": "닫기 버튼의 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "closeBtnColor",
+      "label": "버튼 색상",
+      "description": "닫기 버튼의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "closeBtnLineThickness",
+      "label": "선 두께",
+      "description": "닫기 버튼 선의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
       "content": "🎭 모바일 드로어 패널"
+    },
+    {
+      "id": "drawerShowLogo",
+      "label": "로고 표시",
+      "description": "드로어 패널 상단에 로고를 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerLogoPaddingY",
+      "label": "로고 상하 여백",
+      "description": "드로어 로고의 상하 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.drawerShowLogo === true"
+    },
+    {
+      "id": "drawerLogoPaddingX",
+      "label": "로고 좌우 여백",
+      "description": "드로어 로고의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.drawerShowLogo === true"
     },
     {
       "id": "drawerAnimation",
@@ -1585,9 +1644,9 @@
       "description": "메뉴 패널이 나타나는 방식을 선택해주세요",
       "type": "RADIO",
       "options": [
-        { "label": "왼쪽에서 슬라이드", "value": "left" },
-        { "label": "오른쪽에서 슬라이드", "value": "right" },
-        { "label": "그냥 나타나기 (페이드)", "value": "fade" }
+        { "label": "왼쪽에서", "value": "left" },
+        { "label": "오른쪽에서", "value": "right" },
+        { "label": "효과없음", "value": "fade" }
       ]
     },
     {
@@ -1666,26 +1725,6 @@
       "type": "COLOR_PICKER"
     },
     {
-      "id": "mobileMenuMarginTop",
-      "label": "메뉴 상단 여백",
-      "description": "첫 번째 메뉴의 위쪽 여백을 설정해주세요",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 5,
-      "unit": "px"
-    },
-    {
-      "id": "mobileMenuMarginBottom",
-      "label": "메뉴 하단 여백",
-      "description": "마지막 메뉴의 아래쪽 여백을 설정해주세요",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 5,
-      "unit": "px"
-    },
-    {
       "id": "mobileMenuPaddingY",
       "label": "메뉴 상하 여백",
       "description": "모바일 메뉴 항목의 상하 안쪽 여백을 설정해주세요",
@@ -1729,6 +1768,17 @@
       "unit": "px",
       "isVisible": "property.mobileMenuDivider === true"
     },
+    {
+      "id": "mobileMenuDividerPosition",
+      "label": "구분선 위치",
+      "description": "구분선의 위치를 조절해주세요 (0 = 위쪽, 100 = 아래쪽)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "isVisible": "property.mobileMenuDivider === true"
+    },
 
     {
       "type": "TITLE",
@@ -1749,6 +1799,16 @@
       "label": "아이콘 색상",
       "description": "아코디언 아이콘의 색상을 선택해주세요",
       "type": "COLOR_PICKER"
+    },
+    {
+      "id": "accordionIconMarginLeft",
+      "label": "아이콘 좌측 여백",
+      "description": "아이콘과 메뉴 텍스트 사이의 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
     },
     {
       "id": "accordionIconSvgOpen",
@@ -1798,12 +1858,22 @@
       "type": "COLOR_PICKER"
     },
     {
-      "id": "mobileSubmenuTitlePaddingY",
-      "label": "제목 상하 여백",
-      "description": "하위 메뉴 그룹 제목의 상하 안쪽 여백을 설정해주세요",
+      "id": "mobileSubmenuTitleMarginTop",
+      "label": "제목 위 여백",
+      "description": "하위 메뉴 그룹 제목의 위쪽 여백을 설정해주세요",
       "type": "RANGE",
-      "min": 8,
-      "max": 20,
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSubmenuTitleMarginBottom",
+      "label": "제목 아래 여백",
+      "description": "하위 메뉴 그룹 제목의 아래쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
       "step": 2,
       "unit": "px"
     },
@@ -1995,6 +2065,12 @@
     "hamburgerSize": 24,
     "hamburgerColor": "#000000FF",
     "hamburgerLineThickness": 2,
+    "closeBtnSize": 24,
+    "closeBtnColor": "#000000FF",
+    "closeBtnLineThickness": 2,
+    "drawerShowLogo": true,
+    "drawerLogoPaddingY": 20,
+    "drawerLogoPaddingX": 20,
     "drawerAnimation": "right",
     "drawerWidth": 80,
     "drawerBg": "#FFFFFFFF",
@@ -2004,21 +2080,22 @@
     "mobileMenuFontSize": 16,
     "mobileMenuFontWeight": "500",
     "mobileMenuColor": "#000000FF",
-    "mobileMenuMarginTop": 0,
-    "mobileMenuMarginBottom": 0,
     "mobileMenuPaddingY": 16,
     "mobileMenuPaddingX": 16,
     "mobileMenuDivider": true,
     "mobileMenuDividerColor": "#E0E0E0FF",
     "mobileMenuDividerThickness": 1,
+    "mobileMenuDividerPosition": 100,
     "accordionIconSize": 16,
     "accordionIconColor": "#000000FF",
+    "accordionIconMarginLeft": 10,
     "accordionIconSvgOpen": "",
     "accordionIconSvgClosed": "",
     "mobileSubmenuTitleFontSize": 14,
     "mobileSubmenuTitleFontWeight": "600",
     "mobileSubmenuTitleColor": "#666666FF",
-    "mobileSubmenuTitlePaddingY": 8,
+    "mobileSubmenuTitleMarginTop": 8,
+    "mobileSubmenuTitleMarginBottom": 8,
     "mobileSubmenuTitlePaddingX": 16,
     "mobileSubmenuItemFontSize": 14,
     "mobileSubmenuItemFontWeight": "400",
