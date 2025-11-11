@@ -176,11 +176,20 @@
     isolation: isolate;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    /* GPU 레이어 강제 생성 - 렌더링 분리 */
+    will-change: opacity;
   }
 
   /*
    * 하위 메뉴 배경 - Fixed positioning으로 헤더 backdrop-filter에서 분리
    * JavaScript로 동적 위치 계산 (CSS 변수 사용)
+   *
+   * Z-INDEX 전략:
+   * - Backdrop은 header(1000)보다 낮은 z-index를 가져야 함
+   * - Submenu는 header 내부에 있으므로 header의 stacking context에 속함
+   * - Backdrop z-index > Header z-index 일 경우, backdrop이 submenu를 덮음
+   * - 해결: Backdrop z-index를 header보다 낮게 설정 (500)
+   * - 결과: Submenu(header 내부) > Header(1000) > Backdrop(500)
    */
   .submenu-backdrop {
     position: fixed;
@@ -193,7 +202,7 @@
     backdrop-filter: blur({{property.submenuBlur}}px);
     -webkit-backdrop-filter: blur({{property.submenuBlur}}px);
     {{/if}}
-    z-index: 1001; /* header(1000) 바로 위, submenu(10001)보다 아래 */
+    z-index: 500; /* header(1000)보다 낮게 - submenu가 header 내부이므로 */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     opacity: 0;
     visibility: hidden;
@@ -229,6 +238,8 @@
     gap: 8px;
     flex: 0 0 auto;
     min-width: 200px;
+    position: relative;
+    z-index: 2; /* submenu-content(1) 위에 */
   }
 
   /* 그룹 제목 */
@@ -242,6 +253,8 @@
     {{#if property.submenuTitleUnderline}}
     border-bottom: {{property.submenuTitleUnderlineWidth}}px solid {{property.submenuTitleUnderlineColor}};
     {{/if}}
+    position: relative;
+    z-index: 3; /* 확실히 최상위 */
   }
 
   /* 하위 메뉴 항목 */
@@ -255,6 +268,8 @@
     text-decoration: none !important;
     transition: all 0.2s;
     border-radius: {{property.submenuItemRadius}}px;
+    position: relative;
+    z-index: 3; /* 확실히 최상위 */
   }
 
   .submenu-item:hover {
