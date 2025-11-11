@@ -532,30 +532,59 @@
   }
 
   .hamburger svg {
-    width: 24px;
-    height: 24px;
-    stroke: {{property.menuColorDesktop}};
+    width: {{property.hamburgerSize}}px;
+    height: {{property.hamburgerSize}}px;
+    stroke: {{property.hamburgerColor}};
+  }
+
+  .hamburger svg line {
+    stroke-width: {{property.hamburgerLineThickness}};
+  }
+
+  /* 햄버거 버튼 선 간격 조절 */
+  .hamburger svg line:nth-child(1) {
+    y1: {{sub 12 property.hamburgerLineSpacing}};
+    y2: {{sub 12 property.hamburgerLineSpacing}};
+  }
+
+  .hamburger svg line:nth-child(2) {
+    y1: 12;
+    y2: 12;
+  }
+
+  .hamburger svg line:nth-child(3) {
+    y1: {{add 12 property.hamburgerLineSpacing}};
+    y2: {{add 12 property.hamburgerLineSpacing}};
   }
 
   .nav-mobile {
     position: fixed;
     top: 0;
+    {{#if (eq property.drawerPosition 'left')}}
+    left: -100%;
+    {{else}}
     right: -100%;
-    width: 280px;
+    {{/if}}
+    width: {{property.drawerWidth}}%;
+    max-width: 400px;
     height: 100vh;
-    background: #fff;
-    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-    transition: right 0.3s;
+    background: {{property.drawerBg}};
+    box-shadow: {{#if (eq property.drawerPosition 'left')}}2px{{else}}-2px{{/if}} 0 10px rgba(0,0,0,0.1);
+    transition: {{#if (eq property.drawerPosition 'left')}}left{{else}}right{{/if}} 0.3s;
     z-index: 2000;
     overflow-y: auto;
   }
 
   .nav-mobile.active {
+    {{#if (eq property.drawerPosition 'left')}}
+    left: 0;
+    {{else}}
     right: 0;
+    {{/if}}
   }
 
   .mobile-header {
-    padding: 20px;
+    padding: {{property.drawerPadding}}px;
     display: flex;
     justify-content: flex-end;
     border-bottom: 1px solid #eee;
@@ -571,20 +600,41 @@
   .close-btn svg {
     width: 24px;
     height: 24px;
-    stroke: {{property.menuColorMobile}};
+    stroke: {{property.mobileMenuColor}};
   }
 
   .mobile-menu {
-    padding: 20px;
+    padding: {{property.drawerPadding}}px;
   }
 
   .mobile-menu a {
     display: block;
-    color: {{property.menuColorMobile}};
-    font-size: {{property.menuSizeMobile}}px;
+    color: {{property.mobileMenuColor}};
+    font-size: {{property.mobileMenuFontSize}}px;
+    font-weight: {{property.mobileMenuFontWeight}};
     text-decoration: none;
-    padding: 15px 0;
-    border-bottom: 1px solid #f5f5f5;
+    padding: {{property.mobileMenuPaddingY}}px {{property.mobileMenuPaddingX}}px;
+    {{#if property.mobileMenuDivider}}
+    border-bottom: {{property.mobileMenuDividerThickness}}px solid {{property.mobileMenuDividerColor}};
+    {{/if}}
+  }
+
+  /* 모바일 하위 메뉴 스타일 */
+  .mobile-menu a[style*="padding-left"] {
+    padding-left: {{property.mobileSubmenuIndent}}px !important;
+    font-size: {{property.mobileSubmenuFontSize}}px !important;
+    color: {{property.mobileSubmenuColor}} !important;
+    background: {{property.mobileSubmenuBg}};
+    padding-top: {{property.mobileSubmenuPaddingY}}px !important;
+    padding-bottom: {{property.mobileSubmenuPaddingY}}px !important;
+  }
+
+  /* 모바일 하위 메뉴 그룹 제목 */
+  .mobile-menu div[style*="font-weight: bold"] {
+    padding-left: {{div property.mobileSubmenuIndent 2}}px !important;
+    font-size: {{property.mobileSubmenuFontSize}}px !important;
+    color: {{property.mobileSubmenuColor}} !important;
+    font-weight: bold !important;
   }
 
   .overlay {
@@ -593,7 +643,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0,0,0,0.5);
+    background: {{property.drawerOverlayBg}};
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
@@ -606,9 +656,45 @@
   }
 
   @media (max-width: 768px) {
+    .global-header {
+      height: {{property.mobileHeaderHeight}}px !important;
+      background: {{property.mobileHeaderBg}} !important;
+      {{#if (gt property.mobileHeaderShadow 0)}}
+      box-shadow: 0 2px {{property.mobileHeaderShadow}}px rgba(0,0,0,0.15) !important;
+      {{/if}}
+    }
+
     .header-container {
-      padding: 0 20px;
+      padding: 0 {{property.mobileHeaderPadding}}px;
+      {{#if (eq property.hamburgerPosition 'left')}}
+      grid-template-columns: auto 1fr;
+      {{else}}
       grid-template-columns: 1fr auto;
+      {{/if}}
+    }
+
+    .header-left {
+      {{#if (eq property.hamburgerPosition 'left')}}
+      order: 2;
+      {{/if}}
+      {{#if (eq property.mobileLogoPosition 'left')}}
+      justify-content: flex-start !important;
+      {{else if (eq property.mobileLogoPosition 'center')}}
+      justify-content: center !important;
+      {{else}}
+      justify-content: flex-end !important;
+      {{/if}}
+    }
+
+    .header-right {
+      {{#if (eq property.hamburgerPosition 'left')}}
+      order: 1;
+      justify-content: flex-start !important;
+      {{/if}}
+    }
+
+    .logo img {
+      width: {{property.mobileLogoWidth}}px !important;
     }
 
     .header-center {
@@ -629,6 +715,11 @@
 
     .hamburger {
       display: block;
+    }
+
+    .header-right-content {
+      margin-right: 0;
+      padding-right: 0;
     }
   }
 </style>
