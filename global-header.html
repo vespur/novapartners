@@ -189,7 +189,7 @@
     backdrop-filter: blur({{property.submenuBlur}}px);
     -webkit-backdrop-filter: blur({{property.submenuBlur}}px);
     {{/if}}
-    z-index: 10000; /* submenu 바로 아래 */
+    z-index: 1001; /* header(1000) 바로 위, submenu(10001)보다 아래 */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     opacity: 0;
     visibility: hidden;
@@ -1030,13 +1030,19 @@
 
   function updateSubmenuBackdrop(submenu) {
     const backdrop = container.querySelector('.submenu-backdrop');
-    if (!backdrop || !submenu) return;
+    const header = container.querySelector('.global-header');
+    if (!backdrop || !submenu || !header) return;
 
     const submenuRect = submenu.getBoundingClientRect();
+    const headerRect = header.getBoundingClientRect();
 
-    // Backdrop 위치와 크기 설정
-    backdrop.style.setProperty('--submenu-backdrop-top', `${submenuRect.top}px`);
-    backdrop.style.setProperty('--submenu-backdrop-height', `${submenuRect.height}px`);
+    // Backdrop은 헤더의 하단(bottom)부터 시작
+    // 헤더 영역을 침범하지 않도록 headerRect.bottom을 사용
+    const backdropTop = headerRect.bottom;
+    const backdropHeight = submenuRect.height;
+
+    backdrop.style.setProperty('--submenu-backdrop-top', `${backdropTop}px`);
+    backdrop.style.setProperty('--submenu-backdrop-height', `${backdropHeight}px`);
     backdrop.classList.add('active');
   }
 
