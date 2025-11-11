@@ -788,7 +788,11 @@
     height: {{property.accordionIconSize}}px;
     margin-left: {{property.accordionIconMarginLeft}}px;
     flex-shrink: 0;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .menu-accordion.expanded .accordion-icon {
+    transform: rotate(180deg);
   }
 
   .accordion-icon svg {
@@ -805,11 +809,13 @@
   .menu-accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    opacity: 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
   }
 
   .menu-accordion.expanded .menu-accordion-content {
     max-height: 2000px;
+    opacity: 1;
   }
 
   /* 하위 메뉴 그룹 제목 */
