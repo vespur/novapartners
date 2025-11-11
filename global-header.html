@@ -166,7 +166,7 @@
     min-width: 100%; /* 최소한 menu-item 너비 */
     width: max-content; /* 내용에 맞춰 확장 */
     max-width: 80vw; /* 화면을 넘지 않도록 */
-    background: transparent; /* 배경은 ::before로 처리 */
+    background: transparent; /* 배경은 별도 처리 */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease;
@@ -174,25 +174,33 @@
     padding: {{property.submenuPaddingTop}}px 0 {{property.submenuPaddingBottom}}px;
   }
 
-  /* 하위 메뉴 배경 - 전체 화면 너비, submenu 높이에 맞춤 */
-  .submenu::before {
-    content: '';
-    position: absolute; /* submenu 기준 배치 */
-    top: 0;
-    left: 50%; /* submenu 중앙 기준 */
-    transform: translateX(-50%); /* 정확한 중앙 정렬 */
-    width: 100vw; /* 전체 화면 너비 */
-    height: 100%;
+  /*
+   * 하위 메뉴 배경 - Fixed positioning으로 헤더 backdrop-filter에서 분리
+   * JavaScript로 동적 위치 계산 (CSS 변수 사용)
+   */
+  .submenu-backdrop {
+    position: fixed;
+    left: 0 !important;
+    width: 100vw !important;
+    top: var(--submenu-backdrop-top, -9999px); /* JavaScript로 설정 */
+    height: var(--submenu-backdrop-height, 0); /* JavaScript로 설정 */
     background: {{property.submenuBg}};
     {{#if property.submenuBlurEnabled}}
     backdrop-filter: blur({{property.submenuBlur}}px);
     -webkit-backdrop-filter: blur({{property.submenuBlur}}px);
     {{/if}}
-    z-index: -1; /* submenu 내용보다 뒤 */
+    z-index: 10000; /* submenu 바로 아래 */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none; /* 클릭 이벤트는 submenu로 전달 */
   }
 
-  /* 스크롤 시 submenu 위치는 자동으로 조정됨 (menu-item 기준이므로) */
+  .submenu-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
 
   .menu-item-wrapper:hover .submenu {
     opacity: 1;
@@ -599,6 +607,9 @@
 </style>
 
 <template>
+  <!-- Submenu backdrop - 헤더 밖에 배치하여 backdrop-filter 분리 -->
+  <div class="submenu-backdrop"></div>
+
   <header class="global-header">
     <div class="header-container">
       <div class="header-left">
@@ -1013,6 +1024,68 @@
     }
   }
 
+  // Submenu backdrop 위치 계산 및 업데이트
+  let currentActiveSubmenu = null;
+  let backdropUpdateTimer = null;
+
+  function updateSubmenuBackdrop(submenu) {
+    const backdrop = container.querySelector('.submenu-backdrop');
+    if (!backdrop || !submenu) return;
+
+    const submenuRect = submenu.getBoundingClientRect();
+
+    // Backdrop 위치와 크기 설정
+    backdrop.style.setProperty('--submenu-backdrop-top', `${submenuRect.top}px`);
+    backdrop.style.setProperty('--submenu-backdrop-height', `${submenuRect.height}px`);
+    backdrop.classList.add('active');
+  }
+
+  function hideSubmenuBackdrop() {
+    const backdrop = container.querySelector('.submenu-backdrop');
+    if (!backdrop) return;
+
+    backdrop.classList.remove('active');
+  }
+
+  // Menu item hover 이벤트 처리
+  function initSubmenuBackdrop() {
+    const menuWrappers = container.querySelectorAll('.menu-item-wrapper');
+
+    menuWrappers.forEach(wrapper => {
+      const submenu = wrapper.querySelector('.submenu');
+      if (!submenu) return;
+
+      wrapper.addEventListener('mouseenter', () => {
+        currentActiveSubmenu = submenu;
+
+        // 약간의 지연을 주어 submenu가 렌더링된 후 계산
+        clearTimeout(backdropUpdateTimer);
+        backdropUpdateTimer = setTimeout(() => {
+          if (currentActiveSubmenu === submenu) {
+            updateSubmenuBackdrop(submenu);
+          }
+        }, 10);
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        if (currentActiveSubmenu === submenu) {
+          currentActiveSubmenu = null;
+          clearTimeout(backdropUpdateTimer);
+          hideSubmenuBackdrop();
+        }
+      });
+    });
+  }
+
+  // 스크롤 시 backdrop 위치 업데이트
+  function handleScrollWithBackdrop() {
+    handleScroll();
+
+    if (currentActiveSubmenu) {
+      updateSubmenuBackdrop(currentActiveSubmenu);
+    }
+  }
+
   container.addEventListener('click', (e) => {
     const navMobile = container.querySelector('.nav-mobile');
     const overlay = container.querySelector('.overlay');
@@ -1046,9 +1119,18 @@
     }
   }, true);
 
+  // 초기화
+  initSubmenuBackdrop();
+
   if (context.property.enableScrollStyle) {
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScrollWithBackdrop, { passive: true });
     handleScroll();
+  } else {
+    window.addEventListener('scroll', () => {
+      if (currentActiveSubmenu) {
+        updateSubmenuBackdrop(currentActiveSubmenu);
+      }
+    }, { passive: true });
   }
 
   let isApplying = false;
@@ -1068,12 +1150,16 @@
       if (context.property.enableScrollStyle) {
         handleScroll();
       }
+      // Submenu backdrop 재초기화
+      initSubmenuBackdrop();
       isApplying = false;
     }, 50);
   };
 
   bm.onDestroy = () => {
+    window.removeEventListener('scroll', handleScrollWithBackdrop);
     window.removeEventListener('scroll', handleScroll);
+    clearTimeout(backdropUpdateTimer);
     document.body.style.overflow = '';
   };
 </script>
