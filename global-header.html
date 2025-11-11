@@ -35,6 +35,12 @@
     {{/if}}
   }
 
+  /* Submenu 열릴 때 헤더의 backdrop-filter 비활성화 - 통일된 blur 효과 */
+  .global-header.submenu-open {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
   {{#if property.enableScrollStyle}}
   .global-header.scrolled {
     {{#if (eq property.scrollBgType 'gradient')}}
@@ -1057,21 +1063,30 @@
     const submenuRect = submenu.getBoundingClientRect();
     const headerRect = header.getBoundingClientRect();
 
-    // Backdrop은 헤더의 하단(bottom)부터 시작
-    // 헤더 영역을 침범하지 않도록 headerRect.bottom을 사용
-    const backdropTop = headerRect.bottom;
-    const backdropHeight = submenuRect.height;
+    // 통일된 블러 효과: Backdrop을 헤더 상단부터 시작하여 헤더+submenu 전체를 커버
+    // 이렇게 하면 헤더와 submenu가 하나의 블러 배경을 공유하여 시각적 통일감 확보
+    const backdropTop = headerRect.top;
+    const backdropHeight = headerRect.height + submenuRect.height;
 
     backdrop.style.setProperty('--submenu-backdrop-top', `${backdropTop}px`);
     backdrop.style.setProperty('--submenu-backdrop-height', `${backdropHeight}px`);
     backdrop.classList.add('active');
+
+    // 헤더의 backdrop-filter 비활성화 (겹치는 blur 방지)
+    header.classList.add('submenu-open');
   }
 
   function hideSubmenuBackdrop() {
     const backdrop = container.querySelector('.submenu-backdrop');
+    const header = container.querySelector('.global-header');
     if (!backdrop) return;
 
     backdrop.classList.remove('active');
+
+    // 헤더의 backdrop-filter 복원
+    if (header) {
+      header.classList.remove('submenu-open');
+    }
   }
 
   // Menu item hover 이벤트 처리
