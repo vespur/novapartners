@@ -585,16 +585,25 @@
   }
 
   .mobile-header {
-    padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
+    padding: 0 {{property.mobileHeaderPaddingX}}px;
     display: flex;
+    {{#if (eq property.hamburgerPosition 'left')}}
+    flex-direction: row-reverse;
+    {{/if}}
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    height: {{property.mobileHeaderHeight}}px;
   }
 
   .mobile-header-logo {
     display: flex;
     align-items: center;
+    {{#if (eq property.hamburgerPosition 'left')}}
+    margin-right: {{property.mobileLogoMarginLeft}}px;
+    {{else}}
+    margin-left: {{property.mobileLogoMarginLeft}}px;
+    {{/if}}
   }
 
   {{#if property.drawerShowLogo}}
@@ -676,19 +685,51 @@
     font-size: {{property.languageButtonFontSize}}px;
     font-weight: {{property.languageButtonFontWeight}};
     text-decoration: none;
+    {{#if (eq property.languageButtonHoverEffect 'scale')}}
+    transition: transform 0.2s;
+    {{else}}
     transition: all 0.2s;
+    {{/if}}
   }
 
   .drawer-language-btn:hover {
-    background: {{property.languageButtonHoverBg}};
+    {{#if (eq property.languageButtonHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.languageButtonHoverEffect 'color')}}
     color: {{property.languageButtonHoverColor}};
-    border-color: {{property.languageButtonHoverBorderColor}};
+    {{else if (eq property.languageButtonHoverEffect 'background')}}
+    background: {{property.languageButtonHoverBg}};
+    {{else if (eq property.languageButtonHoverEffect 'underline')}}
+    text-decoration: underline;
+    {{else if (eq property.languageButtonHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{/if}}
   }
 
   .drawer-language-btn.active {
-    background: {{property.languageButtonActiveBg}};
-    color: {{property.languageButtonActiveColor}};
-    border-color: {{property.languageButtonActiveBorderColor}};
+    {{#if (eq property.languageActiveStyle 'background')}}
+    background: {{property.languageActiveBg}} !important;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'border')}}
+    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'underline')}}
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'bold')}}
+    font-weight: bold;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'bold-underline')}}
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'background-border')}}
+    background: {{property.languageActiveBg}} !important;
+    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
+    color: {{property.languageActiveTextColor}} !important;
+    {{/if}}
   }
 
   .mobile-menu {
@@ -696,8 +737,7 @@
   }
 
   /* 모바일 메인 메뉴 항목 */
-  .mobile-menu > a,
-  .mobile-menu > .menu-accordion > .menu-accordion-header {
+  .mobile-menu > a {
     display: block;
     color: {{property.mobileMenuColor}};
     font-size: {{property.mobileMenuFontSize}}px;
@@ -705,6 +745,20 @@
     text-decoration: none;
     padding: {{property.mobileMenuPaddingTop}}px {{property.mobileMenuPaddingX}}px {{property.mobileMenuPaddingBottom}}px {{property.mobileMenuPaddingX}}px;
     position: relative;
+  }
+
+  .mobile-menu > .menu-accordion > .menu-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: {{property.mobileMenuColor}};
+    font-size: {{property.mobileMenuFontSize}}px;
+    font-weight: {{property.mobileMenuFontWeight}};
+    text-decoration: none;
+    padding: {{property.mobileMenuPaddingTop}}px {{property.mobileMenuPaddingX}}px {{property.mobileMenuPaddingBottom}}px {{property.mobileMenuPaddingX}}px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
   }
 
   {{#if property.mobileMenuDivider}}
