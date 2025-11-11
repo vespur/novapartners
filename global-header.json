@@ -153,6 +153,66 @@
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
+          "id": "group1Item6Name",
+          "label": "그룹 1 - 항목 6 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item6Link",
+          "label": "그룹 1 - 항목 6 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item7Name",
+          "label": "그룹 1 - 항목 7 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item7Link",
+          "label": "그룹 1 - 항목 7 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item8Name",
+          "label": "그룹 1 - 항목 8 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item8Link",
+          "label": "그룹 1 - 항목 8 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item9Name",
+          "label": "그룹 1 - 항목 9 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item9Link",
+          "label": "그룹 1 - 항목 9 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item10Name",
+          "label": "그룹 1 - 항목 10 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item10Link",
+          "label": "그룹 1 - 항목 10 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
           "id": "group2Title",
           "label": "그룹 2 제목",
           "description": "두 번째 그룹의 제목 (링크 기능 없음)",
@@ -220,6 +280,66 @@
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
         {
+          "id": "group2Item6Name",
+          "label": "그룹 2 - 항목 6 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item6Link",
+          "label": "그룹 2 - 항목 6 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item7Name",
+          "label": "그룹 2 - 항목 7 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item7Link",
+          "label": "그룹 2 - 항목 7 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item8Name",
+          "label": "그룹 2 - 항목 8 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item8Link",
+          "label": "그룹 2 - 항목 8 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item9Name",
+          "label": "그룹 2 - 항목 9 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item9Link",
+          "label": "그룹 2 - 항목 9 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item10Name",
+          "label": "그룹 2 - 항목 10 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item10Link",
+          "label": "그룹 2 - 항목 10 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
           "id": "group3Title",
           "label": "그룹 3 제목",
           "description": "세 번째 그룹의 제목 (링크 기능 없음)",
@@ -283,6 +403,66 @@
         {
           "id": "group3Item5Link",
           "label": "그룹 3 - 항목 5 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item6Name",
+          "label": "그룹 3 - 항목 6 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item6Link",
+          "label": "그룹 3 - 항목 6 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item7Name",
+          "label": "그룹 3 - 항목 7 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item7Link",
+          "label": "그룹 3 - 항목 7 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item8Name",
+          "label": "그룹 3 - 항목 8 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item8Link",
+          "label": "그룹 3 - 항목 8 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item9Name",
+          "label": "그룹 3 - 항목 9 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item9Link",
+          "label": "그룹 3 - 항목 9 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item10Name",
+          "label": "그룹 3 - 항목 10 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item10Link",
+          "label": "그룹 3 - 항목 10 링크",
           "type": "LINK",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         }
