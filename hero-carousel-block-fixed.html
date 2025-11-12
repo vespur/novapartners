@@ -1,0 +1,1195 @@
+<style>
+/* vP0-fix-candidate-7-FIXED
+   수정 사항:
+   1) eq 헬퍼 제거 - property에서 직접 justify-content 값 사용
+   2) CSS 변수 내 불필요한 따옴표 제거
+   3) 코드 안정성 및 가독성 개선
+*/
+
+.hero-carousel-block {
+	/* ====== GLOBAL LAYOUT / SPACING ====== */
+	--hero-section-height: {{#if property.style.heroHeightVh}}{{property.style.heroHeightVh}}{{else}}100{{/if}}vh;
+	--global-pad-x: {{#if property.style.heroPaddingXPercent}}{{property.style.heroPaddingXPercent}}{{else}}5{{/if}}%;
+	--global-pad-y: {{#if property.style.heroPaddingYPercent}}{{property.style.heroPaddingYPercent}}{{else}}10{{/if}}%;
+	--hero-z-index: {{#if property.style.zIndex}}{{property.style.zIndex}}{{else}}10{{/if}};
+
+	/* ====== OVERLAY ====== */
+	--hero-overlay-color: {{#if property.style.overlayColor}}{{property.style.overlayColor}}{{else}}rgba(0,0,0,0.6){{/if}};
+
+	/* ====== TYPO / ALIGN ====== */
+	--headline-color: {{#if property.style.headlineColor}}{{property.style.headlineColor}}{{else}}#FFFFFF{{/if}};
+	--headline-font-size-desktop: {{#if property.style.headlineFontSizeDesktop}}{{property.style.headlineFontSizeDesktop}}{{else}}64{{/if}}px;
+	--headline-font-size-mobile: {{#if property.style.headlineFontSizeMobile}}{{property.style.headlineFontSizeMobile}}{{else}}32{{/if}}px;
+	--headline-max-width: {{#if property.style.contentMaxWidth}}{{property.style.contentMaxWidth}}{{else}}600{{/if}}px;
+
+	--headline-align-desktop: {{#if property.style.textAlignDesktop}}{{property.style.textAlignDesktop}}{{else}}center{{/if}};
+	--headline-align-mobile: {{#if property.style.textAlignMobile}}{{property.style.textAlignMobile}}{{else}}center{{/if}};
+
+	/* CTA 정렬용 (desktop/mobile) - eq 헬퍼 제거, 직접 값 사용 */
+	--cta-group-justify-desktop: {{#if property.style.ctaJustifyDesktop}}{{property.style.ctaJustifyDesktop}}{{else}}center{{/if}};
+	--cta-group-justify-mobile: {{#if property.style.ctaJustifyMobile}}{{property.style.ctaJustifyMobile}}{{else}}center{{/if}};
+
+	/* ====== BODY TYPO ====== */
+	--subtext-color: {{#if property.style.subtextColor}}{{property.style.subtextColor}}{{else}}rgba(255,255,255,0.9){{/if}};
+	--subtext-font-size-desktop: {{#if property.style.subtextFontSizeDesktop}}{{property.style.subtextFontSizeDesktop}}{{else}}20{{/if}}px;
+	--subtext-font-size-mobile: {{#if property.style.subtextFontSizeMobile}}{{property.style.subtextFontSizeMobile}}{{else}}16{{/if}}px;
+
+	--supporting-color: {{#if property.style.supportingColor}}{{property.style.supportingColor}}{{else}}rgba(255,255,255,0.7){{/if}};
+	--supporting-font-size-desktop: {{#if property.style.supportingFontSizeDesktop}}{{property.style.supportingFontSizeDesktop}}{{else}}16{{/if}}px;
+	--supporting-font-size-mobile: {{#if property.style.supportingFontSizeMobile}}{{property.style.supportingFontSizeMobile}}{{else}}14{{/if}}px;
+
+	/* ====== CTA BUTTONS ====== */
+	--cta-radius: {{#if property.style.ctaRadius}}{{property.style.ctaRadius}}{{else}}8{{/if}}px;
+	--cta-bg-color: {{#if property.style.ctaBgColor}}{{property.style.ctaBgColor}}{{else}}#ffffff{{/if}};
+	--cta-text-color: {{#if property.style.ctaTextColor}}{{property.style.ctaTextColor}}{{else}}#000000{{/if}};
+	--cta-border-color: {{#if property.style.ctaBorderColor}}{{property.style.ctaBorderColor}}{{else}}rgba(255,255,255,0.4){{/if}};
+	--cta-border-width: {{#if property.style.ctaBorderWidth}}{{property.style.ctaBorderWidth}}{{else}}1{{/if}}px;
+
+	--cta-hover-translate-y: {{#if property.style.ctaHoverTranslateY}}{{property.style.ctaHoverTranslateY}}{{else}}-2{{/if}}px;
+	--cta-hover-shadow: {{#if property.style.ctaHoverShadow}}{{property.style.ctaHoverShadow}}{{else}}0 20px 40px rgba(0,0,0,.5){{/if}};
+	--cta-hover-lift-speed: {{#if property.style.ctaHoverLiftSpeedS}}{{property.style.ctaHoverLiftSpeedS}}{{else}}0.3{{/if}}s;
+
+	--cta-glow-gradient-color: {{#if property.style.ctaGlowGradientColor}}{{property.style.ctaGlowGradientColor}}{{else}}rgba(255,255,255,.6){{/if}};
+	--cta-glow-angle: {{#if property.style.ctaGlowGradientAngleDeg}}{{property.style.ctaGlowGradientAngleDeg}}{{else}}90{{/if}}deg;
+	--cta-glow-scan-speed: {{#if property.style.ctaGlowScanSpeedS}}{{property.style.ctaGlowScanSpeedS}}{{else}}0.6{{/if}}s;
+
+	--cta-hover-underline-color: {{#if property.style.ctaHoverUnderlineColor}}{{property.style.ctaHoverUnderlineColor}}{{else}}#00bfff{{/if}};
+	--cta-hover-anim-type: {{#if property.style.ctaHoverAnimType}}{{property.style.ctaHoverAnimType}}{{else}}glow-lift{{/if}};
+
+	/* ====== DESKTOP GAUGE ====== */
+	--gauge-height: {{#if property.style.gaugeHeight}}{{property.style.gaugeHeight}}{{else}}4{{/if}}px;
+	--gauge-radius: {{#if property.style.gaugeRadius}}{{property.style.gaugeRadius}}{{else}}999{{/if}}px;
+	--gauge-gap: {{#if property.style.gaugeGap}}{{property.style.gaugeGap}}{{else}}6{{/if}}px;
+	--gauge-max-width: {{#if property.style.gaugeMaxWidth}}{{property.style.gaugeMaxWidth}}{{else}}600{{/if}}px;
+
+	--gauge-track-color: {{#if property.style.gaugeTrackColor}}{{property.style.gaugeTrackColor}}{{else}}rgba(255,255,255,0.2){{/if}};
+	--gauge-track-border-width: {{#if property.style.gaugeTrackBorderWidth}}{{property.style.gaugeTrackBorderWidth}}{{else}}0{{/if}}px;
+	--gauge-track-border-color: {{#if property.style.gaugeTrackBorderColor}}{{property.style.gaugeTrackBorderColor}}{{else}}rgba(255,255,255,0.4){{/if}};
+	--gauge-fill-color: {{#if property.style.gaugeFillColor}}{{property.style.gaugeFillColor}}{{else}}#00bfff{{/if}};
+	--gauge-fill-border-width: {{#if property.style.gaugeFillBorderWidth}}{{property.style.gaugeFillBorderWidth}}{{else}}0{{/if}}px;
+	--gauge-fill-border-color: {{#if property.style.gaugeFillBorderColor}}{{property.style.gaugeFillBorderColor}}{{else}}#00bfff{{/if}};
+
+	--gauge-bottom-desktop: {{#if property.style.gaugePositionBottomPxDesktop}}{{property.style.gaugePositionBottomPxDesktop}}{{else}}40{{/if}}px;
+
+	/* 슬라이드 번호 스타일 */
+	--counter-font-size: {{#if property.style.slideCounterFontSize}}{{property.style.slideCounterFontSize}}{{else}}12{{/if}}px;
+	--counter-active-color: {{#if property.style.slideCounterActiveColor}}{{property.style.slideCounterActiveColor}}{{else}}#FFFFFF{{/if}};
+	--counter-inactive-color: {{#if property.style.slideCounterInactiveColor}}{{property.style.slideCounterInactiveColor}}{{else}}rgba(255,255,255,.4){{/if}};
+
+	--counter-offset-x-percent: {{#if property.style.slideCounterOffsetXPercent}}{{property.style.slideCounterOffsetXPercent}}{{else}}0{{/if}}%;
+	--counter-offset-y-px: {{#if property.style.slideCounterOffsetYPx}}{{property.style.slideCounterOffsetYPx}}{{else}}4{{/if}}px;
+
+	/* ====== MOBILE TOP/BOTTOM BAR ====== */
+	--mobilebar-height: {{#if property.style.mobileGaugeHeight}}{{property.style.mobileGaugeHeight}}{{else}}3{{/if}}px;
+	--mobilebar-track-color: {{#if property.style.mobileGaugeTrackColor}}{{property.style.mobileGaugeTrackColor}}{{else}}rgba(0,0,0,0.4){{/if}};
+	--mobilebar-fill-color: {{#if property.style.mobileGaugeFillColor}}{{property.style.mobileGaugeFillColor}}{{else}}#00bfff{{/if}};
+	--mobilebar-z: 30;
+
+	/* ====== NAV ARROWS ====== */
+	--nav-arrow-visible: {{#if property.style.navArrowShow}}flex{{else}}none{{/if}};
+	--nav-arrow-bg-style: {{#if property.style.navArrowStyle}}{{property.style.navArrowStyle}}{{else}}glass-blur{{/if}};
+	--nav-arrow-bg-color: {{#if property.style.navArrowBgColor}}{{property.style.navArrowBgColor}}{{else}}rgba(0,0,0,0.4){{/if}};
+	--nav-arrow-border-width: {{#if property.style.navArrowBorderWidth}}{{property.style.navArrowBorderWidth}}{{else}}1{{/if}}px;
+	--nav-arrow-border-color: {{#if property.style.navArrowBorderColor}}{{property.style.navArrowBorderColor}}{{else}}rgba(255,255,255,0.4){{/if}};
+	--nav-arrow-radius: {{#if property.style.navArrowRadius}}{{property.style.navArrowRadius}}{{else}}999{{/if}}px;
+	--nav-arrow-icon-color: {{#if property.style.navArrowIconColor}}{{property.style.navArrowIconColor}}{{else}}#FFFFFF{{/if}};
+	--nav-arrow-size: {{#if property.style.navArrowSize}}{{property.style.navArrowSize}}{{else}}20{{/if}}px;
+	--nav-arrow-offset-x: {{#if property.style.navArrowOffsetXPercent}}{{property.style.navArrowOffsetXPercent}}{{else}}5{{/if}}%;
+	--nav-arrow-offset-y: {{#if property.style.navArrowOffsetYPercent}}{{property.style.navArrowOffsetYPercent}}{{else}}50{{/if}}%;
+
+	/* ====== SCROLL HINT ====== */
+	--scroll-hint-color: {{#if property.style.scrollHintColor}}{{property.style.scrollHintColor}}{{else}}#FFFFFF{{/if}};
+	--scroll-hint-font-size: {{#if property.style.scrollHintFontSize}}{{property.style.scrollHintFontSize}}{{else}}12{{/if}}px;
+	--scroll-hint-offset-y: {{#if property.style.scrollHintOffsetYPercent}}{{property.style.scrollHintOffsetYPercent}}{{else}}5{{/if}}%;
+	--scroll-hint-anim-speed: {{#if property.style.scrollHintAnimSpeedMs}}{{property.style.scrollHintAnimSpeedMs}}{{else}}800{{/if}}ms;
+
+	/* ====== TIMING ====== */
+	--slide-transition-ms: {{#if property.style.slideTransitionMs}}{{property.style.slideTransitionMs}}{{else}}400{{/if}}ms;
+	--gauge-duration-ms: {{#if property.style.gaugeDurationMs}}{{property.style.gaugeDurationMs}}{{else}}5000{{/if}}ms;
+
+	--progress-layer-z: 20;
+}
+
+/* root */
+.hero-carousel-block {
+	position: relative;
+	width: 100%;
+	height: var(--hero-section-height);
+	max-height: 100vh;
+	overflow: hidden;
+	z-index: var(--hero-z-index);
+	background-color: #000;
+	color: var(--headline-color);
+}
+
+/* slides */
+.hero-slides {
+	position: absolute;
+	inset: 0;
+}
+.hero-slide {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	pointer-events: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: opacity var(--slide-transition-ms) ease,
+	            transform var(--slide-transition-ms) ease;
+	background: #000;
+}
+.hero-slide[data-transition="slide"] { transform: translateX(10%); }
+.hero-slide[data-transition="zoom"]  { transform: scale(1.05) translateZ(0); }
+.hero-slide.is-active {
+	opacity: 1;
+	pointer-events: auto;
+}
+.hero-slide.is-active[data-transition="slide"] { transform: translateX(0); }
+.hero-slide.is-active[data-transition="zoom"]  { transform: scale(1) translateZ(0); }
+
+.hero-media {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.hero-overlay {
+	position: absolute;
+	inset: 0;
+	background-color: var(--hero-overlay-color);
+	pointer-events: none;
+	z-index: 5;
+}
+
+/* slide caption */
+.hero-slide-caption {
+	position: absolute;
+	left: var(--global-pad-x);
+	right: var(--global-pad-x);
+	bottom: var(--global-pad-y);
+	color: var(--supporting-color);
+	font-size: var(--supporting-font-size-desktop);
+	line-height: 1.4;
+	max-width: 60%;
+	text-align: right;
+	margin-left: auto;
+	opacity: .8;
+	z-index: 10;
+}
+
+/* content wrapper */
+.hero-content-wrapper {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: var(--global-pad-x);
+	padding-right: var(--global-pad-x);
+	padding-top: var(--global-pad-y);
+	padding-bottom: var(--global-pad-y);
+	pointer-events: none;
+	z-index: 15;
+}
+.hero-content-inner {
+	max-width: var(--headline-max-width);
+	color: var(--headline-color);
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+	text-align: var(--headline-align-desktop);
+	pointer-events: auto;
+}
+.hero-headline {
+	color: var(--headline-color);
+	font-size: var(--headline-font-size-desktop);
+	font-weight: 600;
+	line-height: 1.2;
+	word-break: keep-all;
+}
+.hero-subtext {
+	color: var(--subtext-color);
+	font-size: var(--subtext-font-size-desktop);
+	line-height: 1.5;
+	max-width: 48ch;
+	opacity: .9;
+}
+.hero-supporting-note {
+	color: var(--supporting-color);
+	font-size: var(--supporting-font-size-desktop);
+	line-height: 1.4;
+	opacity: .8;
+}
+
+/* CTA group */
+.hero-cta-group {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: .75rem;
+	row-gap: .75rem;
+	justify-content: var(--cta-group-justify-desktop);
+}
+.hero-cta {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.75rem;
+	padding: 0 1.25rem;
+	border-radius: var(--cta-radius);
+	text-decoration: none;
+	line-height: 1.2;
+	font-size: .9rem;
+	font-weight: 500;
+	color: var(--cta-text-color);
+	background-color: var(--cta-bg-color);
+	border: var(--cta-border-width) solid var(--cta-border-color);
+
+	overflow: hidden;
+	will-change: transform, box-shadow;
+	transition:
+		transform var(--cta-hover-lift-speed) ease,
+		box-shadow var(--cta-hover-lift-speed) ease;
+}
+.hero-cta .hero-cta-scan-highlight {
+	pointer-events:none;
+	position:absolute;
+	inset:0;
+	border-radius: inherit;
+	background-image:
+		linear-gradient(
+			var(--cta-glow-angle),
+			rgba(0,0,0,0) 0%,
+			var(--cta-glow-gradient-color) 50%,
+			rgba(0,0,0,0) 100%
+		);
+	background-size:200% 100%;
+	background-repeat:no-repeat;
+	opacity:0;
+}
+.hero-cta[data-anim="glow-lift"]:hover,
+.hero-cta[data-anim="glow-lift"]:focus-visible {
+	transform: translateY(var(--cta-hover-translate-y));
+	box-shadow: var(--cta-hover-shadow);
+}
+.hero-cta[data-anim="glow-lift"]:hover .hero-cta-scan-highlight,
+.hero-cta[data-anim="glow-lift"]:focus-visible .hero-cta-scan-highlight {
+	opacity:1;
+	animation: heroCtaScan var(--cta-glow-scan-speed) linear infinite;
+}
+@keyframes heroCtaScan {
+	0%{background-position:0% 0%}
+	100%{background-position:200% 0%}
+}
+.hero-cta[data-anim="underline"]::after {
+	content:"";
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0.4rem;
+	height:2px;
+	background-color: var(--cta-hover-underline-color);
+	opacity:0;
+	transition:opacity var(--cta-hover-lift-speed) ease;
+}
+.hero-cta[data-anim="underline"]:hover::after,
+.hero-cta[data-anim="underline"]:focus-visible::after {
+	opacity:1;
+}
+.hero-cta[data-anim="none"] {}
+
+/* arrows */
+.hero-nav-arrow {
+	position:absolute;
+	top: var(--nav-arrow-offset-y);
+	left:auto;
+	right:auto;
+	transform: translateY(-50%);
+	display: var(--nav-arrow-visible);
+	width: calc(var(--nav-arrow-size) * 2);
+	height: calc(var(--nav-arrow-size) * 2);
+	border-radius: var(--nav-arrow-radius);
+	border: var(--nav-arrow-border-width) solid var(--nav-arrow-border-color);
+	background-color: transparent;
+	align-items:center;
+	justify-content:center;
+	cursor:pointer;
+	pointer-events:auto;
+	z-index: 18;
+	transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.hero-nav-arrow:focus-visible {
+	outline: 2px solid var(--nav-arrow-icon-color);
+	outline-offset: 2px;
+}
+.hero-nav-arrow[data-side="left"]{ left: var(--nav-arrow-offset-x); }
+.hero-nav-arrow[data-side="right"]{ right: var(--nav-arrow-offset-x); }
+.hero-nav-arrow[data-style="solid-circle"]{
+	background-color: var(--nav-arrow-bg-color);
+	backdrop-filter:none;
+}
+.hero-nav-arrow[data-style="glass-blur"]{
+	background-color: rgba(0,0,0,0.3);
+	backdrop-filter: blur(8px);
+	border-color: rgba(255,255,255,0.4);
+}
+.hero-nav-arrow[data-style="minimal-line"]{
+	background-color: transparent;
+	border: none;
+}
+.hero-nav-arrow-icon {
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	color: var(--nav-arrow-icon-color);
+	font-size: var(--nav-arrow-size);
+	line-height:1;
+	user-select:none;
+	pointer-events:none;
+}
+.hero-nav-arrow-icon svg{
+	width: var(--nav-arrow-size);
+	height: var(--nav-arrow-size);
+	fill: var(--nav-arrow-icon-color);
+}
+
+/* ========================= */
+/* DESKTOP GAUGE + STEP NUM  */
+/* ========================= */
+
+.hero-progress-wrapper-desktop {
+	position:absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	min-width:0;
+	width: 100%;
+	max-width: var(--gauge-max-width);
+	pointer-events:none;
+	z-index: var(--progress-layer-z);
+}
+
+.hero-progress-global-counter {
+	position:absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: calc(100% + var(--counter-offset-y-px));
+	min-width:max-content;
+	background-color: transparent;
+	color: var(--counter-active-color);
+	font-size: var(--counter-font-size);
+	line-height:1.2;
+	font-weight:500;
+	pointer-events:none;
+	text-align:center;
+	white-space:nowrap;
+}
+
+.hero-progress-bar-shell,
+.hero-progress-steps {
+	position: relative;
+	width: 100%;
+	min-width: 60px;
+}
+.hero-progress-bar-shell {
+	height: var(--gauge-height);
+	border-radius: var(--gauge-radius);
+	overflow: hidden;
+	background-color: var(--gauge-track-color);
+	border: var(--gauge-track-border-width) solid var(--gauge-track-border-color);
+}
+.hero-progress-bar-fill {
+	position:absolute;
+	left:0;top:0;bottom:0;
+	width:100%;
+	background: var(--gauge-fill-color);
+	border: var(--gauge-fill-border-width) solid var(--gauge-fill-border-color);
+	border-radius: var(--gauge-radius);
+	transform-origin:left center;
+	transform:scaleX(0);
+}
+.hero-progress-steps {
+	display:flex;
+	column-gap: var(--gauge-gap);
+	justify-content:center;
+	position: relative;
+}
+.hero-progress-step-shell {
+	flex:1 1 0;
+	position:relative;
+	height: var(--gauge-height);
+	border-radius: var(--gauge-radius);
+	overflow: visible;
+	background-color: var(--gauge-track-color);
+	border: var(--gauge-track-border-width) solid var(--gauge-track-border-color);
+	opacity:.4;
+	transition:flex-grow .2s ease, opacity .2s ease;
+}
+.hero-progress-step-shell[aria-current="true"] {
+	opacity:1;
+	flex-grow:2;
+}
+.hero-progress-step-fill {
+	position:absolute;
+	left:0;top:0;bottom:0;
+	width:100%;
+	background: var(--gauge-fill-color);
+	border: var(--gauge-fill-border-width) solid var(--gauge-fill-border-color);
+	border-radius: var(--gauge-radius);
+	transform-origin:left center;
+	transform:scaleX(0);
+}
+.hero-step-counter-bubble {
+	position:absolute;
+	min-width:max-content;
+	background-color: transparent;
+	font-size: var(--counter-font-size);
+	line-height:1.2;
+	font-weight:500;
+	color: var(--counter-inactive-color);
+	pointer-events:none;
+	text-align:center;
+	white-space:nowrap;
+}
+
+/* ========================= */
+/* MOBILE FULL-WIDTH BAR     */
+/* ========================= */
+
+.hero-progress-wrapper-mobilebar {
+	position: fixed;
+	left: 0;
+	right: 0;
+	width: 100vw;
+	max-width: 100vw;
+	pointer-events:none;
+	z-index: var(--mobilebar-z);
+	display: none;
+}
+.hero-mobilebar-track {
+	position: relative;
+	width: 100%;
+	height: var(--mobilebar-height);
+	background-color: var(--mobilebar-track-color);
+	overflow:hidden;
+}
+.hero-mobilebar-fill {
+	position:absolute;
+	left:0;top:0;bottom:0;
+	width:100%;
+	background-color: var(--mobilebar-fill-color);
+	transform-origin:left center;
+	transform:scaleX(0);
+}
+
+/* ========================= */
+/* SCROLL HINT               */
+/* ========================= */
+.hero-scroll-hint {
+	position:absolute;
+	left:50%;
+	bottom: var(--scroll-hint-offset-y);
+	transform: translateX(-50%);
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	row-gap:.5rem;
+	color: var(--scroll-hint-color);
+	font-size: var(--scroll-hint-font-size);
+	line-height:1.2;
+	user-select:none;
+	pointer-events:none;
+	z-index: 18;
+}
+.hero-scroll-hint[data-anim="bounce"] .hero-scroll-hint-icon{
+	animation: hintBounce var(--scroll-hint-anim-speed) ease-in-out infinite;
+}
+@keyframes hintBounce{
+	0%,100%{transform:translateY(0);opacity:1}
+	50%{transform:translateY(4px);opacity:.6}
+}
+.hero-scroll-hint[data-anim="pulse"] .hero-scroll-hint-icon{
+	animation: hintPulse var(--scroll-hint-anim-speed) ease-in-out infinite;
+}
+@keyframes hintPulse{
+	0%,100%{opacity:1;transform:scale(1)}
+	50%{opacity:.4;transform:scale(.9)}
+}
+
+/* intro animation */
+[data-animate-once]{
+	opacity:0;
+	transform:translateY(12px);
+	transition:opacity .6s ease, transform .6s ease;
+}
+[data-animate-once].is-visible{
+	opacity:1;
+	transform:translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+	.hero-content-inner{
+		text-align: var(--headline-align-mobile);
+	}
+	.hero-headline{
+		font-size: var(--headline-font-size-mobile);
+	}
+	.hero-subtext{
+		font-size: var(--subtext-font-size-mobile);
+	}
+	.hero-supporting-note{
+		font-size: var(--supporting-font-size-mobile);
+	}
+	.hero-slide-caption{
+		font-size: var(--supporting-font-size-mobile);
+		max-width:80%;
+		text-align: var(--headline-align-mobile);
+		left: var(--global-pad-x);
+		right: var(--global-pad-x);
+		bottom: var(--global-pad-y);
+		z-index:10;
+		{{#if property.style.slideCaptionHideMobile}}display:none;{{/if}}
+	}
+
+	/* CTA stack & align on mobile */
+	.hero-cta-group{
+		flex-direction:column;
+		align-items: center;
+		justify-content: var(--cta-group-justify-mobile);
+	}
+	.hero-cta{
+		width:100%;
+		max-width:320px;
+	}
+
+	/* 모바일에서 화살표/힌트 숨김 */
+	{{#if property.style.navArrowHideMobile}}
+	.hero-nav-arrow{
+		display:none;
+	}
+	{{/if}}
+
+	{{#if property.style.scrollHintHideMobile}}
+	.hero-scroll-hint{
+		display:none;
+	}
+	{{/if}}
+
+	/* 모바일 게이지바 */
+	.hero-progress-wrapper-mobilebar{
+		display:block;
+	}
+
+	/* 데스크탑 게이지 모바일 숨김 */
+	{{#if property.style.desktopGaugeHideMobile}}
+	.hero-progress-wrapper-desktop{
+		display:none;
+	}
+	{{/if}}
+}
+</style>
+
+
+
+
+<template>
+<section class="hero-carousel-block" role="region" aria-label="Hero carousel" aria-roledescription="carousel">
+
+	<!-- Slides -->
+	<div class="hero-slides">
+		{{#each property.slides}}
+		<div class="hero-slide"
+			data-slide-index="{{@index}}"
+			data-transition="{{../property.style.slideTransitionType}}"
+			aria-hidden="true">
+			{{#if (eq type "video")}}
+				<video class="hero-media"
+					src="{{mediaUrl}}"
+					muted
+					loop
+					autoplay
+					playsinline
+					aria-hidden="true"></video>
+			{{else}}
+				<img class="hero-media"
+					src="{{mediaUrl}}"
+					alt=""
+					loading="lazy"
+					aria-hidden="true"/>
+			{{/if}}
+
+			{{#if caption}}
+			<div class="hero-slide-caption">
+				<p class="hero-caption-text">{{caption}}</p>
+			</div>
+			{{/if}}
+		</div>
+		{{else}}
+		<div class="hero-slide is-active" data-slide-index="0" data-transition="fade" aria-hidden="false">
+			<div class="hero-media" style="background:#000;width:100%;height:100%;"></div>
+		</div>
+		{{/each}}
+
+		<div class="hero-overlay"></div>
+	</div>
+
+	<!-- Content -->
+	<div class="hero-content-wrapper" data-animate-once>
+		<div class="hero-content-inner">
+			<p class="hero-headline">{{property.headline}}</p>
+			<p class="hero-subtext">{{property.subtext}}</p>
+
+			{{#if property.supportingNote}}
+			<p class="hero-supporting-note">{{property.supportingNote}}</p>
+			{{/if}}
+
+			<div class="hero-cta-group">
+				{{#if property.ctaPrimary.label}}
+				<a class="hero-cta"
+					data-anim="{{property.style.ctaHoverAnimType}}"
+					href="{{property.ctaPrimary.link.value}}">
+					<span class="hero-cta-label">{{property.ctaPrimary.label}}</span>
+					<span class="hero-cta-scan-highlight" aria-hidden="true"></span>
+				</a>
+				{{/if}}
+
+				{{#if property.ctaSecondary.label}}
+				<a class="hero-cta"
+					data-anim="{{property.style.ctaHoverAnimType}}"
+					href="{{property.ctaSecondary.link.value}}">
+					<span class="hero-cta-label">{{property.ctaSecondary.label}}</span>
+					<span class="hero-cta-scan-highlight" aria-hidden="true"></span>
+				</a>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+
+	<!-- Nav arrows -->
+	<button class="hero-nav-arrow"
+		type="button"
+		tabindex="0"
+		data-side="left"
+		data-style="{{property.style.navArrowStyle}}"
+		data-nav-prev
+		aria-label="Previous slide">
+		<span class="hero-nav-arrow-icon">
+			{{#if property.style.navArrowIconSvgLeft}}
+				{{{property.style.navArrowIconSvgLeft}}}
+			{{else}}
+				‹
+			{{/if}}
+		</span>
+	</button>
+
+	<button class="hero-nav-arrow"
+		type="button"
+		tabindex="0"
+		data-side="right"
+		data-style="{{property.style.navArrowStyle}}"
+		data-nav-next
+		aria-label="Next slide">
+		<span class="hero-nav-arrow-icon">
+			{{#if property.style.navArrowIconSvgRight}}
+				{{{property.style.navArrowIconSvgRight}}}
+			{{else}}
+				›
+			{{/if}}
+		</span>
+	</button>
+
+	<!-- DESKTOP / COMMON GAUGE WRAPPER -->
+	<div class="hero-progress-wrapper-desktop" data-gauge-wrapper>
+		{{#if (eq property.progressMode "singleBar")}}
+		<div class="hero-progress-global-counter" data-global-counter></div>
+
+		<div class="hero-progress-bar-shell"
+			style="
+				background-color: {{property.style.gaugeTrackColor}};
+				border-width: {{property.style.gaugeTrackBorderWidth}}px;
+				border-color: {{property.style.gaugeTrackBorderColor}};
+			">
+			<div class="hero-progress-bar-fill"
+				data-progress-fill
+				style="
+					background: {{property.style.gaugeFillColor}};
+					border-width: {{property.style.gaugeFillBorderWidth}}px;
+					border-color: {{property.style.gaugeFillBorderColor}};
+					transform: scaleX(0);
+				"></div>
+		</div>
+		{{/if}}
+
+		{{#if (eq property.progressMode "multiStep")}}
+		<div class="hero-progress-steps">
+			{{#each property.slides}}
+			<div class="hero-progress-step-shell"
+				role="progressbar"
+				aria-valuemin="0"
+				aria-valuemax="100"
+				aria-valuenow="0"
+				{{#if @first}}aria-current="true"{{/if}}
+				data-step-shell="{{@index}}"
+				style="
+					background-color: {{../property.style.gaugeTrackColor}};
+					border-width: {{../property.style.gaugeTrackBorderWidth}}px;
+					border-color: {{../property.style.gaugeTrackBorderColor}};">
+
+				<div class="hero-progress-step-fill"
+					data-step-fill="{{@index}}"
+					style="
+						background: {{../property.style.gaugeFillColor}};
+						border-width: {{../property.style.gaugeFillBorderWidth}}px;
+						border-color: {{../property.style.gaugeFillBorderColor}};
+						transform: scaleX(0);
+					"></div>
+
+				<div class="hero-step-counter-bubble"
+					data-step-counter="{{@index}}"
+					data-step-num="{{@index}}"
+					data-step-label></div>
+			</div>
+			{{/each}}
+		</div>
+		{{/if}}
+	</div>
+
+	<!-- MOBILE FULL-WIDTH TOP/BOTTOM BAR -->
+	<div class="hero-progress-wrapper-mobilebar" data-gauge-mobilebar>
+		<div class="hero-mobilebar-track">
+			<div class="hero-mobilebar-fill" data-mobilebar-fill></div>
+		</div>
+	</div>
+
+	<!-- Scroll hint -->
+	{{#if property.style.scrollHintShow}}
+	<div class="hero-scroll-hint" data-anim="{{property.style.scrollHintAnimType}}">
+		<div class="hero-scroll-hint-icon"
+			style="color: {{property.style.scrollHintColor}}; font-size: {{property.style.scrollHintFontSize}}px;">
+			↓
+		</div>
+		<div class="hero-scroll-hint-text"
+			style="color: {{property.style.scrollHintColor}}; font-size: {{property.style.scrollHintFontSize}}px;">
+			{{property.style.scrollHintText}}
+		</div>
+	</div>
+	{{/if}}
+
+</section>
+</template>
+
+
+
+
+<script>
+/* vP0-fix-candidate-7-FIXED
+   수정 사항:
+   - eq 헬퍼 의존성 제거 (property.style.ctaJustifyDesktop/Mobile 직접 사용)
+   - 코드 안정성 개선
+   - 키보드 접근성 향상
+*/
+
+(function(){
+	const root = bm.container;
+	const ctx = bm.context;
+
+	let currentIndex = 0;
+	let slideTimer = null;
+	let gaugeRAF = null;
+	let reinitTimeout = null;
+	let hasAnimatedIn = false;
+
+	function getSlides() {
+		return Array.from(root.querySelectorAll('.hero-slide'));
+	}
+
+	function getConf() {
+		const s = ctx.property.style || {};
+		return {
+			slides: ctx.property.slides || [],
+			mode: ctx.property.progressMode || 'singleBar',
+			loop: ctx.property.loopSlides !== false,
+			slideDur: +s.slideDurationMs || 5000,
+			transMs: +s.slideTransitionMs || 400,
+			gaugeDur: +s.gaugeDurationMs || (+s.slideDurationMs || 5000),
+			transitionType: s.slideTransitionType || 'fade',
+
+			/* desktop gauge alignment + position */
+			desktopGaugeShow: (s.desktopGaugeShow !== false),
+			gaugeAlign: s.gaugeAlignDesktop || "center",
+			gaugeOffsetXPercent: (s.gaugeOffsetXPercentDesktop !== undefined && s.gaugeOffsetXPercentDesktop !== "") ? +s.gaugeOffsetXPercentDesktop : 0,
+			gaugeBottomPx: (s.gaugePositionBottomPxDesktop !== undefined && s.gaugePositionBottomPxDesktop !== "") ? +s.gaugePositionBottomPxDesktop : 40,
+
+			/* per-step label offset */
+			labelOffsetXPercent: (s.slideCounterOffsetXPercent !== undefined && s.slideCounterOffsetXPercent !== "") ? +s.slideCounterOffsetXPercent : 0,
+			labelOffsetYPx: (s.slideCounterOffsetYPx !== undefined && s.slideCounterOffsetYPx !== "") ? +s.slideCounterOffsetYPx : 4,
+
+			/* desktop gauge hide on mobile */
+			hideDesktopGaugeOnMobile: !!s.desktopGaugeHideMobile,
+
+			/* mobile bar config */
+			mobileBarShow: !!s.mobileGaugeBarShow,
+			mobileBarPosition: (s.mobileGaugeBarPosition && s.mobileGaugeBarPosition !== "") ? s.mobileGaugeBarPosition : "top",
+			mobileBarOffsetPx: (s.mobileGaugeBarOffsetPx !== undefined && s.mobileGaugeBarOffsetPx !== "") ? +s.mobileGaugeBarOffsetPx : 0,
+			mobileBarHeightPx: (s.mobileGaugeHeight !== undefined && s.mobileGaugeHeight !== "") ? +s.mobileGaugeHeight : 3,
+			mobileBarTrackColor: s.mobileGaugeTrackColor || "rgba(0,0,0,0.4)",
+			mobileBarFillColor: s.mobileGaugeFillColor || "#00bfff"
+		};
+	}
+
+	/* desktop gauge wrapper 좌표/정렬 세팅 */
+	function applyGaugeWrapperPosition(confObj){
+		const wrap = root.querySelector('[data-gauge-wrapper]');
+		if(!wrap) return;
+
+		if(!confObj.desktopGaugeShow){
+			wrap.style.display = 'none';
+			return;
+		}else{
+			wrap.style.display = '';
+		}
+
+		wrap.style.bottom = confObj.gaugeBottomPx + 'px';
+
+		const globalPadX = parseFloat(getComputedStyle(root).getPropertyValue('--global-pad-x')) || 5;
+		const offsetPercent = confObj.gaugeOffsetXPercent || 0;
+
+		if(confObj.gaugeAlign === "left"){
+			wrap.style.left = globalPadX + '%';
+			wrap.style.right = 'auto';
+			wrap.style.transform = 'translateX(' + offsetPercent + '%)';
+		}else if(confObj.gaugeAlign === "right"){
+			wrap.style.left = 'auto';
+			wrap.style.right = globalPadX + '%';
+			wrap.style.transform = 'translateX(' + (-offsetPercent) + '%)';
+		}else{
+			wrap.style.left = '50%';
+			wrap.style.right = 'auto';
+			wrap.style.transform = 'translateX(calc(-50% + ' + offsetPercent + '%))';
+		}
+	}
+
+	/* step number label 좌표 세팅 */
+	function applyStepLabelPositions(confObj){
+		const bubbles = root.querySelectorAll('[data-step-label]');
+		bubbles.forEach(b=>{
+			const offsetX = confObj.labelOffsetXPercent;
+			const offsetY = confObj.labelOffsetYPx;
+			b.style.left   = 'calc(50% + ' + offsetX + '%)';
+			b.style.bottom = 'calc(100% + ' + offsetY + 'px)';
+			b.style.transform = 'translateX(-50%)';
+		});
+	}
+
+	/* 모바일 풀가로 바 스타일/표시 세팅 */
+	function applyMobileBarStyles(confObj){
+		const barWrap = root.querySelector('[data-gauge-mobilebar]');
+		if(!barWrap) return;
+
+		if(!confObj.mobileBarShow || confObj.mode !== 'singleBar'){
+			barWrap.style.display = 'none';
+		}else{
+			barWrap.style.display = 'block';
+		}
+
+		if(confObj.mobileBarPosition === "bottom"){
+			barWrap.style.bottom = confObj.mobileBarOffsetPx + 'px';
+			barWrap.style.top = 'auto';
+		}else{
+			barWrap.style.top = confObj.mobileBarOffsetPx + 'px';
+			barWrap.style.bottom = 'auto';
+		}
+
+		const track = barWrap.querySelector('.hero-mobilebar-track');
+		const fill  = barWrap.querySelector('[data-mobilebar-fill]');
+		if(track){
+			track.style.height = confObj.mobileBarHeightPx + 'px';
+			track.style.backgroundColor = confObj.mobileBarTrackColor;
+		}
+		if(fill){
+			fill.style.backgroundColor = confObj.mobileBarFillColor;
+			fill.style.transform = 'scaleX(0)';
+			fill.style.transformOrigin = 'left center';
+		}
+	}
+
+	function revealTextOnceImmediate() {
+		const el = root.querySelector('[data-animate-once]');
+		if (el) el.classList.add('is-visible');
+	}
+
+	function initIntersectionOnce(){
+		if(hasAnimatedIn)return;
+		const target = root.querySelector('[data-animate-once]');
+		if(!target)return;
+		let revealed=false;
+		let io=null;
+		function reveal(){
+			target.classList.add('is-visible');
+			hasAnimatedIn=true;
+			if(io){io.disconnect();io=null;}
+		}
+		if('IntersectionObserver'in window){
+			io=new IntersectionObserver((ents)=>{
+				ents.forEach(e=>{
+					if(e.isIntersecting && !revealed){
+						revealed=true;
+						reveal();
+					}
+				});
+			},{root:null,threshold:0.3});
+			io.observe(target);
+		}else{
+			reveal();
+		}
+	}
+
+	function setActiveSlide(idx) {
+		const all = getSlides();
+		all.forEach((el, i) => {
+			if (i === idx) {
+				el.classList.add('is-active');
+				el.setAttribute('aria-hidden','false');
+				const v = el.querySelector('video');
+				if(v){
+					try{v.currentTime=0;}catch(e){}
+					if(v.play){v.play().catch(function(){});}
+				}
+			} else {
+				el.classList.remove('is-active');
+				el.setAttribute('aria-hidden','true');
+				const v = el.querySelector('video');
+				if(v && v.pause){ v.pause(); }
+			}
+		});
+	}
+
+	function populateStepNumbers(){
+		const bubbles = root.querySelectorAll('[data-step-label]');
+		bubbles.forEach(b=>{
+			const raw = +b.getAttribute('data-step-num');
+			if (!isNaN(raw)) {
+				b.textContent = String(raw + 1);
+			}
+		});
+	}
+
+	function updateStepCounterStyles(){
+		const bubbles = root.querySelectorAll('[data-step-label]');
+		const cs = getComputedStyle(root);
+		const activeColor = cs.getPropertyValue('--counter-active-color').trim() || '#fff';
+		const inactiveColor = cs.getPropertyValue('--counter-inactive-color').trim() || 'rgba(255,255,255,.4)';
+
+		bubbles.forEach(b=>{
+			const stepIdx = +b.getAttribute('data-step-counter');
+			if(stepIdx === currentIndex){
+				b.style.color = activeColor;
+				b.style.opacity = '1';
+			} else {
+				b.style.color = inactiveColor;
+				b.style.opacity = '.6';
+			}
+		});
+	}
+
+	function highlightCurrentStepShell(){
+		const shells = root.querySelectorAll('.hero-progress-step-shell');
+		shells.forEach((sh, i) => {
+			if (i === currentIndex){
+				sh.setAttribute('aria-current','true');
+				sh.style.flexGrow = '2';
+				sh.style.opacity = '1';
+			}else{
+				sh.removeAttribute('aria-current');
+				sh.style.flexGrow = '1';
+				sh.style.opacity = '.4';
+			}
+		});
+	}
+
+	function resetGauge(confObj){
+		if (confObj.mode === 'singleBar') {
+			const fills = root.querySelectorAll('[data-progress-fill]');
+			fills.forEach(el=>{
+				el.style.transform = 'scaleX(0)';
+			});
+			const mfill = root.querySelectorAll('[data-mobilebar-fill]');
+			mfill.forEach(el=>{
+				el.style.transform = 'scaleX(0)';
+			});
+		} else {
+			const fills = root.querySelectorAll('.hero-progress-step-fill');
+			fills.forEach(step => {
+				step.style.transform = 'scaleX(0)';
+				if (step.parentElement) {
+					step.parentElement.setAttribute('aria-valuenow','0');
+				}
+			});
+			highlightCurrentStepShell();
+			updateStepCounterStyles();
+		}
+	}
+
+	function animateGauge(confObj){
+		cancelAnimationFrame(gaugeRAF);
+		const start = performance.now();
+
+		function tick(now){
+			const ratio = Math.min((now-start)/confObj.gaugeDur,1);
+
+			if (confObj.mode === 'singleBar') {
+				const dFills = root.querySelectorAll('[data-progress-fill]');
+				dFills.forEach(f=>{
+					f.style.transform = 'scaleX(' + ratio + ')';
+				});
+
+				const mFills = root.querySelectorAll('[data-mobilebar-fill]');
+				mFills.forEach(f=>{
+					f.style.transform = 'scaleX(' + ratio + ')';
+				});
+			} else {
+				const fList = root.querySelectorAll('[data-step-fill="'+currentIndex+'"]');
+				fList.forEach(f=>{
+					f.style.transform = 'scaleX(' + ratio + ')';
+					if (f.parentElement){
+						f.parentElement.setAttribute('aria-valuenow', String(Math.round(ratio*100)));
+					}
+				});
+			}
+
+			if (ratio < 1) {
+				gaugeRAF = requestAnimationFrame(tick);
+			}
+		}
+		gaugeRAF = requestAnimationFrame(tick);
+	}
+
+	function scheduleNext(confObj){
+		clearTimeout(slideTimer);
+		if (confObj.slides.length <= 1) return;
+		slideTimer = setTimeout(()=>{
+			let next = currentIndex + 1;
+			if (next >= confObj.slides.length){
+				if (confObj.loop && confObj.slides.length){
+					next = 0;
+				} else {
+					return;
+				}
+			}
+			goToSlide(next, confObj, {autoSchedule:true});
+		}, confObj.slideDur);
+	}
+
+	function goToSlide(idx, confObj, opt){
+		const o = opt||{};
+		const total = confObj.slides.length;
+		if (!total) return;
+
+		currentIndex = idx;
+		setActiveSlide(idx);
+
+		resetGauge(confObj);
+		animateGauge(confObj);
+		updateStepCounterStyles();
+
+		if (o.autoSchedule !== false){
+			scheduleNext(confObj);
+		}
+	}
+
+	function makeNavHandler(confObj){
+		return function navHandler(e){
+			const prevMatch = e.target.closest('[data-nav-prev]');
+			const nextMatch = e.target.closest('[data-nav-next]');
+			if(!prevMatch && !nextMatch) return;
+
+			e.preventDefault();
+			clearTimeout(slideTimer);
+			cancelAnimationFrame(gaugeRAF);
+
+			if(prevMatch){
+				let p = currentIndex - 1;
+				if (p < 0) {
+					p = confObj.loop ? confObj.slides.length - 1 : 0;
+				}
+				goToSlide(p, confObj, {autoSchedule:true});
+				return;
+			}
+			if(nextMatch){
+				let n = currentIndex + 1;
+				if (n >= confObj.slides.length) {
+					n = confObj.loop ? 0 : currentIndex;
+				}
+				goToSlide(n, confObj, {autoSchedule:true});
+				return;
+			}
+		};
+	}
+
+	function init(){
+		const confObj = getConf();
+		const slideEls = getSlides();
+
+		if (!confObj.slides.length || !slideEls.length){
+			revealTextOnceImmediate();
+			return;
+		}
+
+		slideEls.forEach(el=>{
+			el.setAttribute('data-transition', confObj.transitionType);
+		});
+
+		slideEls.forEach((el,idx)=>{
+			if(idx===0){
+				el.classList.add('is-active');
+				el.setAttribute('aria-hidden','false');
+			}else{
+				el.classList.remove('is-active');
+				el.setAttribute('aria-hidden','true');
+			}
+		});
+		currentIndex = 0;
+
+		applyGaugeWrapperPosition(confObj);
+		populateStepNumbers();
+		applyStepLabelPositions(confObj);
+		applyMobileBarStyles(confObj);
+
+		resetGauge(confObj);
+		animateGauge(confObj);
+		updateStepCounterStyles();
+
+		scheduleNext(confObj);
+
+		revealTextOnceImmediate();
+		initIntersectionOnce();
+
+		if(init._navHandler){
+			root.removeEventListener('click', init._navHandler, true);
+		}
+		init._navHandler = makeNavHandler(confObj);
+		root.addEventListener('click', init._navHandler, true);
+	}
+
+	init();
+
+	bm.onContextChange = () => {
+		clearTimeout(slideTimer);
+		cancelAnimationFrame(gaugeRAF);
+		if (reinitTimeout) clearTimeout(reinitTimeout);
+		reinitTimeout = setTimeout(()=>{ init(); },80);
+	};
+
+	bm.onDestroy = () => {
+		clearTimeout(slideTimer);
+		cancelAnimationFrame(gaugeRAF);
+		if (reinitTimeout) clearTimeout(reinitTimeout);
+		if (init._navHandler){
+			root.removeEventListener('click', init._navHandler, true);
+		}
+	};
+})();
+</script>
