@@ -87,6 +87,7 @@
 	--counter-inactive-color: {{#if property.style.slideCounterInactiveColor}}{{property.style.slideCounterInactiveColor}}{{else}}rgba(255,255,255,.4){{/if}};
 	--counter-offset-y-px: {{#if property.style.slideCounterOffsetYPx}}{{property.style.slideCounterOffsetYPx}}{{else}}8{{/if}}px;
 	--counter-offset-x-percent: {{#if property.style.slideCounterOffsetXPercent}}{{property.style.slideCounterOffsetXPercent}}{{else}}0{{/if}}%;
+	--gauge-offset-x: {{#if property.style.gaugeOffsetXPercentDesktop}}{{property.style.gaugeOffsetXPercentDesktop}}{{else}}0{{/if}}%;
 
 	/* ====== MOBILE BAR ====== */
 	--mobilebar-height: {{#if property.style.mobileGaugeHeight}}{{property.style.mobileGaugeHeight}}{{else}}3{{/if}}px;
@@ -101,6 +102,7 @@
 	--nav-arrow-radius: {{#if property.style.navArrowRadius}}{{property.style.navArrowRadius}}{{else}}999{{/if}}px;
 	--nav-arrow-icon-color: {{#if property.style.navArrowIconColor}}{{property.style.navArrowIconColor}}{{else}}#FFFFFF{{/if}};
 	--nav-arrow-size: {{#if property.style.navArrowSize}}{{property.style.navArrowSize}}{{else}}20{{/if}}px;
+	--nav-arrow-offset-x: {{#if property.style.navArrowOffsetXPercent}}{{property.style.navArrowOffsetXPercent}}{{else}}0{{/if}}%;
 
 	/* ====== SCROLL HINT ====== */
 	--scroll-hint-color: {{#if property.style.scrollHintColor}}{{property.style.scrollHintColor}}{{else}}#FFFFFF{{/if}};
@@ -360,6 +362,14 @@
 	pointer-events:auto;
 	z-index: 18;
 	transition: opacity 0.2s ease, transform 0.2s ease;
+	top: {{#if property.style.navArrowOffsetYPercent}}{{property.style.navArrowOffsetYPercent}}{{else}}50{{/if}}%;
+	transform: translateY(-50%);
+}
+.hero-nav-arrow[data-nav-prev] {
+	left: calc(var(--global-pad-x) + var(--nav-arrow-offset-x));
+}
+.hero-nav-arrow[data-nav-next] {
+	right: calc(var(--global-pad-x) + var(--nav-arrow-offset-x));
 }
 .hero-nav-arrow:focus-visible {
 	outline: 2px solid var(--nav-arrow-icon-color);
@@ -408,6 +418,19 @@
 	max-width: var(--gauge-max-width);
 	pointer-events:none;
 	z-index: var(--progress-layer-z);
+}
+.hero-progress-wrapper-desktop[data-align="left"] {
+	left: calc(var(--global-pad-x) + var(--gauge-offset-x));
+	right: auto;
+}
+.hero-progress-wrapper-desktop[data-align="right"] {
+	left: auto;
+	right: calc(var(--global-pad-x) + var(--gauge-offset-x));
+}
+.hero-progress-wrapper-desktop[data-align="center"] {
+	left: 50%;
+	right: auto;
+	transform: translateX(calc(-50% + var(--gauge-offset-x)));
 }
 
 .hero-progress-global-counter {
@@ -740,7 +763,7 @@
 	</button>
 
 	<!-- DESKTOP / COMMON GAUGE WRAPPER -->
-	<div class="hero-progress-wrapper-desktop" data-gauge-wrapper>
+	<div class="hero-progress-wrapper-desktop" data-gauge-wrapper data-align="{{#if property.style.gaugeAlignDesktop}}{{property.style.gaugeAlignDesktop}}{{else}}center{{/if}}">
 		{{#if (eq property.progressMode "singleBar")}}
 		<div class="hero-progress-global-counter" data-global-counter></div>
 
@@ -842,61 +865,11 @@
 		};
 	}
 
-	/* desktop gauge wrapper 위치 세팅 - 전역 패딩 반영 */
-	function applyGaugeWrapperPosition(confObj){
-		const wrap = root.querySelector('[data-gauge-wrapper]');
-		if(!wrap) return;
-
-		if(!confObj.desktopGaugeShow){
-			wrap.style.display = 'none';
-			return;
-		}else{
-			wrap.style.display = '';
-		}
-
-		// 전역 패딩 가져오기
-		const globalPadX = parseFloat(getComputedStyle(root).getPropertyValue('--global-pad-x')) || 5;
-		const offsetPercent = confObj.gaugeOffsetXPercent || 0;
-
-		if(confObj.gaugeAlign === "left"){
-			// 왼쪽 정렬: 전역 패딩 + offset
-			wrap.style.left = 'calc(' + globalPadX + '% + ' + offsetPercent + '%)';
-			wrap.style.right = 'auto';
-			wrap.style.transform = 'translateX(0)';
-		}else if(confObj.gaugeAlign === "right"){
-			// 오른쪽 정렬
-			wrap.style.left = 'auto';
-			wrap.style.right = 'calc(' + globalPadX + '% + ' + offsetPercent + '%)';
-			wrap.style.transform = 'translateX(0)';
-		}else{
-			// 중앙 정렬
-			wrap.style.left = '50%';
-			wrap.style.right = 'auto';
-			wrap.style.transform = 'translateX(calc(-50% + ' + offsetPercent + '%))';
-		}
-	}
-
-	/* 화살표 위치 세팅 - 전역 패딩 + offset */
-	function applyArrowPositions(confObj){
-		const leftArrow = root.querySelector('[data-nav-prev]');
-		const rightArrow = root.querySelector('[data-nav-next]');
-
-		if(!leftArrow || !rightArrow) return;
-
-		const globalPadX = parseFloat(getComputedStyle(root).getPropertyValue('--global-pad-x')) || 5;
-		const arrowOffsetX = confObj.navArrowOffsetXPercent || 0;
-		const arrowOffsetY = confObj.navArrowOffsetYPercent || 50;
-
-		// 왼쪽 화살표: 전역 패딩 + offset
-		leftArrow.style.left = 'calc(' + globalPadX + '% + ' + arrowOffsetX + '%)';
-		leftArrow.style.top = arrowOffsetY + '%';
-		leftArrow.style.transform = 'translateY(-50%)';
-
-		// 오른쪽 화살표: 전역 패딩 + offset
-		rightArrow.style.right = 'calc(' + globalPadX + '% + ' + arrowOffsetX + '%)';
-		rightArrow.style.top = arrowOffsetY + '%';
-		rightArrow.style.transform = 'translateY(-50%)';
-	}
+	/*
+	 * 화살표와 게이지 위치는 이제 CSS에서 직접 처리합니다.
+	 * CSS 변수 --global-pad-x와 --nav-arrow-offset-x, --gauge-offset-x를 사용합니다.
+	 * 아래 함수들은 더 이상 사용하지 않습니다.
+	 */
 
 	/* 모바일 게이지바 스타일 세팅 */
 	function applyMobileBarStyles(confObj){
@@ -1172,9 +1145,7 @@
 		});
 		currentIndex = 0;
 
-		// 위치/스타일 적용
-		applyGaugeWrapperPosition(confObj);
-		applyArrowPositions(confObj);
+		// 위치/스타일 적용 (화살표와 게이지는 CSS로 처리)
 		populateStepNumbers();
 		applyMobileBarStyles(confObj);
 

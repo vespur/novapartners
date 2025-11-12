@@ -398,8 +398,8 @@
     },
     {
       "id": "style.ctaGlowDirection",
-      "label": "Glow 스캔 시작 방향",
-      "description": "Glow 효과가 시작되는 방향을 선택해주세요.",
+      "label": "Glow 스캔 방향",
+      "description": "Glow 효과가 스캔되는 방향을 선택해주세요.",
       "type": "RADIO",
       "options": [
         {"label": "왼쪽", "value": "left-to-right"},
