@@ -1,0 +1,124 @@
+<style>
+  .logo-banner {
+    width: 100%;
+    overflow: hidden;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.paddingY}}px {{property.paddingX}}px;
+    position: relative;
+  }
+
+  .logo-track {
+    display: flex;
+    align-items: center;
+    gap: {{property.logoSpacing}}px;
+    width: max-content;
+    animation: scroll-{{property.direction}} {{property.speed}}s linear infinite;
+  }
+
+  .logo-item {
+    flex-shrink: 0;
+    height: {{property.logoHeight}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: grayscale({{property.grayscale}}%);
+    opacity: {{property.opacity}};
+    transition: all 0.3s ease;
+    min-width: 120px;
+  }
+
+  .logo-item:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .logo-item img {
+    max-height: 100%;
+    max-width: 200px;
+    object-fit: contain;
+    width: auto;
+  }
+
+  /* 정확한 무한 루프 애니메이션 - 2세트 복제로 50% 이동 */
+  @keyframes scroll-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scroll-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  /* 마우스 호버 시 애니메이션 일시정지 */
+  .logo-banner:hover .logo-track {
+    animation-play-state: {{property.pauseOnHover}};
+  }
+
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .logo-banner {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .logo-item {
+      height: {{property.mobileLogoHeight}}px;
+      min-width: 100px;
+    }
+
+    .logo-track {
+      gap: {{property.mobileLogoSpacing}}px;
+      animation: scroll-{{property.direction}} {{property.mobileSpeed}}s linear infinite;
+    }
+  }
+
+  /* 애니메이션 성능 최적화 - GPU 가속 활성화 */
+  .logo-track {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="logo-banner">
+    <div class="logo-track">
+      <!-- 첫 번째 세트 (원본) -->
+      {{#each property.logos}}
+        <div class="logo-item">
+          <img
+            src="{{image}}"
+            alt="{{name}}"
+            loading="lazy"
+            onerror="this.src='https://ss3-prod-static-files.s3.ap-northeast-2.amazonaws.com/block-image-library/lifestyle/image1.jpg'"
+          >
+        </div>
+      {{/each}}
+
+      <!-- 두 번째 세트 (무한 스크롤을 위한 정확한 복사본) -->
+      {{#each property.logos}}
+        <div class="logo-item">
+          <img
+            src="{{image}}"
+            alt="{{name}}"
+            loading="lazy"
+            onerror="this.src='https://ss3-prod-static-files.s3.ap-northeast-2.amazonaws.com/block-image-library/lifestyle/image1.jpg'"
+          >
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<script>
+  // CSS 애니메이션만으로 충분하므로 JavaScript는 최소화
+  // 브라우저가 자동으로 최적화를 수행하므로 추가 로직 불필요
+</script>
