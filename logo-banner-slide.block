@@ -1,0 +1,410 @@
+<style>
+  .logo-banner {
+    width: 100%;
+    overflow: hidden;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.paddingY}}px {{property.paddingX}}px;
+    position: relative;
+  }
+
+  .logo-track {
+    display: flex;
+    align-items: center;
+    gap: {{property.logoSpacing}}px;
+    width: max-content;
+    animation: scroll-{{property.direction}} {{property.speed}}s linear infinite;
+  }
+
+  .logo-item {
+    flex-shrink: 0;
+    height: {{property.logoHeight}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: grayscale({{property.grayscale}}%);
+    opacity: {{property.opacity}};
+    transition: all 0.3s ease;
+    min-width: 120px;
+  }
+
+  .logo-item:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .logo-item img {
+    max-height: 100%;
+    max-width: 200px;
+    object-fit: contain;
+    width: auto;
+  }
+
+  /* 정확한 무한 루프 애니메이션 - 2세트 복제로 50% 이동 */
+  @keyframes scroll-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scroll-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  /* 마우스 호버 시 애니메이션 일시정지 */
+  .logo-banner:hover .logo-track {
+    animation-play-state: {{property.pauseOnHover}};
+  }
+
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .logo-banner {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .logo-item {
+      height: {{property.mobileLogoHeight}}px;
+      min-width: 100px;
+    }
+
+    .logo-track {
+      gap: {{property.mobileLogoSpacing}}px;
+      animation: scroll-{{property.direction}} {{property.mobileSpeed}}s linear infinite;
+    }
+  }
+
+  /* 애니메이션 성능 최적화 - GPU 가속 활성화 */
+  .logo-track {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="logo-banner">
+    <div class="logo-track">
+      <!-- 첫 번째 세트 (원본) -->
+      {{#each property.logos}}
+        <div class="logo-item">
+          <img
+            src="{{image}}"
+            alt="{{name}}"
+            loading="lazy"
+            onerror="this.src='https://ss3-prod-static-files.s3.ap-northeast-2.amazonaws.com/block-image-library/lifestyle/image1.jpg'"
+          >
+        </div>
+      {{/each}}
+
+      <!-- 두 번째 세트 (무한 스크롤을 위한 정확한 복사본) -->
+      {{#each property.logos}}
+        <div class="logo-item">
+          <img
+            src="{{image}}"
+            alt="{{name}}"
+            loading="lazy"
+            onerror="this.src='https://ss3-prod-static-files.s3.ap-northeast-2.amazonaws.com/block-image-library/lifestyle/image1.jpg'"
+          >
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<script>
+  // CSS 애니메이션만으로 충분하므로 JavaScript는 최소화
+  // 브라우저가 자동으로 최적화를 수행하므로 추가 로직 불필요
+</script>
+
+{
+  "settings": [
+    {
+      "type": "SECTION",
+      "label": "로고 관리",
+      "settings": [
+        {
+          "id": "logos",
+          "label": "로고 목록",
+          "description": "고객사나 파트너사의 로고를 추가하세요. 최소 3개 이상 권장합니다.",
+          "type": "LIST",
+          "minCount": 3,
+          "maxCount": 20,
+          "settings": [
+            {
+              "id": "name",
+              "label": "회사명",
+              "description": "접근성을 위한 대체 텍스트로 사용됩니다",
+              "type": "TEXT",
+              "placeholder": "예: 삼성전자",
+              "required": true
+            },
+            {
+              "id": "image",
+              "label": "로고 이미지",
+              "description": "투명 배경의 PNG 파일 권장 (가로형 로고 최적)",
+              "type": "IMAGE_PICKER",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "SECTION",
+      "label": "애니메이션 설정",
+      "settings": [
+        {
+          "id": "direction",
+          "label": "스크롤 방향",
+          "type": "RADIO",
+          "options": [
+            {
+              "label": "← 왼쪽으로",
+              "value": "left"
+            },
+            {
+              "label": "→ 오른쪽으로",
+              "value": "right"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "id": "speed",
+          "label": "스크롤 속도 (데스크톱)",
+          "description": "숫자가 작을수록 빠르게 움직입니다",
+          "type": "RANGE",
+          "min": 10,
+          "max": 60,
+          "step": 5,
+          "unit": "초",
+          "default": 30
+        },
+        {
+          "id": "mobileSpeed",
+          "label": "스크롤 속도 (모바일)",
+          "description": "모바일에서의 애니메이션 속도",
+          "type": "RANGE",
+          "min": 10,
+          "max": 60,
+          "step": 5,
+          "unit": "초",
+          "default": 30
+        },
+        {
+          "id": "pauseOnHover",
+          "label": "마우스 호버 시",
+          "description": "마우스를 올렸을 때 동작을 선택하세요",
+          "type": "RADIO",
+          "options": [
+            {
+              "label": "일시정지",
+              "value": "paused"
+            },
+            {
+              "label": "계속 움직임",
+              "value": "running"
+            }
+          ],
+          "default": "paused"
+        }
+      ]
+    },
+    {
+      "type": "SECTION",
+      "label": "로고 크기 및 간격",
+      "settings": [
+        {
+          "id": "logoHeight",
+          "label": "로고 높이 (데스크톱)",
+          "type": "RANGE",
+          "min": 30,
+          "max": 120,
+          "step": 5,
+          "unit": "px",
+          "default": 50
+        },
+        {
+          "id": "mobileLogoHeight",
+          "label": "로고 높이 (모바일)",
+          "type": "RANGE",
+          "min": 25,
+          "max": 80,
+          "step": 5,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "id": "logoSpacing",
+          "label": "로고 간격 (데스크톱)",
+          "type": "RANGE",
+          "min": 20,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 60
+        },
+        {
+          "id": "mobileLogoSpacing",
+          "label": "로고 간격 (모바일)",
+          "type": "RANGE",
+          "min": 15,
+          "max": 60,
+          "step": 5,
+          "unit": "px",
+          "default": 40
+        }
+      ]
+    },
+    {
+      "type": "SECTION",
+      "label": "디자인",
+      "settings": [
+        {
+          "id": "backgroundColor",
+          "label": "배경 색상",
+          "type": "COLOR_PICKER",
+          "default": "#000000FF"
+        },
+        {
+          "id": "grayscale",
+          "label": "회색조 효과",
+          "description": "0% = 원본 색상, 100% = 완전 회색 (호버 시 원본 색상)",
+          "type": "RANGE",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "%",
+          "default": 100
+        },
+        {
+          "id": "opacity",
+          "label": "투명도",
+          "description": "0.3 = 70% 투명, 1.0 = 불투명 (호버 시 완전 불투명)",
+          "type": "RANGE",
+          "min": 0.3,
+          "max": 1,
+          "step": 0.1,
+          "unit": "",
+          "default": 0.5
+        }
+      ]
+    },
+    {
+      "type": "SECTION",
+      "label": "여백",
+      "settings": [
+        {
+          "id": "paddingY",
+          "label": "상하 여백 (데스크톱)",
+          "type": "RANGE",
+          "min": 20,
+          "max": 80,
+          "step": 5,
+          "unit": "px",
+          "default": 50
+        },
+        {
+          "id": "paddingX",
+          "label": "좌우 여백 (데스크톱)",
+          "type": "RANGE",
+          "min": 20,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "id": "mobilePaddingY",
+          "label": "상하 여백 (모바일)",
+          "type": "RANGE",
+          "min": 15,
+          "max": 60,
+          "step": 5,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "id": "mobilePaddingX",
+          "label": "좌우 여백 (모바일)",
+          "type": "RANGE",
+          "min": 15,
+          "max": 60,
+          "step": 5,
+          "unit": "px",
+          "default": 16
+        }
+      ]
+    }
+  ],
+  "property": {
+    "logos": [
+      {
+        "name": "애경산업",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/aekyung-wt_1762353586932.png"
+      },
+      {
+        "name": "디비하이텍",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/dbhitek-wt_1762353586932.png"
+      },
+      {
+        "name": "동서식품",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/dongsuhshop-wt_1762353586932.png"
+      },
+      {
+        "name": "하나마이크론",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/hanamicron-wt_1762353586932.png"
+      },
+      {
+        "name": "한화솔루션",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/hanwhasolutions-wt_1762353586932.png"
+      },
+      {
+        "name": "JCET",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/jcet-wt_1762353586932.png"
+      },
+      {
+        "name": "삼성전자",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/samsung-wt_1762353586932.png"
+      },
+      {
+        "name": "삼양식품",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/samyangfoods-wt_1762353586932.png"
+      },
+      {
+        "name": "SK Materials",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/sk-materials-wtn_1762353586932.png"
+      },
+      {
+        "name": "SL배터리",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/slbattery-wt_1762353586932.png"
+      },
+      {
+        "name": "태광",
+        "image": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/taekwang-wt_1762353586932.png"
+      }
+    ],
+    "direction": "left",
+    "speed": 30,
+    "mobileSpeed": 30,
+    "pauseOnHover": "paused",
+    "logoHeight": 50,
+    "mobileLogoHeight": 40,
+    "logoSpacing": 60,
+    "mobileLogoSpacing": 40,
+    "backgroundColor": "#000000FF",
+    "grayscale": 100,
+    "opacity": 0.5,
+    "paddingY": 50,
+    "paddingX": 24,
+    "mobilePaddingY": 30,
+    "mobilePaddingX": 16
+  }
+}
