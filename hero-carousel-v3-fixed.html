@@ -267,25 +267,27 @@
 	position:absolute;
 	inset:0;
 	border-radius: inherit;
-	background-size:200% 100%;
+	/* background-size는 각 방향별로 명시적 설정 */
 	background-repeat:no-repeat;
 	opacity:0;
 }
 
-/* Glow 방향별 애니메이션 */
+/* Glow 방향별 애니메이션 - background-size 명시적 설정 */
 .hero-cta[data-glow-direction="left-to-right"] .hero-cta-scan-highlight {
 	background-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, var(--cta-glow-gradient-color) 50%, rgba(0,0,0,0) 100%);
+	background-size: 200% 100%;
 }
 .hero-cta[data-glow-direction="right-to-left"] .hero-cta-scan-highlight {
 	background-image: linear-gradient(270deg, rgba(0,0,0,0) 0%, var(--cta-glow-gradient-color) 50%, rgba(0,0,0,0) 100%);
+	background-size: 200% 100%;
 }
 .hero-cta[data-glow-direction="top-to-bottom"] .hero-cta-scan-highlight {
 	background-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, var(--cta-glow-gradient-color) 50%, rgba(0,0,0,0) 100%);
-	background-size:100% 200%;
+	background-size: 100% 200%;
 }
 .hero-cta[data-glow-direction="bottom-to-top"] .hero-cta-scan-highlight {
 	background-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, var(--cta-glow-gradient-color) 50%, rgba(0,0,0,0) 100%);
-	background-size:100% 200%;
+	background-size: 100% 200%;
 }
 
 .hero-cta[data-anim="glow"]:hover,
@@ -812,8 +814,8 @@
 			mobileBarShow: !!s.mobileGaugeBarShow,
 			mobileBarPosition: (s.mobileGaugeBarPosition && s.mobileGaugeBarPosition !== "") ? s.mobileGaugeBarPosition : "top",
 
-			/* nav arrows - 화면 끝 기준으로 변경 */
-			navArrowOffsetXPercent: (s.navArrowOffsetXPercent !== undefined && s.navArrowOffsetXPercent !== "") ? +s.navArrowOffsetXPercent : 5,
+			/* nav arrows - 전역 패딩 + offset (기본값 0) */
+			navArrowOffsetXPercent: (s.navArrowOffsetXPercent !== undefined && s.navArrowOffsetXPercent !== "") ? +s.navArrowOffsetXPercent : 0,
 			navArrowOffsetYPercent: (s.navArrowOffsetYPercent !== undefined && s.navArrowOffsetYPercent !== "") ? +s.navArrowOffsetYPercent : 50
 		};
 	}
@@ -852,23 +854,24 @@
 		}
 	}
 
-	/* 화살표 위치 세팅 - 화면 끝 기준으로 변경 */
+	/* 화살표 위치 세팅 - 전역 패딩 + offset */
 	function applyArrowPositions(confObj){
 		const leftArrow = root.querySelector('[data-nav-prev]');
 		const rightArrow = root.querySelector('[data-nav-next]');
 
 		if(!leftArrow || !rightArrow) return;
 
-		const arrowOffsetX = confObj.navArrowOffsetXPercent || 5;
+		const globalPadX = parseFloat(getComputedStyle(root).getPropertyValue('--global-pad-x')) || 5;
+		const arrowOffsetX = confObj.navArrowOffsetXPercent || 0;
 		const arrowOffsetY = confObj.navArrowOffsetYPercent || 50;
 
-		// 왼쪽 화살표: 화면 끝에서 직접 계산
-		leftArrow.style.left = arrowOffsetX + '%';
+		// 왼쪽 화살표: 전역 패딩 + offset
+		leftArrow.style.left = 'calc(' + globalPadX + '% + ' + arrowOffsetX + '%)';
 		leftArrow.style.top = arrowOffsetY + '%';
 		leftArrow.style.transform = 'translateY(-50%)';
 
-		// 오른쪽 화살표: 화면 끝에서 직접 계산
-		rightArrow.style.right = arrowOffsetX + '%';
+		// 오른쪽 화살표: 전역 패딩 + offset
+		rightArrow.style.right = 'calc(' + globalPadX + '% + ' + arrowOffsetX + '%)';
 		rightArrow.style.top = arrowOffsetY + '%';
 		rightArrow.style.transform = 'translateY(-50%)';
 	}
@@ -882,19 +885,19 @@
 		const isMobile = window.innerWidth <= 768;
 
 		// 조건: mobileBarShow && singleBar && 모바일
-		if(!confObj.mobileBarShow || confObj.mode !== 'singleBar' || !isMobile){
-			barWrap.style.display = 'none';
-		}else{
-			barWrap.style.display = 'block';
-		}
+		const shouldShow = confObj.mobileBarShow && confObj.mode === 'singleBar' && isMobile;
 
-		// 상단/하단 위치 - 오프셋 항상 0px
-		if(confObj.mobileBarPosition === "bottom"){
-			barWrap.style.bottom = '0px';
-			barWrap.style.top = 'auto';
-		}else{
-			barWrap.style.top = '0px';
-			barWrap.style.bottom = 'auto';
+		barWrap.style.display = shouldShow ? 'block' : 'none';
+
+		// 표시할 때만 위치 설정
+		if(shouldShow){
+			if(confObj.mobileBarPosition === "bottom"){
+				barWrap.style.bottom = '0px';
+				barWrap.style.top = 'auto';
+			}else{
+				barWrap.style.top = '0px';
+				barWrap.style.bottom = 'auto';
+			}
 		}
 	}
 

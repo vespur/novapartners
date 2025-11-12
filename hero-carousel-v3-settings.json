@@ -545,9 +545,9 @@
     {
       "id": "style.navArrowOffsetXPercent",
       "label": "좌우 여백 (%)",
-      "description": "화면 좌우 끝에서 화살표까지의 여백입니다. 숫자만 입력해주세요. 예: 5",
+      "description": "전역 패딩 기준에서 추가로 더 떨어뜨릴 여백입니다. 0을 입력하면 전역 패딩만 적용됩니다. 숫자만 입력해주세요. 예: 0",
       "type": "TEXT",
-      "placeholder": "5",
+      "placeholder": "0",
       "isVisible": "property.style.navArrowShow === true"
     },
     {
@@ -923,7 +923,7 @@
       "navArrowBorderWidth": "1",
       "navArrowRadius": "999",
       "navArrowSize": "20",
-      "navArrowOffsetXPercent": "5",
+      "navArrowOffsetXPercent": "0",
       "navArrowOffsetYPercent": "50",
       "navArrowIconSvgLeft": "",
       "navArrowIconSvgRight": "",
