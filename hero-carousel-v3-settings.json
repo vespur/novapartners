@@ -102,16 +102,6 @@
       ]
     },
     {
-      "id": "progressMode",
-      "label": "진행 게이지 스타일",
-      "description": "데스크톱 하단 진행 게이지의 표시 방식을 선택해주세요.",
-      "type": "RADIO",
-      "options": [
-        {"label": "단일 바 (한 줄)", "value": "singleBar"},
-        {"label": "멀티 스텝 (슬라이드별 막대)", "value": "multiStep"}
-      ]
-    },
-    {
       "id": "loopSlides",
       "label": "무한 반복 재생",
       "description": "체크하시면 마지막 슬라이드 후 처음으로 돌아갑니다.",
@@ -545,7 +535,7 @@
     {
       "id": "style.navArrowOffsetXPercent",
       "label": "좌우 여백 (%)",
-      "description": "전역 패딩 기준에서 추가로 더 떨어뜨릴 여백입니다. 0을 입력하면 전역 패딩만 적용됩니다. 숫자만 입력해주세요. 예: 0",
+      "description": "화면 좌우 끝에서 화살표까지의 거리입니다. 0을 입력하면 화면 끝에 바짝 붙습니다. 숫자만 입력해주세요. 예: 0",
       "type": "TEXT",
       "placeholder": "0",
       "isVisible": "property.style.navArrowShow === true"
@@ -594,6 +584,17 @@
       "label": "모바일에서 데스크톱 게이지 숨기기",
       "description": "체크하시면 모바일에서 데스크톱 게이지가 표시되지 않습니다.",
       "type": "CHECKBOX",
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "progressMode",
+      "label": "진행 게이지 스타일",
+      "description": "데스크톱 하단 진행 게이지의 표시 방식을 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "단일 바 (한 줄)", "value": "singleBar"},
+        {"label": "멀티 스텝 (슬라이드별 막대)", "value": "multiStep"}
+      ],
       "isVisible": "property.style.desktopGaugeShow === true"
     },
     {
