@@ -534,8 +534,8 @@
     },
     {
       "id": "style.navArrowOffsetXPercent",
-      "label": "좌우 여백 (%)",
-      "description": "화면 좌우 끝에서 화살표까지의 거리입니다. 0을 입력하면 화면 끝에 바짝 붙습니다. 숫자만 입력해주세요. 예: 0",
+      "label": "좌우 추가 여백 (%)",
+      "description": "전역 패딩을 기준으로 추가로 더 떨어뜨릴 여백입니다. 0을 입력하면 전역 패딩만 적용됩니다. 숫자만 입력해주세요. 예: 0",
       "type": "TEXT",
       "placeholder": "0",
       "isVisible": "property.style.navArrowShow === true"
@@ -592,8 +592,8 @@
       "description": "데스크톱 하단 진행 게이지의 표시 방식을 선택해주세요.",
       "type": "RADIO",
       "options": [
-        {"label": "단일 바 (한 줄)", "value": "singleBar"},
-        {"label": "멀티 스텝 (슬라이드별 막대)", "value": "multiStep"}
+        {"label": "단일 바", "value": "singleBar"},
+        {"label": "슬라이드별 막대", "value": "multiStep"}
       ],
       "isVisible": "property.style.desktopGaugeShow === true"
     },
