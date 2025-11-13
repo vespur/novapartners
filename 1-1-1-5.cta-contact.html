@@ -1,13 +1,9 @@
 <style>
   .cta-section {
     width: 100%;
-    {{#if (eq property.bgType 'gradient')}}
-    background: linear-gradient(135deg, {{property.bgGradientStart}} 0%, {{property.bgGradientEnd}} 100%);
-    {{else}}
-    background-color: {{property.bgColor}};
-    {{/if}}
     padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
     color: {{property.textColor}};
+    background: linear-gradient(135deg, {{property.bgGradientStart}} 0%, {{property.bgGradientEnd}} 100%);
   }
 
   .cta-container {
@@ -89,8 +85,11 @@
     background-color: rgba(255, 255, 255, 0.1);
   }
 
-  {{#if property.showContactInfo}}
   .cta-contact-info {
+    display: none;
+  }
+
+  .cta-contact-info[data-visible] {
     display: flex;
     justify-content: center;
     gap: 40px;
@@ -125,7 +124,6 @@
     color: {{property.textColor}};
     margin: 0;
   }
-  {{/if}}
 
   /* 성능 최적화 */
   .cta-section {
@@ -192,8 +190,7 @@
       font-size: {{property.mobileButtonFontSize}}px;
     }
 
-    {{#if property.showContactInfo}}
-    .cta-contact-info {
+    .cta-contact-info[data-visible] {
       flex-direction: column;
       gap: 16px;
       padding-top: 20px;
@@ -202,7 +199,6 @@
     .cta-contact-item {
       justify-content: center;
     }
-    {{/if}}
   }
 </style>
 
@@ -305,6 +301,12 @@
           contactInfo.setAttribute('data-animated', 'true');
           contactInfo.style.animation = `${animationType} ${animationDuration}s ease forwards 0.3s`;
         }
+      }
+
+      // 연락처 정보 표시 처리
+      const contactInfo = container.querySelector('.cta-contact-info');
+      if (contactInfo && bm.property && bm.property.showContactInfo) {
+        contactInfo.setAttribute('data-visible', 'true');
       }
 
       // 빈 링크 클릭 방지

@@ -170,7 +170,6 @@
       padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
     }
 
-    {{#if property.showDivider}}
     .service-overview::before {
       margin-bottom: {{property.mobilePaddingY}}px;
     }
@@ -178,7 +177,6 @@
     .service-overview::after {
       margin-top: {{property.mobilePaddingY}}px;
     }
-    {{/if}}
 
     .service-overview-header {
       margin-bottom: {{property.mobileItemGap}}px;
@@ -285,6 +283,14 @@
 
   function initServiceOverview() {
     try {
+      // 구분선 표시 처리
+      if (bm.property && !bm.property.showDivider) {
+        const serviceOverview = container.querySelector('.service-overview');
+        if (serviceOverview) {
+          serviceOverview.style.setProperty('--divider-display', 'none');
+        }
+      }
+
       // 애니메이션 설정
       if (bm.property && bm.property.enableAnimation) {
         const animationType = bm.property.animationType || 'fadeInLeft';
