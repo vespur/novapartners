@@ -159,7 +159,7 @@
       "label": "부 버튼 배경색",
       "description": "부 버튼의 배경색 (투명 권장)",
       "type": "COLOR_PICKER",
-      "default": "rgba(255, 255, 255, 0.2)"
+      "default": "#FFFFFF33"
     },
     {
       "id": "secondaryButtonTextColor",
