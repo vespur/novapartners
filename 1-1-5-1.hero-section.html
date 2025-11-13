@@ -1,0 +1,307 @@
+<style>
+  .hero-section {
+    width: 100%;
+    min-height: {{property.desktopMinHeight}}px;
+    background: linear-gradient(135deg, {{property.bgGradientStart}} 0%, {{property.bgGradientEnd}} 100%);
+    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, {{property.bgOverlayOpacity}});
+    z-index: 1;
+    opacity: {{property.bgOverlayOpacity}};
+  }
+
+  .hero-decoration {
+    display: none;
+  }
+
+  .hero-decoration[data-visible] {
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.08;
+    z-index: 0;
+  }
+
+  .hero-decoration.left {
+    width: 500px;
+    height: 500px;
+    top: -100px;
+    left: -100px;
+    background-color: var(--color-accent-100);
+  }
+
+  .hero-decoration.right {
+    width: 400px;
+    height: 400px;
+    bottom: -50px;
+    right: -50px;
+    background-color: var(--color-accent-100);
+  }
+
+  .hero-content {
+    max-width: 900px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-content[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
+  .hero-label {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopLabelFontSize}}px;
+    font-weight: {{property.desktopLabelFontWeight}};
+    color: {{property.desktopLabelColor}};
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 16px 0;
+    display: inline-block;
+  }
+
+  .hero-title {
+    font-family: var(--font-family-heading);
+    font-weight: {{property.desktopTitleFontWeight}};
+    font-size: {{property.desktopTitleFontSize}}px;
+    color: {{property.desktopTitleColor}};
+    line-height: {{property.desktopTitleLineHeight}};
+    margin: 0 0 24px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopDescriptionFontSize}}px;
+    color: {{property.desktopDescriptionColor}};
+    line-height: {{property.desktopDescriptionLineHeight}};
+    margin: 0 0 40px 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: {{property.desktopButtonGap}}px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-button {
+    padding: 16px 40px;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-family-body);
+    font-weight: 600;
+    font-size: {{property.desktopButtonFontSize}}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .hero-button.primary {
+    background-color: var(--color-accent-100);
+    color: white;
+  }
+
+  .hero-button.primary:hover {
+    background-color: #003d99;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 85, 255, 0.3);
+  }
+
+  .hero-button.secondary {
+    background-color: transparent;
+    color: var(--color-accent-100);
+    border: 2px solid var(--color-accent-100);
+  }
+
+  .hero-button.secondary:hover {
+    background-color: rgba(0, 85, 255, 0.05);
+    transform: translateY(-2px);
+  }
+
+  /* 애니메이션 정의 */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .hero-section {
+      min-height: {{property.mobileMinHeight}}px;
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .hero-label {
+      font-size: {{property.mobileLabelFontSize}}px;
+      font-weight: {{property.mobileLabelFontWeight}};
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-weight: {{property.mobileTitleFontWeight}};
+      font-size: {{property.mobileTitleFontSize}}px;
+      line-height: {{property.mobileTitleLineHeight}};
+      margin-bottom: 16px;
+    }
+
+    .hero-description {
+      font-size: {{property.mobileDescriptionFontSize}}px;
+      line-height: {{property.mobileDescriptionLineHeight}};
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      gap: {{property.mobileButtonGap}}px;
+    }
+
+    .hero-button {
+      width: 100%;
+      font-size: {{property.mobileButtonFontSize}}px;
+    }
+  }
+
+  /* 성능 최적화 */
+  .hero-section {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="hero-section">
+    {{#if property.enableDecorationCircles}}
+      <div class="hero-decoration left"></div>
+      <div class="hero-decoration right"></div>
+    {{/if}}
+
+    <div class="hero-content">
+      {{#if property.label}}
+        <p class="hero-label">{{property.label}}</p>
+      {{/if}}
+
+      {{#if property.title}}
+        <h1 class="hero-title">{{property.title}}</h1>
+      {{/if}}
+
+      {{#if property.description}}
+        <p class="hero-description">{{property.description}}</p>
+      {{/if}}
+
+      {{#if property.buttons}}
+        <div class="hero-buttons">
+          {{#each property.buttons}}
+            {{#if buttonUrl}}
+              <a
+                href="{{buttonUrl}}"
+                class="hero-button {{buttonStyle}}"
+                {{#if openNewTab}}target="_blank" rel="noopener noreferrer"{{/if}}
+              >
+                {{buttonText}}
+              </a>
+            {{/if}}
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function initHero() {
+    try {
+      // 데코레이션 원 표시
+      if (bm.property && bm.property.enableDecorationCircles) {
+        const decorations = container.querySelectorAll('.hero-decoration');
+        decorations.forEach((deco) => {
+          deco.setAttribute('data-visible', 'true');
+        });
+      }
+
+      // 애니메이션 설정
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = bm.property.animationType || 'fadeInUp';
+        const animationDuration = bm.property.animationDuration || 0.8;
+
+        const heroContent = container.querySelector('.hero-content');
+        if (heroContent) {
+          heroContent.style.animation = `${animationType} ${animationDuration}s ease forwards`;
+        }
+      }
+    } catch (error) {
+      console.error('Hero animation initialization failed:', error);
+    }
+
+    // 빈 링크 클릭 방지
+    container.addEventListener('click', (e) => {
+      const button = e.target.closest('.hero-button');
+      if (button) {
+        const href = button.getAttribute('href');
+        if (!href || href === '' || href === '#') {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    }, true);
+  }
+
+  initHero();
+
+  bm.onContextChange = () => {
+    initHero();
+  };
+
+  bm.onDestroy = () => {
+    // cleanup if needed
+  };
+</script>

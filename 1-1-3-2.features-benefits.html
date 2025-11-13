@@ -1,0 +1,267 @@
+<style>
+  .features-benefits {
+    width: 100%;
+    background-color: {{property.bgColor}};
+    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
+  }
+
+  .features-benefits-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .features-benefits-header {
+    text-align: center;
+    margin-bottom: {{property.desktopCardGap * 3}}px;
+  }
+
+  .features-benefits-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.desktopTitleFontSize}}px;
+    font-weight: {{property.desktopTitleFontWeight}};
+    color: {{property.desktopTitleColor}};
+    margin: 0 0 12px 0;
+  }
+
+  .features-benefits-title[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
+  .features-benefits-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopSubtitleFontSize}}px;
+    color: {{property.desktopSubtitleColor}};
+    margin: 0;
+  }
+
+  .features-benefits-subtitle[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat({{property.desktopColumnCount}}, 1fr);
+    gap: {{property.desktopCardGap}}px;
+  }
+
+  .feature-card {
+    padding: {{property.desktopCardPadding}}px;
+    background-color: {{property.featureBgColor}};
+    border-radius: {{property.cardBorderRadius}}px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .feature-card[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .feature-icon {
+    font-size: {{property.desktopIconSize}}px;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+
+  .feature-icon img {
+    width: {{property.desktopIconSize}}px;
+    height: {{property.desktopIconSize}}px;
+    object-fit: contain;
+  }
+
+  .feature-title {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopFeatureTitleFontSize}}px;
+    font-weight: {{property.desktopFeatureTitleFontWeight}};
+    color: {{property.desktopFeatureTitleColor}};
+    margin: 0 0 12px 0;
+  }
+
+  .feature-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopFeatureDescFontSize}}px;
+    color: {{property.desktopFeatureDescColor}};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* 성능 최적화 */
+  .features-benefits {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* 애니메이션 정의 */
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .features-benefits {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .features-benefits-header {
+      margin-bottom: {{property.mobileCardGap * 2}}px;
+    }
+
+    .features-benefits-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+      font-weight: {{property.mobileTitleFontWeight}};
+    }
+
+    .features-benefits-subtitle {
+      font-size: {{property.mobileSubtitleFontSize}}px;
+    }
+
+    .features-grid {
+      grid-template-columns: repeat({{property.mobileColumnCount}}, 1fr);
+      gap: {{property.mobileCardGap}}px;
+    }
+
+    .feature-card {
+      padding: {{property.mobileCardPadding}}px;
+    }
+
+    .feature-icon {
+      font-size: {{property.mobileIconSize}}px;
+    }
+
+    .feature-icon img {
+      width: {{property.mobileIconSize}}px;
+      height: {{property.mobileIconSize}}px;
+    }
+
+    .feature-title {
+      font-size: {{property.mobileFeatureTitleFontSize}}px;
+    }
+
+    .feature-description {
+      font-size: {{property.mobileFeatureDescFontSize}}px;
+    }
+  }
+</style>
+
+<template>
+  <div class="features-benefits">
+    <div class="features-benefits-container">
+      <div class="features-benefits-header">
+        {{#if property.sectionTitle}}
+          <h2 class="features-benefits-title">{{property.sectionTitle}}</h2>
+        {{/if}}
+        {{#if property.sectionSubtitle}}
+          <p class="features-benefits-subtitle">{{property.sectionSubtitle}}</p>
+        {{/if}}
+      </div>
+
+      {{#if property.features}}
+        <div class="features-grid">
+          {{#each property.features}}
+            <div class="feature-card">
+              {{#if featureIcon}}
+                <div class="feature-icon">{{featureIcon}}</div>
+              {{/if}}
+              {{#if featureTitle}}
+                <h3 class="feature-title">{{featureTitle}}</h3>
+              {{/if}}
+              {{#if featureDescription}}
+                <p class="feature-description">{{featureDescription}}</p>
+              {{/if}}
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+
+  function initFeaturesSection() {
+    // 애니메이션 설정
+    try {
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = bm.property.animationType || 'fadeInLeft';
+        const animationDuration = bm.property.animationDuration || 0.8;
+        const staggerDelay = bm.property.staggerDelay || 0.1;
+
+        // 헤더 애니메이션
+        const title = container.querySelector('.features-benefits-title');
+        if (title) {
+          title.style.animation = `${animationType} ${animationDuration}s ease forwards 0s`;
+        }
+
+        const subtitle = container.querySelector('.features-benefits-subtitle');
+        if (subtitle) {
+          subtitle.style.animation = `${animationType} ${animationDuration}s ease forwards ${staggerDelay}s`;
+        }
+
+        // 카드 애니메이션
+        const featureCards = container.querySelectorAll('.feature-card');
+        featureCards.forEach((card, index) => {
+          const delay = (2 + index) * staggerDelay;
+          card.style.animation = `${animationType} ${animationDuration}s ease forwards ${delay}s`;
+          card.style.opacity = '0';
+        });
+      }
+    } catch (error) {
+      console.error('Features animation initialization failed:', error);
+    }
+
+    // 이미지 아이콘 로드 확인
+    const iconImages = container.querySelectorAll('.feature-icon img');
+    iconImages.forEach((img) => {
+      img.addEventListener('error', (e) => {
+        e.target.parentElement.style.opacity = '0.5';
+      });
+    });
+  }
+
+  initFeaturesSection();
+
+  bm.onContextChange = () => {
+    initFeaturesSection();
+  };
+
+  bm.onDestroy = () => {
+    // cleanup if needed
+  };
+</script>

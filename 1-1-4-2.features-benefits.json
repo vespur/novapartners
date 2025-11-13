@@ -1,0 +1,576 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 섹션 정보"
+    },
+    {
+      "id": "sectionTitle",
+      "label": "섹션 제목",
+      "description": "전체 섹션의 주요 제목입니다",
+      "type": "TEXT",
+      "placeholder": "예: 우리의 강점",
+      "default": "우리의 강점"
+    },
+    {
+      "id": "sectionSubtitle",
+      "label": "섹션 부제목 (선택사항)",
+      "description": "섹션 제목 아래에 표시될 설명 텍스트입니다",
+      "type": "TEXT",
+      "placeholder": "예: AI 전환의 모든 것을 한번에",
+      "default": ""
+    },
+    {
+      "type": "TITLE",
+      "content": "📌 기능 항목 (최대 6개)"
+    },
+    {
+      "id": "features",
+      "label": "기능 목록",
+      "description": "서비스의 주요 기능이나 이점을 추가합니다",
+      "type": "LIST",
+      "maxItems": 6,
+      "fields": [
+        {
+          "id": "featureIcon",
+          "label": "아이콘",
+          "description": "이모지(예: ⚡) 또는 이미지 URL을 입력합니다",
+          "type": "TEXT",
+          "placeholder": "⚡",
+          "default": "⚡"
+        },
+        {
+          "id": "featureTitle",
+          "label": "기능 제목",
+          "description": "기능의 이름을 짧게 표현합니다",
+          "type": "TEXT",
+          "placeholder": "예: 빠른 구현",
+          "default": "빠른 구현"
+        },
+        {
+          "id": "featureDescription",
+          "label": "기능 설명",
+          "description": "기능에 대한 상세한 설명입니다",
+          "type": "TEXT_LONG",
+          "placeholder": "예: 최소한의 개입으로 빠르게 구현 가능...",
+          "default": "최소한의 개입으로 빠르게 구현 가능합니다"
+        }
+      ],
+      "default": [
+        {
+          "featureIcon": "⚡",
+          "featureTitle": "빠른 구현",
+          "featureDescription": "최소한의 개입으로 빠르게 구현 가능합니다"
+        },
+        {
+          "featureIcon": "🎯",
+          "featureTitle": "정확한 분석",
+          "featureDescription": "AI 기반 정밀한 데이터 분석으로 최적의 결과 도출"
+        },
+        {
+          "featureIcon": "📈",
+          "featureTitle": "측정 가능한 결과",
+          "featureDescription": "ROI 기반 성과 측정 및 지속적인 개선"
+        },
+        {
+          "featureIcon": "🔒",
+          "featureTitle": "보안 강화",
+          "featureDescription": "엔터프라이즈급 보안 및 규정 준수"
+        },
+        {
+          "featureIcon": "👥",
+          "featureTitle": "전담 지원팀",
+          "featureDescription": "24/7 기술 지원 및 컨설팅"
+        },
+        {
+          "featureIcon": "🚀",
+          "featureTitle": "지속적 업데이트",
+          "featureDescription": "최신 AI 기술 반영 및 정기 업데이트"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 & 색상"
+    },
+    {
+      "id": "bgColor",
+      "label": "배경색",
+      "description": "섹션의 배경색을 설정합니다",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "featureBgColor",
+      "label": "기능 카드 배경색",
+      "description": "각 기능 카드의 배경색을 설정합니다",
+      "type": "COLOR_PICKER",
+      "default": "#f8f9fa"
+    },
+    {
+      "id": "accentColor",
+      "label": "악센트색",
+      "description": "아이콘이나 강조 요소의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#0055ff"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 데스크톱 스타일"
+    },
+    {
+      "id": "desktopPaddingY",
+      "label": "위/아래 패딩",
+      "description": "섹션의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "default": 80
+    },
+    {
+      "id": "desktopPaddingX",
+      "label": "좌/우 패딩",
+      "description": "섹션의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "desktopColumnCount",
+      "label": "컬럼 개수",
+      "description": "각 행에 표시할 카드 개수 (데스크톱)",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "2개",
+          "value": "2"
+        },
+        {
+          "label": "3개",
+          "value": "3"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "id": "desktopCardGap",
+      "label": "카드 간격",
+      "description": "카드 사이의 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "id": "desktopCardPadding",
+      "label": "카드 내부 패딩",
+      "description": "카드 내부의 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "id": "desktopTitleFontSize",
+      "label": "섹션 제목 크기",
+      "description": "섹션 제목의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "id": "desktopTitleFontWeight",
+      "label": "섹션 제목 굵기",
+      "description": "섹션 제목의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "400"
+        },
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "desktopTitleColor",
+      "label": "섹션 제목 색상",
+      "description": "섹션 제목의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#000000"
+    },
+    {
+      "id": "desktopSubtitleFontSize",
+      "label": "부제목 크기",
+      "description": "부제목의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "id": "desktopSubtitleColor",
+      "label": "부제목 색상",
+      "description": "부제목의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#666666"
+    },
+    {
+      "id": "desktopFeatureTitleFontSize",
+      "label": "기능 제목 크기",
+      "description": "각 기능 카드의 제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 24,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "id": "desktopFeatureTitleFontWeight",
+      "label": "기능 제목 굵기",
+      "description": "기능 제목의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "500"
+        },
+        {
+          "label": "굵음",
+          "value": "600"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "id": "desktopFeatureTitleColor",
+      "label": "기능 제목 색상",
+      "description": "기능 제목의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#000000"
+    },
+    {
+      "id": "desktopFeatureDescFontSize",
+      "label": "기능 설명 크기",
+      "description": "기능 설명의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 16,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "id": "desktopFeatureDescColor",
+      "label": "기능 설명 색상",
+      "description": "기능 설명의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#555555"
+    },
+    {
+      "id": "desktopIconSize",
+      "label": "아이콘 크기",
+      "description": "기능 아이콘의 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 32,
+      "max": 64,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 스타일"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "위/아래 패딩",
+      "description": "모바일 화면의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "좌/우 패딩",
+      "description": "모바일 화면의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "id": "mobileColumnCount",
+      "label": "모바일 컬럼 개수",
+      "description": "모바일 화면의 카드 개수",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "1개",
+          "value": "1"
+        },
+        {
+          "label": "2개",
+          "value": "2"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "id": "mobileCardGap",
+      "label": "카드 간격",
+      "description": "모바일 화면의 카드 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "id": "mobileCardPadding",
+      "label": "카드 내부 패딩",
+      "description": "모바일의 카드 내부 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "섹션 제목 크기",
+      "description": "모바일 화면의 섹션 제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 22,
+      "max": 40,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "id": "mobileTitleFontWeight",
+      "label": "섹션 제목 굵기",
+      "description": "모바일의 섹션 제목 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "400"
+        },
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "mobileSubtitleFontSize",
+      "label": "부제목 크기",
+      "description": "모바일의 부제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "id": "mobileFeatureTitleFontSize",
+      "label": "기능 제목 크기",
+      "description": "모바일의 기능 제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "id": "mobileFeatureDescFontSize",
+      "label": "기능 설명 크기",
+      "description": "모바일의 기능 설명 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 15,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "id": "mobileIconSize",
+      "label": "아이콘 크기",
+      "description": "모바일의 기능 아이콘 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 24,
+      "max": 48,
+      "step": 4,
+      "default": 36
+    },
+    {
+      "type": "TITLE",
+      "content": "✨ 카드 디자인"
+    },
+    {
+      "id": "cardBorderRadius",
+      "label": "카드 모서리 반경",
+      "description": "카드의 모서리 둥글기 정도 (픽셀)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "id": "enableCardShadow",
+      "label": "카드 그림자 활성화",
+      "description": "카드에 그림자 효과를 추가합니다",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "enableCardHover",
+      "label": "카드 호버 효과",
+      "description": "마우스 호버 시 카드가 올라오는 효과",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "enableAnimation",
+      "label": "애니메이션 활성화",
+      "description": "카드가 나타날 때 애니메이션을 표시합니다",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "animationType",
+      "label": "애니메이션 종류",
+      "description": "페이드인=왼쪽에서, 슬라이드=위에서, 확대=작은 크기에서",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "페이드인",
+          "value": "fadeInLeft"
+        },
+        {
+          "label": "슬라이드",
+          "value": "slideInUp"
+        },
+        {
+          "label": "확대",
+          "value": "scaleIn"
+        }
+      ],
+      "default": "fadeInLeft"
+    },
+    {
+      "id": "animationDuration",
+      "label": "애니메이션 속도",
+      "description": "애니메이션 재생 시간 (초)",
+      "type": "RANGE",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.8
+    },
+    {
+      "id": "staggerDelay",
+      "label": "항목 간 딜레이",
+      "description": "각 카드가 순차적으로 나타나는 간격 (초)",
+      "type": "RANGE",
+      "min": 0.05,
+      "max": 0.4,
+      "step": 0.05,
+      "default": 0.1
+    }
+  ],
+  "property": {
+    "sectionTitle": "우리의 강점",
+    "sectionSubtitle": "AI 전환의 모든 것을 한번에",
+    "features": [
+      {
+        "featureIcon": "⚡",
+        "featureTitle": "빠른 구현",
+        "featureDescription": "최소한의 개입으로 빠르게 구현 가능합니다"
+      },
+      {
+        "featureIcon": "🎯",
+        "featureTitle": "정확한 분석",
+        "featureDescription": "AI 기반 정밀한 데이터 분석으로 최적의 결과 도출"
+      },
+      {
+        "featureIcon": "📈",
+        "featureTitle": "측정 가능한 결과",
+        "featureDescription": "ROI 기반 성과 측정 및 지속적인 개선"
+      },
+      {
+        "featureIcon": "🔒",
+        "featureTitle": "보안 강화",
+        "featureDescription": "엔터프라이즈급 보안 및 규정 준수"
+      },
+      {
+        "featureIcon": "👥",
+        "featureTitle": "전담 지원팀",
+        "featureDescription": "24/7 기술 지원 및 컨설팅"
+      },
+      {
+        "featureIcon": "🚀",
+        "featureTitle": "지속적 업데이트",
+        "featureDescription": "최신 AI 기술 반영 및 정기 업데이트"
+      }
+    ],
+    "bgColor": "#ffffff",
+    "featureBgColor": "#f8f9fa",
+    "accentColor": "#0055ff",
+    "desktopPaddingY": 80,
+    "desktopPaddingX": 40,
+    "desktopColumnCount": "3",
+    "desktopCardGap": 24,
+    "desktopCardPadding": 24,
+    "desktopTitleFontSize": 42,
+    "desktopTitleFontWeight": "700",
+    "desktopTitleColor": "#000000",
+    "desktopSubtitleFontSize": 16,
+    "desktopSubtitleColor": "#666666",
+    "desktopFeatureTitleFontSize": 18,
+    "desktopFeatureTitleFontWeight": "600",
+    "desktopFeatureTitleColor": "#000000",
+    "desktopFeatureDescFontSize": 14,
+    "desktopFeatureDescColor": "#555555",
+    "desktopIconSize": 48,
+    "mobilePaddingY": 40,
+    "mobilePaddingX": 16,
+    "mobileColumnCount": "1",
+    "mobileCardGap": 16,
+    "mobileCardPadding": 16,
+    "mobileTitleFontSize": 28,
+    "mobileTitleFontWeight": "700",
+    "mobileSubtitleFontSize": 14,
+    "mobileFeatureTitleFontSize": 16,
+    "mobileFeatureDescFontSize": 13,
+    "mobileIconSize": 36,
+    "cardBorderRadius": 12,
+    "enableCardShadow": true,
+    "enableCardHover": true,
+    "enableAnimation": true,
+    "animationType": "fadeInLeft",
+    "animationDuration": 0.8,
+    "staggerDelay": 0.1
+  }
+}

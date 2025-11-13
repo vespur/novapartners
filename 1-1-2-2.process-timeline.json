@@ -1,0 +1,216 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📋 프로세스 단계"
+    },
+    {
+      "id": "sectionTitle",
+      "label": "섹션 제목",
+      "type": "TEXT",
+      "default": "AI 전략 수립 프로세스"
+    },
+    {
+      "id": "sectionSubtitle",
+      "label": "섹션 부제목 (선택사항)",
+      "type": "TEXT",
+      "default": "5단계의 체계적인 접근으로 성공적인 AI 도입"
+    },
+    {
+      "id": "processSteps",
+      "label": "프로세스 단계",
+      "type": "LIST",
+      "maxItems": 5,
+      "fields": [
+        {
+          "id": "stepNumber",
+          "label": "단계 번호",
+          "type": "TEXT",
+          "default": "1단계"
+        },
+        {
+          "id": "stepTitle",
+          "label": "단계 제목",
+          "type": "TEXT",
+          "default": "현황 분석"
+        },
+        {
+          "id": "stepDescription",
+          "label": "단계 설명",
+          "type": "TEXT_LONG",
+          "default": "현재 프로세스와 문제점을 파악하고 AI 도입 가능성을 분석"
+        },
+        {
+          "id": "stepIcon",
+          "label": "단계 아이콘",
+          "type": "TEXT",
+          "default": "📊"
+        },
+        {
+          "id": "stepDuration",
+          "label": "소요 기간",
+          "type": "TEXT",
+          "default": "2주"
+        }
+      ],
+      "default": [
+        {
+          "stepNumber": "1단계",
+          "stepTitle": "현황 분석",
+          "stepDescription": "현재 프로세스와 문제점을 파악하고 AI 도입 가능성을 분석",
+          "stepIcon": "📊",
+          "stepDuration": "2주"
+        },
+        {
+          "stepNumber": "2단계",
+          "stepTitle": "전략 수립",
+          "stepDescription": "비즈니스 목표에 맞는 AI 솔루션 전략을 수립하고 로드맵 작성",
+          "stepIcon": "🎯",
+          "stepDuration": "3주"
+        },
+        {
+          "stepNumber": "3단계",
+          "stepTitle": "기술 검증",
+          "stepDescription": "PoC를 통해 기술 타당성 검증 및 효과성 측정",
+          "stepIcon": "✓",
+          "stepDuration": "4주"
+        },
+        {
+          "stepNumber": "4단계",
+          "stepTitle": "구현 계획",
+          "stepDescription": "본격 도입을 위한 구현 계획 및 리스크 관리 전략 수립",
+          "stepIcon": "📋",
+          "stepDuration": "2주"
+        },
+        {
+          "stepNumber": "5단계",
+          "stepTitle": "운영 최적화",
+          "stepDescription": "시스템 운영 및 지속적인 최적화를 통한 성과 극대화",
+          "stepIcon": "⚙️",
+          "stepDuration": "지속"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 스타일"
+    },
+    {
+      "id": "bgColor",
+      "label": "배경색",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "stepBgColor",
+      "label": "단계 카드 배경색",
+      "type": "COLOR_PICKER",
+      "default": "#f5f5f5"
+    },
+    {
+      "id": "accentColor",
+      "label": "강조색",
+      "type": "COLOR_PICKER",
+      "default": "#0055ff"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 크기 및 간격"
+    },
+    {
+      "id": "desktopPaddingY",
+      "label": "위/아래 패딩",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "default": 80
+    },
+    {
+      "id": "desktopPaddingX",
+      "label": "좌/우 패딩",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "desktopCardGap",
+      "label": "카드 간격",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "id": "desktopTitleFontSize",
+      "label": "제목 크기",
+      "type": "RANGE",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "type": "TITLE",
+      "content": "✨ 애니메이션"
+    },
+    {
+      "id": "enableAnimation",
+      "label": "애니메이션 활성화",
+      "type": "CHECKBOX",
+      "default": true
+    }
+  ],
+  "property": {
+    "sectionTitle": "AI 전략 수립 프로세스",
+    "sectionSubtitle": "5단계의 체계적인 접근으로 성공적인 AI 도입",
+    "processSteps": [
+      {
+        "stepNumber": "1단계",
+        "stepTitle": "현황 분석",
+        "stepDescription": "현재 프로세스와 문제점을 파악하고 AI 도입 가능성을 분석",
+        "stepIcon": "📊",
+        "stepDuration": "2주"
+      },
+      {
+        "stepNumber": "2단계",
+        "stepTitle": "전략 수립",
+        "stepDescription": "비즈니스 목표에 맞는 AI 솔루션 전략을 수립하고 로드맵 작성",
+        "stepIcon": "🎯",
+        "stepDuration": "3주"
+      },
+      {
+        "stepNumber": "3단계",
+        "stepTitle": "기술 검증",
+        "stepDescription": "PoC를 통해 기술 타당성 검증 및 효과성 측정",
+        "stepIcon": "✓",
+        "stepDuration": "4주"
+      },
+      {
+        "stepNumber": "4단계",
+        "stepTitle": "구현 계획",
+        "stepDescription": "본격 도입을 위한 구현 계획 및 리스크 관리 전략 수립",
+        "stepIcon": "📋",
+        "stepDuration": "2주"
+      },
+      {
+        "stepNumber": "5단계",
+        "stepTitle": "운영 최적화",
+        "stepDescription": "시스템 운영 및 지속적인 최적화를 통한 성과 극대화",
+        "stepIcon": "⚙️",
+        "stepDuration": "지속"
+      }
+    ],
+    "bgColor": "#ffffff",
+    "stepBgColor": "#f5f5f5",
+    "accentColor": "#0055ff",
+    "desktopPaddingY": 80,
+    "desktopPaddingX": 40,
+    "desktopCardGap": 24,
+    "desktopTitleFontSize": 42,
+    "enableAnimation": true
+  }
+}

@@ -1,0 +1,336 @@
+<style>
+  .cta-section {
+    width: 100%;
+    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
+    color: {{property.textColor}};
+    background: linear-gradient(135deg, {{property.bgGradientStart}} 0%, {{property.bgGradientEnd}} 100%);
+  }
+
+  .cta-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.desktopTitleFontSize}}px;
+    font-weight: {{property.desktopTitleFontWeight}};
+    color: {{property.textColor}};
+    margin: 0 0 24px 0;
+  }
+
+  .cta-title[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
+  .cta-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopDescriptionFontSize}}px;
+    color: {{property.textColor}};
+    margin: 0 0 48px 0;
+    line-height: 1.6;
+  }
+
+  .cta-description[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: {{property.desktopButtonGap}}px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .cta-buttons[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
+  .cta-button {
+    padding: 16px 40px;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-family-body);
+    font-weight: 600;
+    font-size: {{property.desktopButtonFontSize}}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .cta-button.primary {
+    background-color: {{property.primaryButtonBgColor}};
+    color: {{property.primaryButtonTextColor}};
+  }
+
+  .cta-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .cta-button.secondary {
+    background-color: {{property.secondaryButtonBgColor}};
+    color: {{property.secondaryButtonTextColor}};
+    border: 2px solid {{property.secondaryButtonTextColor}};
+  }
+
+  .cta-button.secondary:hover {
+    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .cta-contact-info {
+    display: none;
+  }
+
+  .cta-contact-info[data-visible] {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .cta-contact-info[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
+  .cta-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cta-contact-label {
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .cta-contact-value {
+    font-family: var(--font-family-body);
+    font-size: 16px;
+    font-weight: 600;
+    color: {{property.textColor}};
+    margin: 0;
+  }
+
+  /* 성능 최적화 */
+  .cta-section {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* 애니메이션 정의 */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .cta-section {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .cta-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+      font-weight: {{property.mobileTitleFontWeight}};
+      margin-bottom: 16px;
+    }
+
+    .cta-description {
+      font-size: {{property.mobileDescriptionFontSize}}px;
+      margin-bottom: 32px;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      margin-bottom: 24px;
+    }
+
+    .cta-button {
+      width: 100%;
+      font-size: {{property.mobileButtonFontSize}}px;
+    }
+
+    .cta-contact-info[data-visible] {
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 20px;
+    }
+
+    .cta-contact-item {
+      justify-content: center;
+    }
+  }
+</style>
+
+<template>
+  <div class="cta-section">
+    <div class="cta-container">
+      {{#if property.ctaTitle}}
+        <h2 class="cta-title">{{property.ctaTitle}}</h2>
+      {{/if}}
+
+      {{#if property.ctaDescription}}
+        <p class="cta-description">{{property.ctaDescription}}</p>
+      {{/if}}
+
+      <div class="cta-buttons">
+        {{#if property.primaryButtonText}}
+          {{#if property.primaryButtonUrl}}
+            <a
+              href="{{property.primaryButtonUrl}}"
+              class="cta-button primary"
+              {{#if property.primaryButtonNewTab}}target="_blank" rel="noopener noreferrer"{{/if}}
+            >
+              {{property.primaryButtonText}}
+            </a>
+          {{else}}
+            <button class="cta-button primary" disabled>
+              {{property.primaryButtonText}}
+            </button>
+          {{/if}}
+        {{/if}}
+
+        {{#if property.secondaryButtonText}}
+          {{#if property.secondaryButtonUrl}}
+            <a
+              href="{{property.secondaryButtonUrl}}"
+              class="cta-button secondary"
+              {{#if property.secondaryButtonNewTab}}target="_blank" rel="noopener noreferrer"{{/if}}
+            >
+              {{property.secondaryButtonText}}
+            </a>
+          {{else}}
+            <button class="cta-button secondary" disabled>
+              {{property.secondaryButtonText}}
+            </button>
+          {{/if}}
+        {{/if}}
+      </div>
+
+      {{#if property.showContactInfo}}
+        <div class="cta-contact-info">
+          {{#if property.phoneNumber}}
+            <div class="cta-contact-item">
+              <p class="cta-contact-label">☎️ 전화</p>
+              <p class="cta-contact-value">{{property.phoneNumber}}</p>
+            </div>
+          {{/if}}
+          {{#if property.emailAddress}}
+            <div class="cta-contact-item">
+              <p class="cta-contact-label">✉️ 이메일</p>
+              <p class="cta-contact-value">{{property.emailAddress}}</p>
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function initCTASection() {
+    try {
+      // 애니메이션 설정
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = bm.property.animationType || 'fadeIn';
+        const animationDuration = bm.property.animationDuration || 0.8;
+
+        const title = container.querySelector('.cta-title');
+        if (title) {
+          title.setAttribute('data-animated', 'true');
+          title.style.animation = `${animationType} ${animationDuration}s ease forwards 0s`;
+        }
+
+        const description = container.querySelector('.cta-description');
+        if (description) {
+          description.setAttribute('data-animated', 'true');
+          description.style.animation = `${animationType} ${animationDuration}s ease forwards 0.1s`;
+        }
+
+        const buttons = container.querySelector('.cta-buttons');
+        if (buttons) {
+          buttons.setAttribute('data-animated', 'true');
+          buttons.style.animation = `${animationType} ${animationDuration}s ease forwards 0.2s`;
+        }
+
+        const contactInfo = container.querySelector('.cta-contact-info');
+        if (contactInfo) {
+          contactInfo.setAttribute('data-animated', 'true');
+          contactInfo.style.animation = `${animationType} ${animationDuration}s ease forwards 0.3s`;
+        }
+      }
+
+      // 연락처 정보 표시 처리
+      const contactInfo = container.querySelector('.cta-contact-info');
+      if (contactInfo && bm.property && bm.property.showContactInfo) {
+        contactInfo.setAttribute('data-visible', 'true');
+      }
+
+      // 빈 링크 클릭 방지
+      const buttons = container.querySelectorAll('.cta-button');
+      buttons.forEach((button) => {
+        if (button.hasAttribute('disabled')) {
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          });
+        }
+      });
+    } catch (error) {
+      console.error('CTA section initialization failed:', error);
+    }
+  }
+
+  initCTASection();
+
+  bm.onContextChange = () => {
+    initCTASection();
+  };
+
+  bm.onDestroy = () => {
+    // cleanup if needed
+  };
+</script>

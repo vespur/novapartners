@@ -1,0 +1,404 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 콘텐츠"
+    },
+    {
+      "id": "ctaTitle",
+      "label": "제목",
+      "description": "CTA 섹션의 주요 제목입니다",
+      "type": "TEXT",
+      "placeholder": "예: 지금 시작하세요",
+      "default": "지금 바로 시작하세요"
+    },
+    {
+      "id": "ctaDescription",
+      "label": "설명",
+      "description": "제목 아래의 설명 텍스트입니다",
+      "type": "TEXT_LONG",
+      "placeholder": "예: 무료 상담으로 맞춤형 솔루션을 알아보세요",
+      "default": "무료 상담으로 귀사의 AI 전환 전략을 수립하세요"
+    },
+    {
+      "id": "primaryButtonText",
+      "label": "주 버튼 텍스트",
+      "description": "주요 행동 버튼의 텍스트입니다",
+      "type": "TEXT",
+      "placeholder": "예: 무료 상담 신청",
+      "default": "무료 상담 신청"
+    },
+    {
+      "id": "primaryButtonUrl",
+      "label": "주 버튼 링크",
+      "description": "주 버튼이 연결할 URL입니다",
+      "type": "LINK",
+      "default": ""
+    },
+    {
+      "id": "primaryButtonNewTab",
+      "label": "새 탭에서 열기",
+      "description": "주 버튼 클릭 시 새 탭에서 링크를 엽니다",
+      "type": "CHECKBOX",
+      "default": false
+    },
+    {
+      "id": "secondaryButtonText",
+      "label": "부 버튼 텍스트 (선택사항)",
+      "description": "보조 버튼의 텍스트입니다",
+      "type": "TEXT",
+      "placeholder": "예: 자세히 알아보기",
+      "default": ""
+    },
+    {
+      "id": "secondaryButtonUrl",
+      "label": "부 버튼 링크",
+      "description": "부 버튼이 연결할 URL입니다",
+      "type": "LINK",
+      "default": ""
+    },
+    {
+      "id": "secondaryButtonNewTab",
+      "label": "새 탭에서 열기",
+      "description": "부 버튼 클릭 시 새 탭에서 링크를 엽니다",
+      "type": "CHECKBOX",
+      "default": false
+    },
+    {
+      "type": "TITLE",
+      "content": "📧 추가 정보 (선택사항)"
+    },
+    {
+      "id": "showContactInfo",
+      "label": "연락처 정보 표시",
+      "description": "전화번호와 이메일 정보를 함께 표시합니다",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "phoneNumber",
+      "label": "전화번호",
+      "description": "고객 상담 전화번호입니다",
+      "type": "TEXT",
+      "placeholder": "예: 02-1234-5678",
+      "default": "02-1234-5678"
+    },
+    {
+      "id": "emailAddress",
+      "label": "이메일",
+      "description": "고객 문의 이메일입니다",
+      "type": "TEXT",
+      "placeholder": "예: contact@company.com",
+      "default": "contact@novapartners.com"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 & 색상"
+    },
+    {
+      "id": "bgType",
+      "label": "배경 종류",
+      "description": "배경의 종류를 선택합니다",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그래디언트",
+          "value": "gradient"
+        }
+      ],
+      "default": "gradient"
+    },
+    {
+      "id": "bgColor",
+      "label": "배경색 (단색)",
+      "description": "단색 배경을 선택했을 때의 배경색",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "bgGradientStart",
+      "label": "그래디언트 시작색",
+      "description": "그래디언트 배경의 시작 색상",
+      "type": "COLOR_PICKER",
+      "default": "#0055ff"
+    },
+    {
+      "id": "bgGradientEnd",
+      "label": "그래디언트 끝색",
+      "description": "그래디언트 배경의 끝 색상",
+      "type": "COLOR_PICKER",
+      "default": "#003399"
+    },
+    {
+      "id": "textColor",
+      "label": "텍스트 색상",
+      "description": "제목과 설명 텍스트의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "primaryButtonBgColor",
+      "label": "주 버튼 배경색",
+      "description": "주 버튼의 배경색",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "primaryButtonTextColor",
+      "label": "주 버튼 텍스트색",
+      "description": "주 버튼의 텍스트 색상",
+      "type": "COLOR_PICKER",
+      "default": "#0055ff"
+    },
+    {
+      "id": "secondaryButtonBgColor",
+      "label": "부 버튼 배경색",
+      "description": "부 버튼의 배경색 (투명 권장)",
+      "type": "COLOR_PICKER",
+      "default": "rgba(255, 255, 255, 0.2)"
+    },
+    {
+      "id": "secondaryButtonTextColor",
+      "label": "부 버튼 텍스트색",
+      "description": "부 버튼의 텍스트 색상",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 데스크톱 스타일"
+    },
+    {
+      "id": "desktopPaddingY",
+      "label": "위/아래 패딩",
+      "description": "섹션의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "default": 100
+    },
+    {
+      "id": "desktopPaddingX",
+      "label": "좌/우 패딩",
+      "description": "섹션의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "desktopTitleFontSize",
+      "label": "제목 크기",
+      "description": "CTA 제목의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 32,
+      "max": 64,
+      "step": 2,
+      "default": 48
+    },
+    {
+      "id": "desktopTitleFontWeight",
+      "label": "제목 굵기",
+      "description": "제목의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "desktopDescriptionFontSize",
+      "label": "설명 크기",
+      "description": "설명 텍스트의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "id": "desktopButtonFontSize",
+      "label": "버튼 텍스트 크기",
+      "description": "버튼의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "id": "desktopButtonGap",
+      "label": "버튼 간격",
+      "description": "버튼 사이의 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 스타일"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "위/아래 패딩",
+      "description": "모바일 화면의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 30,
+      "max": 80,
+      "step": 10,
+      "default": 50
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "좌/우 패딩",
+      "description": "모바일 화면의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "default": 20
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "제목 크기",
+      "description": "모바일의 제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 24,
+      "max": 40,
+      "step": 1,
+      "default": 32
+    },
+    {
+      "id": "mobileTitleFontWeight",
+      "label": "제목 굵기",
+      "description": "모바일의 제목 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "mobileDescriptionFontSize",
+      "label": "설명 크기",
+      "description": "모바일의 설명 텍스트 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "id": "mobileButtonFontSize",
+      "label": "버튼 텍스트 크기",
+      "description": "모바일의 버튼 텍스트 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "TITLE",
+      "content": "✨ 애니메이션"
+    },
+    {
+      "id": "enableAnimation",
+      "label": "애니메이션 활성화",
+      "description": "섹션이 나타날 때 애니메이션을 표시합니다",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "animationType",
+      "label": "애니메이션 종류",
+      "description": "페이드인=약간 커지며, 슬라이드=아래에서, 확대=작은 크기에서",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "페이드인",
+          "value": "fadeIn"
+        },
+        {
+          "label": "슬라이드",
+          "value": "slideInUp"
+        },
+        {
+          "label": "확대",
+          "value": "scaleIn"
+        }
+      ],
+      "default": "slideInUp"
+    },
+    {
+      "id": "animationDuration",
+      "label": "애니메이션 속도",
+      "description": "애니메이션 재생 시간 (초)",
+      "type": "RANGE",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.8
+    }
+  ],
+  "property": {
+    "ctaTitle": "지금 바로 시작하세요",
+    "ctaDescription": "무료 상담으로 귀사의 AI 전환 전략을 수립하세요",
+    "primaryButtonText": "무료 상담 신청",
+    "primaryButtonUrl": "",
+    "primaryButtonNewTab": false,
+    "secondaryButtonText": "",
+    "secondaryButtonUrl": "",
+    "secondaryButtonNewTab": false,
+    "showContactInfo": true,
+    "phoneNumber": "02-1234-5678",
+    "emailAddress": "contact@novapartners.com",
+    "bgType": "gradient",
+    "bgColor": "#ffffff",
+    "bgGradientStart": "#0055ff",
+    "bgGradientEnd": "#003399",
+    "textColor": "#ffffff",
+    "primaryButtonBgColor": "#ffffff",
+    "primaryButtonTextColor": "#0055ff",
+    "secondaryButtonBgColor": "rgba(255, 255, 255, 0.2)",
+    "secondaryButtonTextColor": "#ffffff",
+    "desktopPaddingY": 100,
+    "desktopPaddingX": 40,
+    "desktopTitleFontSize": 48,
+    "desktopTitleFontWeight": "700",
+    "desktopDescriptionFontSize": 18,
+    "desktopButtonFontSize": 16,
+    "desktopButtonGap": 16,
+    "mobilePaddingY": 50,
+    "mobilePaddingX": 20,
+    "mobileTitleFontSize": 32,
+    "mobileTitleFontWeight": "700",
+    "mobileDescriptionFontSize": 14,
+    "mobileButtonFontSize": 14,
+    "enableAnimation": true,
+    "animationType": "slideInUp",
+    "animationDuration": 0.8
+  }
+}
