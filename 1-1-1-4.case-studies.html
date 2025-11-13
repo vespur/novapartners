@@ -311,20 +311,12 @@
                   </div>
                 {{/if}}
 
-                <div class="case-results">
-                  {{#if resultMetric1Value}}
-                    <div class="case-result-item">
-                      <p class="case-result-value">{{resultMetric1Value}}</p>
-                      <p class="case-result-label">{{resultMetric1Label}}</p>
-                    </div>
-                  {{/if}}
-                  {{#if resultMetric2Value}}
-                    <div class="case-result-item">
-                      <p class="case-result-value">{{resultMetric2Value}}</p>
-                      <p class="case-result-label">{{resultMetric2Label}}</p>
-                    </div>
-                  {{/if}}
-                </div>
+                {{#if results}}
+                  <div class="case-section">
+                    <p class="case-section-label">성과 지표</p>
+                    <p class="case-section-content" style="color: {{../property.metricValueColor}}; font-weight: 600;">{{results}}</p>
+                  </div>
+                {{/if}}
               </div>
             </div>
           {{/each}}

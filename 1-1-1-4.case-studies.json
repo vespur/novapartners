@@ -48,19 +48,11 @@
           "default": "A 금융회사"
         },
         {
-          "id": "industry",
-          "label": "산업군",
-          "description": "고객사가 속한 산업군입니다",
-          "type": "TEXT",
-          "placeholder": "예: 금융",
-          "default": "금융"
-        },
-        {
           "id": "challenge",
           "label": "당면 과제",
           "description": "고객사가 직면한 문제를 설명합니다",
           "type": "TEXT_LONG",
-          "placeholder": "예: 매일 반복되는 서류 검증 작업...",
+          "placeholder": "예: 매일 반복되는 서류 검증...",
           "default": "매일 반복되는 서류 검증 작업으로 인한 비용 증대와 오류"
         },
         {
@@ -72,71 +64,35 @@
           "default": "AI 기반 자동 문서 검증 시스템 구축"
         },
         {
-          "id": "resultMetric1Label",
-          "label": "성과 지표 1 제목",
-          "description": "첫 번째 성과 지표의 이름입니다",
-          "type": "TEXT",
-          "placeholder": "예: 처리 시간 단축",
-          "default": "처리 시간 단축"
-        },
-        {
-          "id": "resultMetric1Value",
-          "label": "성과 지표 1 수치",
-          "description": "첫 번째 성과 지표의 수치 또는 백분율입니다",
-          "type": "TEXT",
-          "placeholder": "예: 80%",
-          "default": "80%"
-        },
-        {
-          "id": "resultMetric2Label",
-          "label": "성과 지표 2 제목",
-          "description": "두 번째 성과 지표의 이름입니다",
-          "type": "TEXT",
-          "placeholder": "예: 비용 절감",
-          "default": "비용 절감"
-        },
-        {
-          "id": "resultMetric2Value",
-          "label": "성과 지표 2 수치",
-          "description": "두 번째 성과 지표의 수치 또는 백분율입니다",
-          "type": "TEXT",
-          "placeholder": "예: 50%",
-          "default": "50%"
+          "id": "results",
+          "label": "성과 지표",
+          "description": "예: 처리 시간 80% 단축, 비용 50% 절감",
+          "type": "TEXT_LONG",
+          "placeholder": "예: 지표1 80%, 지표2 50%",
+          "default": "처리 시간 80% 단축, 비용 50% 절감"
         }
       ],
       "default": [
         {
           "companyLogo": "",
           "companyName": "A 금융회사",
-          "industry": "금융",
           "challenge": "매일 반복되는 서류 검증 작업으로 인한 비용 증대와 오류",
           "solution": "AI 기반 자동 문서 검증 시스템 구축",
-          "resultMetric1Label": "처리 시간 단축",
-          "resultMetric1Value": "80%",
-          "resultMetric2Label": "비용 절감",
-          "resultMetric2Value": "50%"
+          "results": "처리 시간 80% 단축, 비용 50% 절감"
         },
         {
           "companyLogo": "",
           "companyName": "B 제조업체",
-          "industry": "제조",
           "challenge": "품질 검사의 일관성 부족 및 오류율 증가",
           "solution": "AI 비전 기반 품질 검사 자동화 시스템",
-          "resultMetric1Label": "오류율 감소",
-          "resultMetric1Value": "99%",
-          "resultMetric2Label": "생산량 증대",
-          "resultMetric2Value": "35%"
+          "results": "오류율 99% 감소, 생산량 35% 증대"
         },
         {
           "companyLogo": "",
           "companyName": "C 유통사",
-          "industry": "유통",
           "challenge": "고객 응대의 24시간 커버 불가로 인한 기회 손실",
           "solution": "AI 챗봇 및 자동 응대 시스템 도입",
-          "resultMetric1Label": "응답 시간 단축",
-          "resultMetric1Value": "95%",
-          "resultMetric2Label": "고객 만족도",
-          "resultMetric2Value": "92%"
+          "results": "응답 시간 95% 단축, 고객 만족도 92%"
         }
       ]
     },
@@ -453,35 +409,23 @@
       {
         "companyLogo": "",
         "companyName": "A 금융회사",
-        "industry": "금융",
         "challenge": "매일 반복되는 서류 검증 작업으로 인한 비용 증대와 오류",
         "solution": "AI 기반 자동 문서 검증 시스템 구축",
-        "resultMetric1Label": "처리 시간 단축",
-        "resultMetric1Value": "80%",
-        "resultMetric2Label": "비용 절감",
-        "resultMetric2Value": "50%"
+        "results": "처리 시간 80% 단축, 비용 50% 절감"
       },
       {
         "companyLogo": "",
         "companyName": "B 제조업체",
-        "industry": "제조",
         "challenge": "품질 검사의 일관성 부족 및 오류율 증가",
         "solution": "AI 비전 기반 품질 검사 자동화 시스템",
-        "resultMetric1Label": "오류율 감소",
-        "resultMetric1Value": "99%",
-        "resultMetric2Label": "생산량 증대",
-        "resultMetric2Value": "35%"
+        "results": "오류율 99% 감소, 생산량 35% 증대"
       },
       {
         "companyLogo": "",
         "companyName": "C 유통사",
-        "industry": "유통",
         "challenge": "고객 응대의 24시간 커버 불가로 인한 기회 손실",
         "solution": "AI 챗봇 및 자동 응대 시스템 도입",
-        "resultMetric1Label": "응답 시간 단축",
-        "resultMetric1Value": "95%",
-        "resultMetric2Label": "고객 만족도",
-        "resultMetric2Value": "92%"
+        "results": "응답 시간 95% 단축, 고객 만족도 92%"
       }
     ],
     "bgColor": "#f9fafb",
