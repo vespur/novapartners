@@ -242,20 +242,14 @@
           <div class="comparison-column">
             {{#each property.comparisonItems}}
               <div class="comparison-item problem-item">
-                <div class="comparison-item-header">
-                  {{#if problemIcon}}
-                    <div class="comparison-item-icon">
-                      {{#if (eq problemIconType 'image')}}
-                        <img src="{{problemIcon}}" alt="Problem icon" />
-                      {{else}}
-                        {{problemIcon}}
-                      {{/if}}
-                    </div>
-                  {{/if}}
-                  {{#if problemTitle}}
-                    <h3 class="comparison-item-title">{{problemTitle}}</h3>
-                  {{/if}}
-                </div>
+                {{#if problemIcon}}
+                  <div class="comparison-item-header">
+                    <div class="comparison-item-icon">{{problemIcon}}</div>
+                    {{#if problemTitle}}
+                      <h3 class="comparison-item-title">{{problemTitle}}</h3>
+                    {{/if}}
+                  </div>
+                {{/if}}
                 {{#if problemDescription}}
                   <p class="comparison-item-description">{{problemDescription}}</p>
                 {{/if}}
@@ -266,20 +260,14 @@
           <div class="comparison-column">
             {{#each property.comparisonItems}}
               <div class="comparison-item solution-item">
-                <div class="comparison-item-header">
-                  {{#if solutionIcon}}
-                    <div class="comparison-item-icon">
-                      {{#if (eq solutionIconType 'image')}}
-                        <img src="{{solutionIcon}}" alt="Solution icon" />
-                      {{else}}
-                        {{solutionIcon}}
-                      {{/if}}
-                    </div>
-                  {{/if}}
-                  {{#if solutionTitle}}
-                    <h3 class="comparison-item-title">{{solutionTitle}}</h3>
-                  {{/if}}
-                </div>
+                {{#if solutionIcon}}
+                  <div class="comparison-item-header">
+                    <div class="comparison-item-icon">{{solutionIcon}}</div>
+                    {{#if solutionTitle}}
+                      <h3 class="comparison-item-title">{{solutionTitle}}</h3>
+                    {{/if}}
+                  </div>
+                {{/if}}
                 {{#if solutionDescription}}
                   <p class="comparison-item-description">{{solutionDescription}}</p>
                 {{/if}}
