@@ -1,0 +1,303 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트 내용"
+    },
+    {
+      "id": "label",
+      "label": "라벨 (선택사항)",
+      "type": "TEXT",
+      "placeholder": "예: 우리의 서비스"
+    },
+    {
+      "id": "showLabel",
+      "label": "라벨 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "title",
+      "label": "제목",
+      "type": "TEXT",
+      "placeholder": "섹션 제목"
+    },
+    {
+      "id": "description",
+      "label": "설명",
+      "type": "TEXTAREA",
+      "placeholder": "섹션 설명"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 디자인"
+    },
+    {
+      "id": "textAlign",
+      "label": "텍스트 정렬",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "left"},
+        {"label": "중앙", "value": "center"},
+        {"label": "오른쪽", "value": "right"}
+      ],
+      "default": "center"
+    },
+    {
+      "id": "showDecoration",
+      "label": "하단 장식 라인 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 텍스트 크기"
+    },
+    {
+      "id": "labelFontSize",
+      "label": "라벨 글자 크기",
+      "type": "RANGE",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "labelMarginBottom",
+      "label": "라벨 아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "titleFontSize",
+      "label": "제목 글자 크기",
+      "type": "RANGE",
+      "min": 28,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "제목 아래 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "descriptionFontSize",
+      "label": "설명 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "TITLE",
+      "content": "✨ 장식"
+    },
+    {
+      "id": "decorationWidth",
+      "label": "장식 라인 너비",
+      "type": "RANGE",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60,
+      "isVisible": "property.showDecoration"
+    },
+    {
+      "id": "decorationHeight",
+      "label": "장식 라인 높이",
+      "type": "RANGE",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 4,
+      "isVisible": "property.showDecoration"
+    },
+    {
+      "id": "decorationMarginTop",
+      "label": "장식 라인 위 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20,
+      "isVisible": "property.showDecoration"
+    },
+    {
+      "type": "TITLE",
+      "content": "📐 레이아웃"
+    },
+    {
+      "id": "paddingY",
+      "label": "섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 24,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "id": "paddingX",
+      "label": "섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 64,
+      "step": 8,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileLabelFontSize",
+      "label": "모바일 라벨 글자 크기",
+      "type": "RANGE",
+      "min": 9,
+      "max": 13,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "id": "mobileLabelMarginBottom",
+      "label": "모바일 라벨 아래 여백",
+      "type": "RANGE",
+      "min": 6,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "모바일 제목 글자 크기",
+      "type": "RANGE",
+      "min": 22,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "id": "mobileTitleMarginBottom",
+      "label": "모바일 제목 아래 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileDescriptionFontSize",
+      "label": "모바일 설명 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "id": "mobileDecorationWidth",
+      "label": "모바일 장식 라인 너비",
+      "type": "RANGE",
+      "min": 16,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 40,
+      "isVisible": "property.showDecoration"
+    },
+    {
+      "id": "mobileDecorationHeight",
+      "label": "모바일 장식 라인 높이",
+      "type": "RANGE",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 3,
+      "isVisible": "property.showDecoration"
+    },
+    {
+      "id": "mobileDecorationMarginTop",
+      "label": "모바일 장식 라인 위 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16,
+      "isVisible": "property.showDecoration"
+    }
+  ],
+  "property": {
+    "label": "우리의 서비스",
+    "showLabel": true,
+    "title": "최고 수준의 AI 솔루션",
+    "description": "노바파트너스는 산업별 최적화된 AI 솔루션을 제공하여 귀사의 디지털 혁신을 가속화합니다.",
+    "textAlign": "center",
+    "showDecoration": true,
+    "labelFontSize": 12,
+    "labelMarginBottom": 12,
+    "titleFontSize": 36,
+    "titleMarginBottom": 20,
+    "descriptionFontSize": 18,
+    "decorationWidth": 60,
+    "decorationHeight": 4,
+    "decorationMarginTop": 20,
+    "paddingY": 48,
+    "paddingX": 40,
+    "mobilePaddingY": 32,
+    "mobilePaddingX": 20,
+    "mobileLabelFontSize": 10,
+    "mobileLabelMarginBottom": 8,
+    "mobileTitleFontSize": 28,
+    "mobileTitleMarginBottom": 16,
+    "mobileDescriptionFontSize": 15,
+    "mobileDecorationWidth": 40,
+    "mobileDecorationHeight": 3,
+    "mobileDecorationMarginTop": 16
+  }
+}
