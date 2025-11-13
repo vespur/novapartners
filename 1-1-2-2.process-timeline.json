@@ -36,7 +36,7 @@
         {
           "id": "stepDescription",
           "label": "단계 설명",
-          "type": "TEXT_LONG",
+          "type": "TEXTAREA",
           "default": "현재 프로세스와 문제점을 파악하고 AI 도입 가능성을 분석"
         },
         {

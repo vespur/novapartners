@@ -42,7 +42,7 @@
           "id": "answer",
           "label": "답변",
           "description": "질문에 대한 상세한 답변입니다",
-          "type": "TEXT_LONG",
+          "type": "TEXTAREA",
           "placeholder": "예: 프로젝트 규모에 따라 다르지만...",
           "default": "프로젝트 규모에 따라 다르지만, 일반적으로 2-4주 정도 소요됩니다"
         }

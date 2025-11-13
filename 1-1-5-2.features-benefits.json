@@ -50,7 +50,7 @@
           "id": "featureDescription",
           "label": "기능 설명",
           "description": "기능에 대한 상세한 설명입니다",
-          "type": "TEXT_LONG",
+          "type": "TEXTAREA",
           "placeholder": "예: 최소한의 개입으로 빠르게 구현 가능...",
           "default": "최소한의 개입으로 빠르게 구현 가능합니다"
         }

@@ -50,7 +50,7 @@
           "id": "challenge",
           "label": "당면 과제",
           "description": "고객사가 직면한 문제를 설명합니다",
-          "type": "TEXT_LONG",
+          "type": "TEXTAREA",
           "placeholder": "예: 매일 반복되는 서류 검증...",
           "default": "매일 반복되는 서류 검증 작업으로 인한 비용 증대와 오류"
         },
@@ -58,7 +58,7 @@
           "id": "solution",
           "label": "제공된 솔루션",
           "description": "적용된 솔루션을 설명합니다",
-          "type": "TEXT_LONG",
+          "type": "TEXTAREA",
           "placeholder": "예: AI 기반 자동 검증 시스템...",
           "default": "AI 기반 자동 문서 검증 시스템 구축"
         },
@@ -66,7 +66,7 @@
           "id": "results",
           "label": "성과 지표",
           "description": "예: 처리 시간 80% 단축, 비용 50% 절감",
-          "type": "TEXT_LONG",
+          "type": "TEXTAREA",
           "placeholder": "예: 지표1 80%, 지표2 50%",
           "default": "처리 시간 80% 단축, 비용 50% 절감"
         }
