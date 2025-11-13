@@ -1,0 +1,160 @@
+<style>
+  .team-container {
+    width: 100%;
+    padding: {{property.paddingY}}px {{property.paddingX}}px;
+    background-color: var(--color-background-100);
+  }
+
+  .team-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat({{property.desktopColumns}}, 1fr);
+    gap: {{property.cardGap}}px;
+  }
+
+  /* 팀 멤버 카드 */
+  .team-card {
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  /* 멤버 이미지 */
+  .member-image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: {{property.imageRadius}}px;
+    object-fit: cover;
+    margin-bottom: {{property.imageMarginBottom}}px;
+    background-color: var(--color-background-80);
+    overflow: hidden;
+  }
+
+  .member-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-accent-10), var(--color-accent-5));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: {{property.imageRadius}}px;
+    color: var(--color-accent-100);
+  }
+
+  .team-card:hover .member-image {
+    transform: scale(1.05);
+  }
+
+  /* 멤버 이름 */
+  .member-name {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-heading);
+    font-size: {{property.nameFontSize}}px;
+    color: var(--color-text-100);
+    margin: 0 0 {{property.nameMarginBottom}}px 0;
+  }
+
+  /* 멤버 직책 */
+  .member-position {
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-body);
+    font-size: {{property.positionFontSize}}px;
+    color: var(--color-accent-100);
+    margin: 0 0 {{property.positionMarginBottom}}px 0;
+  }
+
+  /* 멤버 설명 */
+  .member-description {
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-body);
+    font-size: {{property.descriptionFontSize}}px;
+    color: var(--color-text-70);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 1024px) {
+    .team-grid {
+      grid-template-columns: repeat({{property.tabletColumns}}, 1fr);
+      gap: {{property.mobileCardGap}}px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .team-container {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .team-grid {
+      grid-template-columns: repeat({{property.mobileColumns}}, 1fr);
+      gap: {{property.mobileCardGap}}px;
+    }
+
+    .member-image {
+      margin-bottom: {{property.mobileImageMarginBottom}}px;
+    }
+
+    .member-name {
+      font-size: {{property.mobileNameFontSize}}px;
+      margin-bottom: {{property.mobileNameMarginBottom}}px;
+    }
+
+    .member-position {
+      font-size: {{property.mobilePositionFontSize}}px;
+    }
+
+    .member-description {
+      font-size: {{property.mobileDescriptionFontSize}}px;
+    }
+  }
+
+  /* 성능 최적화 */
+  .team-card {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="team-container">
+    <div class="team-grid">
+      {{#each property.members}}
+        <div class="team-card">
+          {{#if image}}
+            <img
+              src="{{image}}"
+              alt="{{name}}"
+              class="member-image"
+              loading="lazy"
+            >
+          {{else}}
+            <div class="member-image">
+              <div class="member-image-placeholder">👤</div>
+            </div>
+          {{/if}}
+
+          <h3 class="member-name">{{name}}</h3>
+
+          {{#if position}}
+            <p class="member-position">{{position}}</p>
+          {{/if}}
+
+          {{#if description}}
+            <p class="member-description">{{description}}</p>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+
+  function initTeamCards() {
+    // 팀 카드 초기화
+  }
+
+  initTeamCards();
+</script>
