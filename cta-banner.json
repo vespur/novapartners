@@ -1,0 +1,326 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트 내용"
+    },
+    {
+      "id": "title",
+      "label": "제목",
+      "type": "TEXT",
+      "placeholder": "예: 지금 바로 상담을 받으세요"
+    },
+    {
+      "id": "description",
+      "label": "설명",
+      "type": "TEXTAREA",
+      "placeholder": "배너의 설명을 입력하세요"
+    },
+    {
+      "type": "TITLE",
+      "content": "🔘 버튼"
+    },
+    {
+      "id": "buttons",
+      "label": "버튼 목록",
+      "type": "LIST",
+      "maxCount": 3,
+      "settings": [
+        {
+          "id": "buttonText",
+          "label": "버튼 텍스트",
+          "type": "TEXT",
+          "placeholder": "예: 상담하기"
+        },
+        {
+          "id": "buttonUrl",
+          "label": "버튼 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "style",
+          "label": "버튼 스타일",
+          "type": "RADIO",
+          "options": [
+            {"label": "기본 (흰색)", "value": "primary"},
+            {"label": "부가 (테두리)", "value": "secondary"}
+          ],
+          "default": "primary"
+        },
+        {
+          "id": "openNewTab",
+          "label": "새 탭에서 열기",
+          "type": "CHECKBOX"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 디자인 설정"
+    },
+    {
+      "id": "useGradient",
+      "label": "그래디언트 배경 사용",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "type": "TITLE",
+      "content": "📐 레이아웃 (데스크톱)"
+    },
+    {
+      "id": "titleFontSize",
+      "label": "제목 글자 크기",
+      "type": "RANGE",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "제목 아래 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "descriptionFontSize",
+      "label": "설명 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "id": "descriptionMarginBottom",
+      "label": "설명 아래 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "buttonFontSize",
+      "label": "버튼 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "buttonPaddingY",
+      "label": "버튼 위아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "buttonPaddingX",
+      "label": "버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "buttonRadius",
+      "label": "버튼 모서리 반경",
+      "type": "RANGE",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "id": "buttonGap",
+      "label": "버튼 간격",
+      "type": "RANGE",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "paddingY",
+      "label": "섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 32,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "id": "paddingX",
+      "label": "섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 24,
+      "max": 64,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "모바일 제목 글자 크기",
+      "type": "RANGE",
+      "min": 20,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "id": "mobileDescriptionMarginTop",
+      "label": "모바일 제목 아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "mobileDescriptionFontSize",
+      "label": "모바일 설명 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "mobileDescriptionMarginBottom",
+      "label": "모바일 설명 아래 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileButtonFontSize",
+      "label": "모바일 버튼 글자 크기",
+      "type": "RANGE",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "mobileButtonPaddingY",
+      "label": "모바일 버튼 위아래 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "mobileButtonPaddingX",
+      "label": "모바일 버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "id": "mobileButtonGap",
+      "label": "모바일 버튼 간격",
+      "type": "RANGE",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "property": {
+    "title": "지금 바로 AI 솔루션을 시작하세요",
+    "description": "노바파트너스와 함께 디지털 혁신의 첫 걸음을 내딛으세요. 전문가 상담을 받으시면 맞춤형 솔루션을 제안해드립니다.",
+    "buttons": [
+      {
+        "buttonText": "상담 신청",
+        "buttonUrl": "",
+        "style": "primary",
+        "openNewTab": false
+      },
+      {
+        "buttonText": "자세히 보기",
+        "buttonUrl": "",
+        "style": "secondary",
+        "openNewTab": false
+      }
+    ],
+    "useGradient": true,
+    "titleFontSize": 36,
+    "titleMarginBottom": 16,
+    "descriptionFontSize": 18,
+    "descriptionMarginBottom": 32,
+    "buttonFontSize": 16,
+    "buttonPaddingY": 14,
+    "buttonPaddingX": 32,
+    "buttonRadius": 6,
+    "buttonGap": 16,
+    "paddingY": 64,
+    "paddingX": 40,
+    "mobilePaddingY": 40,
+    "mobilePaddingX": 20,
+    "mobileTitleFontSize": 24,
+    "mobileDescriptionMarginTop": 12,
+    "mobileDescriptionFontSize": 14,
+    "mobileDescriptionMarginBottom": 20,
+    "mobileButtonFontSize": 14,
+    "mobileButtonPaddingY": 12,
+    "mobileButtonPaddingX": 24,
+    "mobileButtonGap": 12
+  }
+}
