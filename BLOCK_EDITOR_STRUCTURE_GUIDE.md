@@ -579,6 +579,10 @@ HTML에서:
    - `calc(2 * 0.2s)` 는 유효한 CSS 문법이 아님
    - 계산 후 단위를 붙여야 하는데 Handlebars로는 처리 불가
 
+3. **Handlebars 계산식의 CSS 파싱 오류** (필수 해결!)
+   - `margin-bottom: {{property.desktopCardGap * 3}}px;` 형태의 계산식은 CSS 파서가 인식 불가
+   - CSS가 로드되지 않아 "style 문법 오류"로 표시됨
+
 ### 해결 방법
 
 **방법 1: 항상 유효한 CSS 유지**
@@ -589,6 +593,28 @@ HTML에서:
   animation-duration: {{property.animationDuration}}s;
   animation-timing-function: ease;
   animation-fill-mode: forwards;
+}
+```
+
+**방법 1-2: Handlebars 계산식 금지**
+
+```css
+/* ❌ 절대 금지 - CSS 파서 오류 */
+.header {
+  margin-bottom: {{property.cardGap * 3}}px;
+}
+
+.grid {
+  grid-template-columns: repeat({{property.columnCount}}, 1fr);
+}
+
+/* ✅ 올바른 방법 - 고정값 사용 */
+.header {
+  margin-bottom: 24px;  /* 기본값 또는 고정값 */
+}
+
+.grid {
+  grid-template-columns: repeat(3, 1fr);  /* 고정 열 개수 */
 }
 ```
 
@@ -619,6 +645,8 @@ function initAnimation() {
 | 동적 딜레이 계산 | CSS `calc()` 함수 사용 | JavaScript에서 계산 후 style 적용 |
 | 조건부 스타일 | CSS 선택자 안에 Handlebars | 항상 유효한 CSS 선택자 사용 |
 | 변수 보간 | 복잡한 계산식 | 단순 값 대입만 허용 |
+| 동적 간격 계산 | `margin: {{property.gap * 3}}px` | 고정값 사용 (24px 등) |
+| 동적 열 개수 | `repeat({{property.columns}}, 1fr)` | 고정값 사용 (repeat(3, 1fr) 등) |
 
 ---
 
