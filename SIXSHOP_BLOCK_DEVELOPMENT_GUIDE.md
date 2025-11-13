@@ -1,59 +1,70 @@
-# 식스샵 블록메이커 개발 가이드
+# 식스샵 블록메이커 개발 규칙 및 기준
 
-> 식스샵 커스텀 블록 개발을 위한 완벽한 가이드
-
-## 목차
-
-1. [파일 구조](#파일-구조)
-2. [템플릿 문법](#템플릿-문법)
-3. [에디터 설정](#에디터-설정)
-4. [스크립트 API](#스크립트-api)
-5. [스타일 가이드](#스타일-가이드)
-6. [애니메이션 구현](#애니메이션-구현)
-7. [성능 최적화](#성능-최적화)
-8. [트러블슈팅](#트러블슈팅)
-9. [베스트 프랙티스](#베스트-프랙티스)
+> 식스샵 프로 블록메이커 개발 시 반드시 준수해야 할 모든 규칙, 기준, 제약사항
 
 ---
 
-## 파일 구조
+## 📋 목차
 
-식스샵 블록은 **HTML 파일**과 **JSON 파일**로 분리하여 개발합니다.
+### Part 1: 핵심 규칙
+1. [파일 구조 규칙](#1-파일-구조-규칙)
+2. [핵심 제약사항 (MUST)](#2-핵심-제약사항-must)
+3. [Handlebars 문법 및 제약](#3-handlebars-문법-및-제약)
+4. [JSON 설정 규칙](#4-json-설정-규칙)
+5. [CSS 작성 규칙](#5-css-작성-규칙)
+6. [JavaScript API 규칙](#6-javascript-api-규칙)
+
+### Part 2: 식스샵 프로 기준
+7. [식스샵 프로 필수 요건](#7-식스샵-프로-필수-요건)
+8. [커스텀 블록 필수 점검](#8-커스텀-블록-필수-점검)
+9. [헤더/푸터 블록 기준](#9-헤더푸터-블록-기준)
+
+### Part 3: 개발 원칙
+10. [사용자 요청 개발 원칙](#10-사용자-요청-개발-원칙)
+11. [최종 체크리스트](#11-최종-체크리스트)
+
+---
+
+## Part 1: 핵심 규칙
+
+## 1. 파일 구조 규칙
+
+### 1-1) 필수 파일 분리
 
 ```
-block-name.html        # 템플릿 + 스타일 + 스크립트
-block-name.json        # 에디터 설정 + 기본값
+block-name.html        # HTML + CSS + JavaScript
+block-name.json        # 설정 스키마 + 기본값
 ```
 
-### HTML 파일 구조
+**규칙:**
+- HTML과 JSON을 반드시 분리
+- 사용자가 복붙할 수 있도록 독립적으로 작성
+
+### 1-2) HTML 파일 구조
 
 ```html
 <style>
   /* CSS 스타일 */
-  .block-container {
-    /* 스타일 정의 */
+  .block-name {
+    property: {{property.value}};
   }
 </style>
 
 <template>
-  <div class="block-container">
-    <!-- HTML 템플릿 -->
-    {{#each property.items}}
-      <div>{{title}}</div>
-    {{/each}}
-  </div>
+  <!-- HTML 템플릿 -->
+  {{#each property.items}}
+    <div>{{title}}</div>
+  {{/each}}
 </template>
 
 <script>
-  // JavaScript 로직
+  // JavaScript
   const container = bm.container;
   const context = bm.context;
-
-  // 초기화 코드
 </script>
 ```
 
-### JSON 파일 구조
+### 1-3) JSON 파일 구조
 
 ```json
 {
@@ -64,9 +75,8 @@ block-name.json        # 에디터 설정 + 기본값
     },
     {
       "id": "propertyId",
-      "label": "설정 레이블",
-      "type": "TEXT",
-      "description": "설명"
+      "label": "설정명",
+      "type": "TEXT"
     }
   ],
   "property": {
@@ -77,65 +87,216 @@ block-name.json        # 에디터 설정 + 기본값
 
 ---
 
-## 템플릿 문법
+## 2. 핵심 제약사항 (MUST)
 
-식스샵 블록메이커는 **Handlebars** 템플릿 엔진을 사용합니다.
+### 2-1) ⛔ 중첩 설정 절대 금지
 
-### 변수 출력
-
-```handlebars
-{{property.title}}
-{{property.backgroundColor}}
-{{property.fontSize}}
+```json
+// ❌ 절대 금지 - 저장 실패
+{
+  "id": "menuItems",
+  "type": "LIST",
+  "settings": [
+    {
+      "id": "subItems",
+      "type": "LIST"  // 에러!
+    }
+  ]
+}
 ```
 
-### 조건문
+**금지 대상:**
+- LIST 안에 LIST
+- LIST 안에 COLOR_SCHEME_LIST
+- LIST 안에 ACCORDION
+- LIST 안에 TAB
+
+### 2-2) ⛔ LIST 필드 수 제한
+
+**규칙:**
+- LINK 필드: 최대 1-2개
+- TEXT 필드: 최대 2-3개
+- 총 필드: 최대 5개 권장
+
+```json
+// ✅ 올바른 예
+{
+  "type": "LIST",
+  "settings": [
+    {"id": "name", "type": "TEXT"},
+    {"id": "link", "type": "LINK"}
+  ]
+}
+
+// ❌ 위험한 예 - 저장 실패 가능
+{
+  "type": "LIST",
+  "settings": [
+    {"id": "name", "type": "TEXT"},
+    {"id": "link1", "type": "LINK"},
+    {"id": "link2", "type": "LINK"},
+    {"id": "link3", "type": "LINK"},
+    {"id": "link4", "type": "LINK"}  // 과다!
+  ]
+}
+```
+
+### 2-3) ⛔ Reserved ID 금지
+
+```
+❌ 사용 금지: menus, products, collections, pages
+```
+
+### 2-4) ✅ ID 명명 규칙
+
+```
+✅ camelCase만 사용: logoImage, menuItems
+❌ snake_case 금지: logo_image, menu_items
+❌ 언더스코어 금지
+```
+
+### 2-5) ⛔ SECTION/DIVIDER 타입 금지
+
+```json
+// ❌ 지원하지 않음 - 저장 실패
+{"type": "SECTION"}
+{"type": "DIVIDER"}
+
+// ✅ TITLE만 사용 (자동 구분선)
+{"type": "TITLE", "content": "섹션명"}
+```
+
+### 2-6) ⛔ description 길이 제한
+
+```json
+// ❌ 100자 초과 - 저장 실패
+{
+  "description": "이 필드는 매우 중요한 설정입니다. 사용자가 이 옵션을 선택하면 다양한 효과가 적용되며, 특히 모바일 환경에서 더욱 유용하게 활용할 수 있습니다."
+}
+
+// ✅ 100자 이하
+{
+  "description": "중요 설정. 모바일에서 유용함"
+}
+```
+
+---
+
+## 3. Handlebars 문법 및 제약
+
+### 3-1) 지원되는 헬퍼 ✅
+
+**수학 연산:**
+- `{{add}}` - 덧셈
+- `{{sub}}` - 뺄셈
+
+**조건문/논리:**
+- `{{#if}}`, `{{#else}}`, `{{#unless}}`
+- `{{#eq}}` - 같음 비교
+- `{{#gt}}`, `{{#lt}}` - 크기 비교
+- `{{#or}}`, `{{#and}}` - 논리 연산
+
+**반복/유틸:**
+- `{{#each}}`
+- `{{size}}` - 배열 크기
+
+### 3-2) 지원되지 않는 헬퍼 ❌
 
 ```handlebars
-{{#if property.showTitle}}
-  <h2>{{property.title}}</h2>
+❌ {{div}} - 나눗셈
+❌ {{mul}} - 곱셈
+❌ {{mod}} - 나머지
+❌ {{ne}} - 같지 않음
+❌ {{gte}}, {{lte}} - 이상/이하
+```
+
+**사용 시 증상:** 블록 전체가 화면에서 사라짐
+
+### 3-3) 회피 전략
+
+**나눗셈 필요 시:**
+```json
+// Option 1: 별도 옵션 추가
+{"id": "paddingFull"},
+{"id": "paddingHalf"}
+
+// Option 2: JavaScript 사용
+```
+
+**같지 않음(ne) 필요 시:**
+```handlebars
+❌ {{#if (ne value "something")}}
+
+✅ {{#unless (eq value "something")}}
+✅ {{#if value}}  // 빈 값은 자동 false
+```
+
+**곱셈 필요 시:**
+```handlebars
+❌ {{mul property.size 2}}
+
+✅ {{add property.size property.size}}
+```
+
+### 3-4) 변수 출력
+
+```handlebars
+<!-- 일반 변수 -->
+{{property.title}}
+
+<!-- HTML 출력 (SVG, RICH_TEXT) -->
+{{{property.iconSvg}}}
+{{{property.richText}}}
+```
+
+### 3-5) 조건문
+
+```handlebars
+{{#if property.show}}
+  표시
+{{else}}
+  숨김
 {{/if}}
 
-{{#unless property.hideDescription}}
-  <p>{{property.description}}</p>
+{{#unless property.hide}}
+  표시
 {{/unless}}
 ```
 
-### 반복문
+### 3-6) 반복문
 
 ```handlebars
 {{#each property.items}}
-  <div class="item">
-    <h3>{{title}}</h3>
-    <p>{{description}}</p>
-    <img src="{{image}}" alt="{{name}}">
-  </div>
-{{/each}}
-```
-
-### 인덱스 사용
-
-```handlebars
-{{#each property.items}}
-  <div class="item-{{@index}}">
-    {{#if @first}}First Item{{/if}}
-    {{#if @last}}Last Item{{/if}}
-    Index: {{@index}}
+  <div>
+    {{title}}
+    {{@index}}
+    {{#if @first}}첫번째{{/if}}
+    {{#if @last}}마지막{{/if}}
   </div>
 {{/each}}
 ```
 
 ---
 
-## 에디터 설정
+## 4. JSON 설정 규칙
 
-### 지원하는 타입
+### 4-1) 지원되는 타입
 
-#### ⚠️ 중요: SECTION 타입은 지원하지 않음!
+| 타입 | 용도 | 필수 속성 |
+|------|------|----------|
+| TITLE | 섹션 제목 | content |
+| DESCRIPTION | 설명 (지원 불확실) | content |
+| TEXT | 텍스트 입력 | id, label, type |
+| TEXTAREA | 여러 줄 텍스트 | id, label, type |
+| IMAGE_PICKER | 이미지 선택 | id, label, type |
+| COLOR_PICKER | 색상 선택 | id, label, type |
+| RANGE | 범위 슬라이더 | id, label, type, min, max |
+| RADIO | 라디오 버튼 | id, label, type, options |
+| CHECKBOX | 체크박스 | id, label, type |
+| LIST | 리스트 | id, label, type, settings |
+| LINK | 링크 선택 | id, label, type |
 
-식스샵은 `SECTION` 타입을 지원하지 않습니다. 대신 `TITLE`과 `DESCRIPTION`을 사용하여 그룹화합니다.
-
-#### TITLE (섹션 제목)
+### 4-2) TITLE 사용법
 
 ```json
 {
@@ -144,935 +305,585 @@ block-name.json        # 에디터 설정 + 기본값
 }
 ```
 
-#### DESCRIPTION (설명)
+**규칙:**
+- 2번째 TITLE부터 자동 구분선 생성
+- 이모지 활용 권장 (🏢 🎬 📐 🎨 📱)
+
+### 4-3) 설정 옵션 속성
 
 ```json
 {
-  "type": "DESCRIPTION",
-  "content": "디자인 관련 설정을 조정할 수 있습니다."
+  "id": "propertyId",           // 필수
+  "label": "설정명",             // 필수
+  "description": "설명 (100자)",  // 선택
+  "type": "TEXT",                // 필수
+  "placeholder": "예시",         // 선택
+  "isVisible": "조건식",         // 선택
+  "default": "기본값"            // 선택 (권장)
 }
 ```
 
-#### TEXT (텍스트 입력)
+### 4-4) isVisible 조건식
 
 ```json
+// 일반 조건
 {
-  "id": "title",
-  "label": "제목",
-  "description": "블록의 제목을 입력하세요",
-  "type": "TEXT",
-  "placeholder": "예: 메인 타이틀"
+  "isVisible": "property.showOption === true"
+}
+
+// LIST 내부 조건
+{
+  "isVisible": "property.items[index].enabled === true"
+}
+
+// 복합 조건
+{
+  "isVisible": "property.type === 'custom' && property.enabled === true"
 }
 ```
 
-#### IMAGE_PICKER (이미지 선택)
+### 4-5) RANGE 옵션
 
 ```json
 {
-  "id": "image",
-  "label": "이미지",
-  "description": "배경 이미지를 선택하세요",
-  "type": "IMAGE_PICKER"
-}
-```
-
-#### COLOR_PICKER (색상 선택)
-
-```json
-{
-  "id": "backgroundColor",
-  "label": "배경 색상",
-  "description": "배경색을 선택하세요",
-  "type": "COLOR_PICKER"
-}
-```
-
-#### RANGE (범위 슬라이더)
-
-```json
-{
-  "id": "fontSize",
-  "label": "폰트 크기",
-  "description": "텍스트 크기를 조절하세요",
   "type": "RANGE",
-  "min": 12,
-  "max": 48,
-  "step": 2,
-  "unit": "px"
+  "min": 0,
+  "max": 100,
+  "step": 5,        // 조절 단위
+  "unit": "px"      // 표시 단위
 }
 ```
 
-#### RADIO (라디오 버튼)
+### 4-6) RADIO 옵션
 
 ```json
 {
-  "id": "alignment",
-  "label": "정렬",
-  "description": "텍스트 정렬 방향을 선택하세요",
   "type": "RADIO",
   "options": [
-    {
-      "label": "왼쪽",
-      "value": "left"
-    },
-    {
-      "label": "중앙",
-      "value": "center"
-    },
-    {
-      "label": "오른쪽",
-      "value": "right"
-    }
+    {"label": "왼쪽", "value": "left"},
+    {"label": "가운데", "value": "center"}
   ]
 }
 ```
 
-#### LIST (리스트)
+### 4-7) LIST 옵션
 
 ```json
 {
-  "id": "items",
-  "label": "아이템 목록",
-  "description": "아이템을 추가하세요",
   "type": "LIST",
   "maxCount": 10,
   "settings": [
-    {
-      "id": "title",
-      "label": "제목",
-      "type": "TEXT"
-    },
-    {
-      "id": "image",
-      "label": "이미지",
-      "type": "IMAGE_PICKER"
-    }
+    {"id": "name", "type": "TEXT"},
+    {"id": "link", "type": "LINK"}
   ]
 }
 ```
 
-### 에디터 구조화 예시
-
-```json
-{
-  "settings": [
-    {
-      "type": "TITLE",
-      "content": "🏢 콘텐츠 관리"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "표시할 콘텐츠를 추가하고 관리합니다."
-    },
-    {
-      "id": "items",
-      "label": "아이템 목록",
-      "type": "LIST",
-      "maxCount": 20,
-      "settings": [...]
-    },
-
-    {
-      "type": "TITLE",
-      "content": "🎨 디자인 설정"
-    },
-    {
-      "id": "backgroundColor",
-      "label": "배경 색상",
-      "type": "COLOR_PICKER"
-    },
-
-    {
-      "type": "TITLE",
-      "content": "📱 반응형 설정"
-    },
-    {
-      "id": "mobilePadding",
-      "label": "모바일 여백",
-      "type": "RANGE",
-      "min": 10,
-      "max": 60,
-      "step": 5,
-      "unit": "px"
-    }
-  ],
-  "property": {
-    "items": [],
-    "backgroundColor": "#FFFFFFFF",
-    "mobilePadding": 20
-  }
-}
-```
-
 ---
 
-## 스크립트 API
+## 5. CSS 작성 규칙
 
-### 기본 API
-
-#### bm.container
-
-현재 블록의 DOM 컨테이너를 반환합니다.
-
-```javascript
-const container = bm.container;
-const element = container.querySelector('.my-element');
-```
-
-#### bm.context
-
-현재 블록의 컨텍스트(설정값)를 반환합니다.
-
-```javascript
-const context = bm.context;
-const title = context.property.title;
-const items = context.property.items;
-```
-
-#### bm.onContextChange
-
-설정값이 변경될 때 호출되는 콜백 함수입니다.
-
-```javascript
-bm.onContextChange = () => {
-  // 설정 변경 시 실행할 코드
-  updateDisplay();
-};
-```
-
-### 실전 예시
-
-```javascript
-const container = bm.container;
-const context = bm.context;
-
-function initializeBlock() {
-  const items = context.property.items;
-
-  // 초기화 로직
-  items.forEach((item, index) => {
-    console.log(`Item ${index}: ${item.title}`);
-  });
-}
-
-// 초기 실행
-initializeBlock();
-
-// 설정 변경 시 재실행
-bm.onContextChange = () => {
-  initializeBlock();
-};
-```
-
----
-
-## 스타일 가이드
-
-### CSS 변수 사용
-
-템플릿 변수를 CSS에서 직접 사용할 수 있습니다.
+### 5-1) Handlebars 변수 사용
 
 ```css
-.block-container {
+.block {
   background-color: {{property.backgroundColor}};
   padding: {{property.padding}}px;
   font-size: {{property.fontSize}}px;
 }
+```
 
-.title {
-  color: {{property.titleColor}};
-  text-align: {{property.alignment}};
+### 5-2) 조건부 CSS
+
+```css
+{{#if property.showBorder}}
+.block {
+  border: 1px solid {{property.borderColor}};
+}
+{{/if}}
+```
+
+### 5-3) 테마 CSS 변수 (필수)
+
+```css
+/* 제목 */
+.heading {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+}
+
+/* 본문 */
+.body-text {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-body);
+}
+
+/* 색상 */
+.block {
+  background-color: var(--color-background-100);
+  color: var(--color-text-100);
+  border-color: var(--color-border-100);
+}
+
+.accent {
+  color: var(--color-accent-100);
 }
 ```
 
-### 반응형 디자인
+### 5-4) 반응형 규칙
 
 ```css
 /* 데스크톱 */
-.block-container {
-  padding: {{property.padding}}px;
-}
-
-/* 태블릿 */
-@media (max-width: 1024px) {
-  .block-container {
-    padding: {{property.tabletPadding}}px;
-  }
+.block {
+  padding: {{property.paddingDesktop}}px;
 }
 
 /* 모바일 */
 @media (max-width: 768px) {
-  .block-container {
-    padding: {{property.mobilePadding}}px;
+  .block {
+    padding: {{property.paddingMobile}}px;
   }
 }
 ```
 
-### 이모지를 활용한 시각적 구분
-
-설정 제목에 이모지를 사용하여 가독성을 높입니다.
-
-```json
-{
-  "type": "TITLE",
-  "content": "🏢 콘텐츠 관리"
-},
-{
-  "type": "TITLE",
-  "content": "🎬 애니메이션 설정"
-},
-{
-  "type": "TITLE",
-  "content": "🎨 디자인 설정"
-},
-{
-  "type": "TITLE",
-  "content": "📱 반응형 설정"
-}
-```
-
----
-
-## 애니메이션 구현
-
-### CSS 애니메이션 기본
+### 5-5) ⛔ SVG 속성을 CSS로 조작 금지
 
 ```css
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+❌ 절대 금지:
+.icon svg line {
+  x1: {{value}};
+  y1: {{value}};
 }
 
-.item {
-  animation: fadeIn 0.5s ease-out;
-}
+✅ HTML 속성으로만 설정
 ```
 
-### 무한 스크롤 슬라이드 애니메이션
-
-**⚠️ 중요: JavaScript 동적 복제는 타이밍 이슈로 끊김 발생!**
-
-**해결책: 템플릿에서 충분히 복제하기**
-
-```html
-<style>
-  .slider-track {
-    display: flex;
-    gap: 20px;
-    animation: scroll-left 30s linear infinite;
-  }
-
-  @keyframes scroll-left {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-</style>
-
-<template>
-  <div class="slider">
-    <div class="slider-track">
-      <!-- 충분한 세트를 복제 (최소 4~6세트) -->
-      {{#each property.items}}
-        <div class="item">{{title}}</div>
-      {{/each}}
-
-      {{#each property.items}}
-        <div class="item">{{title}}</div>
-      {{/each}}
-
-      {{#each property.items}}
-        <div class="item">{{title}}</div>
-      {{/each}}
-
-      {{#each property.items}}
-        <div class="item">{{title}}</div>
-      {{/each}}
-
-      {{#each property.items}}
-        <div class="item">{{title}}</div>
-      {{/each}}
-
-      {{#each property.items}}
-        <div class="item">{{title}}</div>
-      {{/each}}
-    </div>
-  </div>
-</template>
-```
-
-### 애니메이션 끊김 방지 원칙
-
-1. **템플릿 기반 복제**: JavaScript 복제 대신 템플릿에서 직접 복제
-2. **충분한 복제**: 화면 너비의 3배 이상을 커버하도록 4~6세트 복제
-3. **50% 이동**: 전체의 50%만 이동하여 정확한 루프 구현
-4. **순수 CSS**: JavaScript 의존성 최소화
-
-```
-[1세트][2세트][3세트][4세트][5세트][6세트]
-↑ 시작
-
--50% 이동 (3세트 길이)
-              ↑ 종료 = [4세트] 시작 = [1세트] 복사본
-
-→ 완벽한 무한 루프!
-```
-
----
-
-## 성능 최적화
-
-### GPU 가속 활성화
+### 5-6) 애니메이션 성능 최적화
 
 ```css
-.animated-element {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform; /* 필요한 경우에만 사용 */
-}
-```
-
-### 이미지 최적화
-
-```html
-<img
-  src="{{image}}"
-  alt="{{name}}"
-  loading="lazy"
-  onerror="this.src='https://fallback-image-url.jpg'"
->
-```
-
-### 애니메이션 최적화
-
-```css
-/* transform과 opacity만 애니메이션 (GPU 가속) */
-.item {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-/* width, height, margin 등은 피하기 (리플로우 발생) */
-```
-
-### will-change 사용 주의
-
-```css
-/* ❌ 나쁜 예: 모든 요소에 적용 */
-* {
-  will-change: transform, opacity;
-}
-
-/* ✅ 좋은 예: 필요한 요소에만 적용 */
-.slider-track {
-  will-change: transform;
-}
-
-/* 또는 애니메이션이 필요 없을 때는 사용하지 않기 */
-```
-
----
-
-## 트러블슈팅
-
-### 문제 1: "지원하지 않는 settingType입니다 (Input: SECTION)"
-
-**원인**: 식스샵은 `SECTION` 타입을 지원하지 않습니다.
-
-**해결책**: `TITLE`과 `DESCRIPTION`을 사용하세요.
-
-```json
-// ❌ 잘못된 예
-{
-  "type": "SECTION",
-  "label": "디자인 설정",
-  "settings": [...]
-}
-
-// ✅ 올바른 예
-{
-  "type": "TITLE",
-  "content": "🎨 디자인 설정"
-},
-{
-  "type": "DESCRIPTION",
-  "content": "디자인 관련 설정을 조정할 수 있습니다."
-},
-{
-  "id": "backgroundColor",
-  "label": "배경 색상",
-  "type": "COLOR_PICKER"
-}
-```
-
-### 문제 2: 슬라이드 애니메이션이 끊김
-
-**원인**: JavaScript 동적 복제가 CSS 애니메이션보다 늦게 실행되어 타이밍 이슈 발생
-
-**해결책**: 템플릿에서 충분히 복제 (4~6세트)
-
-```html
-<!-- ❌ JavaScript 동적 복제 (끊김 발생) -->
-<template>
-  <div class="track">
-    {{#each property.items}}
-      <div>{{title}}</div>
-    {{/each}}
-  </div>
-</template>
-<script>
-  // 동적으로 복제 시도 → 타이밍 이슈!
-  const track = container.querySelector('.track');
-  // ... 복제 로직
-</script>
-
-<!-- ✅ 템플릿 기반 정적 복제 (완벽) -->
-<template>
-  <div class="track">
-    {{#each property.items}}...{{/each}}
-    {{#each property.items}}...{{/each}}
-    {{#each property.items}}...{{/each}}
-    {{#each property.items}}...{{/each}}
-    {{#each property.items}}...{{/each}}
-    {{#each property.items}}...{{/each}}
-  </div>
-</template>
-```
-
-### 문제 3: 이미지가 표시되지 않음
-
-**원인**: 이미지 로드 실패
-
-**해결책**: onerror 속성으로 폴백 이미지 제공
-
-```html
-<img
-  src="{{image}}"
-  alt="{{name}}"
-  onerror="this.src='https://ss3-prod-static-files.s3.ap-northeast-2.amazonaws.com/block-image-library/lifestyle/image1.jpg'"
->
-```
-
-### 문제 4: 설정 변경이 반영되지 않음
-
-**원인**: `bm.onContextChange` 미구현
-
-**해결책**: 컨텍스트 변경 리스너 추가
-
-```javascript
-bm.onContextChange = () => {
-  // 설정 변경 시 실행할 코드
-  updateDisplay();
-};
-```
-
----
-
-## 베스트 프랙티스
-
-### 1. 파일 분리
-
-HTML과 JSON을 명확하게 분리하여 복붙 가능하도록 합니다.
-
-```
-block-name.html    # 템플릿 + 스타일 + 스크립트
-block-name.json    # 설정 + 기본값
-```
-
-### 2. 에디터 구조화
-
-TITLE로 논리적 섹션을 구분합니다.
-
-```json
-{
-  "settings": [
-    {"type": "TITLE", "content": "🏢 콘텐츠"},
-    // 콘텐츠 설정들...
-
-    {"type": "TITLE", "content": "🎨 디자인"},
-    // 디자인 설정들...
-
-    {"type": "TITLE", "content": "📱 반응형"},
-    // 반응형 설정들...
-  ]
-}
-```
-
-### 3. 명확한 설명 제공
-
-각 설정에 명확한 label과 description을 제공합니다.
-
-```json
-{
-  "id": "speed",
-  "label": "스크롤 속도",
-  "description": "숫자가 작을수록 빠르게 움직입니다 (10초 = 빠름, 60초 = 느림)",
-  "type": "RANGE",
-  "min": 10,
-  "max": 60,
-  "step": 5,
-  "unit": "초"
-}
-```
-
-### 4. 기본값 제공
-
-모든 property에 적절한 기본값을 제공합니다.
-
-```json
-{
-  "property": {
-    "title": "기본 제목",
-    "backgroundColor": "#FFFFFFFF",
-    "fontSize": 16,
-    "padding": 20
-  }
-}
-```
-
-### 5. 반응형 설정 분리
-
-데스크톱과 모바일 설정을 명확히 구분합니다.
-
-```json
-{
-  "id": "padding",
-  "label": "여백 (데스크톱)",
-  "type": "RANGE",
-  "min": 20,
-  "max": 100,
-  "step": 5,
-  "unit": "px"
-},
-{
-  "id": "mobilePadding",
-  "label": "여백 (모바일)",
-  "type": "RANGE",
-  "min": 10,
-  "max": 60,
-  "step": 5,
-  "unit": "px"
-}
-```
-
-### 6. 접근성 고려
-
-alt 텍스트, aria-label 등 접근성을 고려합니다.
-
-```html
-<img src="{{image}}" alt="{{name}}" />
-<button aria-label="다음 슬라이드">→</button>
-```
-
-### 7. 성능 최적화
-
-- 이미지 lazy loading
-- GPU 가속 활용
-- 불필요한 리플로우 방지
-
-```html
-<img src="{{image}}" loading="lazy" alt="{{name}}">
-```
-
-```css
+/* GPU 가속 */
 .animated {
   transform: translateZ(0);
   backface-visibility: hidden;
 }
-```
 
-### 8. 순수 CSS 우선
-
-가능한 한 JavaScript 의존성을 줄이고 순수 CSS로 구현합니다.
-
-```css
-/* ✅ 좋은 예: 순수 CSS 애니메이션 */
-.item:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
+/* 부드러운 전환 (0.3s 권장) */
+.element {
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* ❌ 나쁜 예: JavaScript로 hover 처리 */
+/* ⚠️ will-change 최소 사용 */
+.slider-track {
+  will-change: transform;  // 꼭 필요한 경우만
+}
 ```
 
 ---
 
-## 실전 예제: 로고 배너 슬라이드
+## 6. JavaScript API 규칙
 
-### HTML 파일
+### 6-1) bm 객체 필수 메서드
 
-```html
-<style>
-  .logo-banner {
-    width: 100%;
-    overflow: hidden;
-    background-color: {{property.backgroundColor}};
-    padding: {{property.paddingY}}px {{property.paddingX}}px;
-  }
+```javascript
+const container = bm.container;  // 블록 컨테이너
+const context = bm.context;      // 설정 값
 
-  .logo-track {
-    display: flex;
-    align-items: center;
-    gap: {{property.logoSpacing}}px;
-    width: max-content;
-    animation: scroll-{{property.direction}} {{property.speed}}s linear infinite;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
+// ✅ 필수: 설정 변경 시 재실행
+bm.onContextChange = () => {
+  init();
+};
 
-  .logo-item {
-    flex-shrink: 0;
-    height: {{property.logoHeight}}px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: grayscale({{property.grayscale}}%);
-    opacity: {{property.opacity}};
-    transition: all 0.3s ease;
-  }
-
-  .logo-item:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.05);
-  }
-
-  .logo-item img {
-    max-height: 100%;
-    max-width: 200px;
-    object-fit: contain;
-  }
-
-  @keyframes scroll-left {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @keyframes scroll-right {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
-  }
-
-  .logo-banner:hover .logo-track {
-    animation-play-state: {{property.pauseOnHover}};
-  }
-
-  @media (max-width: 768px) {
-    .logo-banner {
-      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
-    }
-    .logo-item {
-      height: {{property.mobileLogoHeight}}px;
-    }
-    .logo-track {
-      gap: {{property.mobileLogoSpacing}}px;
-      animation-duration: {{property.mobileSpeed}}s;
-    }
-  }
-</style>
-
-<template>
-  <div class="logo-banner">
-    <div class="logo-track">
-      {{#each property.logos}}
-        <div class="logo-item">
-          <img src="{{image}}" alt="{{name}}" loading="lazy">
-        </div>
-      {{/each}}
-      {{#each property.logos}}
-        <div class="logo-item">
-          <img src="{{image}}" alt="{{name}}" loading="lazy">
-        </div>
-      {{/each}}
-      {{#each property.logos}}
-        <div class="logo-item">
-          <img src="{{image}}" alt="{{name}}" loading="lazy">
-        </div>
-      {{/each}}
-      {{#each property.logos}}
-        <div class="logo-item">
-          <img src="{{image}}" alt="{{name}}" loading="lazy">
-        </div>
-      {{/each}}
-      {{#each property.logos}}
-        <div class="logo-item">
-          <img src="{{image}}" alt="{{name}}" loading="lazy">
-        </div>
-      {{/each}}
-      {{#each property.logos}}
-        <div class="logo-item">
-          <img src="{{image}}" alt="{{name}}" loading="lazy">
-        </div>
-      {{/each}}
-    </div>
-  </div>
-</template>
-
-<script>
-  // 순수 CSS 애니메이션으로 처리
-</script>
+// ✅ 필수: 이벤트 리스너 등록 시 cleanup
+bm.onDestroy = () => {
+  window.removeEventListener('scroll', handleScroll);
+};
 ```
 
-### JSON 파일
+### 6-2) ⛔ 이벤트 위임 필수
+
+```javascript
+// ❌ 잘못된 방법 - 재렌더링 시 무효화
+const button = container.querySelector('.button');
+button.addEventListener('click', () => {});
+
+// ✅ 올바른 방법 - container에 위임
+bm.container.addEventListener('click', (e) => {
+  if (e.target.closest('.button')) {
+    // 처리
+  }
+}, true);
+```
+
+### 6-3) bm.onContextChange 필수 구현
+
+```javascript
+function init() {
+  const value = context.property.someValue;
+  // 초기화 로직
+}
+
+init();
+
+// ✅ 필수! 에디터에서 즉시 반영
+bm.onContextChange = () => {
+  init();
+};
+```
+
+### 6-4) bm.onDestroy 필수 구현
+
+```javascript
+function handleScroll() {
+  // 스크롤 처리
+}
+
+window.addEventListener('scroll', handleScroll);
+
+// ✅ 필수! 메모리 누수 방지
+bm.onDestroy = () => {
+  window.removeEventListener('scroll', handleScroll);
+  document.body.style.overflow = '';
+};
+```
+
+### 6-5) ⛔ console.log 제거
+
+```javascript
+❌ 최종 코드에 절대 남기면 안 됨:
+console.log('debug');
+console.error('test');
+```
+
+---
+
+## 7. 식스샵 프로 필수 요건
+
+### 7-1) 편집 용이성
+
+- [ ] 에디터에서 모든 기능이 오류 없이 작동
+- [ ] 사용자가 직접 편집 가능한 요소만 포함
+- [ ] 통이미지 사용 금지
+- [ ] 코드 결과물 금지 (편집 불가능)
+- [ ] 저작권 문제 없는 리소스만 사용
+
+### 7-2) 콘텐츠 구성
+
+- [ ] 내 페이지 3개 이상 구성
+- [ ] 온전한 헤더/푸터 메뉴 구성
+- [ ] 고품질 이미지 사용
+- [ ] 의미 없는 더미 텍스트 없음
+- [ ] 일관된 디자인 스타일
+
+---
+
+## 8. 커스텀 블록 필수 점검
+
+### 8-1) 설정 패널
+
+- [ ] 블록 이름 한글 작성
+- [ ] 모든 문구 한글 작성
+- [ ] TITLE로 섹션 그룹핑
+- [ ] 외부 API 연동 방법 안내
+- [ ] isVisible 적절히 사용
+- [ ] 글자 크기 설정 제공
+
+### 8-2) 블록 동작
+
+- [ ] 블록 너비가 커스텀 섹션 뚫고 나가지 않음
+- [ ] 설정 변경 시 즉시 반영 (bm.onContextChange)
+- [ ] 데스크톱/모바일 모두 정상 작동
+- [ ] 동일 블록 여러 개 독립 작동
+- [ ] bm.onDestroy 구현 (필요 시)
+- [ ] console.log 모두 삭제
+
+### 8-3) 테마 설정 상속
+
+- [ ] 제목글: font-family, font-weight 적용
+- [ ] 본문: font-family, font-weight 적용
+- [ ] COLOR_SCHEME CSS 변수 적용
+
+### 8-4) 개별 설정
+
+- [ ] RICH_TEXT: 굵게, 기울임꼴 작동
+- [ ] RICH_TEXT: HTML 코드가 아닌 정상 글자로 표시
+- [ ] RICH_TEXT: 불필요한 속성 숨김 (exclude)
+- [ ] RANGE: unit, step 적절히 적용
+- [ ] LINK: 새 탭 열기 함께 제공
+
+---
+
+## 9. 헤더/푸터 블록 기준
+
+### 9-1) 헤더 필수 기능
+
+- [ ] **빈 링크 클릭 방지**
+```javascript
+bm.container.addEventListener('click', (e) => {
+  const link = e.target.closest('a');
+  if (link) {
+    const href = link.getAttribute('href');
+    if (!href || href === '' || href === '#') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+}, true);
+```
+
+- [ ] **글자 크기 조정** (모든 글자)
+- [ ] **컨테이너 최대 너비** (데스크톱)
+  - max-width on/off
+  - max-width 값 조절 (px)
+  - 좌우 padding 조절
+
+### 9-2) 푸터 필수 정보
+
+- [ ] 상호명
+- [ ] 대표자명
+- [ ] 사업자등록번호
+- [ ] 통신판매업 신고번호
+- [ ] 주소
+- [ ] 대표 전화번호
+- [ ] 이메일 주소
+
+---
+
+## 10. 사용자 요청 개발 원칙
+
+### 10-1) 파일 분리 원칙
+
+**규칙:** HTML과 JSON을 항상 분리하여 복붙 가능하게 작성
+
+### 10-2) 에디터 구조화 원칙
+
+**규칙:** TITLE로 논리적 섹션 구분
+
+**권장 순서 (헤더 블록 예시):**
+1. 헤더 기본 설정 (전체 여백, 배경, 높이)
+2. 로고 옵션 (좌측)
+3. 메뉴 옵션 (중앙)
+4. 하위 메뉴 옵션
+5. 유틸리티 메뉴 (우측)
+6. 다국어 버튼 (우측 끝)
+
+### 10-3) 라벨/설명 작성 원칙
 
 ```json
+// ✅ 좋은 예
 {
-  "settings": [
-    {
-      "type": "TITLE",
-      "content": "🏢 로고 관리"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "고객사나 파트너사의 로고를 추가하여 브랜드 신뢰도를 높여보세요."
-    },
-    {
-      "id": "logos",
-      "label": "로고 목록",
-      "type": "LIST",
-      "maxCount": 20,
-      "settings": [
-        {
-          "id": "name",
-          "label": "회사명",
-          "type": "TEXT",
-          "placeholder": "예: 삼성전자"
-        },
-        {
-          "id": "image",
-          "label": "로고 이미지",
-          "type": "IMAGE_PICKER"
-        }
-      ]
-    },
-    {
-      "type": "TITLE",
-      "content": "🎬 애니메이션 설정"
-    },
-    {
-      "id": "direction",
-      "label": "스크롤 방향",
-      "type": "RADIO",
-      "options": [
-        {"label": "← 왼쪽으로", "value": "left"},
-        {"label": "→ 오른쪽으로", "value": "right"}
-      ]
-    },
-    {
-      "id": "speed",
-      "label": "스크롤 속도 (데스크톱)",
-      "description": "숫자가 작을수록 빠르게 움직입니다",
-      "type": "RANGE",
-      "min": 10,
-      "max": 60,
-      "step": 5,
-      "unit": "초"
-    },
-    {
-      "id": "pauseOnHover",
-      "label": "마우스 호버 시",
-      "type": "RADIO",
-      "options": [
-        {"label": "일시정지", "value": "paused"},
-        {"label": "계속 움직임", "value": "running"}
-      ]
-    },
-    {
-      "type": "TITLE",
-      "content": "🎨 디자인 설정"
-    },
-    {
-      "id": "backgroundColor",
-      "label": "배경 색상",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "grayscale",
-      "label": "회색조 효과",
-      "description": "0% = 원본 색상, 100% = 완전 회색",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 10,
-      "unit": "%"
-    }
-  ],
-  "property": {
-    "logos": [],
-    "direction": "left",
-    "speed": 30,
-    "pauseOnHover": "paused",
-    "backgroundColor": "#000000FF",
-    "grayscale": 100
+  "label": "📁 제목 (선택사항)",
+  "description": "첫 번째 컬럼 제목. 제목 없이 항목만 추가 가능"
+}
+
+// ❌ 나쁜 예
+{
+  "label": "제목",
+  "description": "제목"
+}
+```
+
+**규칙:**
+- 라벨: 간결하지만 의미 명확
+- 설명: 구체적이고 친절 (무엇을, 어떻게, 주의사항)
+- 선택사항 여부 명시
+- 기본값 동작 설명
+
+### 10-4) JSON-HTML 동기화 원칙 ⭐
+
+**필수:** JSON에 옵션 추가 시 HTML에서 반드시 사용
+
+```json
+// 1. JSON에 옵션 추가
+{
+  "id": "mobileHeaderHeight",
+  "type": "RANGE"
+}
+```
+
+```css
+/* 2. HTML에서 사용 - 필수! */
+@media (max-width: 768px) {
+  .header {
+    height: {{property.mobileHeaderHeight}}px;
   }
 }
 ```
 
----
+**체크리스트:**
+- [ ] CSS에서 property 사용
+- [ ] 미디어쿼리 필요 시 @media 추가
+- [ ] JavaScript 로직 필요 시 구현
+- [ ] bm.onContextChange에서 동적 업데이트
 
-## 체크리스트
+### 10-5) 애니메이션 끊김 방지 원칙 ⭐
 
-개발 완료 전 확인사항:
+**무한 스크롤 슬라이드 구현 규칙:**
 
-- [ ] HTML과 JSON 파일이 분리되어 있는가?
-- [ ] SECTION 대신 TITLE/DESCRIPTION을 사용했는가?
-- [ ] 모든 설정에 label과 description이 있는가?
-- [ ] 기본값(property)이 제공되는가?
-- [ ] 반응형 디자인이 구현되었는가?
-- [ ] 이미지에 alt 텍스트가 있는가?
-- [ ] 이미지에 loading="lazy"가 적용되었는가?
-- [ ] 애니메이션이 끊김 없이 작동하는가?
-- [ ] GPU 가속이 활성화되어 있는가?
-- [ ] 불필요한 JavaScript가 제거되었는가?
-
----
-
-## 참고 자료
-
-### 지원하는 설정 타입 요약
-
-| 타입 | 용도 | 예시 |
-|-----|------|-----|
-| TITLE | 섹션 제목 | `"🎨 디자인 설정"` |
-| DESCRIPTION | 설명 | `"디자인 관련 설정을..."` |
-| TEXT | 텍스트 입력 | 제목, 설명 등 |
-| IMAGE_PICKER | 이미지 선택 | 배경, 로고 등 |
-| COLOR_PICKER | 색상 선택 | 배경색, 텍스트색 등 |
-| RANGE | 범위 슬라이더 | 크기, 여백 등 |
-| RADIO | 라디오 버튼 | 정렬, 방향 등 |
-| LIST | 리스트 | 아이템 목록 |
-
-### 애니메이션 끊김 해결 공식
-
-```
-필요한 복제 개수 = Math.ceil(화면 너비 × 3 / 원본 너비)
-
-권장: 최소 4~6세트 템플릿 복제
+**❌ JavaScript 동적 복제 금지:**
+```javascript
+// 타이밍 이슈로 끊김 발생
+const track = container.querySelector('.track');
+// 동적 복제 시도...
 ```
 
----
+**✅ 템플릿 기반 정적 복제:**
+```html
+<template>
+  <div class="track">
+    <!-- 6세트 복제 (4K 화면까지 커버) -->
+    {{#each property.items}}...{{/each}}
+    {{#each property.items}}...{{/each}}
+    {{#each property.items}}...{{/each}}
+    {{#each property.items}}...{{/each}}
+    {{#each property.items}}...{{/each}}
+    {{#each property.items}}...{{/each}}
+  </div>
+</template>
+```
 
-## 마무리
-
-이 가이드는 실제 개발 경험을 바탕으로 작성되었습니다. 특히 **애니메이션 끊김 문제**는 템플릿 기반 복제로 완벽하게 해결됩니다. JavaScript 동적 복제는 타이밍 이슈로 인해 권장하지 않습니다.
+```css
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+```
 
 **핵심 원칙:**
-1. ✅ 템플릿에서 충분히 복제 (4~6세트)
-2. ✅ 순수 CSS 애니메이션 우선
-3. ✅ SECTION 대신 TITLE/DESCRIPTION 사용
-4. ✅ HTML/JSON 파일 분리
-5. ✅ 명확한 설명과 기본값 제공
+1. 템플릿에서 최소 6세트 복제
+2. 정확히 -50% 이동
+3. JavaScript 의존성 최소화
+
+### 10-6) eq 헬퍼 의존성 제거 원칙
+
+**문제:** CSS 변수 내 eq 헬퍼 사용 시 에러 가능
+
+```css
+❌ 잘못된 방법:
+--justify: {{#if (eq property.align "left")}}flex-start{{else}}center{{/if}};
+
+✅ 올바른 방법:
+--justify: {{property.alignJustify}};
+```
+
+```json
+// 별도 옵션 추가
+{
+  "id": "alignJustify",
+  "type": "RADIO",
+  "options": [
+    {"label": "왼쪽", "value": "flex-start"},
+    {"label": "가운데", "value": "center"}
+  ]
+}
+```
+
+### 10-7) 접근성 개선 원칙
+
+```html
+<!-- button 태그 사용 -->
+<button type="button" tabindex="0" aria-label="설명">
+  내용
+</button>
+
+<!-- focus 스타일 -->
+<style>
+.button:focus-visible {
+  outline: 2px solid var(--color-accent-100);
+  outline-offset: 2px;
+}
+</style>
+```
 
 ---
 
-**문서 버전**: 1.0
+## 11. 최종 체크리스트
+
+### 코드 품질
+- [ ] console.log 모두 제거
+- [ ] bm.onContextChange 구현
+- [ ] bm.onDestroy 구현 (필요 시)
+- [ ] 이벤트를 bm.container에 위임
+- [ ] SVG는 3중 괄호로 렌더링
+
+### 설정 스키마
+- [ ] Reserved ID 미사용
+- [ ] camelCase 명명
+- [ ] LIST 중첩 없음
+- [ ] LIST 내 LINK 필드 1-2개
+- [ ] TITLE로 섹션 구분
+- [ ] SECTION/DIVIDER 미사용
+- [ ] description 100자 이하
+- [ ] isVisible 적절히 사용
+- [ ] 모든 문구 한글 작성
+
+### Handlebars
+- [ ] 지원되는 헬퍼만 사용
+- [ ] div, mul, ne 등 미지원 헬퍼 회피
+- [ ] eq 헬퍼 CSS 변수 내 사용 금지
+- [ ] SVG 속성 CSS 조작 금지
+
+### 기능 테스트
+- [ ] 에디터 설정 변경 시 즉시 반영
+- [ ] 데스크톱/모바일 정상 작동
+- [ ] 동일 블록 여러 개 독립 작동
+- [ ] 빈 링크 클릭 방지
+- [ ] 커스텀 섹션 너비 준수
+
+### JSON-HTML 동기화
+- [ ] JSON 옵션이 HTML에서 사용됨
+- [ ] CSS에 property 연동
+- [ ] JavaScript 로직 구현
+- [ ] bm.onContextChange 업데이트
+
+### 애니메이션
+- [ ] 무한 스크롤은 템플릿 6세트 복제
+- [ ] -50% 이동으로 정확한 루프
+- [ ] JavaScript 동적 복제 미사용
+- [ ] 0.3s 전환 애니메이션
+
+### 디자인 품질
+- [ ] 테마 폰트 적용
+- [ ] COLOR_SCHEME CSS 변수 사용
+- [ ] 고품질 이미지 사용
+- [ ] 일관된 스타일
+
+### 파일 구조
+- [ ] HTML/JSON 분리
+- [ ] 복붙 가능하게 독립적 작성
+
+---
+
+## 규칙 요약
+
+### ⛔ 절대 금지
+1. LIST 중첩
+2. LIST 내 LINK 필드 5개 이상
+3. Reserved ID 사용
+4. SECTION/DIVIDER 타입
+5. description 100자 초과
+6. 미지원 Handlebars 헬퍼 (div, mul, ne 등)
+7. SVG 속성 CSS 조작
+8. 개별 요소 이벤트 바인딩
+9. console.log 남기기
+10. JavaScript 동적 복제 (무한 스크롤)
+
+### ✅ 필수 준수
+1. HTML/JSON 파일 분리
+2. camelCase ID 명명
+3. TITLE로 섹션 구분
+4. bm.onContextChange 구현
+5. bm.onDestroy 구현 (이벤트 리스너 시)
+6. bm.container 이벤트 위임
+7. 테마 CSS 변수 사용
+8. 빈 링크 클릭 방지 (헤더/푸터)
+9. JSON-HTML 동기화
+10. 템플릿 기반 정적 복제 (무한 스크롤)
+
+---
+
+**문서 버전**: 2.0 (통합)
 **최종 업데이트**: 2025-01-13
-**작성자**: Nova Partners Development Team
+**통합 세션**:
+- 엔터프라이즈 헤더 (claude/sixshop-pro-web-builder-continue-011CV1vwWJU3kNEADVdqJbxY)
+- 히어로 비디오 슬라이드 (커밋 4e1cc53)
+- 로고 배너 슬라이드 (현재 세션)
