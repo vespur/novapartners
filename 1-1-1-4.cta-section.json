@@ -1,0 +1,347 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트 콘텐츠"
+    },
+    {
+      "id": "ctaTitle",
+      "label": "주요 제목",
+      "type": "TEXT",
+      "placeholder": "지금 바로 AI 전환을 시작하세요"
+    },
+    {
+      "id": "ctaDescription",
+      "label": "설명 텍스트",
+      "type": "TEXTAREA",
+      "placeholder": "전문가 상담을 통해 귀사의 AI 전환 여정을 시작할 준비가 되어있습니다"
+    },
+    {
+      "id": "secondaryText",
+      "label": "보조 텍스트 (선택사항)",
+      "type": "TEXT",
+      "placeholder": "제한된 시간 특별 할인 30% 적용"
+    },
+    {
+      "type": "TITLE",
+      "content": "🔘 버튼"
+    },
+    {
+      "id": "buttons",
+      "label": "버튼 목록",
+      "type": "LIST",
+      "maxCount": 2,
+      "settings": [
+        {
+          "id": "buttonText",
+          "label": "버튼 텍스트",
+          "type": "TEXT",
+          "placeholder": "예: 상담받기"
+        },
+        {
+          "id": "buttonUrl",
+          "label": "버튼 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "buttonStyle",
+          "label": "버튼 스타일",
+          "type": "RADIO",
+          "options": [
+            {"label": "기본 (파란색)", "value": "primary"},
+            {"label": "부가 (테두리)", "value": "secondary"}
+          ],
+          "default": "primary"
+        },
+        {
+          "id": "openNewTab",
+          "label": "새 탭에서 열기",
+          "type": "CHECKBOX"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 및 스타일"
+    },
+    {
+      "id": "bgGradientStart",
+      "label": "배경 그래디언트 시작색",
+      "type": "COLOR_PICKER",
+      "default": "#0055ff"
+    },
+    {
+      "id": "bgGradientEnd",
+      "label": "배경 그래디언트 종료색",
+      "type": "COLOR_PICKER",
+      "default": "#003d99"
+    },
+    {
+      "id": "textColor",
+      "label": "텍스트 색상",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "enableBackgroundOverlay",
+      "label": "배경 오버레이 효과",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 크기 (데스크톱)"
+    },
+    {
+      "id": "minHeight",
+      "label": "섹션 최소 높이",
+      "type": "RANGE",
+      "min": 300,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "id": "paddingY",
+      "label": "위아래 여백",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "id": "paddingX",
+      "label": "좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트 크기 (데스크톱)"
+    },
+    {
+      "id": "titleFontSize",
+      "label": "제목 글자 크기",
+      "type": "RANGE",
+      "min": 32,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "id": "descriptionFontSize",
+      "label": "설명 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "id": "secondaryFontSize",
+      "label": "보조 텍스트 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "buttonFontSize",
+      "label": "버튼 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "buttonPaddingY",
+      "label": "버튼 위아래 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "buttonPaddingX",
+      "label": "버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 24,
+      "max": 56,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "id": "buttonGap",
+      "label": "버튼 간격",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobileMinHeight",
+      "label": "모바일 최소 높이",
+      "type": "RANGE",
+      "min": 250,
+      "max": 450,
+      "step": 20,
+      "unit": "px",
+      "default": 320
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 위아래 여백",
+      "type": "RANGE",
+      "min": 30,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "모바일 제목 글자 크기",
+      "type": "RANGE",
+      "min": 22,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "id": "mobileDescriptionFontSize",
+      "label": "모바일 설명 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "id": "mobileSecondaryFontSize",
+      "label": "모바일 보조 텍스트 글자 크기",
+      "type": "RANGE",
+      "min": 11,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "mobileButtonFontSize",
+      "label": "모바일 버튼 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "mobileButtonPaddingY",
+      "label": "모바일 버튼 위아래 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "mobileButtonPaddingX",
+      "label": "모바일 버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 44,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "mobileButtonGap",
+      "label": "모바일 버튼 간격",
+      "type": "RANGE",
+      "min": 8,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "property": {
+    "ctaTitle": "지금 바로 AI 전환을 시작하세요",
+    "ctaDescription": "전문가 상담을 통해 귀사의 AI 전환 여정을 시작할 준비가 되어있습니다. 맞춤형 전략과 실행 지원으로 성공적인 디지털 전환을 이루어보세요.",
+    "secondaryText": "제한된 시간 특별 할인 30% 적용",
+    "buttons": [
+      {
+        "buttonText": "무료 상담 신청",
+        "buttonUrl": "",
+        "buttonStyle": "primary",
+        "openNewTab": false
+      },
+      {
+        "buttonText": "자료 다운로드",
+        "buttonUrl": "",
+        "buttonStyle": "secondary",
+        "openNewTab": false
+      }
+    ],
+    "bgGradientStart": "#0055ff",
+    "bgGradientEnd": "#003d99",
+    "textColor": "#ffffff",
+    "enableBackgroundOverlay": true,
+    "minHeight": 400,
+    "paddingY": 80,
+    "paddingX": 40,
+    "titleFontSize": 44,
+    "descriptionFontSize": 18,
+    "secondaryFontSize": 14,
+    "buttonFontSize": 16,
+    "buttonPaddingY": 16,
+    "buttonPaddingX": 48,
+    "buttonGap": 20,
+    "mobileMinHeight": 320,
+    "mobilePaddingY": 50,
+    "mobilePaddingX": 20,
+    "mobileTitleFontSize": 28,
+    "mobileDescriptionFontSize": 15,
+    "mobileSecondaryFontSize": 12,
+    "mobileButtonFontSize": 14,
+    "mobileButtonPaddingY": 14,
+    "mobileButtonPaddingX": 32,
+    "mobileButtonGap": 12
+  }
+}
