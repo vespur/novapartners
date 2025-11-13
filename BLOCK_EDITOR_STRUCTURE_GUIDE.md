@@ -1075,26 +1075,253 @@ LIST 구조 검증:
 
 ---
 
-## 🛠️ 빠른 검증 스크립트
+## 🚨 필수 검증 절차 (새 블록 개발 시 반드시 실행)
 
-새 블록을 만들었을 때 다음을 확인하세요:
+### Phase 1: JSON 문법 검증
 
+**1️⃣ JSON 파싱 검증**
 ```bash
-# JSON 형식 검증
-python3 -m json.tool 1-1-1-X.your-block.json > /dev/null
+python3 -m json.tool 1-1-X-X.your-block.json > /dev/null && echo "✅ 파싱 성공" || echo "❌ 파싱 실패"
+```
 
-# HTML에서 참조하지만 JSON에 없는 필드 찾기
-# 1. JSON fields 추출
-# 2. HTML {{#if fieldName}}와 비교
+**2️⃣ 스마트 따옴표 제거**
+```python
+import json
+
+with open('1-1-X-X.your-block.json', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# 스마트 따옴표 검출
+smart_left = content.count('\u201c')
+smart_right = content.count('\u201d')
+
+if smart_left + smart_right > 0:
+    print(f"❌ 스마트 따옴표 발견: {smart_left + smart_right}개")
+    # 수정: 모두 일반 따옴표로 변환
+    fixed = content.replace('\u201c', '"').replace('\u201d', '"')
+    with open('1-1-X-X.your-block.json', 'w', encoding='utf-8') as f:
+        f.write(fixed)
+else:
+    print("✅ 스마트 따옴표 없음")
+```
+
+**3️⃣ COLOR_PICKER 색상 형식 검증**
+```python
+import json
+import re
+
+with open('1-1-X-X.your-block.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+for setting in data.get('settings', []):
+    if setting.get('type') == 'COLOR_PICKER':
+        color = setting.get('default', '')
+        # HEX 형식 확인: #000000 또는 #00000000
+        if not re.match(r'^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$', str(color)):
+            print(f"❌ {setting.get('id')}: {color} (HEX 형식 아님)")
+        else:
+            print(f"✅ {setting.get('id')}: {color}")
+```
+
+### Phase 2: 필드 타입 검증
+
+**4️⃣ 지원하는 필드 타입 확인**
+```python
+import json
+
+SUPPORTED_TYPES = {'TEXT', 'TEXTAREA', 'CHECKBOX', 'COLOR_PICKER', 'LINK', 'RADIO', 'RANGE', 'LIST', 'TITLE'}
+
+with open('1-1-X-X.your-block.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+for setting in data.get('settings', []):
+    field_type = setting.get('type')
+    if field_type not in SUPPORTED_TYPES:
+        print(f"❌ 지원 안 함: {setting.get('id')} ({field_type})")
+
+    # LIST 내부 필드도 검증
+    if 'settings' in setting:
+        for subsetting in setting['settings']:
+            sub_type = subsetting.get('type')
+            if sub_type not in SUPPORTED_TYPES:
+                print(f"❌ 지원 안 함: LIST {setting.get('id')} → {subsetting.get('id')} ({sub_type})")
+```
+
+**5️⃣ TEXT_LONG → TEXTAREA 변환 확인**
+```python
+import json
+
+with open('1-1-X-X.your-block.json', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+if 'TEXT_LONG' in content:
+    print("❌ TEXT_LONG 발견! TEXTAREA로 변경 필요")
+else:
+    print("✅ TEXT_LONG 없음")
+```
+
+### Phase 3: LIST 구조 검증
+
+**6️⃣ LIST 구조 확인**
+```python
+import json
+
+with open('1-1-X-X.your-block.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+for setting in data.get('settings', []):
+    if setting.get('type') == 'LIST':
+        list_id = setting.get('id')
+
+        # 반드시 "settings" 키 필요
+        if 'fields' in setting:
+            print(f"❌ {list_id}: 'fields' 사용 중 → 'settings'로 변경 필요")
+        elif 'settings' not in setting:
+            print(f"❌ {list_id}: 'settings' 없음")
+        else:
+            print(f"✅ {list_id}: 올바른 구조")
+
+        # "maxItems" → "maxCount" 확인
+        if 'maxItems' in setting:
+            print(f"❌ {list_id}: 'maxItems' 사용 → 'maxCount'로 변경")
+
+        # "default" 배열 제거 확인
+        if 'default' in setting and isinstance(setting['default'], list):
+            print(f"❌ {list_id}: 'default' 배열 있음 → 제거 필요")
+```
+
+### Phase 4: HTML/CSS 검증
+
+**7️⃣ CSS 내 Handlebars 계산식 확인**
+```python
+import re
+
+with open('1-1-X-X.your-block.html', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# <style> 추출
+style_match = re.search(r'<style>(.*?)</style>', content, re.DOTALL)
+if style_match:
+    style_content = style_match.group(1)
+
+    # 계산식 패턴 검사
+    patterns = [
+        r'{{\s*property\.\w+\s*[\*\+\-]\s*\d+\s*}}',  # {{property.x * n}}
+        r'repeat\([^)]*{{\w+[^)]*}}\)',               # repeat({{...}})
+        r'calc\([^)]*{{\w+[^)]*}}\)',                 # calc({{...}})
+    ]
+
+    found = False
+    for pattern in patterns:
+        matches = re.findall(pattern, style_content)
+        if matches:
+            found = True
+            print(f"❌ CSS 계산식 발견: {matches}")
+
+    if not found:
+        print("✅ CSS 계산식 없음")
+```
+
+**8️⃣ CSS 조건문 확인**
+```python
+import re
+
+with open('1-1-X-X.your-block.html', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# CSS 내 Handlebars 조건문 검사
+style_match = re.search(r'<style>(.*?)</style>', content, re.DOTALL)
+if style_match:
+    style_content = style_match.group(1)
+    if '{{#if' in style_content or '{{#each' in style_content:
+        print("❌ CSS 내 Handlebars 조건문 발견!")
+    else:
+        print("✅ CSS 조건문 없음")
+```
+
+### Phase 5: 최종 검증
+
+**9️⃣ description 길이 확인**
+```python
+import json
+
+with open('1-1-X-X.your-block.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+for setting in data.get('settings', []):
+    if 'description' in setting:
+        desc_len = len(setting['description'])
+        if desc_len > 100:
+            print(f"❌ {setting.get('id')}: description {desc_len}자 (100자 이상)")
+        else:
+            print(f"✅ {setting.get('id')}: {desc_len}자")
+```
+
+**🔟 RADIO 옵션 label 길이 확인**
+```python
+import json
+
+with open('1-1-X-X.your-block.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+for setting in data.get('settings', []):
+    if setting.get('type') == 'RADIO':
+        for option in setting.get('options', []):
+            label = option.get('label', '')
+            if len(label) > 20:
+                print(f"❌ {setting.get('id')} 옵션: '{label}' ({len(label)}자)")
+            else:
+                print(f"✅ {setting.get('id')} 옵션: '{label}' ({len(label)}자)")
 ```
 
 ---
 
-**문서 버전**: 1.5
+## 📋 블록 개발 체크리스트 (필수)
+
+### JSON 검증
+- [ ] `python3 -m json.tool` 파싱 성공
+- [ ] 스마트 따옴표 0개
+- [ ] TEXT_LONG 없음 (모두 TEXTAREA)
+- [ ] LIST에 "settings" 사용 (fields ❌)
+- [ ] LIST에 "maxCount" 사용 (maxItems ❌)
+- [ ] LIST에 "default" 배열 없음
+- [ ] COLOR_PICKER 모두 HEX 형식 (#RRGGBB 또는 #RRGGBBAA)
+- [ ] description 길이 100자 이하
+- [ ] RADIO label 길이 20자 이하
+
+### HTML 검증
+- [ ] CSS에 Handlebars 조건문 없음 ({{#if}} ❌)
+- [ ] CSS에 계산식 없음 ({{property.x * n}} ❌)
+- [ ] CSS에 repeat/calc 함수와 Handlebars 조합 없음
+- [ ] @media 쿼리 내에 Handlebars 조건문 없음
+- [ ] 모든 CSS 선택자는 항상 유효한 상태
+- [ ] JavaScript에서 bm.property 사용 (bm.context.property ❌)
+- [ ] Animation은 shorthand 형식 사용
+- [ ] 모든 JavaScript 코드 try-catch로 감싸기
+
+### JSON/HTML 동기화
+- [ ] HTML에서 참조하는 모든 필드가 JSON에 정의되어 있음
+- [ ] JSON에서 제거한 필드는 HTML에서도 제거
+- [ ] LIST의 모든 필드가 default 데이터에 포함
+
+---
+
+## 🔴 발생 가능한 에러 정리 (해결책 포함)
+
+| 에러 메시지 | 원인 | 증상 | 해결책 |
+|----------|------|------|--------|
+| JSON 파싱 오류 | 스마트 따옴표 사용 | 블록 생성 불가 | 모든 " 를 일반 따옴표로 변경 |
+| "지원하지 않는 settingType" (TEXT_LONG) | TEXT_LONG 필드 사용 | 저장 실패 | TEXT_LONG → TEXTAREA |
+| "default는 hex 코드 형식만" | COLOR_PICKER에 RGBA/RGB 사용 | 저장 실패 | RGBA → HEX with Alpha |
+| "style 문법 오류" | CSS 계산식 또는 조건문 | 저장 성공하지만 렌더링 안 됨 | CSS에서 모든 계산식/조건문 제거 |
+| 검은 화면 (블록 로드 안 됨) | JavaScript 런타임 에러 | 에디터에서 블록 안 보임 | try-catch로 감싸기, 콘솔 에러 확인 |
+
+---
+
+**문서 버전**: 2.0
 **작성일**: 2025-11-13
 **수정일**: 2025-11-13
-**최종 수정**: 2025-11-13 (흔한 에러 패턴 섹션 추가, HTML/JSON 동기화 체크리스트 추가)
-**기준 블록**: 1-1-1-1~1-1-1-6 모든 섹션
+**최종 수정**: 2025-11-13 (필수 검증 절차 및 체크리스트 추가)
 
 ### 📌 v1.5 주요 업데이트
 
