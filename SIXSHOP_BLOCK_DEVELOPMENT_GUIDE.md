@@ -21,7 +21,11 @@
 
 ### Part 3: 개발 원칙
 10. [사용자 요청 개발 원칙](#10-사용자-요청-개발-원칙)
-11. [최종 체크리스트](#11-최종-체크리스트)
+    - 10-10. [데스크톱/모바일 완전 분리 원칙](#10-10-데스크톱모바일-완전-분리-원칙-)
+    - 10-11. [디자인 자유도 극대화 원칙](#10-11-디자인-자유도-극대화-원칙-)
+    - 10-12. [여백 분리 원칙](#10-12-여백-분리-원칙-)
+12. [최종 체크리스트](#12-최종-체크리스트)
+13. [규칙 요약](#13-규칙-요약)
 
 ---
 
@@ -1013,9 +1017,645 @@ bm.onDestroy = () => {
 | 제목 | 36px | 24px |
 | 본문 | 20px | 16px |
 
+### 10-10) 데스크톱/모바일 완전 분리 원칙 ⭐
+
+**목적:** 비개발자가 데스크톱과 모바일 각각에 최적화된 디자인 설정 가능
+
+**핵심 원칙:** 모든 주요 UI 요소는 데스크톱과 모바일에서 **완전히 독립적인 설정**을 제공해야 함
+
+#### 필수 분리 대상
+
+**1. 레이아웃 구조**
+```json
+// 높이
+{
+  "id": "headerHeight",
+  "label": "헤더 높이 (데스크톱)",
+  "type": "RANGE",
+  "default": 80
+}
+{
+  "id": "mobileHeaderHeight",
+  "label": "헤더 높이 (모바일)",
+  "type": "RANGE",
+  "default": 60
+}
+
+// 여백
+{
+  "id": "headerPaddingY",
+  "label": "상하 여백 (데스크톱)"
+}
+{
+  "id": "mobileHeaderPaddingY",
+  "label": "상하 여백 (모바일)"
+}
+```
+
+**2. 텍스트 크기**
+```json
+// 모든 텍스트 요소
+{
+  "id": "menuSizeDesktop",
+  "label": "메뉴 글자 크기 (데스크톱)",
+  "type": "RANGE",
+  "min": 12,
+  "max": 24,
+  "default": 16
+}
+{
+  "id": "menuSizeMobile",
+  "label": "메뉴 글자 크기 (모바일)",
+  "type": "RANGE",
+  "min": 14,
+  "max": 24,
+  "default": 16
+}
+```
+
+**3. 색상 (선택적 분리)**
+```json
+// 필요시 데스크톱/모바일 다른 색상
+{
+  "id": "menuColorDesktop",
+  "label": "메뉴 색상 (데스크톱)"
+}
+{
+  "id": "menuColorMobile",
+  "label": "메뉴 색상 (모바일)"
+}
+```
+
+**4. 간격/여백**
+```json
+{
+  "id": "menuGapDesktop",
+  "label": "메뉴 간격 (데스크톱)",
+  "default": 30
+}
+{
+  "id": "menuGapMobile",
+  "label": "메뉴 간격 (모바일)",
+  "default": 0  // 모바일은 세로 메뉴이므로 0
+}
+```
+
+**5. 위치/정렬**
+```json
+{
+  "id": "logoAlign",
+  "label": "로고 정렬 (데스크톱)",
+  "type": "RADIO",
+  "options": [
+    {"label": "왼쪽", "value": "left"},
+    {"label": "가운데", "value": "center"}
+  ]
+}
+{
+  "id": "mobileLogoMarginLeft",
+  "label": "로고 좌측 여백 (모바일)",
+  "type": "RANGE",
+  "description": "로고의 정확한 위치를 조절해주세요."
+}
+```
+
+#### 모바일 전용 UI 시스템
+
+**중요:** 헤더/네비게이션 블록의 경우, 모바일은 완전히 다른 UI 시스템 제공 권장
+
+```json
+// 데스크톱: 가로 메뉴바 + 호버 드롭다운
+// 모바일: 햄버거 버튼 + 드로어 메뉴 + 아코디언
+
+// 모바일 전용 설정
+{
+  "type": "TITLE",
+  "content": "🍔 햄버거 버튼"
+}
+{
+  "id": "hamburgerPosition",
+  "label": "버튼 위치",
+  "type": "RADIO",
+  "options": [
+    {"label": "왼쪽", "value": "left"},
+    {"label": "오른쪽", "value": "right"}
+  ]
+}
+{
+  "type": "TITLE",
+  "content": "🎭 드로어 메뉴"
+}
+{
+  "id": "drawerAnimation",
+  "label": "열림 효과",
+  "type": "RADIO",
+  "options": [
+    {"label": "왼쪽에서", "value": "left"},
+    {"label": "오른쪽에서", "value": "right"},
+    {"label": "페이드", "value": "fade"}
+  ]
+}
+```
+
+#### CSS 적용 패턴
+
+```css
+/* 데스크톱 스타일 */
+.header {
+  height: {{property.headerHeight}}px;
+  padding: {{property.headerPaddingY}}px {{property.headerPaddingX}}px;
+}
+
+.menu-item {
+  font-size: {{property.menuSizeDesktop}}px;
+  color: {{property.menuColorDesktop}};
+  gap: {{property.menuGapDesktop}}px;
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+  .header {
+    height: {{property.mobileHeaderHeight}}px !important;
+    padding: {{property.mobileHeaderPaddingY}}px {{property.mobileHeaderPaddingX}}px !important;
+  }
+
+  .menu-item {
+    font-size: {{property.menuSizeMobile}}px !important;
+    color: {{property.menuColorMobile}} !important;
+  }
+
+  /* 모바일 전용 UI */
+  .hamburger-button {
+    display: block;
+    {{#if (eq property.hamburgerPosition "right")}}
+    right: {{property.mobileHeaderPaddingX}}px;
+    {{else}}
+    left: {{property.mobileHeaderPaddingX}}px;
+    {{/if}}
+  }
+}
+```
+
+#### 분리 체크리스트
+
+**모든 블록에서 데스크톱/모바일 분리 필수:**
+- [ ] 높이 (height)
+- [ ] 여백 (padding, margin)
+- [ ] 텍스트 크기 (font-size)
+- [ ] 간격 (gap, spacing)
+
+**필요시 분리:**
+- [ ] 색상 (일반적으로 통일하지만, 필요시 분리)
+- [ ] 정렬 방식 (데스크톱 가로 ↔ 모바일 세로)
+- [ ] 표시/숨김 (특정 요소 모바일에서만 표시)
+
+### 10-11) 디자인 자유도 극대화 원칙 ⭐
+
+**목적:** 비개발자가 코드 수정 없이 모든 디자인 요소를 자유롭게 변경 가능
+
+**핵심 원칙:** "통이미지" 금지 - 모든 요소를 분리하여 개별 편집 가능하게
+
+#### 필수 제공 설정 (요소 타입별)
+
+**1. 모든 텍스트 요소 (제목, 본문, 메뉴, 버튼 등)**
+
+3가지 필수:
+```json
+{
+  "id": "elementFontSize",
+  "label": "글자 크기",
+  "type": "RANGE",
+  "min": 12,
+  "max": 48,
+  "step": 2,
+  "unit": "px"
+}
+{
+  "id": "elementFontWeight",
+  "label": "글자 굵기",
+  "type": "RADIO",
+  "options": [
+    {"label": "일반 (400)", "value": "400"},
+    {"label": "중간 (500)", "value": "500"},
+    {"label": "Semi Bold (600)", "value": "600"},
+    {"label": "Bold (700)", "value": "700"}
+  ]
+}
+{
+  "id": "elementColor",
+  "label": "글자 색상",
+  "type": "COLOR_PICKER"
+}
+```
+
+**2. 모든 컨테이너/박스 요소**
+
+필수:
+```json
+{
+  "id": "elementBg",
+  "label": "배경 색상",
+  "type": "COLOR_PICKER"
+}
+{
+  "id": "elementPaddingY",
+  "label": "상하 안쪽 여백",
+  "type": "RANGE",
+  "min": 0,
+  "max": 100,
+  "unit": "px"
+}
+{
+  "id": "elementPaddingX",
+  "label": "좌우 안쪽 여백",
+  "type": "RANGE",
+  "min": 0,
+  "max": 100,
+  "unit": "px"
+}
+```
+
+권장:
+```json
+{
+  "id": "elementMarginTop",
+  "label": "위쪽 바깥 여백"
+}
+{
+  "id": "elementMarginBottom",
+  "label": "아래쪽 바깥 여백"
+}
+{
+  "id": "elementRadius",
+  "label": "모서리 둥글기",
+  "type": "RANGE",
+  "min": 0,
+  "max": 50,
+  "unit": "px"
+}
+{
+  "id": "elementShadow",
+  "label": "그림자 강도",
+  "type": "RANGE",
+  "min": 0,
+  "max": 50
+}
+```
+
+**3. 테두리 있는 요소**
+
+```json
+{
+  "id": "elementBorderWidth",
+  "label": "테두리 두께",
+  "type": "RANGE",
+  "min": 0,
+  "max": 10,
+  "unit": "px"
+}
+{
+  "id": "elementBorderColor",
+  "label": "테두리 색상",
+  "type": "COLOR_PICKER"
+}
+{
+  "id": "elementBorderStyle",
+  "label": "테두리 스타일",
+  "type": "RADIO",
+  "options": [
+    {"label": "실선", "value": "solid"},
+    {"label": "점선", "value": "dashed"},
+    {"label": "파선", "value": "dotted"}
+  ]
+}
+```
+
+**4. 구분선 (Divider)**
+
+```json
+{
+  "id": "dividerEnabled",
+  "label": "구분선 표시",
+  "type": "CHECKBOX"
+}
+{
+  "id": "dividerColor",
+  "label": "구분선 색상",
+  "type": "COLOR_PICKER",
+  "isVisible": "property.dividerEnabled === true"
+}
+{
+  "id": "dividerThickness",
+  "label": "구분선 두께",
+  "type": "RANGE",
+  "min": 1,
+  "max": 5,
+  "unit": "px",
+  "isVisible": "property.dividerEnabled === true"
+}
+```
+
+**5. Hover/Active 상태**
+
+```json
+{
+  "id": "elementHoverBg",
+  "label": "Hover 배경색",
+  "type": "COLOR_PICKER"
+}
+{
+  "id": "elementHoverColor",
+  "label": "Hover 글자색",
+  "type": "COLOR_PICKER"
+}
+{
+  "id": "elementActiveColor",
+  "label": "선택된 항목 색상",
+  "type": "COLOR_PICKER"
+}
+```
+
+**6. 그라디언트 배경**
+
+```json
+{
+  "id": "bgGradientEnabled",
+  "label": "그라디언트 배경 사용",
+  "type": "CHECKBOX"
+}
+{
+  "id": "bgGradientStart",
+  "label": "시작 색상",
+  "type": "COLOR_PICKER",
+  "isVisible": "property.bgGradientEnabled === true"
+}
+{
+  "id": "bgGradientEnd",
+  "label": "끝 색상",
+  "type": "COLOR_PICKER",
+  "isVisible": "property.bgGradientEnabled === true"
+}
+{
+  "id": "bgGradientAngle",
+  "label": "그라디언트 각도",
+  "type": "RANGE",
+  "min": 0,
+  "max": 360,
+  "step": 45,
+  "unit": "deg",
+  "isVisible": "property.bgGradientEnabled === true"
+}
+```
+
+**7. 간격 제어**
+
+```json
+// 요소 간 간격
+{
+  "id": "itemGap",
+  "label": "항목 간 간격",
+  "type": "RANGE",
+  "min": 0,
+  "max": 100,
+  "unit": "px"
+}
+
+// 그룹 간 간격
+{
+  "id": "groupGap",
+  "label": "그룹 간 간격",
+  "type": "RANGE",
+  "min": 0,
+  "max": 100,
+  "unit": "px"
+}
+```
+
+#### 제목/항목 분리 원칙 ⚠️
+
+**중요:** 계층 구조가 있는 경우 (예: 메뉴 제목 + 메뉴 항목), 반드시 별도 설정 제공
+
+```json
+// ❌ 잘못된 예 - 제목과 항목이 같은 설정 공유
+{
+  "id": "submenuFontSize",  // 제목과 항목 모두 적용
+  "label": "하위 메뉴 글자 크기"
+}
+
+// ✅ 올바른 예 - 제목과 항목 완전 분리
+{
+  "type": "TITLE",
+  "content": "📂 하위 메뉴 제목"
+}
+{
+  "id": "submenuTitleFontSize",
+  "label": "제목 글자 크기"
+}
+{
+  "id": "submenuTitleFontWeight",
+  "label": "제목 글자 굵기"
+}
+{
+  "id": "submenuTitleColor",
+  "label": "제목 글자 색상"
+}
+{
+  "type": "TITLE",
+  "content": "📄 하위 메뉴 항목"
+}
+{
+  "id": "submenuItemFontSize",
+  "label": "항목 글자 크기"
+}
+{
+  "id": "submenuItemFontWeight",
+  "label": "항목 글자 굵기"
+}
+{
+  "id": "submenuItemColor",
+  "label": "항목 글자 색상"
+}
+```
+
+#### 디자인 자유도 체크리스트
+
+**모든 블록에서 확인:**
+- [ ] 모든 텍스트 요소에 크기/굵기/색상 제공
+- [ ] 모든 컨테이너에 배경/여백 제공
+- [ ] Hover 상태 색상 제공
+- [ ] 구분선 표시/색상/두께 제어 가능
+- [ ] 간격 조절 가능 (요소 간, 그룹 간)
+- [ ] 그림자/블러 효과 제어 가능 (적용 시)
+- [ ] 계층 구조가 있는 경우 제목/항목 분리
+
+**금지 사항:**
+- [ ] 통이미지로 텍스트 처리 (편집 불가능)
+- [ ] 하드코딩된 색상/크기 (편집 불가능)
+- [ ] 제목과 항목이 같은 설정 공유 (세밀한 제어 불가능)
+
+### 10-12) 여백 분리 원칙 ⭐
+
+**목적:** 상하/좌우 여백을 독립적으로 조절하여 정밀한 레이아웃 제어
+
+**핵심 원칙:** 단일 `padding`/`margin` 금지 → `paddingY`/`paddingX` 분리
+
+#### 잘못된 패턴 ❌
+
+```json
+// ❌ 단일 padding - 상하좌우 동시 변경만 가능
+{
+  "id": "headerPadding",
+  "label": "헤더 여백",
+  "type": "RANGE",
+  "min": 0,
+  "max": 100
+}
+```
+
+```css
+/* 사용자가 원하는 것:
+   - 상하: 20px
+   - 좌우: 40px
+   → 불가능! */
+.header {
+  padding: {{property.headerPadding}}px;
+}
+```
+
+#### 올바른 패턴 ✅
+
+```json
+// ✅ paddingY/paddingX 분리
+{
+  "id": "headerPaddingY",
+  "label": "헤더 상하 여백",
+  "type": "RANGE",
+  "min": 0,
+  "max": 100,
+  "unit": "px",
+  "default": 20
+}
+{
+  "id": "headerPaddingX",
+  "label": "헤더 좌우 여백",
+  "type": "RANGE",
+  "min": 0,
+  "max": 200,
+  "unit": "px",
+  "default": 40
+}
+```
+
+```css
+.header {
+  padding: {{property.headerPaddingY}}px {{property.headerPaddingX}}px;
+}
+```
+
+#### 적용 대상
+
+**1. 모든 컨테이너 padding**
+```json
+{
+  "id": "containerPaddingY",
+  "label": "상하 안쪽 여백"
+}
+{
+  "id": "containerPaddingX",
+  "label": "좌우 안쪽 여백"
+}
+```
+
+**2. 개별 요소 padding**
+```json
+{
+  "id": "menuItemPaddingY",
+  "label": "메뉴 항목 상하 여백"
+}
+{
+  "id": "menuItemPaddingX",
+  "label": "메뉴 항목 좌우 여백"
+}
+```
+
+**3. 드로어/패널 padding**
+```json
+{
+  "id": "drawerPaddingY",
+  "label": "드로어 상하 여백"
+}
+{
+  "id": "drawerPaddingX",
+  "label": "드로어 좌우 여백"
+}
+```
+
+#### Margin도 동일 원칙 적용 (필요시)
+
+```json
+// 특정 방향만 필요한 경우
+{
+  "id": "elementMarginTop",
+  "label": "위쪽 바깥 여백"
+}
+{
+  "id": "elementMarginBottom",
+  "label": "아래쪽 바깥 여백"
+}
+
+// 좌우도 필요한 경우
+{
+  "id": "elementMarginLeft",
+  "label": "왼쪽 바깥 여백"
+}
+{
+  "id": "elementMarginRight",
+  "label": "오른쪽 바깥 여백"
+}
+```
+
+#### 4방향 완전 분리가 필요한 경우
+
+```json
+// 예: 하위 메뉴 패널
+{
+  "id": "submenuPaddingTop",
+  "label": "위쪽 안쪽 여백"
+}
+{
+  "id": "submenuPaddingBottom",
+  "label": "아래쪽 안쪽 여백"
+}
+{
+  "id": "submenuPaddingLeft",
+  "label": "왼쪽 안쪽 여백"
+}
+{
+  "id": "submenuPaddingRight",
+  "label": "오른쪽 안쪽 여백"
+}
+```
+
+```css
+.submenu {
+  padding-top: {{property.submenuPaddingTop}}px;
+  padding-bottom: {{property.submenuPaddingBottom}}px;
+  padding-left: {{property.submenuPaddingLeft}}px;
+  padding-right: {{property.submenuPaddingRight}}px;
+}
+```
+
+#### 여백 분리 체크리스트
+
+- [ ] 모든 컨테이너 padding을 paddingY/paddingX로 분리
+- [ ] 개별 요소 padding도 Y/X 분리
+- [ ] 4방향 독립 제어가 필요한 경우 Top/Bottom/Left/Right 분리
+- [ ] margin도 필요시 방향별로 분리
+- [ ] 데스크톱/모바일 각각 분리된 여백 설정
+
 ---
 
-## 11. 최종 체크리스트
+## 12. 최종 체크리스트
 
 ### 코드 품질
 - [ ] console.log 모두 제거
@@ -1090,9 +1730,30 @@ bm.onDestroy = () => {
 - [ ] 본문 데스크톱: 20px
 - [ ] 본문 모바일: 16px
 
+### 데스크톱/모바일 완전 분리 ⭐
+- [ ] 높이 데스크톱/모바일 분리
+- [ ] 여백 데스크톱/모바일 분리 (paddingY/paddingX)
+- [ ] 텍스트 크기 데스크톱/모바일 분리
+- [ ] 간격 데스크톱/모바일 분리
+- [ ] 모바일 전용 UI 시스템 제공 (헤더의 경우 햄버거+드로어)
+
+### 디자인 자유도 극대화 ⭐
+- [ ] 모든 텍스트: 크기/굵기/색상 3가지 제공
+- [ ] 모든 컨테이너: 배경/paddingY/paddingX 제공
+- [ ] Hover/Active 상태 색상 제공
+- [ ] 구분선: 표시/색상/두께 제어
+- [ ] 간격: 요소 간/그룹 간 조절 가능
+- [ ] 계층 구조: 제목/항목 완전 분리
+- [ ] 통이미지 사용 금지
+
+### 여백 분리 ⭐
+- [ ] padding을 paddingY/paddingX로 분리
+- [ ] margin도 필요시 방향별 분리
+- [ ] 4방향 독립 제어 필요시 Top/Bottom/Left/Right 분리
+
 ---
 
-## 규칙 요약
+## 13. 규칙 요약
 
 ### ⛔ 절대 금지
 1. LIST 중첩
@@ -1106,6 +1767,9 @@ bm.onDestroy = () => {
 9. console.log 남기기
 10. JavaScript 동적 복제 (무한 스크롤)
 11. 반말 사용 (템플릿 납품용)
+12. 통이미지 사용 (텍스트 편집 불가능)
+13. 단일 padding/margin (paddingY/paddingX 분리 필수)
+14. 제목과 항목이 같은 설정 공유 (완전 분리 필수)
 
 ### ✅ 필수 준수
 1. HTML/JSON 파일 분리
@@ -1121,10 +1785,14 @@ bm.onDestroy = () => {
 11. 존댓말 + 친절한 설명 (템플릿 납품용)
 12. 텍스트 기본값 (제목 36/24px, 본문 20/16px)
 13. 스크롤 인터렉션 (적합한 블록)
+14. 데스크톱/모바일 완전 분리 (높이, 여백, 크기, 간격)
+15. 모든 텍스트 요소에 크기/굵기/색상 3가지 제공
+16. padding을 paddingY/paddingX로 분리
+17. 계층 구조 시 제목/항목 완전 분리
 
 ---
 
-**문서 버전**: 2.1 (통합 + 템플릿 납품 기준)
+**문서 버전**: 2.2 (통합 + 템플릿 납품 + 디자인 자유도 기준)
 **최종 업데이트**: 2025-01-13
 **통합 세션**:
 - 엔터프라이즈 헤더 (claude/sixshop-pro-web-builder-continue-011CV1vwWJU3kNEADVdqJbxY)
@@ -1135,3 +1803,11 @@ bm.onDestroy = () => {
 - 비개발자를 위한 에디터 UX (존댓말, 친절한 설명)
 - 스크롤 인터렉션 구현 가이드
 - 텍스트 크기 기본값 (제목 36/24px, 본문 20/16px)
+
+**추가 기준 (v2.2)**:
+- 데스크톱/모바일 완전 분리 원칙 (Section 10-10)
+- 디자인 자유도 극대화 원칙 (Section 10-11)
+- 여백 분리 원칙 paddingY/paddingX (Section 10-12)
+- 모든 텍스트 요소에 크기/굵기/색상 3가지 필수
+- 계층 구조 시 제목/항목 완전 분리
+- 통이미지 사용 금지
