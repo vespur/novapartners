@@ -606,7 +606,8 @@ console.error('test');
 
 - [ ] RICH_TEXT: 굵게, 기울임꼴 작동
 - [ ] RICH_TEXT: HTML 코드가 아닌 정상 글자로 표시
-- [ ] RICH_TEXT: **type, color, alignment 반드시 제외** (exclude)
+- [ ] RICH_TEXT: 불필요한 속성 숨김 (exclude)
+  - **블록에서 별도로 텍스트 크기/색상 조절 옵션이 있을 경우, type, color, alignment 제외**
   ```json
   "exclude": ["type", "color", "alignment"]
   ```
