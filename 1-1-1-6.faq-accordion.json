@@ -93,7 +93,7 @@
       "label": "경계선 색상",
       "description": "FAQ 항목의 경계선 색상",
       "type": "COLOR_PICKER",
-      "default": "rgba(0, 0, 0, 0.08)"
+      "default": "#0000001A"
     },
     {
       "type": "TITLE",
