@@ -944,16 +944,15 @@ python3 -m json.tool 1-1-1-X.your-block.json > /dev/null
    - JavaScript 런타임 에러 패턴
    - 식스샵 가이드라인 위반 체크표
 
-### 🔴 Critical Fix (2025-11-13)
+### 🔴 Critical Fixes (2025-11-13)
 
-**발견된 문제**: CSS 내 모든 {{#if}} 조건문 (보조 규칙뿐만 아니라 @media 쿼리 내까지)이 CSS 파서 오류를 유발
+#### Fix 1: CSS Handlebars 조건문 오류
+**발견된 문제**: CSS 내 모든 {{#if}} 조건문이 CSS 파서 오류를 유발
 
 **수정된 사항**:
 1. **1-1-1-1**: bgOverlayOpacity와 enableDecorationCircles 조건 제거
-   - 해결: opacity 값 직접 사용 + data-visible 속성 패턴
-2. **1-1-1-2**: @media 쿼리 내 showDivider 조건 제거
+2. **1-1-1-2**: @media 쿼리 내 showDivider 조건 제거 (전체 HTML 재작성)
 3. **1-1-1-5**: CSS 내 bgType과 showContactInfo 조건 제거
-   - 해결: 기본값으로 항상 선언 + data-visible 속성으로 표시/숨김
 
 **적용 패턴**:
 ```css
@@ -966,3 +965,44 @@ python3 -m json.tool 1-1-1-X.your-block.json > /dev/null
   display: block;  /* JavaScript에서 setAttribute('data-visible', 'true') */
 }
 ```
+
+#### Fix 2: JSON 스마트 따옴표 파싱 오류 (필수 해결!)
+**발견된 문제**: 편집기에서 따옴표가 스마트 따옴표(" ")로 자동 변환되어 JSON 파싱 실패
+
+**문제 상황**:
+- JSON만 붙여넣으면 화면 크래시 발생
+- HTML 없이도 JSON 파싱에 실패 → 에디터 자체 문제
+
+**원인**: 스마트 따옴표 (U+201C, U+201D) 사용
+```json
+// ❌ 잘못된 예 (스마트 따옴표 "")
+{
+  "label": "섹션 제목"
+}
+```
+
+**정상 상황**: 기본 따옴표 (U+0022) 사용
+```json
+// ✅ 올바른 예
+{
+  "label": "섹션 제목"
+}
+```
+
+**예방 방법**:
+- JSON 편집 시 **스마트 따옴표 자동 변환 비활성화**
+- 외부 JSON 에디터 사용 (VS Code, Sublime 등)
+- 파일 저장 전 JSON 검증: https://jsonlint.com/
+
+**수정 방법** (Python):
+```python
+import json
+with open('file.json', 'r', encoding='utf-8') as f:
+    content = f.read()
+fixed = content.replace('\u201c', '"').replace('\u201d', '"')
+json.loads(fixed)  # 검증
+with open('file.json', 'w', encoding='utf-8') as f:
+    f.write(fixed)
+```
+
+**실제 적용 사례**: 1-1-1-2 JSON 파일에서 1,238개의 스마트 따옴표 제거
