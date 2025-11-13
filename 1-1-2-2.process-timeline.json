@@ -1,0 +1,261 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 섹션 제목"
+    },
+    {
+      "id": "sectionTitle",
+      "label": "섹션 제목",
+      "type": "TEXT",
+      "placeholder": "구현 프로세스"
+    },
+    {
+      "id": "sectionDescription",
+      "label": "섹션 설명 (선택사항)",
+      "type": "TEXTAREA",
+      "placeholder": "5단계 프로세스로 체계적으로 진행합니다"
+    },
+    {
+      "type": "TITLE",
+      "content": "📍 타임라인 항목"
+    },
+    {
+      "id": "timelineItems",
+      "label": "타임라인 항목",
+      "type": "LIST",
+      "maxCount": 5,
+      "settings": [
+        {
+          "id": "stepNumber",
+          "label": "단계 번호",
+          "type": "TEXT",
+          "placeholder": "예: 1단계"
+        },
+        {
+          "id": "stepTitle",
+          "label": "단계 제목",
+          "type": "TEXT",
+          "placeholder": "예: 현황 분석"
+        },
+        {
+          "id": "stepDescription",
+          "label": "단계 설명",
+          "type": "TEXTAREA",
+          "placeholder": "이 단계에서 진행되는 내용을 설명하세요"
+        },
+        {
+          "id": "duration",
+          "label": "소요 기간",
+          "type": "TEXT",
+          "placeholder": "예: 2-3주"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 및 스타일"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경색",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "stepBackgroundColor",
+      "label": "단계 배경색",
+      "type": "COLOR_PICKER",
+      "default": "#f5f7ff"
+    },
+    {
+      "id": "accentColor",
+      "label": "강조색",
+      "type": "COLOR_PICKER",
+      "default": "#0055ff"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 크기 (데스크톱)"
+    },
+    {
+      "id": "paddingY",
+      "label": "위아래 여백",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "id": "paddingX",
+      "label": "좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "id": "stepPadding",
+      "label": "단계 박스 패딩",
+      "type": "RANGE",
+      "min": 24,
+      "max": 60,
+      "step": 6,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트 크기 (데스크톱)"
+    },
+    {
+      "id": "sectionTitleFontSize",
+      "label": "섹션 제목 글자 크기",
+      "type": "RANGE",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "id": "sectionDescriptionFontSize",
+      "label": "섹션 설명 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "stepNumberFontSize",
+      "label": "단계 번호 글자 크기",
+      "type": "RANGE",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "id": "stepTitleFontSize",
+      "label": "단계 제목 글자 크기",
+      "type": "RANGE",
+      "min": 18,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "id": "stepDescriptionFontSize",
+      "label": "단계 설명 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "durationFontSize",
+      "label": "소요 기간 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 위아래 여백",
+      "type": "RANGE",
+      "min": 30,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileStepPadding",
+      "label": "모바일 단계 박스 패딩",
+      "type": "RANGE",
+      "min": 20,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    }
+  ],
+  "property": {
+    "sectionTitle": "5단계 구현 프로세스",
+    "sectionDescription": "노바파트너스의 체계적인 AI 전략 수립 및 구현 프로세스입니다",
+    "timelineItems": [
+      {
+        "stepNumber": "1단계",
+        "stepTitle": "현황 분석",
+        "stepDescription": "기업의 현재 상황, 비즈니스 목표, 기술 인프라 등을 종합적으로 분석합니다",
+        "duration": "2-3주"
+      },
+      {
+        "stepNumber": "2단계",
+        "stepTitle": "전략 수립",
+        "stepDescription": "분석 결과를 바탕으로 AI 도입의 기본 방향과 목표를 수립합니다",
+        "duration": "2-3주"
+      },
+      {
+        "stepNumber": "3단계",
+        "stepTitle": "기술 검토",
+        "stepDescription": "필요한 기술 스택과 시스템 아키텍처를 설계합니다",
+        "duration": "2-3주"
+      },
+      {
+        "stepNumber": "4단계",
+        "stepTitle": "로드맵 작성",
+        "stepDescription": "단계별 구현 계획과 마일스톤을 정의합니다",
+        "duration": "1-2주"
+      },
+      {
+        "stepNumber": "5단계",
+        "stepTitle": "계약 & 시작",
+        "stepDescription": "최종 계약 체결 후 구현 단계로 진행합니다",
+        "duration": "1주"
+      }
+    ],
+    "backgroundColor": "#ffffff",
+    "stepBackgroundColor": "#f5f7ff",
+    "accentColor": "#0055ff",
+    "paddingY": 80,
+    "paddingX": 40,
+    "stepPadding": 40,
+    "sectionTitleFontSize": 36,
+    "sectionDescriptionFontSize": 16,
+    "stepNumberFontSize": 36,
+    "stepTitleFontSize": 22,
+    "stepDescriptionFontSize": 14,
+    "durationFontSize": 13,
+    "mobilePaddingY": 50,
+    "mobilePaddingX": 20,
+    "mobileStepPadding": 28
+  }
+}
