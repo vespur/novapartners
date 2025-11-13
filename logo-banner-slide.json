@@ -1,222 +1,208 @@
 {
   "settings": [
     {
-      "type": "SECTION",
-      "label": "로고 관리",
+      "type": "TITLE",
+      "content": "🏢 로고 관리"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "고객사나 파트너사의 로고를 추가하여 브랜드 신뢰도를 높여보세요. 최소 3개 이상 권장합니다."
+    },
+    {
+      "id": "logos",
+      "label": "로고 목록",
+      "description": "고객사나 파트너사의 로고 이미지를 추가해주세요",
+      "type": "LIST",
+      "maxCount": 20,
       "settings": [
         {
-          "id": "logos",
-          "label": "로고 목록",
-          "description": "고객사나 파트너사의 로고를 추가하세요. 최소 3개 이상 권장합니다.",
-          "type": "LIST",
-          "minCount": 3,
-          "maxCount": 20,
-          "settings": [
-            {
-              "id": "name",
-              "label": "회사명",
-              "description": "접근성을 위한 대체 텍스트로 사용됩니다",
-              "type": "TEXT",
-              "placeholder": "예: 삼성전자",
-              "required": true
-            },
-            {
-              "id": "image",
-              "label": "로고 이미지",
-              "description": "투명 배경의 PNG 파일 권장 (가로형 로고 최적)",
-              "type": "IMAGE_PICKER",
-              "required": true
-            }
-          ]
+          "id": "name",
+          "label": "회사명",
+          "description": "접근성을 위한 대체 텍스트로 사용됩니다",
+          "type": "TEXT",
+          "placeholder": "예: 삼성전자"
+        },
+        {
+          "id": "image",
+          "label": "로고 이미지",
+          "description": "투명 배경의 PNG 파일 권장 (가로형 로고 최적)",
+          "type": "IMAGE_PICKER"
         }
       ]
     },
     {
-      "type": "SECTION",
-      "label": "애니메이션 설정",
-      "settings": [
+      "type": "TITLE",
+      "content": "🎬 애니메이션 설정"
+    },
+    {
+      "id": "direction",
+      "label": "스크롤 방향",
+      "description": "로고들이 움직일 방향을 선택해주세요",
+      "type": "RADIO",
+      "options": [
         {
-          "id": "direction",
-          "label": "스크롤 방향",
-          "type": "RADIO",
-          "options": [
-            {
-              "label": "← 왼쪽으로",
-              "value": "left"
-            },
-            {
-              "label": "→ 오른쪽으로",
-              "value": "right"
-            }
-          ],
-          "default": "left"
+          "label": "← 왼쪽으로",
+          "value": "left"
         },
         {
-          "id": "speed",
-          "label": "스크롤 속도 (데스크톱)",
-          "description": "숫자가 작을수록 빠르게 움직입니다",
-          "type": "RANGE",
-          "min": 10,
-          "max": 60,
-          "step": 5,
-          "unit": "초",
-          "default": 30
-        },
-        {
-          "id": "mobileSpeed",
-          "label": "스크롤 속도 (모바일)",
-          "description": "모바일에서의 애니메이션 속도",
-          "type": "RANGE",
-          "min": 10,
-          "max": 60,
-          "step": 5,
-          "unit": "초",
-          "default": 30
-        },
-        {
-          "id": "pauseOnHover",
-          "label": "마우스 호버 시",
-          "description": "마우스를 올렸을 때 동작을 선택하세요",
-          "type": "RADIO",
-          "options": [
-            {
-              "label": "일시정지",
-              "value": "paused"
-            },
-            {
-              "label": "계속 움직임",
-              "value": "running"
-            }
-          ],
-          "default": "paused"
+          "label": "→ 오른쪽으로",
+          "value": "right"
         }
       ]
     },
     {
-      "type": "SECTION",
-      "label": "로고 크기 및 간격",
-      "settings": [
+      "id": "speed",
+      "label": "스크롤 속도 (데스크톱)",
+      "description": "숫자가 작을수록 빠르게 움직입니다 (10초 = 매우 빠름, 60초 = 매우 느림)",
+      "type": "RANGE",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "초"
+    },
+    {
+      "id": "mobileSpeed",
+      "label": "스크롤 속도 (모바일)",
+      "description": "모바일에서의 애니메이션 속도입니다",
+      "type": "RANGE",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "초"
+    },
+    {
+      "id": "pauseOnHover",
+      "label": "마우스 호버 시",
+      "description": "마우스를 올렸을 때 동작을 선택하세요",
+      "type": "RADIO",
+      "options": [
         {
-          "id": "logoHeight",
-          "label": "로고 높이 (데스크톱)",
-          "type": "RANGE",
-          "min": 30,
-          "max": 120,
-          "step": 5,
-          "unit": "px",
-          "default": 50
+          "label": "일시정지",
+          "value": "paused"
         },
         {
-          "id": "mobileLogoHeight",
-          "label": "로고 높이 (모바일)",
-          "type": "RANGE",
-          "min": 25,
-          "max": 80,
-          "step": 5,
-          "unit": "px",
-          "default": 40
-        },
-        {
-          "id": "logoSpacing",
-          "label": "로고 간격 (데스크톱)",
-          "type": "RANGE",
-          "min": 20,
-          "max": 100,
-          "step": 5,
-          "unit": "px",
-          "default": 60
-        },
-        {
-          "id": "mobileLogoSpacing",
-          "label": "로고 간격 (모바일)",
-          "type": "RANGE",
-          "min": 15,
-          "max": 60,
-          "step": 5,
-          "unit": "px",
-          "default": 40
+          "label": "계속 움직임",
+          "value": "running"
         }
       ]
     },
     {
-      "type": "SECTION",
-      "label": "디자인",
-      "settings": [
-        {
-          "id": "backgroundColor",
-          "label": "배경 색상",
-          "type": "COLOR_PICKER",
-          "default": "#000000FF"
-        },
-        {
-          "id": "grayscale",
-          "label": "회색조 효과",
-          "description": "0% = 원본 색상, 100% = 완전 회색 (호버 시 원본 색상)",
-          "type": "RANGE",
-          "min": 0,
-          "max": 100,
-          "step": 10,
-          "unit": "%",
-          "default": 100
-        },
-        {
-          "id": "opacity",
-          "label": "투명도",
-          "description": "0.3 = 70% 투명, 1.0 = 불투명 (호버 시 완전 불투명)",
-          "type": "RANGE",
-          "min": 0.3,
-          "max": 1,
-          "step": 0.1,
-          "unit": "",
-          "default": 0.5
-        }
-      ]
+      "type": "TITLE",
+      "content": "📐 로고 크기 및 간격"
     },
     {
-      "type": "SECTION",
-      "label": "여백",
-      "settings": [
-        {
-          "id": "paddingY",
-          "label": "상하 여백 (데스크톱)",
-          "type": "RANGE",
-          "min": 20,
-          "max": 80,
-          "step": 5,
-          "unit": "px",
-          "default": 50
-        },
-        {
-          "id": "paddingX",
-          "label": "좌우 여백 (데스크톱)",
-          "type": "RANGE",
-          "min": 20,
-          "max": 100,
-          "step": 5,
-          "unit": "px",
-          "default": 24
-        },
-        {
-          "id": "mobilePaddingY",
-          "label": "상하 여백 (모바일)",
-          "type": "RANGE",
-          "min": 15,
-          "max": 60,
-          "step": 5,
-          "unit": "px",
-          "default": 30
-        },
-        {
-          "id": "mobilePaddingX",
-          "label": "좌우 여백 (모바일)",
-          "type": "RANGE",
-          "min": 15,
-          "max": 60,
-          "step": 5,
-          "unit": "px",
-          "default": 16
-        }
-      ]
+      "id": "logoHeight",
+      "label": "로고 높이 (데스크톱)",
+      "description": "데스크톱에서 보여질 로고의 높이를 설정합니다",
+      "type": "RANGE",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileLogoHeight",
+      "label": "로고 높이 (모바일)",
+      "description": "모바일에서 보여질 로고의 높이를 설정합니다",
+      "type": "RANGE",
+      "min": 25,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "logoSpacing",
+      "label": "로고 간격 (데스크톱)",
+      "description": "데스크톱에서 로고들 사이의 간격을 조절합니다",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileLogoSpacing",
+      "label": "로고 간격 (모바일)",
+      "description": "모바일에서 로고들 사이의 간격을 조절합니다",
+      "type": "RANGE",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 디자인 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "description": "로고 배너의 배경색을 설정합니다",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "grayscale",
+      "label": "로고 회색조 효과",
+      "description": "0% = 원본 색상, 100% = 완전 회색 (호버 시 원본 색상)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "id": "opacity",
+      "label": "로고 투명도",
+      "description": "0.3 = 70% 투명, 1.0 = 완전 불투명 (호버 시 완전 불투명)",
+      "type": "RANGE",
+      "min": 0.3,
+      "max": 1,
+      "step": 0.1,
+      "unit": ""
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 여백 설정"
+    },
+    {
+      "id": "paddingY",
+      "label": "상하 여백 (데스크톱)",
+      "description": "데스크톱에서 배너의 위아래 여백을 설정합니다",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "paddingX",
+      "label": "좌우 여백 (데스크톱)",
+      "description": "데스크톱에서 배너의 좌우 여백을 설정합니다",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "상하 여백 (모바일)",
+      "description": "모바일에서 배너의 위아래 여백을 설정합니다",
+      "type": "RANGE",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "좌우 여백 (모바일)",
+      "description": "모바일에서 배너의 좌우 여백을 설정합니다",
+      "type": "RANGE",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
     }
   ],
   "property": {
