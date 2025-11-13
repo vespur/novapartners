@@ -2,72 +2,90 @@
   .hero-section {
     width: 100%;
     min-height: {{property.desktopMinHeight}}px;
+    background: linear-gradient(135deg, {{property.bgGradientStart}} 0%, {{property.bgGradientEnd}} 100%);
+    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, {{property.bgGradientStart}} 0%, {{property.bgGradientEnd}} 100%);
-    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
     position: relative;
     overflow: hidden;
   }
 
-  .hero-bg-decoration {
+  {{#if (gt property.bgOverlayOpacity 0)}}
+  .hero-section::before {
+    content: '';
     position: absolute;
-    width: 500px;
-    height: 500px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, {{property.bgOverlayOpacity}});
+    z-index: 1;
+  }
+  {{/if}}
+
+  {{#if property.enableDecorationCircles}}
+  .hero-decoration {
+    position: absolute;
     border-radius: 50%;
-    opacity: 0.1;
-    pointer-events: none;
+    opacity: 0.08;
+    z-index: 0;
   }
 
-  .hero-bg-decoration.left {
+  .hero-decoration.left {
+    width: 500px;
+    height: 500px;
     top: -100px;
     left: -100px;
     background-color: var(--color-accent-100);
   }
 
-  .hero-bg-decoration.right {
-    bottom: -150px;
-    right: -150px;
+  .hero-decoration.right {
+    width: 400px;
+    height: 400px;
+    bottom: -50px;
+    right: -50px;
     background-color: var(--color-accent-100);
   }
+  {{/if}}
 
   .hero-content {
     max-width: 900px;
     text-align: center;
     position: relative;
-    z-index: 1;
-    animation: fadeInUp 0.8s ease;
+    z-index: 2;
+    {{#if property.enableAnimation}}
+    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
+    {{/if}}
   }
 
   .hero-label {
     font-family: var(--font-family-body);
-    font-weight: 600;
     font-size: {{property.desktopLabelFontSize}}px;
-    color: var(--color-accent-100);
+    font-weight: {{property.desktopLabelFontWeight}};
+    color: {{property.desktopLabelColor}};
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin-bottom: 16px;
+    margin: 0 0 16px 0;
     display: inline-block;
   }
 
   .hero-title {
     font-family: var(--font-family-heading);
-    font-weight: var(--font-weight-heading);
+    font-weight: {{property.desktopTitleFontWeight}};
     font-size: {{property.desktopTitleFontSize}}px;
-    color: var(--color-text-100);
+    color: {{property.desktopTitleColor}};
+    line-height: {{property.desktopTitleLineHeight}};
     margin: 0 0 24px 0;
-    line-height: 1.2;
     letter-spacing: -0.5px;
   }
 
   .hero-description {
     font-family: var(--font-family-body);
-    font-weight: var(--font-weight-body);
     font-size: {{property.desktopDescriptionFontSize}}px;
-    color: var(--color-text-70);
+    color: {{property.desktopDescriptionColor}};
+    line-height: {{property.desktopDescriptionLineHeight}};
     margin: 0 0 40px 0;
-    line-height: 1.7;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
@@ -115,6 +133,7 @@
     transform: translateY(-2px);
   }
 
+  /* 애니메이션 정의 */
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -126,6 +145,29 @@
     }
   }
 
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* 모바일 반응형 */
   @media (max-width: 768px) {
     .hero-section {
       min-height: {{property.mobileMinHeight}}px;
@@ -134,16 +176,20 @@
 
     .hero-label {
       font-size: {{property.mobileLabelFontSize}}px;
+      font-weight: {{property.mobileLabelFontWeight}};
       margin-bottom: 12px;
     }
 
     .hero-title {
+      font-weight: {{property.mobileTitleFontWeight}};
       font-size: {{property.mobileTitleFontSize}}px;
+      line-height: {{property.mobileTitleLineHeight}};
       margin-bottom: 16px;
     }
 
     .hero-description {
       font-size: {{property.mobileDescriptionFontSize}}px;
+      line-height: {{property.mobileDescriptionLineHeight}};
       margin-bottom: 28px;
     }
 
@@ -158,6 +204,7 @@
     }
   }
 
+  /* 성능 최적화 */
   .hero-section {
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -166,8 +213,10 @@
 
 <template>
   <div class="hero-section">
-    <div class="hero-bg-decoration left"></div>
-    <div class="hero-bg-decoration right"></div>
+    {{#if property.enableDecorationCircles}}
+      <div class="hero-decoration left"></div>
+      <div class="hero-decoration right"></div>
+    {{/if}}
 
     <div class="hero-content">
       {{#if property.label}}
@@ -206,6 +255,7 @@
   const context = bm.context;
 
   function initHero() {
+    // 빈 링크 클릭 방지
     container.addEventListener('click', (e) => {
       const button = e.target.closest('.hero-button');
       if (button) {
