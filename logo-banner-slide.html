@@ -40,7 +40,7 @@
     width: auto;
   }
 
-  /* 정확한 무한 루프 애니메이션 - 2세트 복제로 50% 이동 */
+  /* 정확한 무한 루프 애니메이션 - 50% 이동 */
   @keyframes scroll-left {
     from {
       transform: translateX(0);
@@ -90,22 +90,10 @@
 
 <template>
   <div class="logo-banner">
-    <div class="logo-track">
-      <!-- 첫 번째 세트 (원본) -->
+    <div class="logo-track" data-logo-track>
+      <!-- 원본 로고 세트 -->
       {{#each property.logos}}
-        <div class="logo-item">
-          <img
-            src="{{image}}"
-            alt="{{name}}"
-            loading="lazy"
-            onerror="this.src='https://ss3-prod-static-files.s3.ap-northeast-2.amazonaws.com/block-image-library/lifestyle/image1.jpg'"
-          >
-        </div>
-      {{/each}}
-
-      <!-- 두 번째 세트 (무한 스크롤을 위한 정확한 복사본) -->
-      {{#each property.logos}}
-        <div class="logo-item">
+        <div class="logo-item" data-logo-item>
           <img
             src="{{image}}"
             alt="{{name}}"
@@ -119,6 +107,72 @@
 </template>
 
 <script>
-  // CSS 애니메이션만으로 충분하므로 JavaScript는 최소화
-  // 브라우저가 자동으로 최적화를 수행하므로 추가 로직 불필요
+  const container = bm.container;
+  const track = container.querySelector('[data-logo-track]');
+
+  // 무한 스크롤을 위한 동적 복제 함수
+  function setupInfiniteScroll() {
+    if (!track) return;
+
+    // 원본 로고 아이템들 가져오기
+    const logoItems = Array.from(track.querySelectorAll('[data-logo-item]'));
+    if (logoItems.length === 0) return;
+
+    // 이미지 로딩 완료 대기
+    const images = track.querySelectorAll('img');
+    const imagePromises = Array.from(images).map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise(resolve => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    });
+
+    Promise.all(imagePromises).then(() => {
+      // 컨테이너와 트랙의 실제 너비 측정
+      const containerWidth = container.offsetWidth;
+      const originalTrackWidth = track.scrollWidth;
+
+      // 화면 너비의 최소 2배를 보장하기 위해 필요한 복제 횟수 계산
+      // 여유를 위해 3배로 설정하여 완전히 끊김 없는 애니메이션 보장
+      const minWidth = containerWidth * 3;
+      const copiesNeeded = Math.ceil(minWidth / originalTrackWidth);
+
+      // 원본을 포함해서 최소 2세트는 보장 (copiesNeeded가 1이면 1번 더 복제)
+      const actualCopies = Math.max(copiesNeeded, 2);
+
+      // 기존 복제본 제거 (원본만 남김)
+      const existingItems = track.querySelectorAll('[data-logo-item]');
+      existingItems.forEach((item, index) => {
+        if (index >= logoItems.length) {
+          item.remove();
+        }
+      });
+
+      // 필요한 만큼 복제
+      for (let i = 1; i < actualCopies; i++) {
+        logoItems.forEach(item => {
+          const clone = item.cloneNode(true);
+          track.appendChild(clone);
+        });
+      }
+    });
+  }
+
+  // 초기 실행
+  setupInfiniteScroll();
+
+  // 컨텍스트 변경 시 재실행
+  if (bm.onContextChange) {
+    bm.onContextChange = () => {
+      setTimeout(setupInfiniteScroll, 100);
+    };
+  }
+
+  // 윈도우 리사이즈 시 재계산
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(setupInfiniteScroll, 300);
+  });
 </script>
