@@ -14,6 +14,10 @@
     margin-bottom: {{property.desktopPaddingY}}px;
   }
 
+  .service-overview::before[data-hidden] {
+    display: none;
+  }
+
   .service-overview::after {
     content: '';
     display: block;
@@ -21,6 +25,10 @@
     height: 1px;
     background-color: rgba(0, 0, 0, 0.08);
     margin-top: {{property.desktopPaddingY}}px;
+  }
+
+  .service-overview::after[data-hidden] {
+    display: none;
   }
 
   .service-overview-container {
@@ -284,7 +292,7 @@
       if (bm.property && !bm.property.showDivider) {
         const serviceOverview = container.querySelector('.service-overview');
         if (serviceOverview) {
-          serviceOverview.style.setProperty('--divider-display', 'none');
+          serviceOverview.setAttribute('data-hidden', 'true');
         }
       }
 
