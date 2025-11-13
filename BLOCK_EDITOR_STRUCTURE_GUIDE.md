@@ -451,11 +451,27 @@
 - [ ] `property.desktopXxx` vs `property.mobileXxx` 명확히 구분
 - [ ] @media (max-width: 768px)에서 모바일 스타일 재정의
 - [ ] 각 텍스트에 color, font-size, font-weight, line-height 적용
-- [ ] 조건부 CSS ({{#if}}) 활용
+- [ ] **CSS 선택자 내부에 {{#if}} 조건문 금지** (검은 화면 원인)
+- [ ] **@media 쿼리 내부에 {{#if}} 조건문 금지**
+- [ ] 조건부 스타일은 JavaScript에서 data-visible/data-animated 속성으로 제어
+- [ ] **bm.property 사용** (bm.context.property ❌)
+- [ ] Animation 설정: 개별 속성(animationName, animationDuration) ❌ → shorthand 사용 ✅
+- [ ] 모든 JavaScript 코드 try-catch 블록으로 감싸기
 - [ ] bm.onContextChange 필수 구현
 - [ ] bm.onDestroy 구현 (이벤트 리스너 있을 경우)
 - [ ] 빈 링크 클릭 방지 (헤더/푸터/버튼이 있는 경우)
 - [ ] 성능 최적화: transform: translateZ(0), backface-visibility: hidden
+
+### JSON/HTML 동기화 체크리스트
+
+- [ ] **JSON fields와 HTML 템플릿의 필드명이 일치하는가?**
+  - JSON에서 필드를 제거했다면 HTML 템플릿에서도 제거
+  - HTML에서 {{#if fieldName}}로 참조하는 모든 필드가 JSON fields에 정의되어 있는가?
+- [ ] **LIST type의 default 배열이 모든 fields를 포함하는가?**
+  - fields에 정의된 모든 id가 default 배열의 각 객체에 포함되어야 함
+- [ ] **LIST 필드 개수가 5개 이하인가?** (식스샵 가이드라인)
+- [ ] **description 길이가 100자 이하인가?** (식스샵 가이드라인)
+- [ ] **RADIO 옵션 label이 20자 이하인가?** (식스샵 가이드라인)
 
 ---
 
@@ -753,11 +769,180 @@ LIST의 "default" 배열의 각 객체는:
 
 ---
 
-**문서 버전**: 1.4
+## 🔴 흔한 에러 패턴과 해결 방법
+
+### 1. "검은 화면" 에러 (Application error)
+
+**원인**: CSS 내부의 Handlebars 조건문
+
+```css
+/* ❌ 절대 금지 */
+.item {
+  {{#if property.enableAnimation}}
+  animation: fadeIn 0.8s;
+  {{/if}}
+}
+
+/* ❌ @media 내부도 금지 */
+@media (max-width: 768px) {
+  {{#if property.showContent}}
+  display: block;
+  {{/if}}
+}
+```
+
+**해결**: JavaScript에서 처리
+
+```css
+/* ✅ 올바른 방법 */
+.item {
+  display: none;
+}
+
+.item[data-visible] {
+  display: block;
+}
+```
+
+```javascript
+if (bm.property && bm.property.showContent) {
+  element.setAttribute('data-visible', 'true');
+}
+```
+
+---
+
+### 2. JSON 코드 붙여넣기 실패
+
+**원인 1: HTML과 JSON 필드 불일치**
+
+```json
+{
+  "fields": [
+    { "id": "title" },
+    { "id": "description" }
+  ],
+  "default": [{ "title": "...", "description": "..." }]
+}
+```
+
+HTML에서 참조:
+```html
+{{#if solutionTitle}}  <!-- ❌ 이 필드는 JSON에 없음! -->
+```
+
+**해결**: JSON에서 제거한 필드는 HTML에서도 제거
+
+```html
+<!-- ✅ 제거됨 -->
+```
+
+---
+
+**원인 2: LIST default 배열의 필드 누락**
+
+```json
+{
+  "fields": [
+    {"id": "fieldA"},
+    {"id": "fieldB"}
+  ],
+  "default": [
+    {"fieldA": "value"}  /* ❌ fieldB 누락! */
+  ]
+}
+```
+
+**해결**: 모든 필드를 포함
+
+```json
+{
+  "default": [
+    {
+      "fieldA": "value",
+      "fieldB": "value"  /* ✅ 모든 필드 포함 */
+    }
+  ]
+}
+```
+
+---
+
+### 3. JavaScript 런타임 에러
+
+**원인**: 잘못된 API 사용
+
+```javascript
+/* ❌ 잘못된 방법 */
+if (bm.context.property && bm.context.property.enableAnimation) {
+  element.style.animationName = 'fadeIn';
+  element.style.animationDuration = '0.8s';
+}
+```
+
+**해결**: 올바른 API와 shorthand 사용
+
+```javascript
+/* ✅ 올바른 방법 */
+try {
+  if (bm.property && bm.property.enableAnimation) {
+    element.style.animation = 'fadeIn 0.8s ease forwards';
+  }
+} catch (error) {
+  console.error('Animation failed:', error);
+}
+```
+
+---
+
+### 4. 식스샵 가이드라인 위반
+
+| 항목 | 제약 | 체크 |
+|------|------|------|
+| LIST 필드 개수 | 최대 5개 | fields 배열 길이 확인 |
+| description 길이 | 최대 100자 | 문자열 길이 검사 |
+| RADIO label 길이 | 최대 20자 | 각 option의 label 확인 |
+
+---
+
+## 🛠️ 빠른 검증 스크립트
+
+새 블록을 만들었을 때 다음을 확인하세요:
+
+```bash
+# JSON 형식 검증
+python3 -m json.tool 1-1-1-X.your-block.json > /dev/null
+
+# HTML에서 참조하지만 JSON에 없는 필드 찾기
+# 1. JSON fields 추출
+# 2. HTML {{#if fieldName}}와 비교
+```
+
+---
+
+**문서 버전**: 1.5
 **작성일**: 2025-11-13
-**수정일**: 2025-11-13 (CSS-Handlebars, JavaScript API, JSON LIST 필드 검증 추가)
-**최종 수정**: 2025-11-13 (CSS 조건문 완전 제거, 데이터 속성 패턴 적용)
+**수정일**: 2025-11-13
+**최종 수정**: 2025-11-13 (흔한 에러 패턴 섹션 추가, HTML/JSON 동기화 체크리스트 추가)
 **기준 블록**: 1-1-1-1~1-1-1-6 모든 섹션
+
+### 📌 v1.5 주요 업데이트
+
+1. **HTML 구현 체크리스트 강화**
+   - CSS 내 {{#if}} 조건문 금지 명시
+   - bm.property vs bm.context.property 구분
+   - Animation shorthand 필수 사용
+
+2. **JSON/HTML 동기화 체크리스트 신규**
+   - 필드명 일치 확인 절차
+   - LIST default 배열 필드 완결성 검증
+   - 식스샵 가이드라인 체크항목 통합
+
+3. **흔한 에러 패턴 섹션 신규**
+   - 검은 화면 에러 원인과 해결법
+   - JSON 코드 붙여넣기 실패 원인 분석
+   - JavaScript 런타임 에러 패턴
+   - 식스샵 가이드라인 위반 체크표
 
 ### 🔴 Critical Fix (2025-11-13)
 
