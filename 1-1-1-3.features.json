@@ -1,0 +1,340 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 섹션 제목"
+    },
+    {
+      "id": "sectionTitle",
+      "label": "섹션 제목",
+      "type": "TEXT",
+      "placeholder": "주요 특징"
+    },
+    {
+      "id": "sectionDescription",
+      "label": "섹션 설명 (선택사항)",
+      "type": "TEXTAREA",
+      "placeholder": "우리 서비스의 핵심 특징을 소개합니다"
+    },
+    {
+      "type": "TITLE",
+      "content": "⭐ 특징 아이템"
+    },
+    {
+      "id": "features",
+      "label": "특징 목록",
+      "type": "LIST",
+      "maxCount": 6,
+      "settings": [
+        {
+          "id": "featureTitle",
+          "label": "특징 제목",
+          "type": "TEXT",
+          "placeholder": "예: 빠른 구현"
+        },
+        {
+          "id": "featureDescription",
+          "label": "특징 설명",
+          "type": "TEXTAREA",
+          "placeholder": "자세한 설명을 입력하세요"
+        },
+        {
+          "id": "featureIcon",
+          "label": "아이콘 이모지",
+          "type": "TEXT",
+          "placeholder": "예: ⚡"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 및 스타일"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경색",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "cardBackgroundColor",
+      "label": "카드 배경색",
+      "type": "COLOR_PICKER",
+      "default": "#f5f7ff"
+    },
+    {
+      "id": "cardBorderColor",
+      "label": "카드 테두리색",
+      "type": "COLOR_PICKER",
+      "default": "#e8eeff"
+    },
+    {
+      "id": "enableCardHover",
+      "label": "카드 호버 효과",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 크기 (데스크톱)"
+    },
+    {
+      "id": "paddingY",
+      "label": "위아래 여백",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "id": "paddingX",
+      "label": "좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "id": "gridColumns",
+      "label": "그리드 컬럼 수",
+      "type": "RADIO",
+      "options": [
+        {"label": "2 컬럼", "value": "2"},
+        {"label": "3 컬럼", "value": "3"},
+        {"label": "4 컬럼", "value": "4"}
+      ],
+      "default": "3"
+    },
+    {
+      "id": "columnGap",
+      "label": "컬럼 간격",
+      "type": "RANGE",
+      "min": 20,
+      "max": 60,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "id": "cardPadding",
+      "label": "카드 패딩",
+      "type": "RANGE",
+      "min": 20,
+      "max": 60,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "id": "cardBorderRadius",
+      "label": "카드 모서리 반경",
+      "type": "RANGE",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트 크기 (데스크톱)"
+    },
+    {
+      "id": "sectionTitleFontSize",
+      "label": "섹션 제목 글자 크기",
+      "type": "RANGE",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "id": "sectionDescriptionFontSize",
+      "label": "섹션 설명 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "featureTitleFontSize",
+      "label": "특징 제목 글자 크기",
+      "type": "RANGE",
+      "min": 16,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "featureDescriptionFontSize",
+      "label": "특징 설명 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "iconSize",
+      "label": "아이콘 크기",
+      "type": "RANGE",
+      "min": 32,
+      "max": 80,
+      "step": 8,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 위아래 여백",
+      "type": "RANGE",
+      "min": 30,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileGridColumns",
+      "label": "모바일 그리드 컬럼 수",
+      "type": "RADIO",
+      "options": [
+        {"label": "1 컬럼", "value": "1"},
+        {"label": "2 컬럼", "value": "2"}
+      ],
+      "default": "1"
+    },
+    {
+      "id": "mobileSectionTitleFontSize",
+      "label": "모바일 섹션 제목 글자 크기",
+      "type": "RANGE",
+      "min": 18,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "id": "mobileSectionDescriptionFontSize",
+      "label": "모바일 섹션 설명 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "mobileFeatureTitleFontSize",
+      "label": "모바일 특징 제목 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "id": "mobileFeatureDescriptionFontSize",
+      "label": "모바일 특징 설명 글자 크기",
+      "type": "RANGE",
+      "min": 11,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "id": "mobileIconSize",
+      "label": "모바일 아이콘 크기",
+      "type": "RANGE",
+      "min": 28,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "property": {
+    "sectionTitle": "주요 특징",
+    "sectionDescription": "노바파트너스의 AI 전환 서비스는 다음과 같은 특징을 갖고 있습니다.",
+    "features": [
+      {
+        "featureTitle": "빠른 구현",
+        "featureDescription": "업계 표준 프레임워크를 통해 3개월 내 완전한 AI 시스템 구현",
+        "featureIcon": "⚡"
+      },
+      {
+        "featureTitle": "전문 인력",
+        "featureDescription": "10년 이상 경력의 AI 전문가 팀이 프로젝트를 주도",
+        "featureIcon": "👥"
+      },
+      {
+        "featureTitle": "맞춤형 솔루션",
+        "featureDescription": "각 기업의 특성과 요구사항을 분석한 맞춤형 AI 솔루션 제공",
+        "featureIcon": "🎯"
+      },
+      {
+        "featureTitle": "24/7 지원",
+        "featureDescription": "구현 후 지속적인 모니터링 및 최적화 지원",
+        "featureIcon": "🛡️"
+      },
+      {
+        "featureTitle": "검증된 결과",
+        "featureDescription": "200+ 기업 실적으로 검증된 ROI 극대화 전략",
+        "featureIcon": "📈"
+      },
+      {
+        "featureTitle": "보안 최우선",
+        "featureDescription": "국제 표준 보안 인증 및 데이터 보호 정책 준수",
+        "featureIcon": "🔒"
+      }
+    ],
+    "backgroundColor": "#ffffff",
+    "cardBackgroundColor": "#f5f7ff",
+    "cardBorderColor": "#e8eeff",
+    "enableCardHover": true,
+    "paddingY": 80,
+    "paddingX": 40,
+    "gridColumns": "3",
+    "columnGap": 40,
+    "cardPadding": 40,
+    "cardBorderRadius": 12,
+    "sectionTitleFontSize": 36,
+    "sectionDescriptionFontSize": 16,
+    "featureTitleFontSize": 20,
+    "featureDescriptionFontSize": 14,
+    "iconSize": 48,
+    "mobilePaddingY": 50,
+    "mobilePaddingX": 20,
+    "mobileGridColumns": "1",
+    "mobileSectionTitleFontSize": 26,
+    "mobileSectionDescriptionFontSize": 14,
+    "mobileFeatureTitleFontSize": 18,
+    "mobileFeatureDescriptionFontSize": 13,
+    "mobileIconSize": 40
+  }
+}
