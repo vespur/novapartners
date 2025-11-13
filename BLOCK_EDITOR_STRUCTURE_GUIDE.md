@@ -528,6 +528,184 @@ HTML에서:
 
 ---
 
-**문서 버전**: 1.0
+## ⚠️ CSS와 Handlebars 상호작용 제약사항
+
+### 문제 상황
+
+**CSS 선택자 내부에서 Handlebars 조건문 사용 금지:**
+
+```css
+/* ❌ 절대 금지 - 화면이 검게 변함 */
+.item:nth-child(1) {
+  {{#if property.enableAnimation}}
+  animation: fadeIn 0.8s ease;
+  {{/if}}
+}
+```
+
+**CSS calc() 함수에서 변수 계산 금지:**
+
+```css
+/* ❌ 절대 금지 - CSS 파서 오류 */
+.item {
+  animation-delay: calc(2 * {{property.staggerDelay}}s);
+}
+```
+
+### 원인 분석
+
+1. **조건문으로 인한 CSS 파싱 오류**
+   - Handlebars가 처리되지 않거나 조건이 false일 때 빈 규칙이 생성
+   - CSS 파서가 유효하지 않은 규칙으로 인식
+   - 전체 스타일 시트가 로드되지 않아 화면이 검게 됨
+
+2. **calc() 함수의 단위 문제**
+   - `calc(2 * 0.2s)` 는 유효한 CSS 문법이 아님
+   - 계산 후 단위를 붙여야 하는데 Handlebars로는 처리 불가
+
+### 해결 방법
+
+**방법 1: 항상 유효한 CSS 유지**
+
+```css
+/* ✅ 올바른 방법 - CSS는 항상 완전한 상태 */
+.item[data-animated] {
+  animation-duration: {{property.animationDuration}}s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+```
+
+**방법 2: JavaScript에서 동적 애니메이션 처리**
+
+```javascript
+function initAnimation() {
+  if (bm.context.property && bm.context.property.enableAnimation) {
+    const animationType = bm.context.property.animationType;
+    const staggerDelay = bm.context.property.staggerDelay;
+
+    const items = container.querySelectorAll('.item');
+    items.forEach((item, index) => {
+      item.setAttribute('data-animated', 'true');
+      item.style.animationName = animationType;
+      // JavaScript에서 계산: index * staggerDelay
+      item.style.animationDelay = (index * staggerDelay) + 's';
+    });
+  }
+}
+```
+
+### 적용 규칙
+
+| 상황 | ❌ 하지 말 것 | ✅ 할 것 |
+|------|------------|--------|
+| 조건부 애니메이션 | CSS에서 `{{#if enableAnimation}}` | JavaScript에서 처리 |
+| 동적 딜레이 계산 | CSS `calc()` 함수 사용 | JavaScript에서 계산 후 style 적용 |
+| 조건부 스타일 | CSS 선택자 안에 Handlebars | 항상 유효한 CSS 선택자 사용 |
+| 변수 보간 | 복잡한 계산식 | 단순 값 대입만 허용 |
+
+---
+
+## 🚨 JavaScript 에러 처리 및 API 사용 주의사항
+
+### 문제 상황
+
+**런타임 에러: "화면이 검게 변하고 콘솔에 JavaScript 에러 메시지"**
+
+주요 원인:
+1. `bm.context.property` 사용 (이는 존재하지 않음)
+2. Animation 속성을 개별로 설정하다 에러 발생
+3. 에러 처리 부재로 스크립트 실행 중단
+
+### 올바른 API 사용
+
+**❌ 잘못된 방법:**
+
+```javascript
+if (bm.context.property && bm.context.property.enableAnimation) {
+  title.style.animationName = animationType;
+  title.style.animationDuration = animationDuration + 's';
+  title.style.animationDelay = animationDelay + 's';
+  title.style.animationTimingFunction = 'ease';
+  title.style.animationFillMode = 'forwards';
+}
+```
+
+**✅ 올바른 방법:**
+
+```javascript
+try {
+  if (bm.property && bm.property.enableAnimation) {
+    const animationType = bm.property.animationType || 'fadeInLeft';
+    const animationDuration = bm.property.animationDuration || 0.8;
+    const staggerDelay = bm.property.staggerDelay || 0.1;
+
+    // Animation shorthand 사용
+    title.style.animation = `${animationType} ${animationDuration}s ease forwards 0s`;
+
+    items.forEach((item, index) => {
+      const delay = (2 + index) * staggerDelay;
+      item.style.animation = `${animationType} ${animationDuration}s ease forwards ${delay}s`;
+    });
+  }
+} catch (error) {
+  console.error('Animation initialization failed:', error);
+}
+```
+
+### API 레퍼런스
+
+| API | 용도 | 비고 |
+|-----|------|------|
+| `bm.container` | 블록의 DOM 컨테이너 | 항상 사용 가능 |
+| `bm.property` | 에디터 설정값 접근 | `bm.context.property` ❌ |
+| `bm.onContextChange` | 설정 변경 시 콜백 | 필수 구현 |
+| `bm.onDestroy` | 블록 삭제 시 콜백 | 정리 작업용 |
+
+### Animation 설정 규칙
+
+**Animation Shorthand 형식:**
+```javascript
+element.style.animation = 'animationName duration timing delay iteration direction fill-mode';
+
+// 예시
+element.style.animation = 'fadeInLeft 0.8s ease forwards 0.2s';
+```
+
+**개별 속성 사용 금지:**
+```javascript
+// ❌ 에러 발생 가능
+element.style.animationName = 'fadeInLeft';
+element.style.animationDuration = '0.8s';
+element.style.animationDelay = '0.2s';
+
+// ✅ 올바른 방법
+element.style.animation = 'fadeInLeft 0.8s ease forwards 0.2s';
+```
+
+### 에러 처리 필수
+
+모든 JavaScript 코드를 try-catch로 감싸세요:
+
+```javascript
+function initBlock() {
+  try {
+    // 메인 로직
+    const items = container.querySelectorAll('.item');
+    items.forEach(item => {
+      // 처리 로직
+    });
+  } catch (error) {
+    // 에러 로그 출력
+    console.error('Block initialization failed:', error);
+    // 화면이 검게 되지 않도록 silent fail
+  }
+}
+```
+
+---
+
+**문서 버전**: 1.2
 **작성일**: 2025-11-13
-**기준 블록**: 1-1-1-1 히어로 섹션
+**수정일**: 2025-11-13 (CSS-Handlebars, JavaScript API 제약사항 추가)
+**기준 블록**: 1-1-1-1~1-1-1-6 모든 섹션

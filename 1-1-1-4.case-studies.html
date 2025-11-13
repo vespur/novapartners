@@ -21,10 +21,11 @@
     font-weight: {{property.desktopTitleFontWeight}};
     color: {{property.desktopTitleColor}};
     margin: 0 0 12px 0;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    animation-delay: 0s;
-    {{/if}}
+  }
+
+  .case-studies-title[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .case-studies-subtitle {
@@ -32,10 +33,11 @@
     font-size: 16px;
     color: #666666;
     margin: 0;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    animation-delay: {{property.staggerDelay}}s;
-    {{/if}}
+  }
+
+  .case-studies-subtitle[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .case-studies-grid {
@@ -50,28 +52,11 @@
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    opacity: 0;
-    {{/if}}
   }
 
-  .case-card:nth-child(1) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(2 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .case-card:nth-child(2) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(3 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .case-card:nth-child(3) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(4 * {{property.staggerDelay}}s);
-    {{/if}}
+  .case-card[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .case-card:hover {
@@ -354,14 +339,47 @@
   const context = bm.context;
 
   function initCaseStudies() {
-    // 회사 로고 이미지 로드 확인
-    const logoImages = container.querySelectorAll('.case-company-logo img');
-    logoImages.forEach((img) => {
-      img.addEventListener('error', (e) => {
-        // 이미지 로드 실패 시 로고 박스 숨김
-        e.target.parentElement.style.opacity = '0.3';
+    try {
+      // 애니메이션 설정
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = bm.property.animationType || 'fadeInLeft';
+        const animationDuration = bm.property.animationDuration || 0.8;
+        const staggerDelay = bm.property.staggerDelay || 0.2;
+
+        // 헤더 애니메이션
+        const title = container.querySelector('.case-studies-title');
+        if (title) {
+          title.setAttribute('data-animated', 'true');
+          title.style.animation = `${animationType} ${animationDuration}s ease forwards 0s`;
+        }
+
+        const subtitle = container.querySelector('.case-studies-subtitle');
+        if (subtitle) {
+          subtitle.setAttribute('data-animated', 'true');
+          subtitle.style.animation = `${animationType} ${animationDuration}s ease forwards ${staggerDelay}s`;
+        }
+
+        // 카드 애니메이션
+        const caseCards = container.querySelectorAll('.case-card');
+        caseCards.forEach((card, index) => {
+          card.setAttribute('data-animated', 'true');
+          const delay = (2 + index) * staggerDelay;
+          card.style.animation = `${animationType} ${animationDuration}s ease forwards ${delay}s`;
+          card.style.opacity = '0';
+        });
+      }
+
+      // 회사 로고 이미지 로드 확인
+      const logoImages = container.querySelectorAll('.case-company-logo img');
+      logoImages.forEach((img) => {
+        img.addEventListener('error', (e) => {
+          // 이미지 로드 실패 시 로고 박스 숨김
+          e.target.parentElement.style.opacity = '0.3';
+        });
       });
-    });
+    } catch (error) {
+      console.error('Case studies initialization failed:', error);
+    }
   }
 
   initCaseStudies();

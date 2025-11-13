@@ -21,10 +21,11 @@
     font-weight: {{property.desktopTitleFontWeight}};
     color: {{property.desktopTitleColor}};
     margin: 0 0 12px 0;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    animation-delay: 0s;
-    {{/if}}
+  }
+
+  .features-benefits-title[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .features-benefits-subtitle {
@@ -32,10 +33,11 @@
     font-size: {{property.desktopSubtitleFontSize}}px;
     color: {{property.desktopSubtitleColor}};
     margin: 0;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    animation-delay: {{property.staggerDelay}}s;
-    {{/if}}
+  }
+
+  .features-benefits-subtitle[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .features-grid {
@@ -49,60 +51,18 @@
     background-color: {{property.featureBgColor}};
     border-radius: {{property.cardBorderRadius}}px;
     transition: all 0.3s ease;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    opacity: 0;
-    {{/if}}
-  }
-
-  .feature-card:nth-child(1) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(2 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .feature-card:nth-child(2) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(3 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .feature-card:nth-child(3) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(4 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .feature-card:nth-child(4) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(5 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .feature-card:nth-child(5) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(6 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .feature-card:nth-child(6) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(7 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  {{#if property.enableCardShadow}}
-  .feature-card {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   }
-  {{/if}}
 
-  {{#if property.enableCardHover}}
+  .feature-card[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+
   .feature-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
-  {{/if}}
 
   .feature-icon {
     font-size: {{property.desktopIconSize}}px;
@@ -254,14 +214,42 @@
 
 <script>
   const container = bm.container;
-  const context = bm.context;
 
   function initFeaturesSection() {
+    // 애니메이션 설정
+    try {
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = bm.property.animationType || 'fadeInLeft';
+        const animationDuration = bm.property.animationDuration || 0.8;
+        const staggerDelay = bm.property.staggerDelay || 0.1;
+
+        // 헤더 애니메이션
+        const title = container.querySelector('.features-benefits-title');
+        if (title) {
+          title.style.animation = `${animationType} ${animationDuration}s ease forwards 0s`;
+        }
+
+        const subtitle = container.querySelector('.features-benefits-subtitle');
+        if (subtitle) {
+          subtitle.style.animation = `${animationType} ${animationDuration}s ease forwards ${staggerDelay}s`;
+        }
+
+        // 카드 애니메이션
+        const featureCards = container.querySelectorAll('.feature-card');
+        featureCards.forEach((card, index) => {
+          const delay = (2 + index) * staggerDelay;
+          card.style.animation = `${animationType} ${animationDuration}s ease forwards ${delay}s`;
+          card.style.opacity = '0';
+        });
+      }
+    } catch (error) {
+      console.error('Features animation initialization failed:', error);
+    }
+
     // 이미지 아이콘 로드 확인
     const iconImages = container.querySelectorAll('.feature-icon img');
     iconImages.forEach((img) => {
       img.addEventListener('error', (e) => {
-        // 이미지 로드 실패 시 아이콘 표시 안함
         e.target.parentElement.style.opacity = '0.5';
       });
     });

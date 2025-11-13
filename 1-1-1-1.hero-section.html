@@ -54,9 +54,11 @@
     text-align: center;
     position: relative;
     z-index: 2;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    {{/if}}
+  }
+
+  .hero-content[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .hero-label {
@@ -255,6 +257,21 @@
   const context = bm.context;
 
   function initHero() {
+    try {
+      // 애니메이션 설정
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = bm.property.animationType || 'fadeInUp';
+        const animationDuration = bm.property.animationDuration || 0.8;
+
+        const heroContent = container.querySelector('.hero-content');
+        if (heroContent) {
+          heroContent.style.animation = `${animationType} ${animationDuration}s ease forwards`;
+        }
+      }
+    } catch (error) {
+      console.error('Hero animation initialization failed:', error);
+    }
+
     // 빈 링크 클릭 방지
     container.addEventListener('click', (e) => {
       const button = e.target.closest('.hero-button');

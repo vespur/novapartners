@@ -5,7 +5,6 @@
     padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
   }
 
-  {{#if property.showDivider}}
   .service-overview::before {
     content: '';
     display: block;
@@ -23,7 +22,6 @@
     background-color: rgba(0, 0, 0, 0.08);
     margin-top: {{property.desktopPaddingY}}px;
   }
-  {{/if}}
 
   .service-overview-container {
     max-width: 1200px;
@@ -41,10 +39,6 @@
     font-weight: {{property.desktopTitleFontWeight}};
     color: {{property.desktopTitleColor}};
     margin: 0 0 12px 0;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    animation-delay: 0s;
-    {{/if}}
   }
 
   .service-overview-subtitle {
@@ -52,10 +46,6 @@
     font-size: {{property.desktopSubtitleFontSize}}px;
     color: {{property.desktopSubtitleColor}};
     margin: 0;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    animation-delay: {{property.staggerDelay}}s;
-    {{/if}}
   }
 
   .comparison-grid {
@@ -73,28 +63,12 @@
   .comparison-item {
     padding: 24px;
     border-radius: 12px;
-    {{#if property.enableAnimation}}
-    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
-    opacity: 0;
-    {{/if}}
   }
 
-  .comparison-item:nth-child(1) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(2 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .comparison-item:nth-child(2) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(3 * {{property.staggerDelay}}s);
-    {{/if}}
-  }
-
-  .comparison-item:nth-child(3) {
-    {{#if property.enableAnimation}}
-    animation-delay: calc(4 * {{property.staggerDelay}}s);
-    {{/if}}
+  .comparison-item[data-animated] {
+    animation-duration: {{property.animationDuration}}s;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .problem-item {
@@ -320,14 +294,42 @@
 
 <script>
   const container = bm.container;
-  const context = bm.context;
 
   function initServiceOverview() {
+    try {
+      // 애니메이션 설정
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = bm.property.animationType || 'fadeInLeft';
+        const animationDuration = bm.property.animationDuration || 0.8;
+        const staggerDelay = bm.property.staggerDelay || 0.2;
+
+        // 헤더 애니메이션
+        const title = container.querySelector('.service-overview-title');
+        if (title) {
+          title.style.animation = `${animationType} ${animationDuration}s ease forwards 0s`;
+        }
+
+        const subtitle = container.querySelector('.service-overview-subtitle');
+        if (subtitle) {
+          subtitle.style.animation = `${animationType} ${animationDuration}s ease forwards ${staggerDelay}s`;
+        }
+
+        // 비교 항목 애니메이션
+        const comparisonItems = container.querySelectorAll('.comparison-item');
+        comparisonItems.forEach((item, index) => {
+          const delay = (2 + index) * staggerDelay;
+          item.style.animation = `${animationType} ${animationDuration}s ease forwards ${delay}s`;
+          item.style.opacity = '0';
+        });
+      }
+    } catch (error) {
+      console.error('Service overview animation initialization failed:', error);
+    }
+
     // 이미지 아이콘 로드 확인
     const iconImages = container.querySelectorAll('.comparison-item-icon img');
     iconImages.forEach((img) => {
       img.addEventListener('error', (e) => {
-        // 이미지 로드 실패 시 아이콘 컨테이너 숨김
         e.target.parentElement.style.opacity = '0.5';
       });
     });

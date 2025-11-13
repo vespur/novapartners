@@ -21,9 +21,11 @@
     font-weight: {{property.desktopTitleFontWeight}};
     color: {{property.desktopTitleColor}};
     margin: 0 0 12px 0;
-    {{#if property.enableAnimation}}
-    animation: fadeInUp 0.8s ease forwards;
-    {{/if}}
+  }
+
+  .faq-title[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .faq-subtitle {
@@ -31,10 +33,11 @@
     font-size: 16px;
     color: #666666;
     margin: 0;
-    {{#if property.enableAnimation}}
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: 0.1s;
-    {{/if}}
+  }
+
+  .faq-subtitle[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .faq-items {
@@ -49,57 +52,11 @@
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
-    {{#if property.enableAnimation}}
-    animation: fadeInUp 0.8s ease forwards;
-    {{/if}}
   }
 
-  .faq-item:nth-child(1) {
-    {{#if property.enableAnimation}}
-    animation-delay: 0.2s;
-    {{/if}}
-  }
-
-  .faq-item:nth-child(2) {
-    {{#if property.enableAnimation}}
-    animation-delay: 0.3s;
-    {{/if}}
-  }
-
-  .faq-item:nth-child(3) {
-    {{#if property.enableAnimation}}
-    animation-delay: 0.4s;
-    {{/if}}
-  }
-
-  .faq-item:nth-child(4) {
-    {{#if property.enableAnimation}}
-    animation-delay: 0.5s;
-    {{/if}}
-  }
-
-  .faq-item:nth-child(5) {
-    {{#if property.enableAnimation}}
-    animation-delay: 0.6s;
-    {{/if}}
-  }
-
-  .faq-item:nth-child(6) {
-    {{#if property.enableAnimation}}
-    animation-delay: 0.7s;
-    {{/if}}
-  }
-
-  .faq-item:nth-child(7) {
-    {{#if property.enableAnimation}}
-    animation-delay: 0.8s;
-    {{/if}}
-  }
-
-  .faq-item:nth-child(8) {
-    {{#if property.enableAnimation}}
-    animation-delay: 0.9s;
-    {{/if}}
+  .faq-item[data-animated] {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
   }
 
   .faq-item:hover {
@@ -259,26 +216,58 @@
   const context = bm.context;
 
   function initFAQSection() {
-    // FAQ 아이템 토글 기능
-    const faqItems = container.querySelectorAll('.faq-item');
-    faqItems.forEach((item) => {
-      const questionBtn = item.querySelector('.faq-question-btn');
-      if (questionBtn) {
-        questionBtn.addEventListener('click', (e) => {
-          e.preventDefault();
+    try {
+      // 애니메이션 설정
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = 'fadeInUp';
+        const animationDuration = bm.property.animationDuration || 0.8;
+        const staggerDelay = bm.property.staggerDelay || 0.1;
 
-          // 다른 항목들 닫기 (옵션)
-          // faqItems.forEach(otherItem => {
-          //   if (otherItem !== item) {
-          //     otherItem.classList.remove('active');
-          //   }
-          // });
+        // 헤더 애니메이션
+        const title = container.querySelector('.faq-title');
+        if (title) {
+          title.setAttribute('data-animated', 'true');
+          title.style.animation = `${animationType} ${animationDuration}s ease forwards 0s`;
+        }
 
-          // 현재 항목 토글
-          item.classList.toggle('active');
+        const subtitle = container.querySelector('.faq-subtitle');
+        if (subtitle) {
+          subtitle.setAttribute('data-animated', 'true');
+          subtitle.style.animation = `${animationType} ${animationDuration}s ease forwards ${staggerDelay}s`;
+        }
+
+        // FAQ 아이템 애니메이션
+        const faqItems = container.querySelectorAll('.faq-item');
+        faqItems.forEach((item, index) => {
+          item.setAttribute('data-animated', 'true');
+          const delay = (2 + index) * staggerDelay;
+          item.style.animation = `${animationType} ${animationDuration}s ease forwards ${delay}s`;
         });
       }
-    });
+
+      // FAQ 아이템 토글 기능
+      const faqItems = container.querySelectorAll('.faq-item');
+      faqItems.forEach((item) => {
+        const questionBtn = item.querySelector('.faq-question-btn');
+        if (questionBtn) {
+          questionBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // 다른 항목들 닫기 (옵션)
+            // faqItems.forEach(otherItem => {
+            //   if (otherItem !== item) {
+            //     otherItem.classList.remove('active');
+            //   }
+            // });
+
+            // 현재 항목 토글
+            item.classList.toggle('active');
+          });
+        }
+      });
+    } catch (error) {
+      console.error('FAQ section initialization failed:', error);
+    }
   }
 
   initFAQSection();
