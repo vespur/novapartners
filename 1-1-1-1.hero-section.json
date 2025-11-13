@@ -409,12 +409,12 @@
     {
       "id": "animationType",
       "label": "애니메이션 타입",
-      "description": "콘텐츠가 나타나는 방식을 선택하세요",
+      "description": "페이드인=아래에서 올라오며 페이드, 슬라이드인=위에서 내려오며 슬라이드, 스케일인=확대되며 나타남",
       "type": "RADIO",
       "options": [
-        {"label": "아래에서 위로 페이드 (fadeInUp)", "value": "fadeInUp"},
-        {"label": "위에서 아래로 슬라이드 (slideInUp)", "value": "slideInUp"},
-        {"label": "확대되며 나타남 (scaleIn)", "value": "scaleIn"}
+        {"label": "페이드인", "value": "fadeInUp"},
+        {"label": "슬라이드인", "value": "slideInUp"},
+        {"label": "스케일인", "value": "scaleIn"}
       ],
       "default": "fadeInUp"
     },

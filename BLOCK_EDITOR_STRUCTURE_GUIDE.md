@@ -155,6 +155,35 @@
 ]
 ```
 
+### ⚠️ RADIO 옵션 label 제약사항
+
+**제약:**
+- **최대 20자 이하** (식스샵 프로 에디터 제한)
+- label이 길어야 하면 `description` 필드에 상세 설명 추가
+
+**❌ 잘못된 예:**
+```json
+{
+  "label": "아래에서 위로 페이드 (fadeInUp)",  // 21자 초과 - 에러!
+  "value": "fadeInUp"
+}
+```
+
+**✅ 올바른 예:**
+```json
+{
+  "id": "animationType",
+  "label": "애니메이션 타입",
+  "description": "페이드인=아래에서 올라오며 페이드, 슬라이드인=위에서 내려오며 슬라이드, 스케일인=확대되며 나타남",
+  "type": "RADIO",
+  "options": [
+    {"label": "페이드인", "value": "fadeInUp"},         // 4자 ✓
+    {"label": "슬라이드인", "value": "slideInUp"},      // 5자 ✓
+    {"label": "스케일인", "value": "scaleIn"}            // 4자 ✓
+  ]
+}
+```
+
 ### 줄바꿈 높이 (LINE-HEIGHT, RANGE)
 
 ```json

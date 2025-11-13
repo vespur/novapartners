@@ -1,0 +1,548 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 섹션 정보"
+    },
+    {
+      "id": "sectionTitle",
+      "label": "섹션 제목",
+      "description": "전체 섹션의 주요 제목입니다",
+      "type": "TEXT",
+      "placeholder": "예: 문제 해결부터 기회 창출까지",
+      "default": "문제 해결부터 기회 창출까지"
+    },
+    {
+      "id": "sectionSubtitle",
+      "label": "섹션 부제목 (선택사항)",
+      "description": "섹션 제목 아래에 표시될 설명 텍스트입니다",
+      "type": "TEXT",
+      "placeholder": "예: AI 전환이 가져오는 변화",
+      "default": ""
+    },
+    {
+      "id": "showDivider",
+      "label": "구분선 표시",
+      "description": "섹션 상단과 하단에 구분선을 표시합니다",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "type": "TITLE",
+      "content": "🔄 비교 항목 (최대 3개)"
+    },
+    {
+      "id": "comparisonItems",
+      "label": "비교 항목",
+      "description": "문제와 솔루션을 비교하는 항목을 추가합니다",
+      "type": "LIST",
+      "maxItems": 3,
+      "fields": [
+        {
+          "id": "problemIconType",
+          "label": "문제 아이콘 종류",
+          "description": "이모지 또는 이미지 URL 중 선택",
+          "type": "RADIO",
+          "options": [
+            {
+              "label": "이모지",
+              "value": "emoji"
+            },
+            {
+              "label": "이미지",
+              "value": "image"
+            }
+          ],
+          "default": "emoji"
+        },
+        {
+          "id": "problemIcon",
+          "label": "문제 아이콘",
+          "description": "이모지(예: ❌) 또는 이미지 URL을 입력합니다",
+          "type": "TEXT",
+          "placeholder": "❌ 또는 https://example.com/icon.png",
+          "default": "❌"
+        },
+        {
+          "id": "problemTitle",
+          "label": "문제 제목",
+          "description": "해결해야 할 문제를 짧게 표현합니다",
+          "type": "TEXT",
+          "placeholder": "예: 수동 업무 반복",
+          "default": "수동 업무 반복"
+        },
+        {
+          "id": "problemDescription",
+          "label": "문제 설명",
+          "description": "문제에 대한 상세한 설명입니다",
+          "type": "TEXT_LONG",
+          "placeholder": "예: 매일 반복되는 수동 작업으로 인한 시간 낭비와 오류 증가...",
+          "default": "매일 반복되는 수동 작업으로 인한 시간 낭비와 휴먼 에러 증가"
+        },
+        {
+          "id": "solutionIconType",
+          "label": "솔루션 아이콘 종류",
+          "description": "이모지 또는 이미지 URL 중 선택",
+          "type": "RADIO",
+          "options": [
+            {
+              "label": "이모지",
+              "value": "emoji"
+            },
+            {
+              "label": "이미지",
+              "value": "image"
+            }
+          ],
+          "default": "emoji"
+        },
+        {
+          "id": "solutionIcon",
+          "label": "솔루션 아이콘",
+          "description": "이모지(예: ✅) 또는 이미지 URL을 입력합니다",
+          "type": "TEXT",
+          "placeholder": "✅ 또는 https://example.com/icon.png",
+          "default": "✅"
+        },
+        {
+          "id": "solutionTitle",
+          "label": "솔루션 제목",
+          "description": "제공되는 솔루션을 짧게 표현합니다",
+          "type": "TEXT",
+          "placeholder": "예: AI 자동화로 즉시 해결",
+          "default": "AI 자동화로 즉시 해결"
+        },
+        {
+          "id": "solutionDescription",
+          "label": "솔루션 설명",
+          "description": "솔루션의 상세한 설명과 장점입니다",
+          "type": "TEXT_LONG",
+          "placeholder": "예: AI가 자동으로 처리하여 작업 시간 80% 단축 및 오류 제거...",
+          "default": "AI가 자동으로 처리하여 작업 시간 80% 단축 및 100% 정확도 보장"
+        }
+      ],
+      "default": [
+        {
+          "problemIcon": "❌",
+          "problemTitle": "수동 업무 반복",
+          "problemDescription": "매일 반복되는 수동 작업으로 인한 시간 낭비와 휴먼 에러 증가",
+          "solutionIcon": "✅",
+          "solutionTitle": "AI 자동화로 즉시 해결",
+          "solutionDescription": "AI가 자동으로 처리하여 작업 시간 80% 단축 및 100% 정확도 보장"
+        },
+        {
+          "problemIcon": "❌",
+          "problemTitle": "데이터 분석 한계",
+          "problemDescription": "대량의 데이터를 수작업으로 분석하기 어렵고 시간이 오래 걸림",
+          "solutionIcon": "✅",
+          "solutionTitle": "실시간 AI 분석",
+          "solutionDescription": "실시간으로 복잡한 데이터를 분석하여 즉시 인사이트 도출"
+        },
+        {
+          "problemIcon": "❌",
+          "problemTitle": "고객 응대 품질 저하",
+          "problemDescription": "24시간 고객 응대가 불가능하여 응답 지연 발생",
+          "solutionIcon": "✅",
+          "solutionTitle": "24/7 AI 챗봇",
+          "solutionDescription": "AI 챗봇으로 24시간 고객 응대 및 고객 만족도 향상"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 & 색상"
+    },
+    {
+      "id": "bgColor",
+      "label": "배경색",
+      "description": "섹션의 배경색을 설정합니다",
+      "type": "COLOR_PICKER",
+      "default": "#f5f5f5"
+    },
+    {
+      "id": "problemBgColor",
+      "label": "문제 배경색",
+      "description": "문제 섹션의 배경색 (연한 빨강 추천)",
+      "type": "COLOR_PICKER",
+      "default": "#fff5f5"
+    },
+    {
+      "id": "solutionBgColor",
+      "label": "솔루션 배경색",
+      "description": "솔루션 섹션의 배경색 (연한 초록 추천)",
+      "type": "COLOR_PICKER",
+      "default": "#f5fff5"
+    },
+    {
+      "id": "problemAccentColor",
+      "label": "문제 악센트색",
+      "description": "문제 항목의 아이콘이나 강조 색상",
+      "type": "COLOR_PICKER",
+      "default": "#ff4444"
+    },
+    {
+      "id": "solutionAccentColor",
+      "label": "솔루션 악센트색",
+      "description": "솔루션 항목의 아이콘이나 강조 색상",
+      "type": "COLOR_PICKER",
+      "default": "#44aa44"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 데스크톱 스타일"
+    },
+    {
+      "id": "desktopPaddingY",
+      "label": "위/아래 패딩",
+      "description": "섹션의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "default": 80
+    },
+    {
+      "id": "desktopPaddingX",
+      "label": "좌/우 패딩",
+      "description": "섹션의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "desktopColumnGap",
+      "label": "컬럼 간격",
+      "description": "문제와 솔루션 컬럼 사이의 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "desktopItemGap",
+      "label": "항목 간격",
+      "description": "각 비교 항목 사이의 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "id": "desktopTitleFontSize",
+      "label": "섹션 제목 크기",
+      "description": "섹션 제목의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "id": "desktopTitleFontWeight",
+      "label": "섹션 제목 굵기",
+      "description": "섹션 제목의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "400"
+        },
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "desktopTitleColor",
+      "label": "섹션 제목 색상",
+      "description": "섹션 제목의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#000000"
+    },
+    {
+      "id": "desktopSubtitleFontSize",
+      "label": "부제목 크기",
+      "description": "부제목의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "id": "desktopSubtitleColor",
+      "label": "부제목 색상",
+      "description": "부제목의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#666666"
+    },
+    {
+      "id": "desktopItemTitleFontSize",
+      "label": "항목 제목 크기",
+      "description": "문제/솔루션 제목의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "id": "desktopItemTitleFontWeight",
+      "label": "항목 제목 굵기",
+      "description": "문제/솔루션 제목의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "500"
+        },
+        {
+          "label": "굵음",
+          "value": "600"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "id": "desktopItemDescFontSize",
+      "label": "항목 설명 크기",
+      "description": "문제/솔루션 설명의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 16,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "id": "desktopItemDescColor",
+      "label": "항목 설명 색상",
+      "description": "문제/솔루션 설명의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#555555"
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 스타일"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "위/아래 패딩",
+      "description": "모바일 화면의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "좌/우 패딩",
+      "description": "모바일 화면의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "id": "mobileItemGap",
+      "label": "항목 간격",
+      "description": "모바일에서 각 비교 항목 사이의 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "섹션 제목 크기",
+      "description": "모바일 화면의 섹션 제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 36,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "id": "mobileTitleFontWeight",
+      "label": "섹션 제목 굵기",
+      "description": "모바일 화면의 섹션 제목 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "400"
+        },
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "mobileSubtitleFontSize",
+      "label": "부제목 크기",
+      "description": "모바일 화면의 부제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "id": "mobileItemTitleFontSize",
+      "label": "항목 제목 크기",
+      "description": "모바일 화면의 문제/솔루션 제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "id": "mobileItemDescFontSize",
+      "label": "항목 설명 크기",
+      "description": "모바일 화면의 문제/솔루션 설명 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 15,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "TITLE",
+      "content": "✨ 애니메이션"
+    },
+    {
+      "id": "enableAnimation",
+      "label": "애니메이션 활성화",
+      "description": "항목이 나타날 때 애니메이션을 표시합니다",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "animationType",
+      "label": "애니메이션 종류",
+      "description": "페이드인=왼쪽에서 오른쪽으로, 슬라이드=위에서 아래로, 확대=크기 커지며 나타남",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "페이드인",
+          "value": "fadeInLeft"
+        },
+        {
+          "label": "슬라이드",
+          "value": "slideInDown"
+        },
+        {
+          "label": "확대",
+          "value": "scaleIn"
+        }
+      ],
+      "default": "fadeInLeft"
+    },
+    {
+      "id": "animationDuration",
+      "label": "애니메이션 속도",
+      "description": "애니메이션 재생 시간 (초)",
+      "type": "RANGE",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.8
+    },
+    {
+      "id": "staggerDelay",
+      "label": "항목 간 딜레이",
+      "description": "각 항목이 순차적으로 나타나는 간격 (초)",
+      "type": "RANGE",
+      "min": 0.1,
+      "max": 0.6,
+      "step": 0.1,
+      "default": 0.2
+    }
+  ],
+  "property": {
+    "sectionTitle": "문제 해결부터 기회 창출까지",
+    "sectionSubtitle": "AI 전환이 가져오는 변화",
+    "showDivider": true,
+    "comparisonItems": [
+      {
+        "problemIconType": "emoji",
+        "problemIcon": "❌",
+        "problemTitle": "수동 업무 반복",
+        "problemDescription": "매일 반복되는 수동 작업으로 인한 시간 낭비와 휴먼 에러 증가",
+        "solutionIconType": "emoji",
+        "solutionIcon": "✅",
+        "solutionTitle": "AI 자동화로 즉시 해결",
+        "solutionDescription": "AI가 자동으로 처리하여 작업 시간 80% 단축 및 100% 정확도 보장"
+      },
+      {
+        "problemIconType": "emoji",
+        "problemIcon": "❌",
+        "problemTitle": "데이터 분석 한계",
+        "problemDescription": "대량의 데이터를 수작업으로 분석하기 어렵고 시간이 오래 걸림",
+        "solutionIconType": "emoji",
+        "solutionIcon": "✅",
+        "solutionTitle": "실시간 AI 분석",
+        "solutionDescription": "실시간으로 복잡한 데이터를 분석하여 즉시 인사이트 도출"
+      },
+      {
+        "problemIconType": "emoji",
+        "problemIcon": "❌",
+        "problemTitle": "고객 응대 품질 저하",
+        "problemDescription": "24시간 고객 응대가 불가능하여 응답 지연 발생",
+        "solutionIconType": "emoji",
+        "solutionIcon": "✅",
+        "solutionTitle": "24/7 AI 챗봇",
+        "solutionDescription": "AI 챗봇으로 24시간 고객 응대 및 고객 만족도 향상"
+      }
+    ],
+    "bgColor": "#f5f5f5",
+    "problemBgColor": "#fff5f5",
+    "solutionBgColor": "#f5fff5",
+    "problemAccentColor": "#ff4444",
+    "solutionAccentColor": "#44aa44",
+    "desktopPaddingY": 80,
+    "desktopPaddingX": 40,
+    "desktopColumnGap": 40,
+    "desktopItemGap": 30,
+    "desktopTitleFontSize": 42,
+    "desktopTitleFontWeight": "700",
+    "desktopTitleColor": "#000000",
+    "desktopSubtitleFontSize": 16,
+    "desktopSubtitleColor": "#666666",
+    "desktopItemTitleFontSize": 20,
+    "desktopItemTitleFontWeight": "600",
+    "desktopItemDescFontSize": 14,
+    "desktopItemDescColor": "#555555",
+    "mobilePaddingY": 40,
+    "mobilePaddingX": 20,
+    "mobileItemGap": 20,
+    "mobileTitleFontSize": 28,
+    "mobileTitleFontWeight": "700",
+    "mobileSubtitleFontSize": 14,
+    "mobileItemTitleFontSize": 16,
+    "mobileItemDescFontSize": 13,
+    "enableAnimation": true,
+    "animationType": "fadeInLeft",
+    "animationDuration": 0.8,
+    "staggerDelay": 0.2
+  }
+}

@@ -1,0 +1,345 @@
+<style>
+  .service-overview {
+    width: 100%;
+    background-color: {{property.bgColor}};
+    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
+  }
+
+  {{#if property.showDivider}}
+  .service-overview::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.08);
+    margin-bottom: {{property.desktopPaddingY}}px;
+  }
+
+  .service-overview::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.08);
+    margin-top: {{property.desktopPaddingY}}px;
+  }
+  {{/if}}
+
+  .service-overview-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .service-overview-header {
+    text-align: center;
+    margin-bottom: {{property.desktopItemGap}}px;
+  }
+
+  .service-overview-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.desktopTitleFontSize}}px;
+    font-weight: {{property.desktopTitleFontWeight}};
+    color: {{property.desktopTitleColor}};
+    margin: 0 0 12px 0;
+    {{#if property.enableAnimation}}
+    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
+    animation-delay: 0s;
+    {{/if}}
+  }
+
+  .service-overview-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopSubtitleFontSize}}px;
+    color: {{property.desktopSubtitleColor}};
+    margin: 0;
+    {{#if property.enableAnimation}}
+    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
+    animation-delay: {{property.staggerDelay}}s;
+    {{/if}}
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{property.desktopColumnGap}}px;
+  }
+
+  .comparison-column {
+    display: flex;
+    flex-direction: column;
+    gap: {{property.desktopItemGap}}px;
+  }
+
+  .comparison-item {
+    padding: 24px;
+    border-radius: 12px;
+    {{#if property.enableAnimation}}
+    animation: {{property.animationType}} {{property.animationDuration}}s ease forwards;
+    opacity: 0;
+    {{/if}}
+  }
+
+  .comparison-item:nth-child(1) {
+    {{#if property.enableAnimation}}
+    animation-delay: calc(2 * {{property.staggerDelay}}s);
+    {{/if}}
+  }
+
+  .comparison-item:nth-child(2) {
+    {{#if property.enableAnimation}}
+    animation-delay: calc(3 * {{property.staggerDelay}}s);
+    {{/if}}
+  }
+
+  .comparison-item:nth-child(3) {
+    {{#if property.enableAnimation}}
+    animation-delay: calc(4 * {{property.staggerDelay}}s);
+    {{/if}}
+  }
+
+  .problem-item {
+    background-color: {{property.problemBgColor}};
+    border-left: 4px solid {{property.problemAccentColor}};
+  }
+
+  .solution-item {
+    background-color: {{property.solutionBgColor}};
+    border-left: 4px solid {{property.solutionAccentColor}};
+  }
+
+  .comparison-item-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .comparison-item-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .comparison-item-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  .comparison-item-title {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopItemTitleFontSize}}px;
+    font-weight: {{property.desktopItemTitleFontWeight}};
+    color: #000000;
+    margin: 0;
+    flex: 1;
+  }
+
+  .problem-item .comparison-item-title {
+    color: {{property.problemAccentColor}};
+  }
+
+  .solution-item .comparison-item-title {
+    color: {{property.solutionAccentColor}};
+  }
+
+  .comparison-item-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopItemDescFontSize}}px;
+    color: {{property.desktopItemDescColor}};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* 성능 최적화 */
+  .service-overview {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* 애니메이션 정의 */
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .service-overview {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    {{#if property.showDivider}}
+    .service-overview::before {
+      margin-bottom: {{property.mobilePaddingY}}px;
+    }
+
+    .service-overview::after {
+      margin-top: {{property.mobilePaddingY}}px;
+    }
+    {{/if}}
+
+    .service-overview-header {
+      margin-bottom: {{property.mobileItemGap}}px;
+    }
+
+    .service-overview-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+      font-weight: {{property.mobileTitleFontWeight}};
+    }
+
+    .service-overview-subtitle {
+      font-size: {{property.mobileSubtitleFontSize}}px;
+    }
+
+    .comparison-grid {
+      grid-template-columns: 1fr;
+      gap: {{property.mobileItemGap}}px;
+    }
+
+    .comparison-column {
+      gap: {{property.mobileItemGap}}px;
+    }
+
+    .comparison-item {
+      padding: 16px;
+    }
+
+    .comparison-item-icon {
+      font-size: 20px;
+    }
+
+    .comparison-item-icon img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .comparison-item-title {
+      font-size: {{property.mobileItemTitleFontSize}}px;
+    }
+
+    .comparison-item-description {
+      font-size: {{property.mobileItemDescFontSize}}px;
+    }
+  }
+</style>
+
+<template>
+  <div class="service-overview">
+    <div class="service-overview-container">
+      <div class="service-overview-header">
+        {{#if property.sectionTitle}}
+          <h2 class="service-overview-title">{{property.sectionTitle}}</h2>
+        {{/if}}
+        {{#if property.sectionSubtitle}}
+          <p class="service-overview-subtitle">{{property.sectionSubtitle}}</p>
+        {{/if}}
+      </div>
+
+      {{#if property.comparisonItems}}
+        <div class="comparison-grid">
+          <div class="comparison-column">
+            {{#each property.comparisonItems}}
+              <div class="comparison-item problem-item">
+                <div class="comparison-item-header">
+                  {{#if problemIcon}}
+                    <div class="comparison-item-icon">
+                      {{#if (eq problemIconType 'image')}}
+                        <img src="{{problemIcon}}" alt="Problem icon" />
+                      {{else}}
+                        {{problemIcon}}
+                      {{/if}}
+                    </div>
+                  {{/if}}
+                  {{#if problemTitle}}
+                    <h3 class="comparison-item-title">{{problemTitle}}</h3>
+                  {{/if}}
+                </div>
+                {{#if problemDescription}}
+                  <p class="comparison-item-description">{{problemDescription}}</p>
+                {{/if}}
+              </div>
+            {{/each}}
+          </div>
+
+          <div class="comparison-column">
+            {{#each property.comparisonItems}}
+              <div class="comparison-item solution-item">
+                <div class="comparison-item-header">
+                  {{#if solutionIcon}}
+                    <div class="comparison-item-icon">
+                      {{#if (eq solutionIconType 'image')}}
+                        <img src="{{solutionIcon}}" alt="Solution icon" />
+                      {{else}}
+                        {{solutionIcon}}
+                      {{/if}}
+                    </div>
+                  {{/if}}
+                  {{#if solutionTitle}}
+                    <h3 class="comparison-item-title">{{solutionTitle}}</h3>
+                  {{/if}}
+                </div>
+                {{#if solutionDescription}}
+                  <p class="comparison-item-description">{{solutionDescription}}</p>
+                {{/if}}
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function initServiceOverview() {
+    // 이미지 아이콘 로드 확인
+    const iconImages = container.querySelectorAll('.comparison-item-icon img');
+    iconImages.forEach((img) => {
+      img.addEventListener('error', (e) => {
+        // 이미지 로드 실패 시 아이콘 컨테이너 숨김
+        e.target.parentElement.style.opacity = '0.5';
+      });
+    });
+  }
+
+  initServiceOverview();
+
+  bm.onContextChange = () => {
+    initServiceOverview();
+  };
+
+  bm.onDestroy = () => {
+    // cleanup if needed
+  };
+</script>
