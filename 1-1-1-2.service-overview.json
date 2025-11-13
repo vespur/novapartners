@@ -1,0 +1,331 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 섹션 제목"
+    },
+    {
+      "id": "sectionTitle",
+      "label": "섹션 제목",
+      "type": "TEXT",
+      "placeholder": "서비스 개요"
+    },
+    {
+      "id": "sectionDescription",
+      "label": "섹션 설명 (선택사항)",
+      "type": "TEXTAREA",
+      "placeholder": "우리의 AI 전환 서비스에 대해 자세히 알아보세요"
+    },
+    {
+      "type": "TITLE",
+      "content": "⬅️ 왼쪽 컬럼 (문제 정의)"
+    },
+    {
+      "id": "leftTitle",
+      "label": "왼쪽 제목",
+      "type": "TEXT",
+      "placeholder": "문제 정의"
+    },
+    {
+      "id": "leftItems",
+      "label": "문제 항목",
+      "type": "LIST",
+      "maxCount": 6,
+      "settings": [
+        {
+          "id": "itemTitle",
+          "label": "항목 제목",
+          "type": "TEXT",
+          "placeholder": "예: 수작업 프로세스의 비효율성"
+        },
+        {
+          "id": "itemDescription",
+          "label": "항목 설명",
+          "type": "TEXTAREA",
+          "placeholder": "자세한 설명을 입력하세요"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "➡️ 오른쪽 컬럼 (솔루션 설명)"
+    },
+    {
+      "id": "rightTitle",
+      "label": "오른쪽 제목",
+      "type": "TEXT",
+      "placeholder": "솔루션 설명"
+    },
+    {
+      "id": "rightItems",
+      "label": "솔루션 항목",
+      "type": "LIST",
+      "maxCount": 6,
+      "settings": [
+        {
+          "id": "itemTitle",
+          "label": "항목 제목",
+          "type": "TEXT",
+          "placeholder": "예: 지능형 자동화 시스템"
+        },
+        {
+          "id": "itemDescription",
+          "label": "항목 설명",
+          "type": "TEXTAREA",
+          "placeholder": "자세한 설명을 입력하세요"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 및 스타일"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경색",
+      "type": "COLOR_PICKER",
+      "default": "#f5f7ff"
+    },
+    {
+      "id": "accentColor",
+      "label": "강조색 (왼쪽 컬럼)",
+      "type": "COLOR_PICKER",
+      "default": "#e8f0ff"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 크기 (데스크톱)"
+    },
+    {
+      "id": "paddingY",
+      "label": "위아래 여백",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "id": "paddingX",
+      "label": "좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "id": "columnGap",
+      "label": "컬럼 간격",
+      "type": "RANGE",
+      "min": 30,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트 크기 (데스크톱)"
+    },
+    {
+      "id": "sectionTitleFontSize",
+      "label": "섹션 제목 글자 크기",
+      "type": "RANGE",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "id": "sectionDescriptionFontSize",
+      "label": "섹션 설명 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "columnTitleFontSize",
+      "label": "컬럼 제목 글자 크기",
+      "type": "RANGE",
+      "min": 18,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "id": "itemTitleFontSize",
+      "label": "항목 제목 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "id": "itemDescriptionFontSize",
+      "label": "항목 설명 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "itemSpacing",
+      "label": "항목 간격",
+      "type": "RANGE",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 위아래 여백",
+      "type": "RANGE",
+      "min": 30,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileSectionTitleFontSize",
+      "label": "모바일 섹션 제목 글자 크기",
+      "type": "RANGE",
+      "min": 18,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "id": "mobileSectionDescriptionFontSize",
+      "label": "모바일 섹션 설명 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "mobileColumnTitleFontSize",
+      "label": "모바일 컬럼 제목 글자 크기",
+      "type": "RANGE",
+      "min": 16,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileItemTitleFontSize",
+      "label": "모바일 항목 제목 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileItemDescriptionFontSize",
+      "label": "모바일 항목 설명 글자 크기",
+      "type": "RANGE",
+      "min": 11,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "id": "mobileItemSpacing",
+      "label": "모바일 항목 간격",
+      "type": "RANGE",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "property": {
+    "sectionTitle": "서비스 개요",
+    "sectionDescription": "AI 전환의 각 단계에서 기업이 직면한 주요 문제점과 노바파트너스의 해결 방안을 소개합니다.",
+    "leftTitle": "문제 정의",
+    "leftItems": [
+      {
+        "itemTitle": "운영 비용의 증가",
+        "itemDescription": "수작업 프로세스로 인한 높은 인건비와 운영 비용 부담"
+      },
+      {
+        "itemTitle": "프로세스 비효율성",
+        "itemDescription": "반복적인 업무로 인한 시간 낭비 및 인적 오류 증가"
+      },
+      {
+        "itemTitle": "경쟁력 저하",
+        "itemDescription": "디지털 전환 지연으로 인한 산업 내 경쟁력 약화"
+      }
+    ],
+    "rightTitle": "솔루션 설명",
+    "rightItems": [
+      {
+        "itemTitle": "지능형 자동화",
+        "itemDescription": "AI 기반 자동화로 운영 비용 최대 60% 절감"
+      },
+      {
+        "itemTitle": "맞춤형 구현",
+        "itemDescription": "기업의 핵심 프로세스 분석을 통한 맞춤형 AI 솔루션 제공"
+      },
+      {
+        "itemTitle": "지속적 지원",
+        "itemDescription": "구현 후 성과 모니터링 및 지속적인 최적화 제공"
+      }
+    ],
+    "backgroundColor": "#f5f7ff",
+    "accentColor": "#e8f0ff",
+    "paddingY": 80,
+    "paddingX": 40,
+    "columnGap": 60,
+    "sectionTitleFontSize": 36,
+    "sectionDescriptionFontSize": 16,
+    "columnTitleFontSize": 24,
+    "itemTitleFontSize": 18,
+    "itemDescriptionFontSize": 14,
+    "itemSpacing": 40,
+    "mobilePaddingY": 50,
+    "mobilePaddingX": 20,
+    "mobileSectionTitleFontSize": 26,
+    "mobileSectionDescriptionFontSize": 14,
+    "mobileColumnTitleFontSize": 20,
+    "mobileItemTitleFontSize": 16,
+    "mobileItemDescriptionFontSize": 13,
+    "mobileItemSpacing": 24
+  }
+}
