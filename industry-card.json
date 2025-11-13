@@ -1,0 +1,380 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📊 산업별 항목"
+    },
+    {
+      "id": "industries",
+      "label": "산업 목록",
+      "type": "LIST",
+      "maxCount": 15,
+      "settings": [
+        {
+          "id": "name",
+          "label": "산업명",
+          "type": "TEXT",
+          "placeholder": "예: 제조"
+        },
+        {
+          "id": "icon",
+          "label": "아이콘 (SVG)",
+          "type": "TEXTAREA",
+          "placeholder": "<svg>...</svg>"
+        },
+        {
+          "id": "link",
+          "label": "링크",
+          "type": "LINK"
+        },
+        {
+          "id": "linkText",
+          "label": "링크 텍스트",
+          "type": "TEXT",
+          "placeholder": "보기",
+          "isVisible": "property.industries[index].link"
+        },
+        {
+          "id": "openNewTab",
+          "label": "새 탭에서 열기",
+          "type": "CHECKBOX",
+          "isVisible": "property.industries[index].link"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 카드 디자인"
+    },
+    {
+      "id": "cardRadius",
+      "label": "카드 모서리 반경",
+      "type": "RANGE",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "cardPaddingY",
+      "label": "카드 위아래 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "cardPaddingX",
+      "label": "카드 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "id": "cardMinHeight",
+      "label": "카드 최소 높이",
+      "type": "RANGE",
+      "min": 120,
+      "max": 240,
+      "step": 10,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "id": "cardGap",
+      "label": "카드 간격",
+      "type": "RANGE",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "hoverTranslateY",
+      "label": "호버 시 위로 이동",
+      "type": "RANGE",
+      "min": -12,
+      "max": 0,
+      "step": 1,
+      "unit": "px",
+      "default": -6
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트 스타일"
+    },
+    {
+      "id": "titleFontSize",
+      "label": "제목 글자 크기",
+      "type": "RANGE",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "id": "linkFontSize",
+      "label": "링크 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "id": "linkMarginTop",
+      "label": "링크 위 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "TITLE",
+      "content": "🖼️ 아이콘"
+    },
+    {
+      "id": "iconSize",
+      "label": "아이콘 크기",
+      "type": "RANGE",
+      "min": 32,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "id": "iconMarginBottom",
+      "label": "아이콘 아래 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "TITLE",
+      "content": "📐 레이아웃"
+    },
+    {
+      "id": "desktopColumns",
+      "label": "데스크톱 컬럼 수",
+      "type": "RANGE",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "unit": "개",
+      "default": 5
+    },
+    {
+      "id": "tabletColumns",
+      "label": "태블릿 컬럼 수",
+      "type": "RANGE",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "unit": "개",
+      "default": 3
+    },
+    {
+      "id": "mobileColumns",
+      "label": "모바일 컬럼 수",
+      "type": "RANGE",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "unit": "개",
+      "default": 2
+    },
+    {
+      "id": "containerPaddingY",
+      "label": "섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 24,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "id": "containerPaddingX",
+      "label": "섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 64,
+      "step": 8,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileCardPaddingY",
+      "label": "모바일 카드 위아래 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileCardPaddingX",
+      "label": "모바일 카드 좌우 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileCardMinHeight",
+      "label": "모바일 카드 최소 높이",
+      "type": "RANGE",
+      "min": 100,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "id": "mobileCardGap",
+      "label": "모바일 카드 간격",
+      "type": "RANGE",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "모바일 제목 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "id": "mobileLinkFontSize",
+      "label": "모바일 링크 글자 크기",
+      "type": "RANGE",
+      "min": 11,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "mobileIconSize",
+      "label": "모바일 아이콘 크기",
+      "type": "RANGE",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "property": {
+    "industries": [
+      {
+        "name": "제조",
+        "icon": "",
+        "link": "",
+        "linkText": "보기",
+        "openNewTab": false
+      },
+      {
+        "name": "금융",
+        "icon": "",
+        "link": "",
+        "linkText": "보기",
+        "openNewTab": false
+      },
+      {
+        "name": "유통",
+        "icon": "",
+        "link": "",
+        "linkText": "보기",
+        "openNewTab": false
+      },
+      {
+        "name": "공공",
+        "icon": "",
+        "link": "",
+        "linkText": "보기",
+        "openNewTab": false
+      },
+      {
+        "name": "헬스케어",
+        "icon": "",
+        "link": "",
+        "linkText": "보기",
+        "openNewTab": false
+      }
+    ],
+    "cardRadius": 12,
+    "cardPaddingY": 32,
+    "cardPaddingX": 24,
+    "cardMinHeight": 160,
+    "cardGap": 20,
+    "hoverTranslateY": -6,
+    "titleFontSize": 22,
+    "linkFontSize": 13,
+    "linkMarginTop": 12,
+    "iconSize": 48,
+    "iconMarginBottom": 16,
+    "desktopColumns": 5,
+    "tabletColumns": 3,
+    "mobileColumns": 2,
+    "containerPaddingY": 48,
+    "containerPaddingX": 40,
+    "mobilePaddingY": 32,
+    "mobilePaddingX": 20,
+    "mobileCardPaddingY": 20,
+    "mobileCardPaddingX": 16,
+    "mobileCardMinHeight": 120,
+    "mobileCardGap": 12,
+    "mobileTitleFontSize": 18,
+    "mobileLinkFontSize": 12,
+    "mobileIconSize": 36
+  }
+}

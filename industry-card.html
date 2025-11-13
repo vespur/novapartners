@@ -1,0 +1,178 @@
+<style>
+  .industry-container {
+    width: 100%;
+    padding: {{property.containerPaddingY}}px {{property.containerPaddingX}}px;
+    background-color: var(--color-background-100);
+  }
+
+  .industry-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat({{property.desktopColumns}}, 1fr);
+    gap: {{property.cardGap}}px;
+  }
+
+  /* 산업별 카드 */
+  .industry-card {
+    background: linear-gradient(135deg, var(--color-accent-100), var(--color-accent-80));
+    border-radius: {{property.cardRadius}}px;
+    padding: {{property.cardPaddingY}}px {{property.cardPaddingX}}px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: {{property.cardMinHeight}}px;
+    color: white;
+  }
+
+  .industry-card:hover {
+    transform: translateY({{property.hoverTranslateY}}px);
+    box-shadow: 0 8px 20px rgba(75, 127, 255, 0.3);
+  }
+
+  /* 카드 아이콘 */
+  .industry-icon {
+    width: {{property.iconSize}}px;
+    height: {{property.iconSize}}px;
+    margin-bottom: {{property.iconMarginBottom}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .industry-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0) invert(1);
+  }
+
+  /* 카드 제목 */
+  .industry-title {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-heading);
+    font-size: {{property.titleFontSize}}px;
+    margin: 0;
+    line-height: 1.3;
+    word-break: keep-all;
+  }
+
+  /* 카드 링크 */
+  .industry-link {
+    color: white;
+    text-decoration: none;
+    font-size: {{property.linkFontSize}}px;
+    margin-top: {{property.linkMarginTop}}px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .industry-card:hover .industry-link {
+    opacity: 1;
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 1024px) {
+    .industry-grid {
+      grid-template-columns: repeat({{property.tabletColumns}}, 1fr);
+      gap: {{property.mobileCardGap}}px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .industry-container {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .industry-grid {
+      grid-template-columns: repeat({{property.mobileColumns}}, 1fr);
+      gap: {{property.mobileCardGap}}px;
+    }
+
+    .industry-card {
+      padding: {{property.mobileCardPaddingY}}px {{property.mobileCardPaddingX}}px;
+      min-height: {{property.mobileCardMinHeight}}px;
+    }
+
+    .industry-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+    }
+
+    .industry-icon {
+      width: {{property.mobileIconSize}}px;
+      height: {{property.mobileIconSize}}px;
+    }
+
+    .industry-link {
+      font-size: {{property.mobileLinkFontSize}}px;
+      opacity: 1;
+    }
+  }
+
+  /* 성능 최적화 */
+  .industry-card {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="industry-container">
+    <div class="industry-grid">
+      {{#each property.industries}}
+        <div class="industry-card">
+          {{#if icon}}
+            <div class="industry-icon">
+              {{{icon}}}
+            </div>
+          {{/if}}
+
+          <h3 class="industry-title">{{name}}</h3>
+
+          {{#if link}}
+            <a
+              href="{{link}}"
+              class="industry-link"
+              {{#if openNewTab}}target="_blank" rel="noopener noreferrer"{{/if}}
+            >
+              {{linkText}}
+              <span>→</span>
+            </a>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function initIndustryCards() {
+    // 빈 링크 클릭 방지
+    container.addEventListener('click', (e) => {
+      const link = e.target.closest('.industry-link');
+      if (link) {
+        const href = link.getAttribute('href');
+        if (!href || href === '' || href === '#') {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    }, true);
+  }
+
+  initIndustryCards();
+
+  bm.onContextChange = () => {
+    initIndustryCards();
+  };
+</script>
