@@ -1,0 +1,260 @@
+<style>
+  .testimonials-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.paddingY}}px {{property.paddingX}}px;
+    position: relative;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: {{property.paddingY}}px;
+    animation: fadeInDown 0.6s ease;
+  }
+
+  .testimonials-title {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-heading);
+    font-size: {{property.sectionTitleFontSize}}px;
+    color: var(--color-text-100);
+    margin: 0 0 16px 0;
+    line-height: 1.3;
+  }
+
+  .testimonials-description {
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-body);
+    font-size: {{property.sectionDescriptionFontSize}}px;
+    color: var(--color-text-70);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: {{property.cardGap}}px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background-color: {{property.cardBackgroundColor}};
+    border: 1px solid {{property.cardBorderColor}};
+    border-radius: 12px;
+    padding: {{property.cardPadding}}px;
+    animation: fadeInUp 0.8s ease;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 85, 255, 0.1);
+    border-color: rgba(0, 85, 255, 0.2);
+  }
+
+  .testimonial-rating {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .testimonial-text {
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-body);
+    font-size: {{property.testimonialTextFontSize}}px;
+    color: var(--color-text-70);
+    margin: 0 0 24px 0;
+    line-height: 1.8;
+    flex: 1;
+  }
+
+  .testimonial-author {
+    border-top: 1px solid {{property.cardBorderColor}};
+    padding-top: 16px;
+  }
+
+  .client-name {
+    font-family: var(--font-family-body);
+    font-weight: 600;
+    font-size: {{property.clientNameFontSize}}px;
+    color: var(--color-text-100);
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+  }
+
+  .client-role {
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-body);
+    font-size: {{property.clientRoleFontSize}}px;
+    color: var(--color-text-70);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  /* 애니메이션 */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .testimonials-section {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .testimonials-header {
+      margin-bottom: {{property.mobilePaddingY}}px;
+    }
+
+    .testimonials-title {
+      font-size: {{property.mobileSectionTitleFontSize}}px;
+    }
+
+    .testimonials-description {
+      font-size: {{property.mobileSectionDescriptionFontSize}}px;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      padding: {{property.mobileCardPadding}}px;
+    }
+
+    .testimonial-text {
+      font-size: {{property.mobileTestimonialTextFontSize}}px;
+      margin-bottom: 16px;
+    }
+
+    .client-name {
+      font-size: {{property.mobileClientNameFontSize}}px;
+    }
+  }
+
+  /* 성능 최적화 */
+  .testimonials-section {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="testimonials-section">
+    {{#if property.sectionTitle}}
+      <div class="testimonials-header">
+        <h2 class="testimonials-title">{{property.sectionTitle}}</h2>
+        {{#if property.sectionDescription}}
+          <p class="testimonials-description">{{property.sectionDescription}}</p>
+        {{/if}}
+      </div>
+    {{/if}}
+
+    {{#if property.testimonials}}
+      <div class="testimonials-grid">
+        {{#each property.testimonials}}
+          <div class="testimonial-card">
+            {{#if rating}}
+              <div class="testimonial-rating">
+                {{#if (eq rating "1")}}
+                  ⭐
+                {{else if (eq rating "2")}}
+                  ⭐⭐
+                {{else if (eq rating "3")}}
+                  ⭐⭐⭐
+                {{else if (eq rating "4")}}
+                  ⭐⭐⭐⭐
+                {{else}}
+                  ⭐⭐⭐⭐⭐
+                {{/if}}
+              </div>
+            {{/if}}
+
+            {{#if testimonialText}}
+              <p class="testimonial-text">{{testimonialText}}</p>
+            {{/if}}
+
+            <div class="testimonial-author">
+              {{#if clientName}}
+                <p class="client-name">{{clientName}}</p>
+              {{/if}}
+              {{#if clientRole}}
+                <p class="client-role">{{clientRole}}</p>
+              {{/if}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function initTestimonials() {
+    // 카드 호버 애니메이션
+    const cards = container.querySelectorAll('.testimonial-card');
+
+    cards.forEach((card) => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      });
+
+      card.addEventListener('mouseleave', function() {
+        this.style.transition = 'all 0.3s ease';
+      });
+    });
+
+    // 스크롤 애니메이션 트리거
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+        }
+      });
+    }, observerOptions);
+
+    cards.forEach((card) => observer.observe(card));
+  }
+
+  initTestimonials();
+
+  bm.onContextChange = () => {
+    initTestimonials();
+  };
+</script>
