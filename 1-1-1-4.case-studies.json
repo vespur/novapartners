@@ -29,8 +29,7 @@
       "label": "사례 목록",
       "description": "실제 고객 사례와 성과를 추가합니다",
       "type": "LIST",
-      "maxItems": 3,
-      "fields": [
+      "settings": [
         {
           "id": "companyLogo",
           "label": "회사 로고 (선택사항)",
@@ -72,29 +71,7 @@
           "default": "처리 시간 80% 단축, 비용 50% 절감"
         }
       ],
-      "default": [
-        {
-          "companyLogo": "",
-          "companyName": "A 금융회사",
-          "challenge": "매일 반복되는 서류 검증 작업으로 인한 비용 증대와 오류",
-          "solution": "AI 기반 자동 문서 검증 시스템 구축",
-          "results": "처리 시간 80% 단축, 비용 50% 절감"
-        },
-        {
-          "companyLogo": "",
-          "companyName": "B 제조업체",
-          "challenge": "품질 검사의 일관성 부족 및 오류율 증가",
-          "solution": "AI 비전 기반 품질 검사 자동화 시스템",
-          "results": "오류율 99% 감소, 생산량 35% 증대"
-        },
-        {
-          "companyLogo": "",
-          "companyName": "C 유통사",
-          "challenge": "고객 응대의 24시간 커버 불가로 인한 기회 손실",
-          "solution": "AI 챗봇 및 자동 응대 시스템 도입",
-          "results": "응답 시간 95% 단축, 고객 만족도 92%"
-        }
-      ]
+      "maxCount": 3
     },
     {
       "type": "TITLE",

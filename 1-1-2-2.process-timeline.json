@@ -20,8 +20,7 @@
       "id": "processSteps",
       "label": "프로세스 단계",
       "type": "LIST",
-      "maxItems": 5,
-      "fields": [
+      "settings": [
         {
           "id": "stepNumber",
           "label": "단계 번호",
@@ -53,43 +52,7 @@
           "default": "2주"
         }
       ],
-      "default": [
-        {
-          "stepNumber": "1단계",
-          "stepTitle": "현황 분석",
-          "stepDescription": "현재 프로세스와 문제점을 파악하고 AI 도입 가능성을 분석",
-          "stepIcon": "📊",
-          "stepDuration": "2주"
-        },
-        {
-          "stepNumber": "2단계",
-          "stepTitle": "전략 수립",
-          "stepDescription": "비즈니스 목표에 맞는 AI 솔루션 전략을 수립하고 로드맵 작성",
-          "stepIcon": "🎯",
-          "stepDuration": "3주"
-        },
-        {
-          "stepNumber": "3단계",
-          "stepTitle": "기술 검증",
-          "stepDescription": "PoC를 통해 기술 타당성 검증 및 효과성 측정",
-          "stepIcon": "✓",
-          "stepDuration": "4주"
-        },
-        {
-          "stepNumber": "4단계",
-          "stepTitle": "구현 계획",
-          "stepDescription": "본격 도입을 위한 구현 계획 및 리스크 관리 전략 수립",
-          "stepIcon": "📋",
-          "stepDuration": "2주"
-        },
-        {
-          "stepNumber": "5단계",
-          "stepTitle": "운영 최적화",
-          "stepDescription": "시스템 운영 및 지속적인 최적화를 통한 성과 극대화",
-          "stepIcon": "⚙️",
-          "stepDuration": "지속"
-        }
-      ]
+      "maxCount": 5
     },
     {
       "type": "TITLE",

@@ -29,8 +29,7 @@
       "label": "기능 목록",
       "description": "서비스의 주요 기능이나 이점을 추가합니다",
       "type": "LIST",
-      "maxItems": 6,
-      "fields": [
+      "settings": [
         {
           "id": "featureIcon",
           "label": "아이콘",
@@ -56,38 +55,7 @@
           "default": "최소한의 개입으로 빠르게 구현 가능합니다"
         }
       ],
-      "default": [
-        {
-          "featureIcon": "⚡",
-          "featureTitle": "빠른 구현",
-          "featureDescription": "최소한의 개입으로 빠르게 구현 가능합니다"
-        },
-        {
-          "featureIcon": "🎯",
-          "featureTitle": "정확한 분석",
-          "featureDescription": "AI 기반 정밀한 데이터 분석으로 최적의 결과 도출"
-        },
-        {
-          "featureIcon": "📈",
-          "featureTitle": "측정 가능한 결과",
-          "featureDescription": "ROI 기반 성과 측정 및 지속적인 개선"
-        },
-        {
-          "featureIcon": "🔒",
-          "featureTitle": "보안 강화",
-          "featureDescription": "엔터프라이즈급 보안 및 규정 준수"
-        },
-        {
-          "featureIcon": "👥",
-          "featureTitle": "전담 지원팀",
-          "featureDescription": "24/7 기술 지원 및 컨설팅"
-        },
-        {
-          "featureIcon": "🚀",
-          "featureTitle": "지속적 업데이트",
-          "featureDescription": "최신 AI 기술 반영 및 정기 업데이트"
-        }
-      ]
+      "maxCount": 6
     },
     {
       "type": "TITLE",
