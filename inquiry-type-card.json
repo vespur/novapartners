@@ -1,0 +1,351 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📋 문의 유형"
+    },
+    {
+      "id": "inquiries",
+      "label": "문의 유형 목록",
+      "type": "LIST",
+      "maxCount": 10,
+      "settings": [
+        {
+          "id": "icon",
+          "label": "아이콘 (이모지 또는 SVG)",
+          "type": "TEXT",
+          "placeholder": "예: 📞"
+        },
+        {
+          "id": "title",
+          "label": "제목",
+          "type": "TEXT",
+          "placeholder": "예: 상담 문의"
+        },
+        {
+          "id": "description",
+          "label": "설명",
+          "type": "TEXTAREA",
+          "placeholder": "문의 유형 설명"
+        },
+        {
+          "id": "link",
+          "label": "링크",
+          "type": "LINK"
+        },
+        {
+          "id": "linkText",
+          "label": "링크 텍스트",
+          "type": "TEXT",
+          "placeholder": "문의하기",
+          "isVisible": "property.inquiries[index].link"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 디자인"
+    },
+    {
+      "id": "cardRadius",
+      "label": "카드 모서리 반경",
+      "type": "RANGE",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "id": "cardPaddingY",
+      "label": "카드 위아래 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "cardPaddingX",
+      "label": "카드 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "id": "cardMinHeight",
+      "label": "카드 최소 높이",
+      "type": "RANGE",
+      "min": 150,
+      "max": 280,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "id": "cardGap",
+      "label": "카드 간격",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "id": "hoverTranslateY",
+      "label": "호버 시 위로 이동",
+      "type": "RANGE",
+      "min": -8,
+      "max": 0,
+      "step": 1,
+      "unit": "px",
+      "default": -4
+    },
+    {
+      "type": "TITLE",
+      "content": "🖼️ 아이콘"
+    },
+    {
+      "id": "iconSize",
+      "label": "아이콘 크기",
+      "type": "RANGE",
+      "min": 32,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "id": "iconMarginBottom",
+      "label": "아이콘 아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트"
+    },
+    {
+      "id": "titleFontSize",
+      "label": "제목 글자 크기",
+      "type": "RANGE",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "제목 아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "descriptionFontSize",
+      "label": "설명 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "linkMarginTop",
+      "label": "링크 위 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "paddingY",
+      "label": "섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 24,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "id": "paddingX",
+      "label": "섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 64,
+      "step": 8,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileColumns",
+      "label": "모바일 컬럼 수",
+      "type": "RANGE",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "unit": "개",
+      "default": 1
+    },
+    {
+      "id": "mobileCardGap",
+      "label": "모바일 카드 간격",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileCardPaddingY",
+      "label": "모바일 카드 위아래 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileCardPaddingX",
+      "label": "모바일 카드 좌우 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileCardMinHeight",
+      "label": "모바일 카드 최소 높이",
+      "type": "RANGE",
+      "min": 120,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "모바일 제목 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "id": "mobileDescriptionFontSize",
+      "label": "모바일 설명 글자 크기",
+      "type": "RANGE",
+      "min": 11,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "mobileIconSize",
+      "label": "모바일 아이콘 크기",
+      "type": "RANGE",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "property": {
+    "inquiries": [
+      {
+        "icon": "📞",
+        "title": "상담 문의",
+        "description": "AI 도입 및 솔루션에 대한 상담을 원하신다면",
+        "link": "",
+        "linkText": "상담하기"
+      },
+      {
+        "icon": "📋",
+        "title": "솔루션 도입 신청",
+        "description": "구체적인 솔루션 도입을 신청하고 싶으신 경우",
+        "link": "",
+        "linkText": "신청하기"
+      },
+      {
+        "icon": "🤝",
+        "title": "파트너 제휴 문의",
+        "description": "파트너십 및 제휴 기회에 관심이 있으신 경우",
+        "link": "",
+        "linkText": "문의하기"
+      }
+    ],
+    "cardRadius": 8,
+    "cardPaddingY": 32,
+    "cardPaddingX": 24,
+    "cardMinHeight": 200,
+    "cardGap": 24,
+    "hoverTranslateY": -4,
+    "iconSize": 48,
+    "iconMarginBottom": 16,
+    "titleFontSize": 20,
+    "titleMarginBottom": 12,
+    "descriptionFontSize": 14,
+    "linkMarginTop": 12,
+    "paddingY": 48,
+    "paddingX": 40,
+    "mobilePaddingY": 32,
+    "mobilePaddingX": 20,
+    "mobileColumns": 1,
+    "mobileCardGap": 16,
+    "mobileCardPaddingY": 20,
+    "mobileCardPaddingX": 16,
+    "mobileCardMinHeight": 150,
+    "mobileTitleFontSize": 18,
+    "mobileDescriptionFontSize": 12,
+    "mobileIconSize": 40
+  }
+}

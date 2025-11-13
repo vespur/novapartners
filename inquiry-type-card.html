@@ -1,0 +1,168 @@
+<style>
+  .inquiry-container {
+    width: 100%;
+    padding: {{property.paddingY}}px {{property.paddingX}}px;
+    background-color: var(--color-background-100);
+  }
+
+  .inquiry-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat({{property.desktopColumns}}, 1fr);
+    gap: {{property.cardGap}}px;
+  }
+
+  /* 문의 유형 카드 */
+  .inquiry-card {
+    background-color: var(--color-background-100);
+    border: 2px solid var(--color-border-100);
+    border-radius: {{property.cardRadius}}px;
+    padding: {{property.cardPaddingY}}px {{property.cardPaddingX}}px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: {{property.cardMinHeight}}px;
+  }
+
+  .inquiry-card:hover {
+    border-color: var(--color-accent-100);
+    background-color: var(--color-background-80);
+    transform: translateY({{property.hoverTranslateY}}px);
+  }
+
+  /* 아이콘 */
+  .inquiry-icon {
+    width: {{property.iconSize}}px;
+    height: {{property.iconSize}}px;
+    margin-bottom: {{property.iconMarginBottom}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: {{property.iconSize}}px;
+  }
+
+  /* 제목 */
+  .inquiry-title {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-heading);
+    font-size: {{property.titleFontSize}}px;
+    color: var(--color-text-100);
+    margin: 0 0 {{property.titleMarginBottom}}px 0;
+    line-height: 1.3;
+  }
+
+  /* 설명 */
+  .inquiry-description {
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-body);
+    font-size: {{property.descriptionFontSize}}px;
+    color: var(--color-text-70);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* 링크 버튼 */
+  .inquiry-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-accent-100);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: {{property.linkMarginTop}}px;
+    transition: gap 0.3s ease;
+  }
+
+  .inquiry-card:hover .inquiry-link {
+    gap: 12px;
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .inquiry-container {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .inquiry-grid {
+      grid-template-columns: repeat({{property.mobileColumns}}, 1fr);
+      gap: {{property.mobileCardGap}}px;
+    }
+
+    .inquiry-card {
+      padding: {{property.mobileCardPaddingY}}px {{property.mobileCardPaddingX}}px;
+      min-height: {{property.mobileCardMinHeight}}px;
+    }
+
+    .inquiry-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+    }
+
+    .inquiry-description {
+      font-size: {{property.mobileDescriptionFontSize}}px;
+    }
+
+    .inquiry-icon {
+      font-size: {{property.mobileIconSize}}px;
+      width: {{property.mobileIconSize}}px;
+      height: {{property.mobileIconSize}}px;
+    }
+  }
+
+  /* 성능 최적화 */
+  .inquiry-card {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="inquiry-container">
+    <div class="inquiry-grid">
+      {{#each property.inquiries}}
+        <div class="inquiry-card">
+          {{#if icon}}
+            <div class="inquiry-icon">{{icon}}</div>
+          {{/if}}
+
+          <h3 class="inquiry-title">{{title}}</h3>
+
+          {{#if description}}
+            <p class="inquiry-description">{{description}}</p>
+          {{/if}}
+
+          {{#if link}}
+            <a href="{{link}}" class="inquiry-link">
+              {{linkText}}
+              <span>→</span>
+            </a>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+
+  function initInquiryCards() {
+    // 빈 링크 클릭 방지
+    container.addEventListener('click', (e) => {
+      const link = e.target.closest('.inquiry-link');
+      if (link) {
+        const href = link.getAttribute('href');
+        if (!href || href === '' || href === '#') {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    }, true);
+  }
+
+  initInquiryCards();
+</script>
