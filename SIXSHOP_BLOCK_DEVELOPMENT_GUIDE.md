@@ -666,27 +666,68 @@ bm.container.addEventListener('click', (e) => {
 5. 유틸리티 메뉴 (우측)
 6. 다국어 버튼 (우측 끝)
 
-### 10-3) 라벨/설명 작성 원칙
+### 10-3) 비개발자를 위한 에디터 UX 원칙 ⭐
 
+**목적:** 식스샵 프로 템플릿 납품용 블록 - 비개발자가 쉽게 사용 가능해야 함
+
+**필수 규칙:**
+
+**1. 존댓말 사용**
 ```json
-// ✅ 좋은 예
+// ✅ 올바른 예
 {
-  "label": "📁 제목 (선택사항)",
-  "description": "첫 번째 컬럼 제목. 제목 없이 항목만 추가 가능"
+  "label": "제목 텍스트",
+  "description": "블록의 제목을 입력해주세요. 비워두시면 제목이 표시되지 않습니다."
 }
 
-// ❌ 나쁜 예
+// ❌ 잘못된 예
 {
   "label": "제목",
-  "description": "제목"
+  "description": "제목 입력"
 }
 ```
 
-**규칙:**
-- 라벨: 간결하지만 의미 명확
-- 설명: 구체적이고 친절 (무엇을, 어떻게, 주의사항)
-- 선택사항 여부 명시
-- 기본값 동작 설명
+**2. 친절하고 상세한 설명**
+```json
+// ✅ 올바른 예
+{
+  "label": "배경 색상",
+  "description": "블록의 배경색을 설정해주세요. 밝은 색상을 선택하시면 텍스트는 어두운 색으로 자동 조정됩니다."
+}
+
+// ❌ 잘못된 예
+{
+  "label": "배경색",
+  "description": "배경"
+}
+```
+
+**3. 옵션명은 명확하게**
+- 전문 용어보다 일상 용어 사용
+- 예: "padding" → "여백", "justify-content" → "정렬"
+
+**4. 선택사항 명시**
+```json
+{
+  "label": "부제목 (선택사항)",
+  "description": "부제목을 입력해주세요. 비워두셔도 됩니다."
+}
+```
+
+**5. 기본값 동작 설명**
+```json
+{
+  "label": "자동 재생",
+  "description": "체크하시면 페이지 로드 시 자동으로 재생됩니다. 해제하시면 사용자가 직접 재생 버튼을 눌러야 합니다."
+}
+```
+
+**라벨/설명 작성 체크리스트:**
+- [ ] 존댓말 사용
+- [ ] 구체적이고 친절한 설명 (무엇을, 어떻게, 효과)
+- [ ] 선택사항 여부 명시
+- [ ] 기본값 동작 설명
+- [ ] 비개발자가 이해 가능한 용어
 
 ### 10-4) JSON-HTML 동기화 원칙 ⭐
 
@@ -794,6 +835,184 @@ const track = container.querySelector('.track');
 </style>
 ```
 
+### 10-8) 스크롤 인터렉션 원칙 ⭐
+
+**목적:** 사용자 경험 극대화 - 화려한 스크롤 효과로 몰입도 향상
+
+**적용 대상:**
+- 히어로 섹션
+- 제품/서비스 소개 블록
+- 포트폴리오/갤러리 블록
+- 타임라인/스토리텔링 블록
+
+**구현 방법:**
+
+**1. Intersection Observer 사용 (권장)**
+```javascript
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-in');
+    }
+  });
+}, {
+  threshold: 0.2  // 20% 보이면 트리거
+});
+
+container.querySelectorAll('.animate-on-scroll').forEach(el => {
+  observer.add(el);
+});
+
+// cleanup 필수
+bm.onDestroy = () => {
+  observer.disconnect();
+};
+```
+
+**2. CSS 애니메이션 정의**
+```css
+/* 초기 상태 */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+/* 스크롤 인 */
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 딜레이 적용 (순차 등장) */
+.animate-on-scroll:nth-child(1) { transition-delay: 0s; }
+.animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+.animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+```
+
+**3. 다양한 애니메이션 효과**
+```css
+/* 페이드업 */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.fade-up.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 페이드 좌/우 */
+.fade-left {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.fade-left.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 스케일 */
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.scale-in.animate-in {
+  opacity: 1;
+  transform: scale(1);
+}
+```
+
+**적용 시 주의사항:**
+- [ ] 애니메이션 시간: 0.4~0.8s 권장
+- [ ] threshold: 0.1~0.3 권장 (너무 늦지 않게)
+- [ ] 모바일에서도 부드럽게 작동 확인
+- [ ] bm.onDestroy로 observer cleanup
+- [ ] 과도한 애니메이션 지양 (3~5개 요소까지)
+
+### 10-9) 텍스트 크기 기본값 ⭐
+
+**필수:** 모든 블록에서 아래 기본값 적용
+
+**제목 텍스트:**
+```json
+{
+  "id": "titleFontSizeDesktop",
+  "label": "제목 크기 (데스크톱)",
+  "type": "RANGE",
+  "min": 24,
+  "max": 72,
+  "step": 2,
+  "unit": "px",
+  "default": 36
+}
+```
+```json
+{
+  "id": "titleFontSizeMobile",
+  "label": "제목 크기 (모바일)",
+  "type": "RANGE",
+  "min": 20,
+  "max": 48,
+  "step": 2,
+  "unit": "px",
+  "default": 24
+}
+```
+
+**본문 텍스트:**
+```json
+{
+  "id": "bodyFontSizeDesktop",
+  "label": "본문 크기 (데스크톱)",
+  "type": "RANGE",
+  "min": 14,
+  "max": 28,
+  "step": 2,
+  "unit": "px",
+  "default": 20
+}
+```
+```json
+{
+  "id": "bodyFontSizeMobile",
+  "label": "본문 크기 (모바일)",
+  "type": "RANGE",
+  "min": 12,
+  "max": 24,
+  "step": 2,
+  "unit": "px",
+  "default": 16
+}
+```
+
+**CSS 적용:**
+```css
+.title {
+  font-size: {{property.titleFontSizeDesktop}}px;
+}
+
+.body-text {
+  font-size: {{property.bodyFontSizeDesktop}}px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: {{property.titleFontSizeMobile}}px;
+  }
+
+  .body-text {
+    font-size: {{property.bodyFontSizeMobile}}px;
+  }
+}
+```
+
+**기본값 요약:**
+| 텍스트 종류 | 데스크톱 | 모바일 |
+|------------|---------|--------|
+| 제목 | 36px | 24px |
+| 본문 | 20px | 16px |
+
 ---
 
 ## 11. 최종 체크리스트
@@ -851,6 +1070,26 @@ const track = container.querySelector('.track');
 - [ ] HTML/JSON 분리
 - [ ] 복붙 가능하게 독립적 작성
 
+### 비개발자 UX (템플릿 납품용)
+- [ ] 모든 description 존댓말 사용
+- [ ] 친절하고 상세한 설명 (무엇을, 어떻게, 효과)
+- [ ] 선택사항 명시
+- [ ] 기본값 동작 설명
+- [ ] 전문 용어 대신 일상 용어 사용
+
+### 스크롤 인터렉션 (적합한 블록)
+- [ ] Intersection Observer 구현
+- [ ] 애니메이션 시간 0.4~0.8s
+- [ ] threshold 0.1~0.3 설정
+- [ ] bm.onDestroy로 cleanup
+- [ ] 모바일 작동 확인
+
+### 텍스트 기본값
+- [ ] 제목 데스크톱: 36px
+- [ ] 제목 모바일: 24px
+- [ ] 본문 데스크톱: 20px
+- [ ] 본문 모바일: 16px
+
 ---
 
 ## 규칙 요약
@@ -866,6 +1105,7 @@ const track = container.querySelector('.track');
 8. 개별 요소 이벤트 바인딩
 9. console.log 남기기
 10. JavaScript 동적 복제 (무한 스크롤)
+11. 반말 사용 (템플릿 납품용)
 
 ### ✅ 필수 준수
 1. HTML/JSON 파일 분리
@@ -878,12 +1118,20 @@ const track = container.querySelector('.track');
 8. 빈 링크 클릭 방지 (헤더/푸터)
 9. JSON-HTML 동기화
 10. 템플릿 기반 정적 복제 (무한 스크롤)
+11. 존댓말 + 친절한 설명 (템플릿 납품용)
+12. 텍스트 기본값 (제목 36/24px, 본문 20/16px)
+13. 스크롤 인터렉션 (적합한 블록)
 
 ---
 
-**문서 버전**: 2.0 (통합)
+**문서 버전**: 2.1 (통합 + 템플릿 납품 기준)
 **최종 업데이트**: 2025-01-13
 **통합 세션**:
 - 엔터프라이즈 헤더 (claude/sixshop-pro-web-builder-continue-011CV1vwWJU3kNEADVdqJbxY)
 - 히어로 비디오 슬라이드 (커밋 4e1cc53)
 - 로고 배너 슬라이드 (현재 세션)
+
+**추가 기준 (v2.1)**:
+- 비개발자를 위한 에디터 UX (존댓말, 친절한 설명)
+- 스크롤 인터렉션 구현 가이드
+- 텍스트 크기 기본값 (제목 36/24px, 본문 20/16px)
