@@ -12,7 +12,7 @@
 
   .features-benefits-header {
     text-align: center;
-    margin-bottom: {{property.desktopCardGap * 3}}px;
+    margin-bottom: 24px;
   }
 
   .features-benefits-title {
@@ -42,8 +42,8 @@
 
   .features-grid {
     display: grid;
-    grid-template-columns: repeat({{property.desktopColumnCount}}, 1fr);
-    gap: {{property.desktopCardGap}}px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
 
   .feature-card {
@@ -139,7 +139,7 @@
     }
 
     .features-benefits-header {
-      margin-bottom: {{property.mobileCardGap * 2}}px;
+      margin-bottom: 16px;
     }
 
     .features-benefits-title {
@@ -152,8 +152,8 @@
     }
 
     .features-grid {
-      grid-template-columns: repeat({{property.mobileColumnCount}}, 1fr);
-      gap: {{property.mobileCardGap}}px;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 16px;
     }
 
     .feature-card {
