@@ -73,12 +73,6 @@
     border-radius: 12px;
   }
 
-  .comparison-item[data-animated] {
-    animation-duration: {{property.animationDuration}}s;
-    animation-timing-function: ease;
-    animation-fill-mode: forwards;
-  }
-
   .problem-item {
     background-color: {{property.problemBgColor}};
     border-left: 4px solid {{property.problemAccentColor}};
@@ -322,7 +316,7 @@
         });
       }
     } catch (error) {
-      console.error('Service overview animation initialization failed:', error);
+      console.error('Service overview initialization failed:', error);
     }
 
     // 이미지 아이콘 로드 확인
