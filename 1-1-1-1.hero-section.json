@@ -1,0 +1,308 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 콘텐츠 설정"
+    },
+    {
+      "id": "label",
+      "label": "라벨 (선택사항)",
+      "type": "TEXT",
+      "placeholder": "예: AI 전환 컨설팅",
+      "description": "제목 위에 표시될 작은 텍스트"
+    },
+    {
+      "id": "title",
+      "label": "제목",
+      "type": "TEXT",
+      "placeholder": "디지털 전환의 첫 번째 스텝",
+      "description": "히어로 섹션의 주요 제목"
+    },
+    {
+      "id": "description",
+      "label": "설명",
+      "type": "TEXTAREA",
+      "placeholder": "제목 아래 나타날 설명 텍스트",
+      "description": "제목을 보충하는 설명문. 최대 200자 권장"
+    },
+    {
+      "type": "TITLE",
+      "content": "🔘 버튼 설정"
+    },
+    {
+      "id": "buttons",
+      "label": "버튼",
+      "type": "LIST",
+      "maxCount": 2,
+      "description": "최대 2개까지만 추가 가능",
+      "settings": [
+        {
+          "id": "buttonText",
+          "label": "버튼 텍스트",
+          "type": "TEXT",
+          "placeholder": "예: 상담받기"
+        },
+        {
+          "id": "buttonUrl",
+          "label": "버튼 링크",
+          "type": "LINK",
+          "description": "링크가 없으면 버튼이 표시되지 않습니다"
+        },
+        {
+          "id": "buttonStyle",
+          "label": "버튼 스타일",
+          "type": "RADIO",
+          "options": [
+            {"label": "기본 (파란색 배경)", "value": "primary"},
+            {"label": "보조 (테두리)", "value": "secondary"}
+          ],
+          "default": "primary"
+        },
+        {
+          "id": "openNewTab",
+          "label": "새 탭에서 열기",
+          "type": "CHECKBOX"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 & 색상"
+    },
+    {
+      "id": "bgGradientStart",
+      "label": "그래디언트 시작색",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff",
+      "description": "배경 그래디언트의 왼쪽/위쪽 색상"
+    },
+    {
+      "id": "bgGradientEnd",
+      "label": "그래디언트 종료색",
+      "type": "COLOR_PICKER",
+      "default": "#f5f7ff",
+      "description": "배경 그래디언트의 오른쪽/아래쪽 색상"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 데스크톱 크기"
+    },
+    {
+      "id": "desktopMinHeight",
+      "label": "최소 높이",
+      "type": "RANGE",
+      "min": 400,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 600,
+      "description": "데스크톱 화면에서의 섹션 최소 높이"
+    },
+    {
+      "id": "desktopPaddingY",
+      "label": "위아래 여백",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80,
+      "description": "콘텐츠 위아래의 여백"
+    },
+    {
+      "id": "desktopPaddingX",
+      "label": "좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40,
+      "description": "콘텐츠 좌우의 여백"
+    },
+    {
+      "id": "desktopButtonGap",
+      "label": "버튼 간격",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 16,
+      "description": "버튼 사이의 간격"
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 데스크톱 텍스트"
+    },
+    {
+      "id": "desktopLabelFontSize",
+      "label": "라벨 글자 크기",
+      "type": "RANGE",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "id": "desktopTitleFontSize",
+      "label": "제목 글자 크기",
+      "type": "RANGE",
+      "min": 32,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "id": "desktopDescriptionFontSize",
+      "label": "설명 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "id": "desktopButtonFontSize",
+      "label": "버튼 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 크기"
+    },
+    {
+      "id": "mobileMinHeight",
+      "label": "최소 높이",
+      "type": "RANGE",
+      "min": 300,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 450,
+      "description": "모바일 화면에서의 섹션 최소 높이 (768px 이하)"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "위아래 여백",
+      "type": "RANGE",
+      "min": 30,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 50,
+      "description": "콘텐츠 위아래의 여백 (모바일)"
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20,
+      "description": "콘텐츠 좌우의 여백 (모바일)"
+    },
+    {
+      "id": "mobileButtonGap",
+      "label": "버튼 간격",
+      "type": "RANGE",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12,
+      "description": "버튼 사이의 간격 (모바일)"
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 모바일 텍스트"
+    },
+    {
+      "id": "mobileLabelFontSize",
+      "label": "라벨 글자 크기",
+      "type": "RANGE",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "제목 글자 크기",
+      "type": "RANGE",
+      "min": 24,
+      "max": 42,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "mobileDescriptionFontSize",
+      "label": "설명 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "id": "mobileButtonFontSize",
+      "label": "버튼 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "property": {
+    "label": "AI 전환 컨설팅",
+    "title": "디지털 전환의 첫 번째 스텝",
+    "description": "AI 기술을 활용해 기업의 운영 효율을 획기적으로 개선하세요. 전문가 상담부터 구현까지 전체 과정을 지원합니다.",
+    "buttons": [
+      {
+        "buttonText": "무료 상담 신청",
+        "buttonUrl": "",
+        "buttonStyle": "primary",
+        "openNewTab": false
+      },
+      {
+        "buttonText": "자료 다운로드",
+        "buttonUrl": "",
+        "buttonStyle": "secondary",
+        "openNewTab": false
+      }
+    ],
+    "bgGradientStart": "#ffffff",
+    "bgGradientEnd": "#f5f7ff",
+    "desktopMinHeight": 600,
+    "desktopPaddingY": 80,
+    "desktopPaddingX": 40,
+    "desktopButtonGap": 16,
+    "desktopLabelFontSize": 13,
+    "desktopTitleFontSize": 48,
+    "desktopDescriptionFontSize": 18,
+    "desktopButtonFontSize": 16,
+    "mobileMinHeight": 450,
+    "mobilePaddingY": 50,
+    "mobilePaddingX": 20,
+    "mobileButtonGap": 12,
+    "mobileLabelFontSize": 11,
+    "mobileTitleFontSize": 32,
+    "mobileDescriptionFontSize": 15,
+    "mobileButtonFontSize": 14
+  }
+}

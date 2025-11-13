@@ -1,0 +1,230 @@
+<style>
+  .hero-section {
+    width: 100%;
+    min-height: {{property.desktopMinHeight}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, {{property.bgGradientStart}} 0%, {{property.bgGradientEnd}} 100%);
+    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-decoration {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .hero-bg-decoration.left {
+    top: -100px;
+    left: -100px;
+    background-color: var(--color-accent-100);
+  }
+
+  .hero-bg-decoration.right {
+    bottom: -150px;
+    right: -150px;
+    background-color: var(--color-accent-100);
+  }
+
+  .hero-content {
+    max-width: 900px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.8s ease;
+  }
+
+  .hero-label {
+    font-family: var(--font-family-body);
+    font-weight: 600;
+    font-size: {{property.desktopLabelFontSize}}px;
+    color: var(--color-accent-100);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+
+  .hero-title {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-heading);
+    font-size: {{property.desktopTitleFontSize}}px;
+    color: var(--color-text-100);
+    margin: 0 0 24px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-description {
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-body);
+    font-size: {{property.desktopDescriptionFontSize}}px;
+    color: var(--color-text-70);
+    margin: 0 0 40px 0;
+    line-height: 1.7;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: {{property.desktopButtonGap}}px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-button {
+    padding: 16px 40px;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-family-body);
+    font-weight: 600;
+    font-size: {{property.desktopButtonFontSize}}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .hero-button.primary {
+    background-color: var(--color-accent-100);
+    color: white;
+  }
+
+  .hero-button.primary:hover {
+    background-color: #003d99;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 85, 255, 0.3);
+  }
+
+  .hero-button.secondary {
+    background-color: transparent;
+    color: var(--color-accent-100);
+    border: 2px solid var(--color-accent-100);
+  }
+
+  .hero-button.secondary:hover {
+    background-color: rgba(0, 85, 255, 0.05);
+    transform: translateY(-2px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      min-height: {{property.mobileMinHeight}}px;
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .hero-label {
+      font-size: {{property.mobileLabelFontSize}}px;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+      margin-bottom: 16px;
+    }
+
+    .hero-description {
+      font-size: {{property.mobileDescriptionFontSize}}px;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      gap: {{property.mobileButtonGap}}px;
+    }
+
+    .hero-button {
+      width: 100%;
+      font-size: {{property.mobileButtonFontSize}}px;
+    }
+  }
+
+  .hero-section {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="hero-section">
+    <div class="hero-bg-decoration left"></div>
+    <div class="hero-bg-decoration right"></div>
+
+    <div class="hero-content">
+      {{#if property.label}}
+        <p class="hero-label">{{property.label}}</p>
+      {{/if}}
+
+      {{#if property.title}}
+        <h1 class="hero-title">{{property.title}}</h1>
+      {{/if}}
+
+      {{#if property.description}}
+        <p class="hero-description">{{property.description}}</p>
+      {{/if}}
+
+      {{#if property.buttons}}
+        <div class="hero-buttons">
+          {{#each property.buttons}}
+            {{#if buttonUrl}}
+              <a
+                href="{{buttonUrl}}"
+                class="hero-button {{buttonStyle}}"
+                {{#if openNewTab}}target="_blank" rel="noopener noreferrer"{{/if}}
+              >
+                {{buttonText}}
+              </a>
+            {{/if}}
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function initHero() {
+    container.addEventListener('click', (e) => {
+      const button = e.target.closest('.hero-button');
+      if (button) {
+        const href = button.getAttribute('href');
+        if (!href || href === '' || href === '#') {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    }, true);
+  }
+
+  initHero();
+
+  bm.onContextChange = () => {
+    initHero();
+  };
+
+  bm.onDestroy = () => {
+    // cleanup if needed
+  };
+</script>
