@@ -1,7 +1,7 @@
 <style>
-  .global-header {
-    /* Light/Dark 모드 CSS 변수 - Light 모드 (기본값) */
-    {{#if property.useLightMode}}
+  /* Light/Dark 모드 CSS 변수 - :root에 정의하여 전역 접근 가능 */
+  {{#if property.useLightMode}}
+  :root {
     --logo-image: url('{{property.logoImage}}');
     --menu-color-desktop: {{property.menuColorDesktop}};
     --menu-hover-color: {{property.menuHoverColor}};
@@ -23,8 +23,10 @@
     --drawer-bg: {{property.drawerBg}};
     --mobile-menu-color: {{property.mobileMenuColor}};
     --accordion-icon-color: {{property.accordionIconColor}};
-    {{/if}}
+  }
+  {{/if}}
 
+  .global-header {
     /* 색상 전환 애니메이션 */
     transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
 
@@ -62,9 +64,9 @@
     {{/if}}
   }
 
-  /* Dark 모드 - CSS 변수 재정의 */
+  /* Dark 모드 - CSS 변수 재정의 (:root.dark-mode로 전역 적용) */
   {{#if property.useDarkMode}}
-  .global-header.dark-mode {
+  :root.dark-mode {
     --logo-image: url('{{property.logoImageDark}}');
     --menu-color-desktop: {{property.menuColorDesktopDark}};
     --menu-hover-color: {{property.menuHoverColorDark}};
@@ -1502,20 +1504,20 @@
 
       if (scrollY > threshold) {
         // 임계값을 넘으면 Light 모드로 전환 (dark-mode 클래스 제거)
-        header.classList.remove('dark-mode');
+        document.documentElement.classList.remove('dark-mode');
         updateLogoImage(false); // Light 모드 로고
       } else {
         // 임계값 이하면 Dark 모드로 전환 (dark-mode 클래스 추가)
-        header.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
         updateLogoImage(true); // Dark 모드 로고
       }
     } else if (context.property.useDarkMode && !context.property.useLightMode) {
       // Dark 모드만 활성화된 경우
-      header.classList.add('dark-mode');
+      document.documentElement.classList.add('dark-mode');
       updateLogoImage(true);
     } else {
       // Light 모드만 활성화되거나 자동 전환 비활성화
-      header.classList.remove('dark-mode');
+      document.documentElement.classList.remove('dark-mode');
       updateLogoImage(false);
     }
 
