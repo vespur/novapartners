@@ -1,0 +1,448 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📥 다운로드 자료"
+    },
+    {
+      "id": "resources",
+      "label": "자료 목록",
+      "type": "LIST",
+      "maxCount": 20,
+      "settings": [
+        {
+          "id": "title",
+          "label": "자료명",
+          "type": "TEXT",
+          "placeholder": "예: AI 백서"
+        },
+        {
+          "id": "description",
+          "label": "설명",
+          "type": "TEXTAREA",
+          "placeholder": "자료에 대한 설명을 입력하세요"
+        },
+        {
+          "id": "fileType",
+          "label": "파일 타입",
+          "type": "TEXT",
+          "placeholder": "예: PDF"
+        },
+        {
+          "id": "fileSize",
+          "label": "파일 크기",
+          "type": "TEXT",
+          "placeholder": "예: 2.5 MB"
+        },
+        {
+          "id": "icon",
+          "label": "아이콘 (SVG)",
+          "type": "TEXTAREA",
+          "placeholder": "<svg>...</svg>"
+        },
+        {
+          "id": "downloadUrl",
+          "label": "다운로드 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "buttonText",
+          "label": "버튼 텍스트",
+          "type": "TEXT",
+          "placeholder": "다운로드",
+          "isVisible": "property.resources[index].downloadUrl"
+        },
+        {
+          "id": "openNewTab",
+          "label": "새 탭에서 열기",
+          "type": "CHECKBOX",
+          "isVisible": "property.resources[index].downloadUrl"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 카드 디자인"
+    },
+    {
+      "id": "cardRadius",
+      "label": "카드 모서리 반경",
+      "type": "RANGE",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "id": "cardPaddingY",
+      "label": "카드 위아래 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "id": "cardPaddingX",
+      "label": "카드 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "cardGap",
+      "label": "카드 간격",
+      "type": "RANGE",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "TITLE",
+      "content": "🖼️ 아이콘"
+    },
+    {
+      "id": "iconSize",
+      "label": "아이콘 크기",
+      "type": "RANGE",
+      "min": 40,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "id": "iconMarginBottom",
+      "label": "아이콘 아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "iconBgColor",
+      "label": "아이콘 배경색",
+      "type": "COLOR_PICKER",
+      "default": "#f0f4ff"
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 텍스트"
+    },
+    {
+      "id": "titleFontSize",
+      "label": "제목 글자 크기",
+      "type": "RANGE",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "제목 아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "descriptionFontSize",
+      "label": "설명 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "id": "descriptionMarginBottom",
+      "label": "설명 아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "infoFontSize",
+      "label": "파일 정보 글자 크기",
+      "type": "RANGE",
+      "min": 11,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "infoMarginBottom",
+      "label": "파일 정보 아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "TITLE",
+      "content": "🔘 버튼"
+    },
+    {
+      "id": "buttonFontSize",
+      "label": "버튼 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "id": "buttonPaddingY",
+      "label": "버튼 위아래 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "id": "buttonPaddingX",
+      "label": "버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "buttonRadius",
+      "label": "버튼 모서리 반경",
+      "type": "RANGE",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "TITLE",
+      "content": "📐 레이아웃"
+    },
+    {
+      "id": "desktopColumns",
+      "label": "데스크톱 컬럼 수",
+      "type": "RANGE",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "개",
+      "default": 3
+    },
+    {
+      "id": "tabletColumns",
+      "label": "태블릿 컬럼 수",
+      "type": "RANGE",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "개",
+      "default": 2
+    },
+    {
+      "id": "mobileColumns",
+      "label": "모바일 컬럼 수",
+      "type": "RANGE",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "unit": "개",
+      "default": 1
+    },
+    {
+      "id": "containerPaddingY",
+      "label": "섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 24,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "id": "containerPaddingX",
+      "label": "섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 설정"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "모바일 섹션 위아래 여백",
+      "type": "RANGE",
+      "min": 16,
+      "max": 64,
+      "step": 8,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "모바일 섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "id": "mobileCardPaddingY",
+      "label": "모바일 카드 위아래 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileCardPaddingX",
+      "label": "모바일 카드 좌우 여백",
+      "type": "RANGE",
+      "min": 12,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileCardGap",
+      "label": "모바일 카드 간격",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "모바일 제목 글자 크기",
+      "type": "RANGE",
+      "min": 13,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "id": "mobileDescriptionFontSize",
+      "label": "모바일 설명 글자 크기",
+      "type": "RANGE",
+      "min": 11,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "id": "mobileIconSize",
+      "label": "모바일 아이콘 크기",
+      "type": "RANGE",
+      "min": 32,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    }
+  ],
+  "property": {
+    "resources": [
+      {
+        "title": "AI 도입 가이드",
+        "description": "AI 솔루션 도입을 위한 단계별 가이드 문서입니다.",
+        "fileType": "PDF",
+        "fileSize": "3.2 MB",
+        "icon": "",
+        "downloadUrl": "",
+        "buttonText": "다운로드",
+        "openNewTab": false
+      },
+      {
+        "title": "사례 분석 보고서",
+        "description": "업계별 AI 도입 성공사례를 담은 보고서입니다.",
+        "fileType": "PDF",
+        "fileSize": "5.1 MB",
+        "icon": "",
+        "downloadUrl": "",
+        "buttonText": "다운로드",
+        "openNewTab": false
+      },
+      {
+        "title": "기술 스펙 문서",
+        "description": "노바파트너스 기술 사양 및 통합 가이드입니다.",
+        "fileType": "PDF",
+        "fileSize": "2.8 MB",
+        "icon": "",
+        "downloadUrl": "",
+        "buttonText": "다운로드",
+        "openNewTab": false
+      }
+    ],
+    "cardRadius": 8,
+    "cardPaddingY": 24,
+    "cardPaddingX": 20,
+    "cardGap": 24,
+    "iconSize": 56,
+    "iconMarginBottom": 16,
+    "iconBgColor": "#f0f4ff",
+    "titleFontSize": 18,
+    "titleMarginBottom": 12,
+    "descriptionFontSize": 13,
+    "descriptionMarginBottom": 12,
+    "infoFontSize": 12,
+    "infoMarginBottom": 12,
+    "buttonFontSize": 14,
+    "buttonPaddingY": 10,
+    "buttonPaddingX": 20,
+    "buttonRadius": 4,
+    "desktopColumns": 3,
+    "tabletColumns": 2,
+    "mobileColumns": 1,
+    "containerPaddingY": 48,
+    "containerPaddingX": 40,
+    "mobilePaddingY": 32,
+    "mobilePaddingX": 20,
+    "mobileCardPaddingY": 16,
+    "mobileCardPaddingX": 16,
+    "mobileCardGap": 16,
+    "mobileTitleFontSize": 16,
+    "mobileDescriptionFontSize": 12,
+    "mobileIconSize": 44
+  }
+}
