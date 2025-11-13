@@ -1,0 +1,293 @@
+<style>
+  .faq-section {
+    width: 100%;
+    background-color: {{property.bgColor}};
+    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
+  }
+
+  .faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: {{property.desktopItemGap * 5}}px;
+  }
+
+  .faq-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.desktopTitleFontSize}}px;
+    font-weight: {{property.desktopTitleFontWeight}};
+    color: {{property.desktopTitleColor}};
+    margin: 0 0 12px 0;
+    {{#if property.enableAnimation}}
+    animation: fadeInUp 0.8s ease forwards;
+    {{/if}}
+  }
+
+  .faq-subtitle {
+    font-family: var(--font-family-body);
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
+    {{#if property.enableAnimation}}
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.1s;
+    {{/if}}
+  }
+
+  .faq-items {
+    display: flex;
+    flex-direction: column;
+    gap: {{property.desktopItemGap}}px;
+  }
+
+  .faq-item {
+    background-color: {{property.faqItemBgColor}};
+    border: 1px solid {{property.borderColor}};
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    {{#if property.enableAnimation}}
+    animation: fadeInUp 0.8s ease forwards;
+    {{/if}}
+  }
+
+  .faq-item:nth-child(1) {
+    {{#if property.enableAnimation}}
+    animation-delay: 0.2s;
+    {{/if}}
+  }
+
+  .faq-item:nth-child(2) {
+    {{#if property.enableAnimation}}
+    animation-delay: 0.3s;
+    {{/if}}
+  }
+
+  .faq-item:nth-child(3) {
+    {{#if property.enableAnimation}}
+    animation-delay: 0.4s;
+    {{/if}}
+  }
+
+  .faq-item:nth-child(4) {
+    {{#if property.enableAnimation}}
+    animation-delay: 0.5s;
+    {{/if}}
+  }
+
+  .faq-item:nth-child(5) {
+    {{#if property.enableAnimation}}
+    animation-delay: 0.6s;
+    {{/if}}
+  }
+
+  .faq-item:nth-child(6) {
+    {{#if property.enableAnimation}}
+    animation-delay: 0.7s;
+    {{/if}}
+  }
+
+  .faq-item:nth-child(7) {
+    {{#if property.enableAnimation}}
+    animation-delay: 0.8s;
+    {{/if}}
+  }
+
+  .faq-item:nth-child(8) {
+    {{#if property.enableAnimation}}
+    animation-delay: 0.9s;
+    {{/if}}
+  }
+
+  .faq-item:hover {
+    background-color: {{property.faqItemHoverBgColor}};
+  }
+
+  .faq-question-btn {
+    width: 100%;
+    padding: {{property.desktopItemPadding}}px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .faq-question-btn:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  .faq-question-text {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopQuestionFontSize}}px;
+    font-weight: {{property.desktopQuestionFontWeight}};
+    color: {{property.questionColor}};
+    margin: 0;
+    flex: 1;
+    text-align: left;
+  }
+
+  .faq-toggle-icon {
+    font-size: 18px;
+    transition: transform {{property.animationDuration}}s ease;
+    flex-shrink: 0;
+  }
+
+  .faq-item.active .faq-toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height {{property.animationDuration}}s ease;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 1000px;
+  }
+
+  .faq-answer-content {
+    padding: 0 {{property.desktopItemPadding}}px {{property.desktopItemPadding}}px {{property.desktopItemPadding}}px;
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopAnswerFontSize}}px;
+    color: {{property.answerColor}};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* 성능 최적화 */
+  .faq-section {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* 애니메이션 정의 */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .faq-header {
+      margin-bottom: {{property.desktopItemGap * 3}}px;
+    }
+
+    .faq-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+      font-weight: {{property.mobileTitleFontWeight}};
+    }
+
+    .faq-items {
+      gap: 8px;
+    }
+
+    .faq-question-btn {
+      padding: {{property.mobileItemPadding}}px;
+    }
+
+    .faq-question-text {
+      font-size: {{property.mobileQuestionFontSize}}px;
+    }
+
+    .faq-answer-content {
+      padding: 0 {{property.mobileItemPadding}}px {{property.mobileItemPadding}}px {{property.mobileItemPadding}}px;
+      font-size: {{property.mobileAnswerFontSize}}px;
+    }
+
+    .faq-toggle-icon {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<template>
+  <div class="faq-section">
+    <div class="faq-container">
+      <div class="faq-header">
+        {{#if property.sectionTitle}}
+          <h2 class="faq-title">{{property.sectionTitle}}</h2>
+        {{/if}}
+        {{#if property.sectionSubtitle}}
+          <p class="faq-subtitle">{{property.sectionSubtitle}}</p>
+        {{/if}}
+      </div>
+
+      {{#if property.faqItems}}
+        <div class="faq-items">
+          {{#each property.faqItems}}
+            <div class="faq-item" data-index="{{@index}}">
+              <button class="faq-question-btn" type="button">
+                {{#if question}}
+                  <p class="faq-question-text">{{question}}</p>
+                {{/if}}
+                <span class="faq-toggle-icon">▼</span>
+              </button>
+              <div class="faq-answer">
+                {{#if answer}}
+                  <p class="faq-answer-content">{{answer}}</p>
+                {{/if}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function initFAQSection() {
+    // FAQ 아이템 토글 기능
+    const faqItems = container.querySelectorAll('.faq-item');
+    faqItems.forEach((item) => {
+      const questionBtn = item.querySelector('.faq-question-btn');
+      if (questionBtn) {
+        questionBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          // 다른 항목들 닫기 (옵션)
+          // faqItems.forEach(otherItem => {
+          //   if (otherItem !== item) {
+          //     otherItem.classList.remove('active');
+          //   }
+          // });
+
+          // 현재 항목 토글
+          item.classList.toggle('active');
+        });
+      }
+    });
+  }
+
+  initFAQSection();
+
+  bm.onContextChange = () => {
+    initFAQSection();
+  };
+
+  bm.onDestroy = () => {
+    // cleanup if needed
+  };
+</script>

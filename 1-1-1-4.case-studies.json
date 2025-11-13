@@ -1,0 +1,515 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 섹션 정보"
+    },
+    {
+      "id": "sectionTitle",
+      "label": "섹션 제목",
+      "description": "전체 섹션의 주요 제목입니다",
+      "type": "TEXT",
+      "placeholder": "예: 성공 사례",
+      "default": "성공 사례"
+    },
+    {
+      "id": "sectionSubtitle",
+      "label": "섹션 부제목 (선택사항)",
+      "description": "섹션 제목 아래에 표시될 설명 텍스트입니다",
+      "type": "TEXT",
+      "placeholder": "예: AI 전환으로 달성한 기업들의 성과",
+      "default": ""
+    },
+    {
+      "type": "TITLE",
+      "content": "📋 사례 항목 (최대 3개)"
+    },
+    {
+      "id": "caseStudies",
+      "label": "사례 목록",
+      "description": "실제 고객 사례와 성과를 추가합니다",
+      "type": "LIST",
+      "maxItems": 3,
+      "fields": [
+        {
+          "id": "companyLogo",
+          "label": "회사 로고 (선택사항)",
+          "description": "고객사 로고 URL을 입력합니다",
+          "type": "TEXT",
+          "placeholder": "https://example.com/logo.png",
+          "default": ""
+        },
+        {
+          "id": "companyName",
+          "label": "회사명",
+          "description": "고객사의 이름입니다",
+          "type": "TEXT",
+          "placeholder": "예: A 금융회사",
+          "default": "A 금융회사"
+        },
+        {
+          "id": "industry",
+          "label": "산업군",
+          "description": "고객사가 속한 산업군입니다",
+          "type": "TEXT",
+          "placeholder": "예: 금융",
+          "default": "금융"
+        },
+        {
+          "id": "challenge",
+          "label": "당면 과제",
+          "description": "고객사가 직면한 문제를 설명합니다",
+          "type": "TEXT_LONG",
+          "placeholder": "예: 매일 반복되는 서류 검증 작업...",
+          "default": "매일 반복되는 서류 검증 작업으로 인한 비용 증대와 오류"
+        },
+        {
+          "id": "solution",
+          "label": "제공된 솔루션",
+          "description": "적용된 솔루션을 설명합니다",
+          "type": "TEXT_LONG",
+          "placeholder": "예: AI 기반 자동 검증 시스템...",
+          "default": "AI 기반 자동 문서 검증 시스템 구축"
+        },
+        {
+          "id": "resultMetric1Label",
+          "label": "성과 지표 1 제목",
+          "description": "첫 번째 성과 지표의 이름입니다",
+          "type": "TEXT",
+          "placeholder": "예: 처리 시간 단축",
+          "default": "처리 시간 단축"
+        },
+        {
+          "id": "resultMetric1Value",
+          "label": "성과 지표 1 수치",
+          "description": "첫 번째 성과 지표의 수치 또는 백분율입니다",
+          "type": "TEXT",
+          "placeholder": "예: 80%",
+          "default": "80%"
+        },
+        {
+          "id": "resultMetric2Label",
+          "label": "성과 지표 2 제목",
+          "description": "두 번째 성과 지표의 이름입니다",
+          "type": "TEXT",
+          "placeholder": "예: 비용 절감",
+          "default": "비용 절감"
+        },
+        {
+          "id": "resultMetric2Value",
+          "label": "성과 지표 2 수치",
+          "description": "두 번째 성과 지표의 수치 또는 백분율입니다",
+          "type": "TEXT",
+          "placeholder": "예: 50%",
+          "default": "50%"
+        }
+      ],
+      "default": [
+        {
+          "companyLogo": "",
+          "companyName": "A 금융회사",
+          "industry": "금융",
+          "challenge": "매일 반복되는 서류 검증 작업으로 인한 비용 증대와 오류",
+          "solution": "AI 기반 자동 문서 검증 시스템 구축",
+          "resultMetric1Label": "처리 시간 단축",
+          "resultMetric1Value": "80%",
+          "resultMetric2Label": "비용 절감",
+          "resultMetric2Value": "50%"
+        },
+        {
+          "companyLogo": "",
+          "companyName": "B 제조업체",
+          "industry": "제조",
+          "challenge": "품질 검사의 일관성 부족 및 오류율 증가",
+          "solution": "AI 비전 기반 품질 검사 자동화 시스템",
+          "resultMetric1Label": "오류율 감소",
+          "resultMetric1Value": "99%",
+          "resultMetric2Label": "생산량 증대",
+          "resultMetric2Value": "35%"
+        },
+        {
+          "companyLogo": "",
+          "companyName": "C 유통사",
+          "industry": "유통",
+          "challenge": "고객 응대의 24시간 커버 불가로 인한 기회 손실",
+          "solution": "AI 챗봇 및 자동 응대 시스템 도입",
+          "resultMetric1Label": "응답 시간 단축",
+          "resultMetric1Value": "95%",
+          "resultMetric2Label": "고객 만족도",
+          "resultMetric2Value": "92%"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 & 색상"
+    },
+    {
+      "id": "bgColor",
+      "label": "배경색",
+      "description": "섹션의 배경색을 설정합니다",
+      "type": "COLOR_PICKER",
+      "default": "#f9fafb"
+    },
+    {
+      "id": "caseCardBgColor",
+      "label": "사례 카드 배경색",
+      "description": "각 사례 카드의 배경색을 설정합니다",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "metricBgColor",
+      "label": "성과 지표 배경색",
+      "description": "성과 지표 표시 부분의 배경색",
+      "type": "COLOR_PICKER",
+      "default": "#f0f7ff"
+    },
+    {
+      "id": "metricValueColor",
+      "label": "성과 수치 색상",
+      "description": "성과 수치의 텍스트 색상 (강조용)",
+      "type": "COLOR_PICKER",
+      "default": "#0055ff"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 데스크톱 스타일"
+    },
+    {
+      "id": "desktopPaddingY",
+      "label": "위/아래 패딩",
+      "description": "섹션의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "default": 80
+    },
+    {
+      "id": "desktopPaddingX",
+      "label": "좌/우 패딩",
+      "description": "섹션의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "desktopCardGap",
+      "label": "카드 간격",
+      "description": "카드 사이의 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "id": "desktopTitleFontSize",
+      "label": "섹션 제목 크기",
+      "description": "섹션 제목의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "id": "desktopTitleFontWeight",
+      "label": "섹션 제목 굵기",
+      "description": "섹션 제목의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "400"
+        },
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "desktopTitleColor",
+      "label": "섹션 제목 색상",
+      "description": "섹션 제목의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#000000"
+    },
+    {
+      "id": "desktopCompanyNameFontSize",
+      "label": "회사명 크기",
+      "description": "고객사 회사명의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 24,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "id": "desktopCompanyNameFontWeight",
+      "label": "회사명 굵기",
+      "description": "회사명의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "500"
+        },
+        {
+          "label": "굵음",
+          "value": "600"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "id": "desktopTextFontSize",
+      "label": "본문 텍스트 크기",
+      "description": "당면 과제, 솔루션 설명의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 16,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "id": "desktopTextColor",
+      "label": "본문 텍스트 색상",
+      "description": "당면 과제, 솔루션 텍스트의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#555555"
+    },
+    {
+      "id": "desktopLogoSize",
+      "label": "로고 크기",
+      "description": "회사 로고의 높이 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 스타일"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "위/아래 패딩",
+      "description": "모바일 화면의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "좌/우 패딩",
+      "description": "모바일 화면의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "id": "mobileCardGap",
+      "label": "카드 간격",
+      "description": "모바일 화면의 카드 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "섹션 제목 크기",
+      "description": "모바일 화면의 섹션 제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 22,
+      "max": 40,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "id": "mobileTitleFontWeight",
+      "label": "섹션 제목 굵기",
+      "description": "모바일의 섹션 제목 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "400"
+        },
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "mobileCompanyNameFontSize",
+      "label": "회사명 크기",
+      "description": "모바일의 회사명 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "id": "mobileTextFontSize",
+      "label": "본문 텍스트 크기",
+      "description": "모바일의 본문 텍스트 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 15,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "id": "mobileLogoSize",
+      "label": "로고 크기",
+      "description": "모바일의 회사 로고 높이 (픽셀)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "default": 28
+    },
+    {
+      "type": "TITLE",
+      "content": "✨ 애니메이션"
+    },
+    {
+      "id": "enableAnimation",
+      "label": "애니메이션 활성화",
+      "description": "카드가 나타날 때 애니메이션을 표시합니다",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "animationType",
+      "label": "애니메이션 종류",
+      "description": "페이드인=왼쪽에서, 슬라이드=위에서, 확대=작은 크기에서",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "페이드인",
+          "value": "fadeInLeft"
+        },
+        {
+          "label": "슬라이드",
+          "value": "slideInUp"
+        },
+        {
+          "label": "확대",
+          "value": "scaleIn"
+        }
+      ],
+      "default": "fadeInLeft"
+    },
+    {
+      "id": "animationDuration",
+      "label": "애니메이션 속도",
+      "description": "애니메이션 재생 시간 (초)",
+      "type": "RANGE",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.8
+    },
+    {
+      "id": "staggerDelay",
+      "label": "카드 간 딜레이",
+      "description": "각 카드가 순차적으로 나타나는 간격 (초)",
+      "type": "RANGE",
+      "min": 0.1,
+      "max": 0.5,
+      "step": 0.05,
+      "default": 0.2
+    }
+  ],
+  "property": {
+    "sectionTitle": "성공 사례",
+    "sectionSubtitle": "AI 전환으로 달성한 기업들의 성과",
+    "caseStudies": [
+      {
+        "companyLogo": "",
+        "companyName": "A 금융회사",
+        "industry": "금융",
+        "challenge": "매일 반복되는 서류 검증 작업으로 인한 비용 증대와 오류",
+        "solution": "AI 기반 자동 문서 검증 시스템 구축",
+        "resultMetric1Label": "처리 시간 단축",
+        "resultMetric1Value": "80%",
+        "resultMetric2Label": "비용 절감",
+        "resultMetric2Value": "50%"
+      },
+      {
+        "companyLogo": "",
+        "companyName": "B 제조업체",
+        "industry": "제조",
+        "challenge": "품질 검사의 일관성 부족 및 오류율 증가",
+        "solution": "AI 비전 기반 품질 검사 자동화 시스템",
+        "resultMetric1Label": "오류율 감소",
+        "resultMetric1Value": "99%",
+        "resultMetric2Label": "생산량 증대",
+        "resultMetric2Value": "35%"
+      },
+      {
+        "companyLogo": "",
+        "companyName": "C 유통사",
+        "industry": "유통",
+        "challenge": "고객 응대의 24시간 커버 불가로 인한 기회 손실",
+        "solution": "AI 챗봇 및 자동 응대 시스템 도입",
+        "resultMetric1Label": "응답 시간 단축",
+        "resultMetric1Value": "95%",
+        "resultMetric2Label": "고객 만족도",
+        "resultMetric2Value": "92%"
+      }
+    ],
+    "bgColor": "#f9fafb",
+    "caseCardBgColor": "#ffffff",
+    "metricBgColor": "#f0f7ff",
+    "metricValueColor": "#0055ff",
+    "desktopPaddingY": 80,
+    "desktopPaddingX": 40,
+    "desktopCardGap": 24,
+    "desktopTitleFontSize": 42,
+    "desktopTitleFontWeight": "700",
+    "desktopTitleColor": "#000000",
+    "desktopCompanyNameFontSize": 20,
+    "desktopCompanyNameFontWeight": "600",
+    "desktopTextFontSize": 14,
+    "desktopTextColor": "#555555",
+    "desktopLogoSize": 40,
+    "mobilePaddingY": 40,
+    "mobilePaddingX": 16,
+    "mobileCardGap": 16,
+    "mobileTitleFontSize": 28,
+    "mobileTitleFontWeight": "700",
+    "mobileCompanyNameFontSize": 16,
+    "mobileTextFontSize": 13,
+    "mobileLogoSize": 28,
+    "enableAnimation": true,
+    "animationType": "fadeInLeft",
+    "animationDuration": 0.8,
+    "staggerDelay": 0.2
+  }
+}

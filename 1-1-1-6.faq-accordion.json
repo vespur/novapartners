@@ -1,0 +1,413 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 섹션 정보"
+    },
+    {
+      "id": "sectionTitle",
+      "label": "섹션 제목",
+      "description": "전체 섹션의 주요 제목입니다",
+      "type": "TEXT",
+      "placeholder": "예: 자주 묻는 질문",
+      "default": "자주 묻는 질문"
+    },
+    {
+      "id": "sectionSubtitle",
+      "label": "섹션 부제목 (선택사항)",
+      "description": "섹션 제목 아래에 표시될 설명 텍스트입니다",
+      "type": "TEXT",
+      "placeholder": "예: AI 솔루션에 대해 궁금한 점을 확인하세요",
+      "default": ""
+    },
+    {
+      "type": "TITLE",
+      "content": "❓ FAQ 항목 (최대 8개)"
+    },
+    {
+      "id": "faqItems",
+      "label": "FAQ 목록",
+      "description": "자주 묻는 질문과 답변을 추가합니다",
+      "type": "LIST",
+      "maxItems": 8,
+      "fields": [
+        {
+          "id": "question",
+          "label": "질문",
+          "description": "자주 묻는 질문입니다",
+          "type": "TEXT",
+          "placeholder": "예: AI 도입에 얼마나 오래 걸리나요?",
+          "default": "AI 도입에 얼마나 오래 걸리나요?"
+        },
+        {
+          "id": "answer",
+          "label": "답변",
+          "description": "질문에 대한 상세한 답변입니다",
+          "type": "TEXT_LONG",
+          "placeholder": "예: 프로젝트 규모에 따라 다르지만...",
+          "default": "프로젝트 규모에 따라 다르지만, 일반적으로 2-4주 정도 소요됩니다"
+        }
+      ],
+      "default": [
+        {
+          "question": "AI 도입에 얼마나 오래 걸리나요?",
+          "answer": "프로젝트 규모에 따라 다르지만, 일반적으로 2-4주 정도 소요됩니다. 저희 팀이 빠르고 효율적인 구현을 담당합니다."
+        },
+        {
+          "question": "초기 설치 비용은 얼마인가요?",
+          "answer": "초기 비용은 귀사의 요구사항에 따라 결정됩니다. 무료 상담을 통해 맞춤형 견적을 제공해 드립니다."
+        },
+        {
+          "question": "기존 시스템과의 연동이 가능한가요?",
+          "answer": "네, 저희 솔루션은 대부분의 기존 시스템과 호환됩니다. API 연동 등 다양한 방식을 지원합니다."
+        },
+        {
+          "question": "데이터 보안은 어떻게 보장하나요?",
+          "answer": "엔터프라이즈급 암호화 및 보안 프로토콜을 적용하며, 국제 보안 표준을 준수합니다."
+        },
+        {
+          "question": "도입 후 지원은 어떻게 이루어지나요?",
+          "answer": "24/7 기술 지원팀이 대기 중이며, 정기적인 교육 및 최적화 컨설팅을 제공합니다."
+        },
+        {
+          "question": "ROI는 언제쯤 기대할 수 있나요?",
+          "answer": "평균적으로 3-6개월 이내에 초기 투자 대비 긍정적인 수익을 기대할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 & 색상"
+    },
+    {
+      "id": "bgColor",
+      "label": "배경색",
+      "description": "섹션의 배경색을 설정합니다",
+      "type": "COLOR_PICKER",
+      "default": "#ffffff"
+    },
+    {
+      "id": "faqItemBgColor",
+      "label": "FAQ 항목 배경색",
+      "description": "FAQ 항목의 배경색을 설정합니다",
+      "type": "COLOR_PICKER",
+      "default": "#f9fafb"
+    },
+    {
+      "id": "faqItemHoverBgColor",
+      "label": "FAQ 항목 호버 배경색",
+      "description": "마우스 호버 시 FAQ 항목의 배경색",
+      "type": "COLOR_PICKER",
+      "default": "#f0f7ff"
+    },
+    {
+      "id": "questionColor",
+      "label": "질문 텍스트 색상",
+      "description": "FAQ 질문의 텍스트 색상",
+      "type": "COLOR_PICKER",
+      "default": "#000000"
+    },
+    {
+      "id": "answerColor",
+      "label": "답변 텍스트 색상",
+      "description": "FAQ 답변의 텍스트 색상",
+      "type": "COLOR_PICKER",
+      "default": "#555555"
+    },
+    {
+      "id": "borderColor",
+      "label": "경계선 색상",
+      "description": "FAQ 항목의 경계선 색상",
+      "type": "COLOR_PICKER",
+      "default": "rgba(0, 0, 0, 0.08)"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 데스크톱 스타일"
+    },
+    {
+      "id": "desktopPaddingY",
+      "label": "위/아래 패딩",
+      "description": "섹션의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "default": 80
+    },
+    {
+      "id": "desktopPaddingX",
+      "label": "좌/우 패딩",
+      "description": "섹션의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "desktopTitleFontSize",
+      "label": "섹션 제목 크기",
+      "description": "섹션 제목의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "id": "desktopTitleFontWeight",
+      "label": "섹션 제목 굵기",
+      "description": "섹션 제목의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "400"
+        },
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "desktopTitleColor",
+      "label": "섹션 제목 색상",
+      "description": "섹션 제목의 색상",
+      "type": "COLOR_PICKER",
+      "default": "#000000"
+    },
+    {
+      "id": "desktopQuestionFontSize",
+      "label": "질문 크기",
+      "description": "FAQ 질문의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "id": "desktopQuestionFontWeight",
+      "label": "질문 굵기",
+      "description": "질문의 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "500"
+        },
+        {
+          "label": "굵음",
+          "value": "600"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "id": "desktopAnswerFontSize",
+      "label": "답변 크기",
+      "description": "답변의 글자 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 16,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "id": "desktopItemPadding",
+      "label": "항목 패딩",
+      "description": "각 FAQ 항목의 내부 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "id": "desktopItemGap",
+      "label": "항목 간격",
+      "description": "FAQ 항목 사이의 간격 (픽셀)",
+      "type": "RANGE",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 스타일"
+    },
+    {
+      "id": "mobilePaddingY",
+      "label": "위/아래 패딩",
+      "description": "모바일 화면의 위아래 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "default": 40
+    },
+    {
+      "id": "mobilePaddingX",
+      "label": "좌/우 패딩",
+      "description": "모바일 화면의 좌우 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "id": "mobileTitleFontSize",
+      "label": "섹션 제목 크기",
+      "description": "모바일의 섹션 제목 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 22,
+      "max": 40,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "id": "mobileTitleFontWeight",
+      "label": "섹션 제목 굵기",
+      "description": "모바일의 섹션 제목 굵기",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "일반",
+          "value": "400"
+        },
+        {
+          "label": "중간",
+          "value": "600"
+        },
+        {
+          "label": "굵음",
+          "value": "700"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "id": "mobileQuestionFontSize",
+      "label": "질문 크기",
+      "description": "모바일의 질문 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "id": "mobileAnswerFontSize",
+      "label": "답변 크기",
+      "description": "모바일의 답변 크기 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 15,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "id": "mobileItemPadding",
+      "label": "항목 패딩",
+      "description": "모바일의 항목 내부 여백 (픽셀)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "TITLE",
+      "content": "✨ 애니메이션"
+    },
+    {
+      "id": "enableAnimation",
+      "label": "애니메이션 활성화",
+      "description": "항목이 나타날 때 애니메이션을 표시합니다",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "enableAccordionAnimation",
+      "label": "아코디언 애니메이션",
+      "description": "질문/답변 열고 닫을 때 부드러운 애니메이션",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "animationDuration",
+      "label": "아코디언 속도",
+      "description": "아코디언 열고 닫기 속도 (초)",
+      "type": "RANGE",
+      "min": 0.2,
+      "max": 0.6,
+      "step": 0.05,
+      "default": 0.3
+    }
+  ],
+  "property": {
+    "sectionTitle": "자주 묻는 질문",
+    "sectionSubtitle": "AI 솔루션에 대해 궁금한 점을 확인하세요",
+    "faqItems": [
+      {
+        "question": "AI 도입에 얼마나 오래 걸리나요?",
+        "answer": "프로젝트 규모에 따라 다르지만, 일반적으로 2-4주 정도 소요됩니다. 저희 팀이 빠르고 효율적인 구현을 담당합니다."
+      },
+      {
+        "question": "초기 설치 비용은 얼마인가요?",
+        "answer": "초기 비용은 귀사의 요구사항에 따라 결정됩니다. 무료 상담을 통해 맞춤형 견적을 제공해 드립니다."
+      },
+      {
+        "question": "기존 시스템과의 연동이 가능한가요?",
+        "answer": "네, 저희 솔루션은 대부분의 기존 시스템과 호환됩니다. API 연동 등 다양한 방식을 지원합니다."
+      },
+      {
+        "question": "데이터 보안은 어떻게 보장하나요?",
+        "answer": "엔터프라이즈급 암호화 및 보안 프로토콜을 적용하며, 국제 보안 표준을 준수합니다."
+      },
+      {
+        "question": "도입 후 지원은 어떻게 이루어지나요?",
+        "answer": "24/7 기술 지원팀이 대기 중이며, 정기적인 교육 및 최적화 컨설팅을 제공합니다."
+      },
+      {
+        "question": "ROI는 언제쯤 기대할 수 있나요?",
+        "answer": "평균적으로 3-6개월 이내에 초기 투자 대비 긍정적인 수익을 기대할 수 있습니다."
+      }
+    ],
+    "bgColor": "#ffffff",
+    "faqItemBgColor": "#f9fafb",
+    "faqItemHoverBgColor": "#f0f7ff",
+    "questionColor": "#000000",
+    "answerColor": "#555555",
+    "borderColor": "rgba(0, 0, 0, 0.08)",
+    "desktopPaddingY": 80,
+    "desktopPaddingX": 40,
+    "desktopTitleFontSize": 42,
+    "desktopTitleFontWeight": "700",
+    "desktopTitleColor": "#000000",
+    "desktopQuestionFontSize": 16,
+    "desktopQuestionFontWeight": "600",
+    "desktopAnswerFontSize": 14,
+    "desktopItemPadding": 20,
+    "desktopItemGap": 12,
+    "mobilePaddingY": 40,
+    "mobilePaddingX": 16,
+    "mobileTitleFontSize": 28,
+    "mobileTitleFontWeight": "700",
+    "mobileQuestionFontSize": 15,
+    "mobileAnswerFontSize": 13,
+    "mobileItemPadding": 16,
+    "enableAnimation": true,
+    "enableAccordionAnimation": true,
+    "animationDuration": 0.3
+  }
+}
