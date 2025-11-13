@@ -1779,7 +1779,8 @@
       "type": "RANGE",
       "min": 10,
       "max": 40,
-      "step": "px"
+      "step": 5,
+      "unit": "px"
     },
     {
       "id": "drawerUtilityShow",
