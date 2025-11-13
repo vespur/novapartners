@@ -1,0 +1,149 @@
+<style>
+  .news-container {
+    width: 100%;
+    padding: {{property.containerPaddingY}}px {{property.containerPaddingX}}px;
+    background-color: var(--color-background-100);
+  }
+
+  .news-list {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: {{property.itemGap}}px;
+  }
+
+  /* 뉴스 아이템 */
+  .news-item {
+    padding: {{property.itemPaddingY}}px {{property.itemPaddingX}}px;
+    border-bottom: 1px solid var(--color-border-100);
+    display: flex;
+    gap: {{property.contentGap}}px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .news-item:last-child {
+    border-bottom: none;
+  }
+
+  .news-item:hover {
+    background-color: var(--color-background-80);
+    padding-left: {{property.itemPaddingX + 8}}px;
+  }
+
+  /* 뉴스 날짜 */
+  .news-date {
+    font-family: var(--font-family-body);
+    font-size: {{property.dateFontSize}}px;
+    color: var(--color-text-50);
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  /* 뉴스 콘텐츠 */
+  .news-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: {{property.textGap}}px;
+  }
+
+  /* 뉴스 제목 */
+  .news-title {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-heading);
+    font-size: {{property.titleFontSize}}px;
+    color: var(--color-text-100);
+    margin: 0;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+  }
+
+  .news-item:hover .news-title {
+    color: var(--color-accent-100);
+  }
+
+  /* 뉴스 카테고리 */
+  .news-category {
+    display: inline-flex;
+    background-color: var(--color-accent-10);
+    color: var(--color-accent-100);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: {{property.categoryFontSize}}px;
+    font-weight: 600;
+    width: fit-content;
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .news-container {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .news-item {
+      padding: {{property.mobileItemPaddingY}}px {{property.mobileItemPaddingX}}px;
+      gap: {{property.mobileContentGap}}px;
+      flex-direction: column;
+    }
+
+    .news-date {
+      font-size: {{property.mobileDateFontSize}}px;
+      min-width: auto;
+    }
+
+    .news-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+    }
+
+    .news-list {
+      gap: {{property.mobileItemGap}}px;
+    }
+  }
+
+  /* 성능 최적화 */
+  .news-item {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+</style>
+
+<template>
+  <div class="news-container">
+    <div class="news-list">
+      {{#each property.newsList}}
+        <div class="news-item">
+          <div class="news-date">{{date}}</div>
+          <div class="news-content">
+            {{#if category}}
+              <span class="news-category">{{category}}</span>
+            {{/if}}
+            <h3 class="news-title">{{title}}</h3>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function initNewsList() {
+    // 뉴스 항목 클릭 처리
+    const items = container.querySelectorAll('.news-item');
+    items.forEach((item) => {
+      item.addEventListener('click', () => {
+        // 필요시 상세 페이지로 이동
+      });
+    });
+  }
+
+  initNewsList();
+
+  bm.onContextChange = () => {
+    initNewsList();
+  };
+</script>
