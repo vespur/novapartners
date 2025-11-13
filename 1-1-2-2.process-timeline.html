@@ -1,0 +1,340 @@
+<style>
+  .process-timeline {
+    width: 100%;
+    background-color: {{property.bgColor}};
+    padding: {{property.desktopPaddingY}}px {{property.desktopPaddingX}}px;
+  }
+
+  .process-timeline::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.08);
+    margin-bottom: {{property.desktopPaddingY}}px;
+  }
+
+  .process-timeline::before[data-hidden] {
+    display: none;
+  }
+
+  .process-timeline::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.08);
+    margin-top: {{property.desktopPaddingY}}px;
+  }
+
+  .process-timeline::after[data-hidden] {
+    display: none;
+  }
+
+  .process-timeline-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .process-timeline-header {
+    text-align: center;
+    margin-bottom: {{property.desktopItemGap}}px;
+  }
+
+  .process-timeline-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.desktopTitleFontSize}}px;
+    font-weight: {{property.desktopTitleFontWeight}};
+    color: {{property.desktopTitleColor}};
+    margin: 0 0 12px 0;
+  }
+
+  .process-timeline-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopSubtitleFontSize}}px;
+    color: {{property.desktopSubtitleColor}};
+    margin: 0;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{property.desktopColumnGap}}px;
+  }
+
+  .comparison-column {
+    display: flex;
+    flex-direction: column;
+    gap: {{property.desktopItemGap}}px;
+  }
+
+  .process-item {
+    padding: 24px;
+    border-radius: 12px;
+  }
+
+  .step-item {
+    background-color: {{property.problemBgColor}};
+    border-left: 4px solid {{property.problemAccentColor}};
+  }
+
+  .result-item {
+    background-color: {{property.solutionBgColor}};
+    border-left: 4px solid {{property.solutionAccentColor}};
+  }
+
+  .process-item-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .process-item-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .process-item-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  .process-item-title {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopItemTitleFontSize}}px;
+    font-weight: {{property.desktopItemTitleFontWeight}};
+    color: #000000;
+    margin: 0;
+    flex: 1;
+  }
+
+  .step-item .process-item-title {
+    color: {{property.problemAccentColor}};
+  }
+
+  .result-item .process-item-title {
+    color: {{property.solutionAccentColor}};
+  }
+
+  .process-item-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.desktopItemDescFontSize}}px;
+    color: {{property.desktopItemDescColor}};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* 성능 최적화 */
+  .process-timeline {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* 애니메이션 정의 */
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .process-timeline {
+      padding: {{property.mobilePaddingY}}px {{property.mobilePaddingX}}px;
+    }
+
+    .process-timeline::before {
+      margin-bottom: {{property.mobilePaddingY}}px;
+    }
+
+    .process-timeline::after {
+      margin-top: {{property.mobilePaddingY}}px;
+    }
+
+    .process-timeline-header {
+      margin-bottom: {{property.mobileItemGap}}px;
+    }
+
+    .process-timeline-title {
+      font-size: {{property.mobileTitleFontSize}}px;
+      font-weight: {{property.mobileTitleFontWeight}};
+    }
+
+    .process-timeline-subtitle {
+      font-size: {{property.mobileSubtitleFontSize}}px;
+    }
+
+    .comparison-grid {
+      grid-template-columns: 1fr;
+      gap: {{property.mobileItemGap}}px;
+    }
+
+    .comparison-column {
+      gap: {{property.mobileItemGap}}px;
+    }
+
+    .process-item {
+      padding: 16px;
+    }
+
+    .process-item-icon {
+      font-size: 20px;
+    }
+
+    .process-item-icon img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .process-item-title {
+      font-size: {{property.mobileItemTitleFontSize}}px;
+    }
+
+    .process-item-description {
+      font-size: {{property.mobileItemDescFontSize}}px;
+    }
+  }
+</style>
+
+<template>
+  <div class="process-timeline">
+    <div class="process-timeline-container">
+      <div class="process-timeline-header">
+        {{#if property.sectionTitle}}
+          <h2 class="process-timeline-title">{{property.sectionTitle}}</h2>
+        {{/if}}
+        {{#if property.sectionSubtitle}}
+          <p class="process-timeline-subtitle">{{property.sectionSubtitle}}</p>
+        {{/if}}
+      </div>
+
+      {{#if property.comparisonItems}}
+        <div class="comparison-grid">
+          <div class="comparison-column">
+            {{#each property.comparisonItems}}
+              <div class="process-item step-item">
+                {{#if problemIcon}}
+                  <div class="process-item-header">
+                    <div class="process-item-icon">{{problemIcon}}</div>
+                    {{#if problemTitle}}
+                      <h3 class="process-item-title">{{problemTitle}}</h3>
+                    {{/if}}
+                  </div>
+                {{/if}}
+                {{#if problemDescription}}
+                  <p class="process-item-description">{{problemDescription}}</p>
+                {{/if}}
+              </div>
+            {{/each}}
+          </div>
+
+          <div class="comparison-column">
+            {{#each property.comparisonItems}}
+              <div class="process-item result-item">
+                {{#if solutionIcon}}
+                  <div class="process-item-header">
+                    <div class="process-item-icon">{{solutionIcon}}</div>
+                  </div>
+                {{/if}}
+                {{#if solutionDescription}}
+                  <p class="process-item-description">{{solutionDescription}}</p>
+                {{/if}}
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+
+  function initServiceOverview() {
+    try {
+      // 구분선 표시 처리
+      if (bm.property && !bm.property.showDivider) {
+        const serviceOverview = container.querySelector('.process-timeline');
+        if (serviceOverview) {
+          serviceOverview.setAttribute('data-hidden', 'true');
+        }
+      }
+
+      // 애니메이션 설정
+      if (bm.property && bm.property.enableAnimation) {
+        const animationType = bm.property.animationType || 'fadeInLeft';
+        const animationDuration = bm.property.animationDuration || 0.8;
+        const staggerDelay = bm.property.staggerDelay || 0.2;
+
+        // 헤더 애니메이션
+        const title = container.querySelector('.process-timeline-title');
+        if (title) {
+          title.style.animation = `${animationType} ${animationDuration}s ease forwards 0s`;
+        }
+
+        const subtitle = container.querySelector('.process-timeline-subtitle');
+        if (subtitle) {
+          subtitle.style.animation = `${animationType} ${animationDuration}s ease forwards ${staggerDelay}s`;
+        }
+
+        // 비교 항목 애니메이션
+        const comparisonItems = container.querySelectorAll('.process-item');
+        comparisonItems.forEach((item, index) => {
+          const delay = (2 + index) * staggerDelay;
+          item.style.animation = `${animationType} ${animationDuration}s ease forwards ${delay}s`;
+          item.style.opacity = '0';
+        });
+      }
+    } catch (error) {
+      console.error('Service overview initialization failed:', error);
+    }
+
+    // 이미지 아이콘 로드 확인
+    const iconImages = container.querySelectorAll('.process-item-icon img');
+    iconImages.forEach((img) => {
+      img.addEventListener('error', (e) => {
+        e.target.parentElement.style.opacity = '0.5';
+      });
+    });
+  }
+
+  initServiceOverview();
+
+  bm.onContextChange = () => {
+    initServiceOverview();
+  };
+
+  bm.onDestroy = () => {
+    // cleanup if needed
+  };
+</script>
