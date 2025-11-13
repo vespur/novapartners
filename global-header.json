@@ -286,13 +286,60 @@
 
     {
       "type": "TITLE",
-      "content": "🏷️ 로고"
+      "content": "🌓 Light/Dark 모드 설정"
+    },
+    {
+      "id": "useLightMode",
+      "label": "기본 모드 (Light) 사용",
+      "description": "밝은 배경용 헤더 설정을 활성화합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "useDarkMode",
+      "label": "다크 모드 (Dark) 사용",
+      "description": "어두운 배경용 헤더 설정을 활성화합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "autoSwitchMode",
+      "label": "스크롤 시 자동 전환",
+      "description": "스크롤 위치에 따라 Light/Dark 모드를 자동으로 전환합니다",
+      "type": "CHECKBOX",
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true"
+    },
+    {
+      "id": "switchThreshold",
+      "label": "전환 임계값",
+      "description": "이 픽셀을 넘어 스크롤하면 Light 모드로 전환됩니다 (0 = Dark 모드 고정)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.autoSwitchMode === true"
+    },
+    {
+      "id": "switchDuration",
+      "label": "전환 애니메이션 시간",
+      "description": "모드 전환 시 색상이 변하는 속도를 설정해주세요",
+      "type": "RANGE",
+      "min": 0.2,
+      "max": 1.0,
+      "step": 0.1,
+      "unit": "초",
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.autoSwitchMode === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🏷️ 로고 (Light 모드)"
     },
     {
       "id": "logoImage",
       "label": "로고 이미지",
       "description": "헤더에 표시할 로고 이미지를 선택해주세요",
-      "type": "IMAGE_PICKER"
+      "type": "IMAGE_PICKER",
+      "isVisible": "property.useLightMode === true"
     },
     {
       "id": "logoWidth",
@@ -302,13 +349,15 @@
       "min": 0,
       "max": 300,
       "step": 10,
-      "unit": "px"
+      "unit": "px",
+      "isVisible": "property.useLightMode === true"
     },
     {
       "id": "logoLink",
       "label": "로고 링크",
       "description": "로고 클릭 시 이동할 페이지를 선택해주세요",
-      "type": "LINK"
+      "type": "LINK",
+      "isVisible": "property.useLightMode === true"
     },
     {
       "id": "logoAlign",
@@ -319,7 +368,8 @@
         { "label": "왼쪽", "value": "left" },
         { "label": "중앙", "value": "center" },
         { "label": "오른쪽", "value": "right" }
-      ]
+      ],
+      "isVisible": "property.useLightMode === true"
     },
     {
       "id": "logoMarginX",
@@ -329,7 +379,8 @@
       "min": 0,
       "max": 100,
       "step": 5,
-      "unit": "px"
+      "unit": "px",
+      "isVisible": "property.useLightMode === true"
     },
     {
       "id": "logoMarginY",
@@ -339,7 +390,8 @@
       "min": 0,
       "max": 50,
       "step": 5,
-      "unit": "px"
+      "unit": "px",
+      "isVisible": "property.useLightMode === true"
     },
 
     {
@@ -2043,6 +2095,182 @@
       "step": 2,
       "unit": "px",
       "isVisible": "property.drawerLanguageShow === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🌙 Dark 모드 설정"
+    },
+    {
+      "type": "TITLE",
+      "content": "🏷️ 로고 (Dark 모드)"
+    },
+    {
+      "id": "logoImageDark",
+      "label": "다크 로고 이미지",
+      "description": "다크 모드에서 표시할 로고 이미지를 선택해주세요",
+      "type": "IMAGE_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "📋 메뉴 색상 (Dark 모드)"
+    },
+    {
+      "id": "menuColorDesktopDark",
+      "label": "데스크톱 메뉴 색상",
+      "description": "데스크톱 메뉴 텍스트 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "menuHoverColorDark",
+      "label": "메뉴 호버 색상",
+      "description": "마우스 올릴 때의 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "📂 하위 메뉴 (Dark 모드)"
+    },
+    {
+      "id": "submenuBgDark",
+      "label": "하위 메뉴 배경색",
+      "description": "하위 메뉴의 배경색을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "submenuTitleColorDark",
+      "label": "그룹 제목 색상",
+      "description": "하위 메뉴 그룹 제목의 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "submenuColorDark",
+      "label": "항목 색상",
+      "description": "하위 메뉴 항목의 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "submenuHoverBgDark",
+      "label": "항목 호버 배경색",
+      "description": "항목에 마우스 올릴 때의 배경색을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "submenuHoverColorDark",
+      "label": "항목 호버 색상",
+      "description": "항목에 마우스 올릴 때의 텍스트 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "⚡ 유틸리티 메뉴 (Dark 모드)"
+    },
+    {
+      "id": "utilityMenuColorDark",
+      "label": "유틸리티 메뉴 색상",
+      "description": "유틸리티 메뉴 텍스트 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "utilityIconColorDark",
+      "label": "아이콘 색상",
+      "description": "유틸리티 아이콘 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "🌐 다국어 버튼 (Dark 모드)"
+    },
+    {
+      "id": "languageButtonColorDark",
+      "label": "버튼 텍스트 색상",
+      "description": "다국어 버튼의 텍스트 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "languageButtonBgDark",
+      "label": "버튼 배경색",
+      "description": "다국어 버튼의 배경색을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "languageButtonBorderColorDark",
+      "label": "버튼 테두리 색상",
+      "description": "다국어 버튼의 테두리 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "languageActiveTextColorDark",
+      "label": "활성 버튼 텍스트 색상",
+      "description": "현재 선택된 언어 버튼의 텍스트 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "languageActiveBgDark",
+      "label": "활성 버튼 배경색",
+      "description": "현재 선택된 언어 버튼의 배경색을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "languageActiveBorderColorDark",
+      "label": "활성 버튼 테두리 색상",
+      "description": "현재 선택된 언어 버튼의 테두리 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 (Dark 모드)"
+    },
+    {
+      "id": "hamburgerColorDark",
+      "label": "햄버거 버튼 색상",
+      "description": "햄버거 버튼 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "closeBtnColorDark",
+      "label": "닫기 버튼 색상",
+      "description": "X 닫기 버튼 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "drawerBgDark",
+      "label": "드로어 배경색",
+      "description": "모바일 드로어 메뉴의 배경색을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "mobileMenuColorDark",
+      "label": "모바일 메뉴 색상",
+      "description": "모바일 메뉴 텍스트 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "accordionIconColorDark",
+      "label": "아코디언 아이콘 색상",
+      "description": "아코디언 아이콘 색상을 선택해주세요 (Dark 모드)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
     }
   ],
   "property": {
@@ -2216,6 +2444,32 @@
     "drawerUtilityGap": 12,
     "drawerLanguageShow": true,
     "drawerLanguageGap": 8,
-    "drawerLanguageMarginTop": 12
+    "drawerLanguageMarginTop": 12,
+    "useLightMode": true,
+    "useDarkMode": false,
+    "autoSwitchMode": false,
+    "switchThreshold": 600,
+    "switchDuration": 0.3,
+    "logoImageDark": "",
+    "menuColorDesktopDark": "#FFFFFFFF",
+    "menuHoverColorDark": "#FFFFFFCC",
+    "submenuBgDark": "#1A1A1AEE",
+    "submenuTitleColorDark": "#FFFFFFFF",
+    "submenuColorDark": "#CCCCCCFF",
+    "submenuHoverBgDark": "#333333FF",
+    "submenuHoverColorDark": "#FFFFFFFF",
+    "utilityMenuColorDark": "#CCCCCCFF",
+    "utilityIconColorDark": "#CCCCCCFF",
+    "languageButtonColorDark": "#CCCCCCFF",
+    "languageButtonBgDark": "#00000000",
+    "languageButtonBorderColorDark": "#CCCCCCFF",
+    "languageActiveTextColorDark": "#FFFFFFFF",
+    "languageActiveBgDark": "#FFFFFFFF",
+    "languageActiveBorderColorDark": "#FFFFFFFF",
+    "hamburgerColorDark": "#FFFFFFFF",
+    "closeBtnColorDark": "#FFFFFFFF",
+    "drawerBgDark": "#1A1A1AFF",
+    "mobileMenuColorDark": "#FFFFFFFF",
+    "accordionIconColorDark": "#FFFFFFFF"
   }
 }

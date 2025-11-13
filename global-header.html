@@ -1,5 +1,33 @@
 <style>
   .global-header {
+    /* Light/Dark 모드 CSS 변수 - Light 모드 (기본값) */
+    {{#if property.useLightMode}}
+    --logo-image: url('{{property.logoImage}}');
+    --menu-color-desktop: {{property.menuColorDesktop}};
+    --menu-hover-color: {{property.menuHoverColor}};
+    --submenu-bg: {{property.submenuBg}};
+    --submenu-title-color: {{property.submenuTitleColor}};
+    --submenu-color: {{property.submenuColor}};
+    --submenu-hover-bg: {{property.submenuHoverBg}};
+    --submenu-hover-color: {{property.submenuHoverColor}};
+    --utility-menu-color: {{property.utilityMenuColor}};
+    --utility-icon-color: {{property.utilityIconColor}};
+    --language-button-color: {{property.languageButtonColor}};
+    --language-button-bg: {{property.languageButtonBg}};
+    --language-button-border-color: {{property.languageButtonBorderColor}};
+    --language-active-text-color: {{property.languageActiveTextColor}};
+    --language-active-bg: {{property.languageActiveBg}};
+    --language-active-border-color: {{property.languageActiveBorderColor}};
+    --hamburger-color: {{property.hamburgerColor}};
+    --close-btn-color: {{property.closeBtnColor}};
+    --drawer-bg: {{property.drawerBg}};
+    --mobile-menu-color: {{property.mobileMenuColor}};
+    --accordion-icon-color: {{property.accordionIconColor}};
+    {{/if}}
+
+    /* 색상 전환 애니메이션 */
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+
     width: 100%;
     height: {{property.headerHeight}}px;
     {{#if (eq property.headerBgType 'gradient')}}
@@ -17,7 +45,6 @@
     {{#if (gt property.headerBorder 0)}}
     border-bottom: {{property.headerBorder}}px solid {{property.headerBorderColor}};
     {{/if}}
-    transition: all 0.3s ease;
     z-index: 1000;
     overflow: visible; /* submenu가 밖으로 나갈 수 있도록 */
 
@@ -34,6 +61,33 @@
       {{/if}}
     {{/if}}
   }
+
+  /* Dark 모드 - CSS 변수 재정의 */
+  {{#if property.useDarkMode}}
+  .global-header.dark-mode {
+    --logo-image: url('{{property.logoImageDark}}');
+    --menu-color-desktop: {{property.menuColorDesktopDark}};
+    --menu-hover-color: {{property.menuHoverColorDark}};
+    --submenu-bg: {{property.submenuBgDark}};
+    --submenu-title-color: {{property.submenuTitleColorDark}};
+    --submenu-color: {{property.submenuColorDark}};
+    --submenu-hover-bg: {{property.submenuHoverBgDark}};
+    --submenu-hover-color: {{property.submenuHoverColorDark}};
+    --utility-menu-color: {{property.utilityMenuColorDark}};
+    --utility-icon-color: {{property.utilityIconColorDark}};
+    --language-button-color: {{property.languageButtonColorDark}};
+    --language-button-bg: {{property.languageButtonBgDark}};
+    --language-button-border-color: {{property.languageButtonBorderColorDark}};
+    --language-active-text-color: {{property.languageActiveTextColorDark}};
+    --language-active-bg: {{property.languageActiveBgDark}};
+    --language-active-border-color: {{property.languageActiveBorderColorDark}};
+    --hamburger-color: {{property.hamburgerColorDark}};
+    --close-btn-color: {{property.closeBtnColorDark}};
+    --drawer-bg: {{property.drawerBgDark}};
+    --mobile-menu-color: {{property.mobileMenuColorDark}};
+    --accordion-icon-color: {{property.accordionIconColorDark}};
+  }
+  {{/if}}
 
   /* Submenu 열릴 때 헤더의 backdrop-filter 비활성화 - 통일된 blur 효과 */
   .global-header.submenu-open {
@@ -203,7 +257,7 @@
     width: 100vw !important;
     top: var(--submenu-backdrop-top, -9999px); /* JavaScript로 설정 */
     height: var(--submenu-backdrop-height, 0); /* JavaScript로 설정 */
-    background: {{property.submenuBg}};
+    background: var(--submenu-bg);
     {{#if property.submenuBlurEnabled}}
     backdrop-filter: blur({{property.submenuBlur}}px);
     -webkit-backdrop-filter: blur({{property.submenuBlur}}px);
@@ -212,7 +266,7 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     pointer-events: none; /* 클릭 이벤트는 submenu로 전달 */
   }
 
@@ -250,7 +304,7 @@
 
   /* 그룹 제목 */
   .submenu-group-title {
-    color: {{property.submenuTitleColor}} !important;
+    color: var(--submenu-title-color) !important;
     font-size: {{property.submenuTitleSize}}px !important;
     font-weight: {{property.submenuTitleWeight}};
     padding: {{property.submenuTitlePaddingY}}px {{property.submenuTitlePaddingX}}px;
@@ -261,18 +315,19 @@
     {{/if}}
     position: relative;
     z-index: 3; /* 확실히 최상위 */
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
   }
 
   /* 하위 메뉴 항목 */
   .submenu-item {
     display: block;
-    color: {{property.submenuColor}} !important;
+    color: var(--submenu-color) !important;
     font-size: {{property.submenuSize}}px !important;
     font-weight: {{property.submenuItemWeight}};
     padding: {{property.submenuItemPaddingY}}px {{property.submenuItemPaddingX}}px;
     margin: {{property.submenuItemMargin}}px 0;
     text-decoration: none !important;
-    transition: all 0.2s;
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.2s{{/if}} ease;
     border-radius: {{property.submenuItemRadius}}px;
     position: relative;
     z-index: 3; /* 확실히 최상위 */
@@ -280,26 +335,26 @@
 
   .submenu-item:hover {
     {{#if (eq property.submenuHoverEffect 'background')}}
-    background: {{property.submenuHoverBg}} !important;
+    background: var(--submenu-hover-bg) !important;
     {{else if (eq property.submenuHoverEffect 'underline')}}
     text-decoration: underline !important;
     {{else if (eq property.submenuHoverEffect 'bold')}}
     font-weight: bold;
     {{else if (eq property.submenuHoverEffect 'background-bold')}}
-    background: {{property.submenuHoverBg}} !important;
+    background: var(--submenu-hover-bg) !important;
     font-weight: bold;
     {{else if (eq property.submenuHoverEffect 'color')}}
-    color: {{property.submenuHoverColor}} !important;
+    color: var(--submenu-hover-color) !important;
     {{else if (eq property.submenuHoverEffect 'color-bold')}}
-    color: {{property.submenuHoverColor}} !important;
+    color: var(--submenu-hover-color) !important;
     font-weight: bold;
     {{else if (eq property.submenuHoverEffect 'scale')}}
     transform: scale(1.05);
     {{else if (eq property.submenuHoverEffect 'shadow')}}
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     {{else if (eq property.submenuHoverEffect 'background-color')}}
-    background: {{property.submenuHoverBg}} !important;
-    color: {{property.submenuHoverColor}} !important;
+    background: var(--submenu-hover-bg) !important;
+    color: var(--submenu-hover-color) !important;
     {{/if}}
   }
 
@@ -310,24 +365,24 @@
 
   .nav-desktop > a,
   .menu-item-wrapper > a {
-    color: {{property.menuColorDesktop}};
+    color: var(--menu-color-desktop);
     font-size: {{property.menuSizeDesktop}}px;
     text-decoration: none;
     white-space: nowrap;
     position: relative;
     display: inline-block;
     {{#if (eq property.menuHoverEffect 'opacity')}}
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.menuHoverEffect 'color')}}
-    transition: color 0.3s;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.menuHoverEffect 'scale')}}
-    transition: transform 0.3s;
+    transition: transform 0.3s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.menuHoverEffect 'background-slide')}}
     padding: 8px 16px;
     overflow: hidden;
-    transition: color 0.3s;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else}}
-    transition: all 0.3s;
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{/if}}
   }
 
@@ -388,7 +443,7 @@
     {{#if (eq property.menuHoverEffect 'opacity')}}
     opacity: 0.6;
     {{else if (eq property.menuHoverEffect 'color')}}
-    color: {{property.menuHoverColor}};
+    color: var(--menu-hover-color);
     {{else if (eq property.menuHoverEffect 'underline')}}
     text-decoration: underline;
     text-decoration-color: {{property.menuUnderlineColor}};
@@ -414,25 +469,26 @@
   .utility-item svg {
     width: {{property.utilityIconSize}}px;
     height: {{property.utilityIconSize}}px;
+    transition: stroke {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, fill {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
   }
 
   .utility-item svg * {
-    stroke: {{property.utilityIconColor}};
-    fill: {{property.utilityIconColor}};
+    stroke: var(--utility-icon-color);
+    fill: var(--utility-icon-color);
   }
 
   .utility-menu a {
-    color: {{property.utilityMenuColor}};
+    color: var(--utility-menu-color);
     font-size: {{property.utilityMenuSize}}px;
     text-decoration: none;
     {{#if (eq property.utilityMenuHoverEffect 'opacity')}}
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.utilityMenuHoverEffect 'color')}}
-    transition: color 0.2s;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.utilityMenuHoverEffect 'scale')}}
-    transition: transform 0.2s;
+    transition: transform 0.2s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else}}
-    transition: all 0.2s;
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{/if}}
   }
 
@@ -461,25 +517,25 @@
   {{/if}}
 
   .language-btn {
-    background: {{property.languageButtonBg}};
-    border: {{property.languageButtonBorder}}px solid {{property.languageButtonBorderColor}};
+    background: var(--language-button-bg);
+    border: {{property.languageButtonBorder}}px solid var(--language-button-border-color);
     border-radius: {{property.languageButtonRadius}}px;
-    color: {{property.languageButtonColor}};
+    color: var(--language-button-color);
     font-size: {{property.languageButtonSize}}px;
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
     display: inline-block;
     {{#if (eq property.languageButtonHoverEffect 'opacity')}}
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, border-color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.languageButtonHoverEffect 'color')}}
-    transition: color 0.2s;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, border-color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.languageButtonHoverEffect 'background')}}
-    transition: background 0.2s;
+    transition: background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, border-color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.languageButtonHoverEffect 'scale')}}
-    transition: transform 0.2s;
+    transition: transform 0.2s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, border-color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else}}
-    transition: all 0.2s;
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{/if}}
   }
 
@@ -499,27 +555,27 @@
 
   .language-btn.active {
     {{#if (eq property.languageActiveStyle 'background')}}
-    background: {{property.languageActiveBg}} !important;
-    color: {{property.languageActiveTextColor}} !important;
+    background: var(--language-active-bg) !important;
+    color: var(--language-active-text-color) !important;
     {{else if (eq property.languageActiveStyle 'border')}}
-    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
-    color: {{property.languageActiveTextColor}} !important;
+    border: {{property.languageActiveBorderWidth}}px solid var(--language-active-border-color) !important;
+    color: var(--language-active-text-color) !important;
     {{else if (eq property.languageActiveStyle 'underline')}}
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: {{property.languageActiveTextColor}} !important;
+    color: var(--language-active-text-color) !important;
     {{else if (eq property.languageActiveStyle 'bold')}}
     font-weight: bold;
-    color: {{property.languageActiveTextColor}} !important;
+    color: var(--language-active-text-color) !important;
     {{else if (eq property.languageActiveStyle 'bold-underline')}}
     font-weight: bold;
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: {{property.languageActiveTextColor}} !important;
+    color: var(--language-active-text-color) !important;
     {{else if (eq property.languageActiveStyle 'background-border')}}
-    background: {{property.languageActiveBg}} !important;
-    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
-    color: {{property.languageActiveTextColor}} !important;
+    background: var(--language-active-bg) !important;
+    border: {{property.languageActiveBorderWidth}}px solid var(--language-active-border-color) !important;
+    color: var(--language-active-text-color) !important;
     {{/if}}
   }
 
@@ -534,7 +590,8 @@
   .hamburger svg {
     width: {{property.hamburgerSize}}px;
     height: {{property.hamburgerSize}}px;
-    stroke: {{property.hamburgerColor}};
+    stroke: var(--hamburger-color);
+    transition: stroke {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
   }
 
   .hamburger svg line {
@@ -557,16 +614,16 @@
     {{/if}}
     width: {{property.drawerWidth}}%;
     max-width: 400px;
-    background: {{property.drawerBg}};
+    background: var(--drawer-bg);
     {{#if (eq property.drawerAnimation 'fade')}}
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    transition: opacity 0.3s, visibility 0.3s;
+    transition: opacity 0.3s, visibility 0.3s, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else if (eq property.drawerAnimation 'left')}}
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-    transition: left 0.3s;
+    transition: left 0.3s, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{else}}
     box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-    transition: right 0.3s;
+    transition: right 0.3s, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
     {{/if}}
     z-index: 2000;
     display: flex;
@@ -625,7 +682,8 @@
   .close-btn svg {
     width: {{property.closeBtnSize}}px;
     height: {{property.closeBtnSize}}px;
-    stroke: {{property.closeBtnColor}};
+    stroke: var(--close-btn-color);
+    transition: stroke {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
   }
 
   .close-btn svg line {
@@ -744,18 +802,19 @@
   /* 모바일 메인 메뉴 항목 */
   .mobile-menu > a {
     display: block;
-    color: {{property.mobileMenuColor}};
+    color: var(--mobile-menu-color);
     font-size: {{property.mobileMenuFontSize}}px;
     font-weight: {{property.mobileMenuFontWeight}};
     text-decoration: none;
     padding: {{property.mobileMenuPaddingTop}}px {{property.mobileMenuPaddingX}}px {{property.mobileMenuPaddingBottom}}px {{property.mobileMenuPaddingX}}px;
     position: relative;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
   }
 
   .mobile-menu > .menu-accordion > .menu-accordion-header {
     display: flex;
     align-items: center;
-    color: {{property.mobileMenuColor}};
+    color: var(--mobile-menu-color);
     font-size: {{property.mobileMenuFontSize}}px;
     font-weight: {{property.mobileMenuFontWeight}};
     text-decoration: none;
@@ -763,6 +822,7 @@
     position: relative;
     cursor: pointer;
     user-select: none;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
   }
 
   {{#if property.mobileMenuDivider}}
@@ -806,8 +866,9 @@
   }
 
   .accordion-icon svg * {
-    stroke: {{property.accordionIconColor}};
-    fill: {{property.accordionIconColor}};
+    stroke: var(--accordion-icon-color);
+    fill: var(--accordion-icon-color);
+    transition: stroke {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, fill {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
   }
 
   /* 아코디언 콘텐츠 */
@@ -1434,6 +1495,31 @@
     const header = container.querySelector('.global-header');
     if (!header) return;
 
+    // Light/Dark 모드 자동 전환 처리
+    if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
+      const scrollY = window.scrollY;
+      const threshold = context.property.switchThreshold || 0;
+
+      if (scrollY > threshold) {
+        // 임계값을 넘으면 Light 모드로 전환 (dark-mode 클래스 제거)
+        header.classList.remove('dark-mode');
+        updateLogoImage(false); // Light 모드 로고
+      } else {
+        // 임계값 이하면 Dark 모드로 전환 (dark-mode 클래스 추가)
+        header.classList.add('dark-mode');
+        updateLogoImage(true); // Dark 모드 로고
+      }
+    } else if (context.property.useDarkMode && !context.property.useLightMode) {
+      // Dark 모드만 활성화된 경우
+      header.classList.add('dark-mode');
+      updateLogoImage(true);
+    } else {
+      // Light 모드만 활성화되거나 자동 전환 비활성화
+      header.classList.remove('dark-mode');
+      updateLogoImage(false);
+    }
+
+    // 기존 스크롤 스타일 처리
     if (!context.property.enableScrollStyle) {
       header.classList.remove('scrolled');
       return;
@@ -1449,6 +1535,26 @@
     } else {
       header.classList.remove('scrolled');
     }
+  }
+
+  // 로고 이미지 전환 함수
+  function updateLogoImage(isDarkMode) {
+    const logoImages = container.querySelectorAll('.logo img');
+    if (!logoImages || logoImages.length === 0) return;
+
+    const lightLogo = context.property.logoImage;
+    const darkLogo = context.property.logoImageDark;
+
+    // 로고 이미지가 없으면 전환하지 않음
+    if (!lightLogo && !darkLogo) return;
+
+    logoImages.forEach(img => {
+      if (isDarkMode && darkLogo) {
+        img.src = darkLogo;
+      } else if (!isDarkMode && lightLogo) {
+        img.src = lightLogo;
+      }
+    });
   }
 
   // Submenu backdrop 위치 계산 및 업데이트
@@ -1674,6 +1780,23 @@
   initAccordion();
   preventBackgroundScroll();
 
+  // 초기 모드 설정 (페이지 로드 시)
+  const header = container.querySelector('.global-header');
+  if (header) {
+    if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
+      // 자동 전환 모드: 초기 스크롤 위치에 따라 설정
+      handleScroll();
+    } else if (context.property.useDarkMode && !context.property.useLightMode) {
+      // Dark 모드만 활성화
+      header.classList.add('dark-mode');
+      updateLogoImage(true);
+    } else {
+      // Light 모드만 활성화 (기본)
+      header.classList.remove('dark-mode');
+      updateLogoImage(false);
+    }
+  }
+
   if (context.property.enableScrollStyle) {
     window.addEventListener('scroll', handleScrollWithBackdrop, { passive: true });
     handleScroll();
@@ -1683,6 +1806,11 @@
         updateSubmenuBackdrop(currentActiveSubmenu);
       }
     }, { passive: true });
+  }
+
+  // Light/Dark 모드 자동 전환이 활성화되어 있지 않아도 스크롤 핸들러 등록
+  if (!context.property.enableScrollStyle && (context.property.autoSwitchMode || context.property.useDarkMode)) {
+    window.addEventListener('scroll', handleScroll, { passive: true });
   }
 
   let isApplying = false;
