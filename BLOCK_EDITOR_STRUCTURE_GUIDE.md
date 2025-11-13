@@ -905,6 +905,139 @@ try {
 
 ---
 
+## 🚨 SixShop Pro 호환성 - LIST 구조 및 필드 타입
+
+### LIST 구조: "settings" vs "fields" (필수)
+
+**SixShop Pro는 LIST 내에 "settings" 키만 지원합니다!**
+
+**❌ 절대 금지 (지원 안 함):**
+```json
+{
+  "id": "comparisonItems",
+  "type": "LIST",
+  "fields": [           // ❌ SixShop Pro 미지원!
+    { "id": "title", "type": "TEXT" }
+  ],
+  "default": [ ... ]    // ❌ default 배열 인식 안 함
+}
+```
+
+**✅ 올바른 방법:**
+```json
+{
+  "id": "comparisonItems",
+  "type": "LIST",
+  "maxCount": 3,        // ← maxItems 대신 maxCount 사용!
+  "settings": [         // ← fields 대신 settings 사용!
+    { "id": "title", "type": "TEXT", "default": "기본값" }
+  ]
+  // ← default 배열 제거! (설정 각 필드의 default로 충분)
+}
+```
+
+### 변경사항 정리
+
+| 항목 | ❌ 기존 | ✅ SixShop Pro |
+|-----|--------|------------|
+| LIST 내 필드 정의 | "fields" | "settings" |
+| 최대 개수 속성 | "maxItems" | "maxCount" |
+| 기본값 정의 | "default" 배열 | 각 필드의 "default" |
+
+### 지원하는 필드 타입 (필수 확인)
+
+**✅ SixShop Pro 지원 필드 타입:**
+- `TEXT` - 한 줄 텍스트
+- `TEXTAREA` - 여러 줄 텍스트 (스크롤바 있음)
+- `CHECKBOX` - 체크박스
+- `COLOR_PICKER` - 색상 선택
+- `LINK` - URL/링크
+- `RADIO` - 라디오 버튼 (선택지)
+- `RANGE` - 슬라이더 (숫자 범위)
+- `LIST` - 목록 추가/편집
+- `TITLE` - 섹션 제목 (편집 불가)
+
+**❌ 지원하지 않는 필드 타입:**
+- `TEXT_LONG` → **TEXTAREA로 변경해야 함!**
+- `SELECT` (지원 안 함)
+- `DATE` (지원 안 함)
+- `FILE` (지원 안 함)
+- `CUSTOM` (지원 안 함)
+
+### TEXT_LONG → TEXTAREA 변환 규칙
+
+**❌ 절대 금지:**
+```json
+{
+  "id": "description",
+  "type": "TEXT_LONG",   // ❌ 지원 안 함
+  "placeholder": "설명 입력..."
+}
+```
+
+**✅ 올바른 방법:**
+```json
+{
+  "id": "description",
+  "type": "TEXTAREA",    // ✅ 여러 줄 텍스트 표시
+  "placeholder": "설명 입력...",
+  "default": "기본 설명"
+}
+```
+
+### 체크리스트
+
+LIST 구조 검증:
+- [ ] LIST에 "fields" 사용했나? → **"settings"로 변경**
+- [ ] "maxItems" 사용했나? → **"maxCount"로 변경**
+- [ ] "default" 배열이 있나? → **제거하고 각 필드의 default로 통합**
+
+필드 타입 검증:
+- [ ] TEXT_LONG 사용했나? → **TEXTAREA로 변경**
+- [ ] 지원하지 않는 타입 사용했나? → **지원 타입 목록 확인**
+- [ ] RADIO 옵션 label이 20자 이상? → **축약하고 description에 설명 추가**
+
+### 실제 수정 사례
+
+**1-1-1-2.service-overview.json (수정 전/후)**
+
+변경 전:
+```json
+{
+  "id": "comparisonItems",
+  "type": "LIST",
+  "maxItems": 3,
+  "fields": [
+    {
+      "id": "problemDescription",
+      "type": "TEXT_LONG"   // ❌ 지원 안 함
+    }
+  ],
+  "default": [            // ❌ SixShop Pro 인식 안 함
+    { "problemDescription": "설명..." }
+  ]
+}
+```
+
+변경 후:
+```json
+{
+  "id": "comparisonItems",
+  "type": "LIST",
+  "maxCount": 3,          // ← maxItems → maxCount
+  "settings": [           // ← fields → settings
+    {
+      "id": "problemDescription",
+      "type": "TEXTAREA", // ← TEXT_LONG → TEXTAREA
+      "default": "기본 설명"
+    }
+  ]
+  // ← default 배열 제거
+}
+```
+
+---
+
 ## 🛠️ 빠른 검증 스크립트
 
 새 블록을 만들었을 때 다음을 확인하세요:
