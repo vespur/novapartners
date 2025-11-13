@@ -705,7 +705,55 @@ function initBlock() {
 
 ---
 
-**문서 버전**: 1.2
+## ⚠️ JSON LIST 필드 검증 규칙
+
+### 문제 상황
+
+**JSON 저장 실패: "코드를 붙여넣을 수 없다"는 에러**
+
+LIST 타입의 설정에서 "default" 배열의 객체들이 모든 필드를 포함하지 않을 때 발생합니다.
+
+**❌ 잘못된 예:**
+
+```json
+"default": [
+  {
+    "problemIcon": "❌",
+    "problemTitle": "문제"
+    // problemIconType 필드 누락! → 저장 실패
+  }
+]
+```
+
+**✅ 올바른 예:**
+
+```json
+"default": [
+  {
+    "problemIconType": "emoji",
+    "problemIcon": "❌",
+    "problemTitle": "문제"
+    // 모든 필드 포함! → 저장 성공
+  }
+]
+```
+
+### 검증 규칙
+
+LIST의 "default" 배열의 각 객체는:
+1. **fields에 정의된 모든 id를 포함해야 함**
+2. **각 필드의 값이 해당 type과 일치해야 함**
+3. **모든 객체의 구조가 동일해야 함**
+
+### 체크리스트
+
+- [ ] default 배열의 모든 객체에 fields의 모든 id가 포함되어 있는가?
+- [ ] RADIO 필드의 value가 options의 value 중 하나인가?
+- [ ] default 배열의 모든 객체 구조가 동일한가?
+
+---
+
+**문서 버전**: 1.3
 **작성일**: 2025-11-13
-**수정일**: 2025-11-13 (CSS-Handlebars, JavaScript API 제약사항 추가)
+**수정일**: 2025-11-13 (CSS-Handlebars, JavaScript API, JSON LIST 필드 검증 추가)
 **기준 블록**: 1-1-1-1~1-1-1-6 모든 섹션

@@ -123,25 +123,31 @@
       ],
       "default": [
         {
+          "problemIconType": "emoji",
           "problemIcon": "❌",
           "problemTitle": "수동 업무 반복",
           "problemDescription": "매일 반복되는 수동 작업으로 인한 시간 낭비와 휴먼 에러 증가",
+          "solutionIconType": "emoji",
           "solutionIcon": "✅",
           "solutionTitle": "AI 자동화로 즉시 해결",
           "solutionDescription": "AI가 자동으로 처리하여 작업 시간 80% 단축 및 100% 정확도 보장"
         },
         {
+          "problemIconType": "emoji",
           "problemIcon": "❌",
           "problemTitle": "데이터 분석 한계",
           "problemDescription": "대량의 데이터를 수작업으로 분석하기 어렵고 시간이 오래 걸림",
+          "solutionIconType": "emoji",
           "solutionIcon": "✅",
           "solutionTitle": "실시간 AI 분석",
           "solutionDescription": "실시간으로 복잡한 데이터를 분석하여 즉시 인사이트 도출"
         },
         {
+          "problemIconType": "emoji",
           "problemIcon": "❌",
           "problemTitle": "고객 응대 품질 저하",
           "problemDescription": "24시간 고객 응대가 불가능하여 응답 지연 발생",
+          "solutionIconType": "emoji",
           "solutionIcon": "✅",
           "solutionTitle": "24/7 AI 챗봇",
           "solutionDescription": "AI 챗봇으로 24시간 고객 응대 및 고객 만족도 향상"
