@@ -753,7 +753,31 @@ LIST의 "default" 배열의 각 객체는:
 
 ---
 
-**문서 버전**: 1.3
+**문서 버전**: 1.4
 **작성일**: 2025-11-13
 **수정일**: 2025-11-13 (CSS-Handlebars, JavaScript API, JSON LIST 필드 검증 추가)
+**최종 수정**: 2025-11-13 (CSS 조건문 완전 제거, 데이터 속성 패턴 적용)
 **기준 블록**: 1-1-1-1~1-1-1-6 모든 섹션
+
+### 🔴 Critical Fix (2025-11-13)
+
+**발견된 문제**: CSS 내 모든 {{#if}} 조건문 (보조 규칙뿐만 아니라 @media 쿼리 내까지)이 CSS 파서 오류를 유발
+
+**수정된 사항**:
+1. **1-1-1-1**: bgOverlayOpacity와 enableDecorationCircles 조건 제거
+   - 해결: opacity 값 직접 사용 + data-visible 속성 패턴
+2. **1-1-1-2**: @media 쿼리 내 showDivider 조건 제거
+3. **1-1-1-5**: CSS 내 bgType과 showContactInfo 조건 제거
+   - 해결: 기본값으로 항상 선언 + data-visible 속성으로 표시/숨김
+
+**적용 패턴**:
+```css
+/* ✅ 올바른 방법: CSS는 항상 선언, JavaScript에서 속성으로 제어 */
+.element {
+  display: none;  /* 기본: 숨김 */
+}
+
+.element[data-visible] {
+  display: block;  /* JavaScript에서 setAttribute('data-visible', 'true') */
+}
+```
