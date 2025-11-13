@@ -606,7 +606,10 @@ console.error('test');
 
 - [ ] RICH_TEXT: 굵게, 기울임꼴 작동
 - [ ] RICH_TEXT: HTML 코드가 아닌 정상 글자로 표시
-- [ ] RICH_TEXT: 불필요한 속성 숨김 (exclude)
+- [ ] RICH_TEXT: **type, color, alignment 반드시 제외** (exclude)
+  ```json
+  "exclude": ["type", "color", "alignment"]
+  ```
 - [ ] RANGE: unit, step 적절히 적용
 - [ ] LINK: 새 탭 열기 함께 제공
 
