@@ -1,0 +1,1204 @@
+<style>
+/* 히어로 캐러셀 블록 v3 - 전체 리팩토링 버전
+   주요 수정 사항:
+   1) 숫자만 입력하면 자동으로 단위 추가 (px, %, vh)
+   2) Glow 스캔 수직 방향 애니메이션 수정
+   3) 상하 패딩 제거
+   4) 번호 가로 위치 조절 옵션 추가
+   5) 화살표 좌우 여백 화면 끝 기준으로 변경
+   6) 모바일 게이지바 오프셋 제거
+   7) 그림자 프리셋 적용
+   8) 모든 라벨 한글화 및 용어 통일 (PC → 데스크톱)
+*/
+
+.hero-carousel-block {
+	/* ====== GLOBAL LAYOUT / SPACING ====== */
+	--hero-section-height: {{#if property.style.heroHeightVh}}{{property.style.heroHeightVh}}{{else}}100{{/if}}vh;
+	--global-pad-x: {{#if property.style.heroPaddingXPercent}}{{property.style.heroPaddingXPercent}}{{else}}5{{/if}}%;
+	--hero-z-index: {{#if property.style.zIndex}}{{property.style.zIndex}}{{else}}10{{/if}};
+
+	/* 하단 요소 통일 여백 (px 단위로 통일) */
+	--bottom-elements-offset: {{#if property.style.bottomElementsOffset}}{{property.style.bottomElementsOffset}}{{else}}40{{/if}}px;
+
+	/* ====== OVERLAY ====== */
+	--hero-overlay-color: {{#if property.style.overlayColor}}{{property.style.overlayColor}}{{else}}rgba(0,0,0,0.6){{/if}};
+
+	/* ====== TYPO / ALIGN ====== */
+	--headline-color: {{#if property.style.headlineColor}}{{property.style.headlineColor}}{{else}}#FFFFFF{{/if}};
+	--headline-font-size-desktop: {{#if property.style.headlineFontSizeDesktop}}{{property.style.headlineFontSizeDesktop}}{{else}}64{{/if}}px;
+	--headline-font-size-mobile: {{#if property.style.headlineFontSizeMobile}}{{property.style.headlineFontSizeMobile}}{{else}}32{{/if}}px;
+	--headline-max-width: {{#if property.style.contentMaxWidth}}{{property.style.contentMaxWidth}}{{else}}600{{/if}}px;
+
+	--headline-align-desktop: {{#if property.style.textAlignDesktop}}{{property.style.textAlignDesktop}}{{else}}center{{/if}};
+	--headline-align-mobile: {{#if property.style.textAlignMobile}}{{property.style.textAlignMobile}}{{else}}center{{/if}};
+
+	/* CTA 정렬 */
+	--cta-group-justify-desktop: {{#if property.style.ctaJustifyDesktop}}{{property.style.ctaJustifyDesktop}}{{else}}center{{/if}};
+	--cta-group-justify-mobile: {{#if property.style.ctaJustifyMobile}}{{property.style.ctaJustifyMobile}}{{else}}center{{/if}};
+
+	/* ====== BODY TYPO ====== */
+	--subtext-color: {{#if property.style.subtextColor}}{{property.style.subtextColor}}{{else}}rgba(255,255,255,0.9){{/if}};
+	--subtext-font-size-desktop: {{#if property.style.subtextFontSizeDesktop}}{{property.style.subtextFontSizeDesktop}}{{else}}20{{/if}}px;
+	--subtext-font-size-mobile: {{#if property.style.subtextFontSizeMobile}}{{property.style.subtextFontSizeMobile}}{{else}}16{{/if}}px;
+
+	--supporting-color: {{#if property.style.supportingColor}}{{property.style.supportingColor}}{{else}}rgba(255,255,255,0.7){{/if}};
+	--supporting-font-size-desktop: {{#if property.style.supportingFontSizeDesktop}}{{property.style.supportingFontSizeDesktop}}{{else}}16{{/if}}px;
+	--supporting-font-size-mobile: {{#if property.style.supportingFontSizeMobile}}{{property.style.supportingFontSizeMobile}}{{else}}14{{/if}}px;
+
+	/* ====== CTA BUTTONS ====== */
+	--cta-radius: {{#if property.style.ctaRadius}}{{property.style.ctaRadius}}{{else}}8{{/if}}px;
+	--cta-bg-color: {{#if property.style.ctaBgColor}}{{property.style.ctaBgColor}}{{else}}#ffffff{{/if}};
+	--cta-text-color: {{#if property.style.ctaTextColor}}{{property.style.ctaTextColor}}{{else}}#000000{{/if}};
+	--cta-border-color: {{#if property.style.ctaBorderColor}}{{property.style.ctaBorderColor}}{{else}}rgba(255,255,255,0.4){{/if}};
+	--cta-border-width: {{#if property.style.ctaBorderWidth}}{{property.style.ctaBorderWidth}}{{else}}1{{/if}}px;
+
+	/* CTA 크기 (데스크탑/모바일 분리) */
+	/* 숫자 자동 단위 처리: 0=auto, 100=100%, 나머지=px */
+	--cta-width-desktop: {{#if property.style.ctaWidthDesktop}}{{#if (eq property.style.ctaWidthDesktop "0")}}auto{{else}}{{property.style.ctaWidthDesktop}}px{{/if}}{{else}}auto{{/if}};
+	--cta-height-desktop: {{#if property.style.ctaHeightDesktop}}{{property.style.ctaHeightDesktop}}{{else}}44{{/if}}px;
+	--cta-font-size-desktop: {{#if property.style.ctaFontSizeDesktop}}{{property.style.ctaFontSizeDesktop}}{{else}}16{{/if}}px;
+
+	--cta-width-mobile: {{#if property.style.ctaWidthMobile}}{{#if (eq property.style.ctaWidthMobile "100")}}100%{{else}}{{property.style.ctaWidthMobile}}px{{/if}}{{else}}100%{{/if}};
+	--cta-height-mobile: {{#if property.style.ctaHeightMobile}}{{property.style.ctaHeightMobile}}{{else}}44{{/if}}px;
+	--cta-font-size-mobile: {{#if property.style.ctaFontSizeMobile}}{{property.style.ctaFontSizeMobile}}{{else}}16{{/if}}px;
+
+	/* CTA 호버 - 그림자 프리셋 적용 */
+	--cta-hover-translate-y: {{#if property.style.ctaHoverTranslateY}}{{property.style.ctaHoverTranslateY}}{{else}}-2{{/if}}px;
+	--cta-hover-shadow: {{#if property.style.ctaHoverShadowPreset}}{{#if (eq property.style.ctaHoverShadowPreset "none")}}none{{else}}{{property.style.ctaHoverShadowPreset}}{{/if}}{{else}}0 20px 40px rgba(0,0,0,.5){{/if}};
+	--cta-hover-lift-speed: {{#if property.style.ctaHoverLiftSpeedS}}{{property.style.ctaHoverLiftSpeedS}}{{else}}0.3{{/if}}s;
+
+	/* CTA Glow */
+	--cta-glow-gradient-color: {{#if property.style.ctaGlowGradientColor}}{{property.style.ctaGlowGradientColor}}{{else}}rgba(255,255,255,.6){{/if}};
+	--cta-glow-scan-speed: {{#if property.style.ctaGlowScanSpeedS}}{{property.style.ctaGlowScanSpeedS}}{{else}}0.6{{/if}}s;
+
+	/* ====== DESKTOP GAUGE ====== */
+	--gauge-height: {{#if property.style.gaugeHeight}}{{property.style.gaugeHeight}}{{else}}4{{/if}}px;
+	--gauge-radius: {{#if property.style.gaugeRadius}}{{property.style.gaugeRadius}}{{else}}999{{/if}}px;
+	--gauge-gap: {{#if property.style.gaugeGap}}{{property.style.gaugeGap}}{{else}}6{{/if}}px;
+	--gauge-max-width: {{#if property.style.gaugeMaxWidth}}{{property.style.gaugeMaxWidth}}{{else}}600{{/if}}px;
+
+	--gauge-track-color: {{#if property.style.gaugeTrackColor}}{{property.style.gaugeTrackColor}}{{else}}rgba(255,255,255,0.4){{/if}};
+	--gauge-track-inactive-color: {{#if property.style.gaugeTrackInactiveColor}}{{property.style.gaugeTrackInactiveColor}}{{else}}rgba(255,255,255,0.2){{/if}};
+	--gauge-fill-color: {{#if property.style.gaugeFillColor}}{{property.style.gaugeFillColor}}{{else}}#00bfff{{/if}};
+
+	/* 슬라이드 번호 스타일 */
+	--counter-font-size: {{#if property.style.slideCounterFontSize}}{{property.style.slideCounterFontSize}}{{else}}12{{/if}}px;
+	--counter-active-color: {{#if property.style.slideCounterActiveColor}}{{property.style.slideCounterActiveColor}}{{else}}#FFFFFF{{/if}};
+	--counter-inactive-color: {{#if property.style.slideCounterInactiveColor}}{{property.style.slideCounterInactiveColor}}{{else}}rgba(255,255,255,.4){{/if}};
+	--counter-offset-y-px: {{#if property.style.slideCounterOffsetYPx}}{{property.style.slideCounterOffsetYPx}}{{else}}8{{/if}}px;
+	--counter-offset-x-percent: {{#if property.style.slideCounterOffsetXPercent}}{{property.style.slideCounterOffsetXPercent}}{{else}}0{{/if}}%;
+	--gauge-offset-x: {{#if property.style.gaugeOffsetXPercentDesktop}}{{property.style.gaugeOffsetXPercentDesktop}}{{else}}0{{/if}}%;
+
+	/* ====== MOBILE BAR ====== */
+	--mobilebar-height: {{#if property.style.mobileGaugeHeight}}{{property.style.mobileGaugeHeight}}{{else}}3{{/if}}px;
+	--mobilebar-track-color: {{#if property.style.mobileGaugeTrackColor}}{{property.style.mobileGaugeTrackColor}}{{else}}rgba(0,0,0,0.4){{/if}};
+	--mobilebar-fill-color: {{#if property.style.mobileGaugeFillColor}}{{property.style.mobileGaugeFillColor}}{{else}}#00bfff{{/if}};
+	--mobilebar-z: 30;
+
+	/* ====== NAV ARROWS ====== */
+	--nav-arrow-bg-color: {{#if property.style.navArrowBgColor}}{{property.style.navArrowBgColor}}{{else}}rgba(0,0,0,0.4){{/if}};
+	--nav-arrow-border-width: {{#if property.style.navArrowBorderWidth}}{{property.style.navArrowBorderWidth}}{{else}}1{{/if}}px;
+	--nav-arrow-border-color: {{#if property.style.navArrowBorderColor}}{{property.style.navArrowBorderColor}}{{else}}rgba(255,255,255,0.4){{/if}};
+	--nav-arrow-radius: {{#if property.style.navArrowRadius}}{{property.style.navArrowRadius}}{{else}}999{{/if}}px;
+	--nav-arrow-icon-color: {{#if property.style.navArrowIconColor}}{{property.style.navArrowIconColor}}{{else}}#FFFFFF{{/if}};
+	--nav-arrow-size: {{#if property.style.navArrowSize}}{{property.style.navArrowSize}}{{else}}20{{/if}}px;
+	--nav-arrow-offset-x: {{#if property.style.navArrowOffsetXPercent}}{{property.style.navArrowOffsetXPercent}}{{else}}0{{/if}}%;
+
+	/* ====== SCROLL HINT ====== */
+	--scroll-hint-color: {{#if property.style.scrollHintColor}}{{property.style.scrollHintColor}}{{else}}#FFFFFF{{/if}};
+	--scroll-hint-font-size: {{#if property.style.scrollHintFontSize}}{{property.style.scrollHintFontSize}}{{else}}12{{/if}}px;
+	--scroll-hint-anim-speed: {{#if property.style.scrollHintAnimSpeedMs}}{{property.style.scrollHintAnimSpeedMs}}{{else}}800{{/if}}ms;
+
+	/* ====== TIMING ====== */
+	--slide-transition-ms: {{#if property.style.slideTransitionMs}}{{property.style.slideTransitionMs}}{{else}}400{{/if}}ms;
+	--gauge-duration-ms: {{#if property.style.gaugeDurationMs}}{{property.style.gaugeDurationMs}}{{else}}5000{{/if}}ms;
+
+	--progress-layer-z: 20;
+}
+
+/* root */
+.hero-carousel-block {
+	position: relative;
+	width: 100%;
+	height: var(--hero-section-height);
+	max-height: 100vh;
+	max-height: 100dvh; /* 동적 뷰포트 지원 */
+	overflow: hidden;
+	z-index: var(--hero-z-index);
+	background-color: #000;
+	color: var(--headline-color);
+	box-sizing: border-box; /* 패딩 포함 */
+}
+
+/* slides */
+.hero-slides {
+	position: absolute;
+	inset: 0;
+}
+.hero-slide {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	pointer-events: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: opacity var(--slide-transition-ms) ease,
+	            transform var(--slide-transition-ms) ease;
+	background: #000;
+}
+.hero-slide[data-transition="slide"] { transform: translateX(10%); }
+.hero-slide[data-transition="zoom"]  { transform: scale(1.05) translateZ(0); }
+.hero-slide.is-active {
+	opacity: 1;
+	pointer-events: auto;
+}
+.hero-slide.is-active[data-transition="slide"] { transform: translateX(0); }
+.hero-slide.is-active[data-transition="zoom"]  { transform: scale(1) translateZ(0); }
+
+.hero-media {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.hero-overlay {
+	position: absolute;
+	inset: 0;
+	background-color: var(--hero-overlay-color);
+	pointer-events: none;
+	z-index: 5;
+}
+
+/* slide caption - 하단 여백 통일 */
+.hero-slide-caption {
+	position: absolute;
+	left: var(--global-pad-x);
+	right: var(--global-pad-x);
+	bottom: var(--bottom-elements-offset);
+	color: var(--supporting-color);
+	font-size: var(--supporting-font-size-desktop);
+	line-height: 1.4;
+	max-width: 60%;
+	text-align: right;
+	margin-left: auto;
+	opacity: .8;
+	z-index: 10;
+}
+
+/* content wrapper - 상하 패딩 제거 */
+.hero-content-wrapper {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: var(--global-pad-x);
+	padding-right: var(--global-pad-x);
+	pointer-events: none;
+	z-index: 15;
+}
+.hero-content-inner {
+	max-width: var(--headline-max-width);
+	color: var(--headline-color);
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+	text-align: var(--headline-align-desktop);
+	pointer-events: auto;
+}
+.hero-headline {
+	color: var(--headline-color);
+	font-size: var(--headline-font-size-desktop);
+	font-weight: 600;
+	line-height: 1.2;
+	word-break: keep-all;
+	font-family: var(--font-heading);
+}
+.hero-subtext {
+	color: var(--subtext-color);
+	font-size: var(--subtext-font-size-desktop);
+	line-height: 1.5;
+	max-width: 48ch;
+	opacity: .9;
+	font-family: var(--font-body);
+}
+.hero-supporting-note {
+	color: var(--supporting-color);
+	font-size: var(--supporting-font-size-desktop);
+	line-height: 1.4;
+	opacity: .8;
+	font-family: var(--font-body);
+}
+
+/* CTA group */
+.hero-cta-group {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: .75rem;
+	row-gap: .75rem;
+	justify-content: var(--cta-group-justify-desktop);
+}
+.hero-cta {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--cta-width-desktop);
+	min-height: var(--cta-height-desktop);
+	padding: 0 1.25rem;
+	border-radius: var(--cta-radius);
+	text-decoration: none;
+	line-height: 1.2;
+	font-size: var(--cta-font-size-desktop);
+	font-weight: 500;
+	color: var(--cta-text-color);
+	background-color: var(--cta-bg-color);
+	border: var(--cta-border-width) solid var(--cta-border-color);
+	font-family: var(--font-body);
+
+	overflow: hidden;
+	will-change: transform, box-shadow;
+	transition:
+		transform var(--cta-hover-lift-speed) ease,
+		box-shadow var(--cta-hover-lift-speed) ease;
+}
+.hero-cta .hero-cta-scan-highlight {
+	pointer-events:none;
+	position:absolute;
+	inset:0;
+	border-radius: inherit;
+	/* background-size는 각 방향별로 명시적 설정 */
+	background-repeat:no-repeat;
+	opacity:0;
+}
+
+/* Glow 방향별 애니메이션 - background-size 및 초기 위치 명시적 설정 */
+.hero-cta[data-glow-direction="left-to-right"] .hero-cta-scan-highlight {
+	background-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, var(--cta-glow-gradient-color) 50%, rgba(0,0,0,0) 100%);
+	background-size: 200% 100%;
+	background-position: -100% 0%;
+}
+.hero-cta[data-glow-direction="right-to-left"] .hero-cta-scan-highlight {
+	background-image: linear-gradient(270deg, rgba(0,0,0,0) 0%, var(--cta-glow-gradient-color) 50%, rgba(0,0,0,0) 100%);
+	background-size: 200% 100%;
+	background-position: 200% 0%;
+}
+.hero-cta[data-glow-direction="top-to-bottom"] .hero-cta-scan-highlight {
+	background-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, var(--cta-glow-gradient-color) 50%, rgba(0,0,0,0) 100%);
+	background-size: 100% 200%;
+	background-position: 0% -100%;
+}
+.hero-cta[data-glow-direction="bottom-to-top"] .hero-cta-scan-highlight {
+	background-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, var(--cta-glow-gradient-color) 50%, rgba(0,0,0,0) 100%);
+	background-size: 100% 200%;
+	background-position: 0% 200%;
+}
+
+.hero-cta[data-anim="glow"]:hover,
+.hero-cta[data-anim="glow"]:focus-visible {
+	transform: translateY(var(--cta-hover-translate-y));
+	box-shadow: var(--cta-hover-shadow);
+}
+/* 수평 방향 - left-to-right */
+.hero-cta[data-glow-direction="left-to-right"][data-anim="glow"]:hover .hero-cta-scan-highlight,
+.hero-cta[data-glow-direction="left-to-right"][data-anim="glow"]:focus-visible .hero-cta-scan-highlight {
+	opacity:1;
+	animation: heroCtaScanLTR var(--cta-glow-scan-speed) linear infinite;
+}
+
+/* 수평 방향 - right-to-left */
+.hero-cta[data-glow-direction="right-to-left"][data-anim="glow"]:hover .hero-cta-scan-highlight,
+.hero-cta[data-glow-direction="right-to-left"][data-anim="glow"]:focus-visible .hero-cta-scan-highlight {
+	opacity:1;
+	animation: heroCtaScanRTL var(--cta-glow-scan-speed) linear infinite;
+}
+
+/* 수직 방향 - top-to-bottom */
+.hero-cta[data-glow-direction="top-to-bottom"][data-anim="glow"]:hover .hero-cta-scan-highlight,
+.hero-cta[data-glow-direction="top-to-bottom"][data-anim="glow"]:focus-visible .hero-cta-scan-highlight {
+	opacity:1;
+	animation: heroCtaScanTTB var(--cta-glow-scan-speed) linear infinite;
+}
+
+/* 수직 방향 - bottom-to-top */
+.hero-cta[data-glow-direction="bottom-to-top"][data-anim="glow"]:hover .hero-cta-scan-highlight,
+.hero-cta[data-glow-direction="bottom-to-top"][data-anim="glow"]:focus-visible .hero-cta-scan-highlight {
+	opacity:1;
+	animation: heroCtaScanBTT var(--cta-glow-scan-speed) linear infinite;
+}
+
+@keyframes heroCtaScanLTR {
+	0%{background-position:-100% 0%}
+	100%{background-position:200% 0%}
+}
+@keyframes heroCtaScanRTL {
+	0%{background-position:200% 0%}
+	100%{background-position:-100% 0%}
+}
+@keyframes heroCtaScanTTB {
+	0%{background-position:0% -100%}
+	100%{background-position:0% 200%}
+}
+@keyframes heroCtaScanBTT {
+	0%{background-position:0% 200%}
+	100%{background-position:0% -100%}
+}
+.hero-cta[data-anim="none"] {}
+
+/* arrows */
+.hero-nav-arrow {
+	position:absolute;
+	display: {{#if property.style.navArrowShow}}flex{{else}}none{{/if}};
+	width: calc(var(--nav-arrow-size) * 2);
+	height: calc(var(--nav-arrow-size) * 2);
+	border-radius: var(--nav-arrow-radius);
+	border: var(--nav-arrow-border-width) solid var(--nav-arrow-border-color);
+	background-color: transparent;
+	align-items:center;
+	justify-content:center;
+	cursor:pointer;
+	pointer-events:auto;
+	z-index: 18;
+	transition: opacity 0.2s ease, transform 0.2s ease;
+	top: {{#if property.style.navArrowOffsetYPercent}}{{property.style.navArrowOffsetYPercent}}{{else}}50{{/if}}%;
+	transform: translateY(-50%);
+}
+.hero-nav-arrow[data-nav-prev] {
+	left: calc(var(--global-pad-x) + var(--nav-arrow-offset-x));
+}
+.hero-nav-arrow[data-nav-next] {
+	right: calc(var(--global-pad-x) + var(--nav-arrow-offset-x));
+}
+.hero-nav-arrow:focus-visible {
+	outline: 2px solid var(--nav-arrow-icon-color);
+	outline-offset: 2px;
+}
+.hero-nav-arrow[data-style="solid-circle"]{
+	background-color: var(--nav-arrow-bg-color);
+	backdrop-filter:none;
+}
+.hero-nav-arrow[data-style="glass-blur"]{
+	background-color: var(--nav-arrow-bg-color); /* 배경색 적용 */
+	backdrop-filter: blur(8px);
+}
+.hero-nav-arrow[data-style="minimal-line"]{
+	background-color: transparent;
+	border: none;
+}
+.hero-nav-arrow-icon {
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	color: var(--nav-arrow-icon-color);
+	font-size: var(--nav-arrow-size);
+	line-height:1;
+	user-select:none;
+	pointer-events:none;
+}
+.hero-nav-arrow-icon svg{
+	width: var(--nav-arrow-size);
+	height: var(--nav-arrow-size);
+	fill: var(--nav-arrow-icon-color);
+}
+
+/* ========================= */
+/* DESKTOP GAUGE + STEP NUM  */
+/* ========================= */
+
+.hero-progress-wrapper-desktop {
+	position:absolute;
+	bottom: var(--bottom-elements-offset);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	min-width:0;
+	width: 100%;
+	max-width: var(--gauge-max-width);
+	pointer-events:none;
+	z-index: var(--progress-layer-z);
+}
+.hero-progress-wrapper-desktop[data-align="left"] {
+	left: calc(var(--global-pad-x) + var(--gauge-offset-x));
+	right: auto;
+}
+.hero-progress-wrapper-desktop[data-align="right"] {
+	left: auto;
+	right: calc(var(--global-pad-x) + var(--gauge-offset-x));
+}
+.hero-progress-wrapper-desktop[data-align="center"] {
+	left: 50%;
+	right: auto;
+	transform: translateX(calc(-50% + var(--gauge-offset-x)));
+}
+
+.hero-progress-global-counter {
+	position:absolute;
+	left: calc(50% + var(--counter-offset-x-percent));
+	transform: translateX(-50%);
+	bottom: calc(100% + var(--counter-offset-y-px));
+	min-width:max-content;
+	background-color: transparent;
+	color: var(--counter-active-color);
+	font-size: var(--counter-font-size);
+	line-height:1.2;
+	font-weight:500;
+	pointer-events:none;
+	text-align:center;
+	white-space:nowrap;
+}
+
+.hero-progress-bar-shell,
+.hero-progress-steps {
+	position: relative;
+	width: 100%;
+	min-width: 60px;
+}
+.hero-progress-bar-shell {
+	height: var(--gauge-height);
+	border-radius: var(--gauge-radius);
+	overflow: hidden;
+	background-color: var(--gauge-track-color);
+}
+.hero-progress-bar-fill {
+	position:absolute;
+	left:0;top:0;bottom:0;
+	width:100%;
+	background: var(--gauge-fill-color);
+	border-radius: var(--gauge-radius);
+	transform-origin:left center;
+	transform:scaleX(0);
+}
+.hero-progress-steps {
+	display:flex;
+	column-gap: var(--gauge-gap);
+	justify-content:center;
+	position: relative;
+}
+.hero-progress-step-shell {
+	flex:1 1 0;
+	position:relative;
+	height: var(--gauge-height);
+	border-radius: var(--gauge-radius);
+	overflow: visible;
+	background-color: var(--gauge-track-inactive-color);
+	opacity:.6;
+	transition:flex-grow .2s ease, opacity .2s ease, background-color .2s ease;
+}
+.hero-progress-step-shell[aria-current="true"] {
+	opacity:1;
+	flex-grow:2;
+	background-color: var(--gauge-track-color);
+}
+.hero-progress-step-fill {
+	position:absolute;
+	left:0;top:0;bottom:0;
+	width:100%;
+	background: var(--gauge-fill-color);
+	border-radius: var(--gauge-radius);
+	transform-origin:left center;
+	transform:scaleX(0);
+}
+.hero-step-counter-bubble {
+	position:absolute;
+	min-width:max-content;
+	background-color: transparent;
+	font-size: var(--counter-font-size);
+	line-height:1.2;
+	font-weight:500;
+	color: var(--counter-inactive-color);
+	pointer-events:none;
+	text-align:center;
+	white-space:nowrap;
+	left: calc(50% + var(--counter-offset-x-percent));
+	transform: translateX(-50%);
+	bottom: calc(100% + var(--counter-offset-y-px));
+	transition: color .2s ease;
+}
+.hero-step-counter-bubble[data-active="true"] {
+	color: var(--counter-active-color);
+}
+
+/* ========================= */
+/* MOBILE FULL-WIDTH BAR     */
+/* ========================= */
+
+.hero-progress-wrapper-mobilebar {
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 100%;
+	max-width: 100%;
+	pointer-events:none;
+	z-index: var(--mobilebar-z);
+	display: none;
+}
+.hero-mobilebar-track {
+	position: relative;
+	width: 100%;
+	height: var(--mobilebar-height);
+	background-color: var(--mobilebar-track-color);
+	overflow:hidden;
+}
+.hero-mobilebar-fill {
+	position:absolute;
+	left:0;top:0;bottom:0;
+	width:100%;
+	background-color: var(--mobilebar-fill-color);
+	transform-origin:left center;
+	transform:scaleX(0);
+}
+
+/* ========================= */
+/* SCROLL HINT               */
+/* ========================= */
+.hero-scroll-hint {
+	position:absolute;
+	left:50%;
+	bottom: var(--bottom-elements-offset);
+	transform: translateX(-50%);
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	row-gap:.5rem;
+	color: var(--scroll-hint-color);
+	font-size: var(--scroll-hint-font-size);
+	line-height:1.2;
+	user-select:none;
+	pointer-events:none;
+	z-index: 18;
+}
+.hero-scroll-hint[data-anim="bounce"] .hero-scroll-hint-icon{
+	animation: hintBounce var(--scroll-hint-anim-speed) ease-in-out infinite;
+}
+@keyframes hintBounce{
+	0%,100%{transform:translateY(0);opacity:1}
+	50%{transform:translateY(4px);opacity:.6}
+}
+.hero-scroll-hint[data-anim="pulse"] .hero-scroll-hint-icon{
+	animation: hintPulse var(--scroll-hint-anim-speed) ease-in-out infinite;
+}
+@keyframes hintPulse{
+	0%,100%{opacity:1;transform:scale(1)}
+	50%{opacity:.4;transform:scale(.9)}
+}
+
+/* intro animation */
+[data-animate-once]{
+	opacity:0;
+	transform:translateY(12px);
+	transition:opacity .6s ease, transform .6s ease;
+}
+[data-animate-once].is-visible{
+	opacity:1;
+	transform:translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+	.hero-content-inner{
+		text-align: var(--headline-align-mobile);
+	}
+	.hero-headline{
+		font-size: var(--headline-font-size-mobile);
+	}
+	.hero-subtext{
+		font-size: var(--subtext-font-size-mobile);
+	}
+	.hero-supporting-note{
+		font-size: var(--supporting-font-size-mobile);
+	}
+	.hero-slide-caption{
+		font-size: var(--supporting-font-size-mobile);
+		max-width:80%;
+		text-align: var(--headline-align-mobile);
+		{{#if property.style.slideCaptionHideMobile}}display:none;{{/if}}
+	}
+
+	/* CTA: 모바일 크기 적용 */
+	.hero-cta-group{
+		flex-direction:column;
+		align-items: center;
+		justify-content: var(--cta-group-justify-mobile);
+	}
+	.hero-cta{
+		width: var(--cta-width-mobile);
+		min-height: var(--cta-height-mobile);
+		font-size: var(--cta-font-size-mobile);
+		max-width:320px;
+	}
+
+	/* 모바일에서 화살표/힌트 숨김 */
+	{{#if property.style.navArrowHideMobile}}
+	.hero-nav-arrow{
+		display:none;
+	}
+	{{/if}}
+
+	{{#if property.style.scrollHintHideMobile}}
+	.hero-scroll-hint{
+		display:none;
+	}
+	{{/if}}
+
+	/* 데스크탑 게이지 모바일 숨김 */
+	{{#if property.style.desktopGaugeHideMobile}}
+	.hero-progress-wrapper-desktop{
+		display:none;
+	}
+	{{/if}}
+}
+</style>
+
+
+<template>
+<section class="hero-carousel-block" role="region" aria-label="Hero carousel" aria-roledescription="carousel">
+
+	<!-- Slides -->
+	<div class="hero-slides">
+		{{#each property.slides}}
+		<div class="hero-slide"
+			data-slide-index="{{@index}}"
+			data-transition="{{../property.style.slideTransitionType}}"
+			aria-hidden="true">
+			{{#if (eq type "video")}}
+				<video class="hero-media"
+					src="{{mediaUrl}}"
+					muted
+					loop
+					autoplay
+					playsinline
+					aria-hidden="true"></video>
+			{{else}}
+				<img class="hero-media"
+					src="{{mediaUrl}}"
+					alt=""
+					loading="lazy"
+					aria-hidden="true"/>
+			{{/if}}
+
+			{{#if caption}}
+			<div class="hero-slide-caption">
+				<p class="hero-caption-text">{{caption}}</p>
+			</div>
+			{{/if}}
+		</div>
+		{{else}}
+		<div class="hero-slide is-active" data-slide-index="0" data-transition="fade" aria-hidden="false">
+			<div class="hero-media" style="background:#000;width:100%;height:100%;"></div>
+		</div>
+		{{/each}}
+
+		<div class="hero-overlay"></div>
+	</div>
+
+	<!-- Content -->
+	<div class="hero-content-wrapper" data-animate-once>
+		<div class="hero-content-inner">
+			<p class="hero-headline">{{property.headline}}</p>
+			<p class="hero-subtext">{{property.subtext}}</p>
+
+			{{#if property.supportingNote}}
+			<p class="hero-supporting-note">{{property.supportingNote}}</p>
+			{{/if}}
+
+			<div class="hero-cta-group">
+				{{#if property.ctaPrimary.label}}
+				<a class="hero-cta"
+					data-anim="{{#if property.style.ctaHoverAnimType}}{{property.style.ctaHoverAnimType}}{{else}}glow{{/if}}"
+					data-glow-direction="{{#if property.style.ctaGlowDirection}}{{property.style.ctaGlowDirection}}{{else}}left-to-right{{/if}}"
+					href="{{property.ctaPrimary.link.value}}"
+					{{#if property.ctaPrimary.openInNewTab}}target="_blank" rel="noopener noreferrer"{{/if}}>
+					<span class="hero-cta-label">{{property.ctaPrimary.label}}</span>
+					<span class="hero-cta-scan-highlight" aria-hidden="true"></span>
+				</a>
+				{{/if}}
+
+				{{#if property.ctaSecondary.label}}
+				<a class="hero-cta"
+					data-anim="{{#if property.style.ctaHoverAnimType}}{{property.style.ctaHoverAnimType}}{{else}}glow{{/if}}"
+					data-glow-direction="{{#if property.style.ctaGlowDirection}}{{property.style.ctaGlowDirection}}{{else}}left-to-right{{/if}}"
+					href="{{property.ctaSecondary.link.value}}"
+					{{#if property.ctaSecondary.openInNewTab}}target="_blank" rel="noopener noreferrer"{{/if}}>
+					<span class="hero-cta-label">{{property.ctaSecondary.label}}</span>
+					<span class="hero-cta-scan-highlight" aria-hidden="true"></span>
+				</a>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+
+	<!-- Nav arrows -->
+	<button class="hero-nav-arrow"
+		type="button"
+		tabindex="0"
+		data-side="left"
+		data-style="{{#if property.style.navArrowStyle}}{{property.style.navArrowStyle}}{{else}}glass-blur{{/if}}"
+		data-nav-prev
+		aria-label="Previous slide">
+		<span class="hero-nav-arrow-icon">
+			{{#if property.style.navArrowIconSvgLeft}}
+				{{{property.style.navArrowIconSvgLeft}}}
+			{{else}}
+				‹
+			{{/if}}
+		</span>
+	</button>
+
+	<button class="hero-nav-arrow"
+		type="button"
+		tabindex="0"
+		data-side="right"
+		data-style="{{#if property.style.navArrowStyle}}{{property.style.navArrowStyle}}{{else}}glass-blur{{/if}}"
+		data-nav-next
+		aria-label="Next slide">
+		<span class="hero-nav-arrow-icon">
+			{{#if property.style.navArrowIconSvgRight}}
+				{{{property.style.navArrowIconSvgRight}}}
+			{{else}}
+				›
+			{{/if}}
+		</span>
+	</button>
+
+	<!-- DESKTOP / COMMON GAUGE WRAPPER -->
+	<div class="hero-progress-wrapper-desktop" data-gauge-wrapper data-align="{{#if property.style.gaugeAlignDesktop}}{{property.style.gaugeAlignDesktop}}{{else}}center{{/if}}">
+		{{#if (eq property.progressMode "singleBar")}}
+		<div class="hero-progress-global-counter" data-global-counter></div>
+
+		<div class="hero-progress-bar-shell">
+			<div class="hero-progress-bar-fill" data-progress-fill></div>
+		</div>
+		{{/if}}
+
+		{{#if (eq property.progressMode "multiStep")}}
+		<div class="hero-progress-steps">
+			{{#each property.slides}}
+			<div class="hero-progress-step-shell"
+				role="progressbar"
+				aria-valuemin="0"
+				aria-valuemax="100"
+				aria-valuenow="0"
+				{{#if @first}}aria-current="true"{{/if}}
+				data-step-shell="{{@index}}">
+
+				<div class="hero-progress-step-fill" data-step-fill="{{@index}}"></div>
+
+				<div class="hero-step-counter-bubble"
+					data-step-counter="{{@index}}"
+					data-step-num="{{@index}}"
+					{{#if @first}}data-active="true"{{/if}}
+					data-step-label></div>
+			</div>
+			{{/each}}
+		</div>
+		{{/if}}
+	</div>
+
+	<!-- MOBILE FULL-WIDTH TOP/BOTTOM BAR -->
+	<div class="hero-progress-wrapper-mobilebar" data-gauge-mobilebar>
+		<div class="hero-mobilebar-track">
+			<div class="hero-mobilebar-fill" data-mobilebar-fill></div>
+		</div>
+	</div>
+
+	<!-- Scroll hint -->
+	{{#if property.style.scrollHintShow}}
+	<div class="hero-scroll-hint" data-anim="{{#if property.style.scrollHintAnimType}}{{property.style.scrollHintAnimType}}{{else}}pulse{{/if}}">
+		<div class="hero-scroll-hint-icon">↓</div>
+		<div class="hero-scroll-hint-text">{{#if property.style.scrollHintText}}{{property.style.scrollHintText}}{{else}}Scroll{{/if}}</div>
+	</div>
+	{{/if}}
+
+</section>
+</template>
+
+
+<script>
+/* 히어로 캐러셀 v2 - JavaScript
+   주요 수정:
+   - 모바일 게이지바 표시 로직 개선
+   - 게이지 위치 계산 개선 (전역 패딩 반영)
+   - 번호 색상 data-active 속성으로 처리
+   - 화살표 위치 전역 패딩 반영
+*/
+
+(function(){
+	const root = bm.container;
+	const ctx = bm.context;
+
+	let currentIndex = 0;
+	let slideTimer = null;
+	let gaugeRAF = null;
+	let reinitTimeout = null;
+	let hasAnimatedIn = false;
+
+	function getSlides() {
+		return Array.from(root.querySelectorAll('.hero-slide'));
+	}
+
+	function getConf() {
+		const s = ctx.property.style || {};
+		return {
+			slides: ctx.property.slides || [],
+			mode: ctx.property.progressMode || 'singleBar',
+			loop: ctx.property.loopSlides !== false,
+			slideDur: +s.slideDurationMs || 5000,
+			transMs: +s.slideTransitionMs || 400,
+			gaugeDur: +s.gaugeDurationMs || (+s.slideDurationMs || 5000),
+			transitionType: s.slideTransitionType || 'fade',
+
+			/* desktop gauge */
+			desktopGaugeShow: (s.desktopGaugeShow !== false),
+			gaugeAlign: s.gaugeAlignDesktop || "center",
+			gaugeOffsetXPercent: (s.gaugeOffsetXPercentDesktop !== undefined && s.gaugeOffsetXPercentDesktop !== "") ? +s.gaugeOffsetXPercentDesktop : 0,
+			hideDesktopGaugeOnMobile: !!s.desktopGaugeHideMobile,
+
+			/* mobile bar - 오프셋 제거 (항상 0px) */
+			mobileBarShow: !!s.mobileGaugeBarShow,
+			mobileBarPosition: (s.mobileGaugeBarPosition && s.mobileGaugeBarPosition !== "") ? s.mobileGaugeBarPosition : "top",
+
+			/* nav arrows - 전역 패딩 + offset (기본값 0) */
+			navArrowOffsetXPercent: (s.navArrowOffsetXPercent !== undefined && s.navArrowOffsetXPercent !== "") ? +s.navArrowOffsetXPercent : 0,
+			navArrowOffsetYPercent: (s.navArrowOffsetYPercent !== undefined && s.navArrowOffsetYPercent !== "") ? +s.navArrowOffsetYPercent : 50
+		};
+	}
+
+	/*
+	 * 화살표와 게이지 위치는 이제 CSS에서 직접 처리합니다.
+	 * CSS 변수 --global-pad-x와 --nav-arrow-offset-x, --gauge-offset-x를 사용합니다.
+	 * 아래 함수들은 더 이상 사용하지 않습니다.
+	 */
+
+	/* 모바일 게이지바 스타일 세팅 */
+	function applyMobileBarStyles(confObj){
+		const barWrap = root.querySelector('[data-gauge-mobilebar]');
+		if(!barWrap) return;
+
+		// 모바일 체크
+		const isMobile = window.innerWidth <= 768;
+
+		// 조건: mobileBarShow && 모바일 (singleBar/multiStep 모두 지원)
+		const shouldShow = confObj.mobileBarShow && isMobile;
+
+		barWrap.style.display = shouldShow ? 'block' : 'none';
+
+		// 표시할 때만 위치 설정
+		if(shouldShow){
+			if(confObj.mobileBarPosition === "bottom"){
+				barWrap.style.bottom = '0px';
+				barWrap.style.top = 'auto';
+			}else{
+				barWrap.style.top = '0px';
+				barWrap.style.bottom = 'auto';
+			}
+		}
+	}
+
+	function revealTextOnceImmediate() {
+		const el = root.querySelector('[data-animate-once]');
+		if (el) el.classList.add('is-visible');
+	}
+
+	function initIntersectionOnce(){
+		if(hasAnimatedIn)return;
+		const target = root.querySelector('[data-animate-once]');
+		if(!target)return;
+		let revealed=false;
+		let io=null;
+		function reveal(){
+			target.classList.add('is-visible');
+			hasAnimatedIn=true;
+			if(io){io.disconnect();io=null;}
+		}
+		if('IntersectionObserver'in window){
+			io=new IntersectionObserver((ents)=>{
+				ents.forEach(e=>{
+					if(e.isIntersecting && !revealed){
+						revealed=true;
+						reveal();
+					}
+				});
+			},{root:null,threshold:0.3});
+			io.observe(target);
+		}else{
+			reveal();
+		}
+	}
+
+	function setActiveSlide(idx) {
+		const all = getSlides();
+		all.forEach((el, i) => {
+			if (i === idx) {
+				el.classList.add('is-active');
+				el.setAttribute('aria-hidden','false');
+				const v = el.querySelector('video');
+				if(v){
+					try{v.currentTime=0;}catch(e){}
+					if(v.play){v.play().catch(function(){});}
+				}
+			} else {
+				el.classList.remove('is-active');
+				el.setAttribute('aria-hidden','true');
+				const v = el.querySelector('video');
+				if(v && v.pause){ v.pause(); }
+			}
+		});
+	}
+
+	/* 번호 텍스트 설정 */
+	function populateStepNumbers(){
+		const bubbles = root.querySelectorAll('[data-step-label]');
+		bubbles.forEach(b=>{
+			const raw = +b.getAttribute('data-step-num');
+			if (!isNaN(raw)) {
+				b.textContent = String(raw + 1);
+			}
+		});
+	}
+
+	/* 번호 활성 상태 업데이트 - data-active 속성 사용 */
+	function updateStepCounterActive(){
+		const bubbles = root.querySelectorAll('[data-step-counter]');
+		bubbles.forEach(b=>{
+			const stepIdx = +b.getAttribute('data-step-counter');
+			if(stepIdx === currentIndex){
+				b.setAttribute('data-active', 'true');
+			} else {
+				b.removeAttribute('data-active');
+			}
+		});
+	}
+
+	/* multiStep 현재 트랙 강조 */
+	function highlightCurrentStepShell(){
+		const shells = root.querySelectorAll('.hero-progress-step-shell');
+		shells.forEach((sh, i) => {
+			if (i === currentIndex){
+				sh.setAttribute('aria-current','true');
+			}else{
+				sh.removeAttribute('aria-current');
+			}
+		});
+	}
+
+	/* 게이지 리셋 */
+	function resetGauge(confObj){
+		if (confObj.mode === 'singleBar') {
+			// desktop bar
+			const dFills = root.querySelectorAll('[data-progress-fill]');
+			dFills.forEach(el=>{
+				el.style.transform = 'scaleX(0)';
+			});
+			// mobile bar
+			const mFills = root.querySelectorAll('[data-mobilebar-fill]');
+			mFills.forEach(el=>{
+				el.style.transform = 'scaleX(0)';
+			});
+		} else {
+			// multiStep
+			const fills = root.querySelectorAll('.hero-progress-step-fill');
+			fills.forEach(step => {
+				step.style.transform = 'scaleX(0)';
+				if (step.parentElement) {
+					step.parentElement.setAttribute('aria-valuenow','0');
+				}
+			});
+			highlightCurrentStepShell();
+			updateStepCounterActive();
+		}
+	}
+
+	/* 게이지 애니메이션 */
+	function animateGauge(confObj){
+		cancelAnimationFrame(gaugeRAF);
+		const start = performance.now();
+
+		function tick(now){
+			const ratio = Math.min((now-start)/confObj.gaugeDur,1);
+
+			if (confObj.mode === 'singleBar') {
+				// desktop
+				const dFills = root.querySelectorAll('[data-progress-fill]');
+				dFills.forEach(f=>{
+					f.style.transform = 'scaleX(' + ratio + ')';
+				});
+
+				// mobile
+				const mFills = root.querySelectorAll('[data-mobilebar-fill]');
+				mFills.forEach(f=>{
+					f.style.transform = 'scaleX(' + ratio + ')';
+				});
+			} else {
+				// multiStep: 현재 슬라이드 게이지만
+				const fList = root.querySelectorAll('[data-step-fill="'+currentIndex+'"]');
+				fList.forEach(f=>{
+					f.style.transform = 'scaleX(' + ratio + ')';
+					if (f.parentElement){
+						f.parentElement.setAttribute('aria-valuenow', String(Math.round(ratio*100)));
+					}
+				});
+
+				// mobile bar도 multiStep 모드에서 업데이트
+				const mFills = root.querySelectorAll('[data-mobilebar-fill]');
+				mFills.forEach(f=>{
+					f.style.transform = 'scaleX(' + ratio + ')'; 
+				});
+			}
+
+			if (ratio < 1) {
+				gaugeRAF = requestAnimationFrame(tick);
+			}
+		}
+		gaugeRAF = requestAnimationFrame(tick);
+	}
+
+	/* 다음 슬라이드 예약 */
+	function scheduleNext(confObj){
+		clearTimeout(slideTimer);
+		if (confObj.slides.length <= 1) return;
+		slideTimer = setTimeout(()=>{
+			let next = currentIndex + 1;
+			if (next >= confObj.slides.length){
+				if (confObj.loop && confObj.slides.length){
+					next = 0;
+				} else {
+					return;
+				}
+			}
+			goToSlide(next, confObj, {autoSchedule:true});
+		}, confObj.slideDur);
+	}
+
+	function goToSlide(idx, confObj, opt){
+		const o = opt||{};
+		const total = confObj.slides.length;
+		if (!total) return;
+
+		currentIndex = idx;
+		setActiveSlide(idx);
+
+		resetGauge(confObj);
+		animateGauge(confObj);
+		updateStepCounterActive();
+
+		if (o.autoSchedule !== false){
+			scheduleNext(confObj);
+		}
+	}
+
+	/* 네비게이션 핸들러 */
+	function makeNavHandler(confObj){
+		return function navHandler(e){
+			const prevMatch = e.target.closest('[data-nav-prev]');
+			const nextMatch = e.target.closest('[data-nav-next]');
+			if(!prevMatch && !nextMatch) return;
+
+			e.preventDefault();
+			clearTimeout(slideTimer);
+			cancelAnimationFrame(gaugeRAF);
+
+			if(prevMatch){
+				let p = currentIndex - 1;
+				if (p < 0) {
+					p = confObj.loop ? confObj.slides.length - 1 : 0;
+				}
+				goToSlide(p, confObj, {autoSchedule:true});
+				return;
+			}
+			if(nextMatch){
+				let n = currentIndex + 1;
+				if (n >= confObj.slides.length) {
+					n = confObj.loop ? 0 : currentIndex;
+				}
+				goToSlide(n, confObj, {autoSchedule:true});
+				return;
+			}
+		};
+	}
+
+	/* 초기화 */
+	function init(){
+		const confObj = getConf();
+		const slideEls = getSlides();
+
+		if (!confObj.slides.length || !slideEls.length){
+			revealTextOnceImmediate();
+			return;
+		}
+
+		// 전환 타입 동기화
+		slideEls.forEach(el=>{
+			el.setAttribute('data-transition', confObj.transitionType);
+		});
+
+		// 첫 슬라이드 활성화
+		slideEls.forEach((el,idx)=>{
+			if(idx===0){
+				el.classList.add('is-active');
+				el.setAttribute('aria-hidden','false');
+			}else{
+				el.classList.remove('is-active');
+				el.setAttribute('aria-hidden','true');
+			}
+		});
+		currentIndex = 0;
+
+		// 위치/스타일 적용 (화살표와 게이지는 CSS로 처리)
+		populateStepNumbers();
+		applyMobileBarStyles(confObj);
+
+		// 게이지 초기화 & 애니메이션
+		resetGauge(confObj);
+		animateGauge(confObj);
+		updateStepCounterActive();
+
+		// 자동 순환
+		scheduleNext(confObj);
+
+		// 텍스트 페이드인
+		revealTextOnceImmediate();
+		initIntersectionOnce();
+
+		// 네비 클릭 이벤트
+		if(init._navHandler){
+			root.removeEventListener('click', init._navHandler, true);
+		}
+		init._navHandler = makeNavHandler(confObj);
+		root.addEventListener('click', init._navHandler, true);
+
+		// 윈도우 리사이즈 시 모바일 게이지바 재계산
+		if(init._resizeHandler){
+			window.removeEventListener('resize', init._resizeHandler);
+		}
+		init._resizeHandler = function(){
+			applyMobileBarStyles(confObj);
+		};
+		window.addEventListener('resize', init._resizeHandler);
+	}
+
+	init();
+
+	/* 설정 변경 시 재초기화 */
+	bm.onContextChange = () => {
+		clearTimeout(slideTimer);
+		cancelAnimationFrame(gaugeRAF);
+		if (reinitTimeout) clearTimeout(reinitTimeout);
+		reinitTimeout = setTimeout(()=>{ init(); },80);
+	};
+
+	/* 정리 */
+	bm.onDestroy = () => {
+		clearTimeout(slideTimer);
+		cancelAnimationFrame(gaugeRAF);
+		if (reinitTimeout) clearTimeout(reinitTimeout);
+		if (init._navHandler){
+			root.removeEventListener('click', init._navHandler, true);
+		}
+		if (init._resizeHandler){
+			window.removeEventListener('resize', init._resizeHandler);
+		}
+	};
+})();
+</script>

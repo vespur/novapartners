@@ -1,0 +1,949 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "🖼 전체 레이아웃 / 공통 설정"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "섹션 전체의 높이, 패딩, 하단 요소 여백, 오버레이, z-index 등을 설정하실 수 있습니다."
+    },
+    {
+      "id": "style.heroHeightVh",
+      "label": "섹션 높이 (vh)",
+      "description": "히어로 섹션의 높이입니다. 100을 입력하시면 화면 전체 높이가 됩니다. 숫자만 입력해주세요.",
+      "type": "TEXT",
+      "placeholder": "100"
+    },
+    {
+      "id": "style.heroPaddingXPercent",
+      "label": "좌우 패딩 (%)",
+      "description": "섹션 내부의 좌우 여백입니다. 콘텐츠 영역에 영향을 미칩니다. 숫자만 입력해주세요. 예: 5",
+      "type": "TEXT",
+      "placeholder": "5"
+    },
+    {
+      "id": "style.bottomElementsOffset",
+      "label": "하단 요소 공통 여백 (px)",
+      "description": "화면 최하단부터 위로 올라가는 여백입니다. 게이지, 스크롤 힌트, 캡션이 동일하게 적용받습니다. 숫자만 입력해주세요. 예: 40",
+      "type": "TEXT",
+      "placeholder": "40"
+    },
+    {
+      "id": "style.overlayColor",
+      "label": "오버레이 색상",
+      "description": "배경 이미지/비디오 위에 덮이는 색상입니다. rgba 값으로 투명도 조절이 가능합니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.slideCaptionHideMobile",
+      "label": "모바일에서 슬라이드 캡션 숨기기",
+      "description": "체크하시면 모바일에서 슬라이드 우하단 캡션이 표시되지 않습니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.zIndex",
+      "label": "z-index",
+      "description": "다른 섹션과의 겹침 우선순위입니다. 숫자가 클수록 위에 표시됩니다.",
+      "type": "TEXT",
+      "placeholder": "10"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🎬 슬라이드 / 전환 / 자동재생"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "배경 이미지/비디오 슬라이드와 전환 효과, 속도, 루프 설정을 조절하실 수 있습니다."
+    },
+    {
+      "id": "slides",
+      "label": "슬라이드 목록",
+      "description": "각 항목은 하나의 장면입니다. 캡션은 화면 우하단에 표시됩니다.",
+      "type": "LIST",
+      "maxCount": 10,
+      "settings": [
+        {
+          "id": "type",
+          "label": "미디어 타입",
+          "description": "비디오 또는 이미지를 선택해주세요.",
+          "type": "RADIO",
+          "options": [
+            {"label": "비디오", "value": "video"},
+            {"label": "이미지", "value": "image"}
+          ]
+        },
+        {
+          "id": "mediaUrl",
+          "label": "미디어 URL",
+          "description": "비디오(mp4, webm) 또는 이미지(jpg, png) 파일의 URL을 입력해주세요.",
+          "type": "TEXT",
+          "placeholder": "https://example.com/media.mp4"
+        },
+        {
+          "id": "caption",
+          "label": "슬라이드 캡션 (선택)",
+          "description": "화면 우하단에 표시될 강조 문구입니다. 비워두시면 표시되지 않습니다.",
+          "type": "TEXT",
+          "placeholder": "Global operations at scale"
+        }
+      ]
+    },
+    {
+      "id": "style.slideTransitionType",
+      "label": "슬라이드 전환 타입",
+      "description": "슬라이드가 전환될 때의 애니메이션 효과를 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "페이드", "value": "fade"},
+        {"label": "슬라이드", "value": "slide"},
+        {"label": "줌", "value": "zoom"}
+      ]
+    },
+    {
+      "id": "loopSlides",
+      "label": "무한 반복 재생",
+      "description": "체크하시면 마지막 슬라이드 후 처음으로 돌아갑니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.slideTransitionMs",
+      "label": "슬라이드 전환 속도 (ms)",
+      "description": "슬라이드 전환 애니메이션의 속도입니다. 숫자만 입력해주세요. 예: 400",
+      "type": "TEXT",
+      "placeholder": "400"
+    },
+    {
+      "id": "style.slideDurationMs",
+      "label": "각 슬라이드 유지 시간 (ms)",
+      "description": "각 슬라이드가 화면에 표시되는 시간입니다. 숫자만 입력해주세요. 예: 5000",
+      "type": "TEXT",
+      "placeholder": "5000"
+    },
+    {
+      "id": "style.gaugeDurationMs",
+      "label": "게이지 채우는 시간 (ms)",
+      "description": "진행 게이지가 채워지는 시간입니다. 보통 슬라이드 유지 시간과 동일하게 설정합니다. 숫자만 입력해주세요.",
+      "type": "TEXT",
+      "placeholder": "5000"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🧩 헤드라인 / 본문"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "메인 메시지, 서브텍스트, 신뢰 문구와 텍스트 정렬을 설정하실 수 있습니다."
+    },
+    {
+      "id": "headline",
+      "label": "헤드라인 텍스트",
+      "description": "히어로 섹션의 메인 카피입니다.",
+      "type": "TEXT",
+      "placeholder": "당신의 브랜드를 세계로"
+    },
+    {
+      "id": "style.headlineColor",
+      "label": "헤드라인 색상",
+      "description": "헤드라인 텍스트의 색상을 선택해주세요.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.headlineFontSizeDesktop",
+      "label": "헤드라인 크기 (데스크톱, px)",
+      "description": "데스크톱에서 표시될 헤드라인 글자 크기입니다. 숫자만 입력해주세요. 예: 64",
+      "type": "TEXT",
+      "placeholder": "64"
+    },
+    {
+      "id": "style.headlineFontSizeMobile",
+      "label": "헤드라인 크기 (모바일, px)",
+      "description": "모바일에서 표시될 헤드라인 글자 크기입니다. 숫자만 입력해주세요. 예: 32",
+      "type": "TEXT",
+      "placeholder": "32"
+    },
+    {
+      "id": "style.contentMaxWidth",
+      "label": "헤드라인 최대 폭 (px)",
+      "description": "헤드라인 영역의 최대 가로폭입니다. 숫자만 입력해주세요. 예: 600",
+      "type": "TEXT",
+      "placeholder": "600"
+    },
+    {
+      "id": "style.textAlignDesktop",
+      "label": "텍스트 정렬 (데스크톱)",
+      "description": "데스크톱에서 헤드라인과 서브텍스트의 정렬 방향입니다.",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "left"},
+        {"label": "가운데", "value": "center"}
+      ]
+    },
+    {
+      "id": "style.textAlignMobile",
+      "label": "텍스트 정렬 (모바일)",
+      "description": "모바일에서 헤드라인과 서브텍스트의 정렬 방향입니다.",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "left"},
+        {"label": "가운데", "value": "center"}
+      ]
+    },
+    {
+      "id": "subtext",
+      "label": "서브텍스트",
+      "description": "브랜드나 서비스를 설명하는 2~3줄의 문구입니다.",
+      "type": "TEXTAREA",
+      "placeholder": "차별화된 이미지 및 영상 히어로 섹션입니다."
+    },
+    {
+      "id": "style.subtextColor",
+      "label": "서브텍스트 색상",
+      "description": "서브텍스트의 색상을 선택해주세요.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.subtextFontSizeDesktop",
+      "label": "서브텍스트 크기 (데스크톱, px)",
+      "description": "데스크톱에서 표시될 서브텍스트 글자 크기입니다. 숫자만 입력해주세요. 예: 20",
+      "type": "TEXT",
+      "placeholder": "20"
+    },
+    {
+      "id": "style.subtextFontSizeMobile",
+      "label": "서브텍스트 크기 (모바일, px)",
+      "description": "모바일에서 표시될 서브텍스트 글자 크기입니다. 숫자만 입력해주세요. 예: 16",
+      "type": "TEXT",
+      "placeholder": "16"
+    },
+    {
+      "id": "supportingNote",
+      "label": "신뢰 문구 (선택)",
+      "description": "신뢰를 표현하는 짧은 문구입니다. 비워두시면 표시되지 않습니다. 예: Trusted by 120+ clients worldwide",
+      "type": "TEXT",
+      "placeholder": "Trusted by 120+ clients worldwide"
+    },
+    {
+      "id": "style.supportingColor",
+      "label": "신뢰 문구 색상",
+      "description": "신뢰 문구의 색상을 선택해주세요.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.supportingFontSizeDesktop",
+      "label": "신뢰 문구 크기 (데스크톱, px)",
+      "description": "데스크톱에서 표시될 신뢰 문구 글자 크기입니다. 숫자만 입력해주세요. 예: 16",
+      "type": "TEXT",
+      "placeholder": "16"
+    },
+    {
+      "id": "style.supportingFontSizeMobile",
+      "label": "신뢰 문구 크기 (모바일, px)",
+      "description": "모바일에서 표시될 신뢰 문구 글자 크기입니다. 숫자만 입력해주세요. 예: 14",
+      "type": "TEXT",
+      "placeholder": "14"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🔘 CTA 버튼"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "행동 유도 버튼(CTA)의 문구, 링크, 색상, 크기, 호버 효과를 설정하실 수 있습니다."
+    },
+    {
+      "id": "ctaPrimary.label",
+      "label": "CTA #1 문구",
+      "description": "첫 번째 CTA 버튼에 표시될 문구입니다. 예: 지금 시작하기",
+      "type": "TEXT",
+      "placeholder": "지금 시작하기"
+    },
+    {
+      "id": "ctaPrimary.link",
+      "label": "CTA #1 링크",
+      "description": "첫 번째 CTA 버튼을 클릭했을 때 이동할 URL 또는 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "ctaPrimary.openInNewTab",
+      "label": "CTA #1 새 탭으로 열기",
+      "description": "체크하시면 링크가 새 탭에서 열립니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "ctaSecondary.label",
+      "label": "CTA #2 문구",
+      "description": "두 번째 CTA 버튼에 표시될 문구입니다. 예: 자세히 보기",
+      "type": "TEXT",
+      "placeholder": "자세히 보기"
+    },
+    {
+      "id": "ctaSecondary.link",
+      "label": "CTA #2 링크",
+      "description": "두 번째 CTA 버튼을 클릭했을 때 이동할 URL 또는 페이지입니다.",
+      "type": "LINK"
+    },
+    {
+      "id": "ctaSecondary.openInNewTab",
+      "label": "CTA #2 새 탭으로 열기",
+      "description": "체크하시면 링크가 새 탭에서 열립니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.ctaJustifyDesktop",
+      "label": "CTA 정렬 (데스크톱)",
+      "description": "데스크톱에서 CTA 버튼 그룹의 가로 정렬 방향입니다.",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "flex-start"},
+        {"label": "가운데", "value": "center"}
+      ]
+    },
+    {
+      "id": "style.ctaJustifyMobile",
+      "label": "CTA 정렬 (모바일)",
+      "description": "모바일에서 CTA 버튼 그룹의 가로 정렬 방향입니다.",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "flex-start"},
+        {"label": "가운데", "value": "center"}
+      ]
+    },
+    {
+      "id": "style.ctaBgColor",
+      "label": "버튼 배경색",
+      "description": "CTA 버튼의 배경색을 선택해주세요. rgba 값으로 투명도 조절도 가능합니다.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.ctaTextColor",
+      "label": "버튼 글자색",
+      "description": "CTA 버튼 텍스트의 색상을 선택해주세요.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.ctaBorderColor",
+      "label": "버튼 테두리 색상",
+      "description": "CTA 버튼 테두리의 색상을 선택해주세요.",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.ctaBorderWidth",
+      "label": "버튼 테두리 두께 (px)",
+      "description": "CTA 버튼 테두리의 두께입니다. 숫자만 입력해주세요. 예: 1",
+      "type": "TEXT",
+      "placeholder": "1"
+    },
+    {
+      "id": "style.ctaRadius",
+      "label": "버튼 모서리 둥글기 (px)",
+      "description": "CTA 버튼 모서리의 둥근 정도입니다. 999를 입력하시면 캡슐 형태가 됩니다. 숫자만 입력해주세요.",
+      "type": "TEXT",
+      "placeholder": "8"
+    },
+    {
+      "id": "style.ctaWidthDesktop",
+      "label": "버튼 가로 크기 (데스크톱, px)",
+      "description": "데스크톱에서 CTA 버튼의 가로 크기입니다. 0을 입력하시면 auto가 적용됩니다. 숫자만 입력해주세요. 예: 200",
+      "type": "TEXT",
+      "placeholder": "0"
+    },
+    {
+      "id": "style.ctaHeightDesktop",
+      "label": "버튼 세로 크기 (데스크톱, px)",
+      "description": "데스크톱에서 CTA 버튼의 세로 크기입니다. 숫자만 입력해주세요. 예: 44",
+      "type": "TEXT",
+      "placeholder": "44"
+    },
+    {
+      "id": "style.ctaFontSizeDesktop",
+      "label": "버튼 글자 크기 (데스크톱, px)",
+      "description": "데스크톱에서 CTA 버튼 텍스트의 글자 크기입니다. 숫자만 입력해주세요. 예: 16",
+      "type": "TEXT",
+      "placeholder": "16"
+    },
+    {
+      "id": "style.ctaWidthMobile",
+      "label": "버튼 가로 크기 (모바일, px)",
+      "description": "모바일에서 CTA 버튼의 가로 크기입니다. 100을 입력하시면 100%가 적용됩니다. 숫자만 입력해주세요. 예: 280",
+      "type": "TEXT",
+      "placeholder": "100"
+    },
+    {
+      "id": "style.ctaHeightMobile",
+      "label": "버튼 세로 크기 (모바일, px)",
+      "description": "모바일에서 CTA 버튼의 세로 크기입니다. 숫자만 입력해주세요. 예: 44",
+      "type": "TEXT",
+      "placeholder": "44"
+    },
+    {
+      "id": "style.ctaFontSizeMobile",
+      "label": "버튼 글자 크기 (모바일, px)",
+      "description": "모바일에서 CTA 버튼 텍스트의 글자 크기입니다. 숫자만 입력해주세요. 예: 16",
+      "type": "TEXT",
+      "placeholder": "16"
+    },
+    {
+      "id": "style.ctaHoverAnimType",
+      "label": "Hover 애니메이션",
+      "description": "마우스를 올렸을 때의 애니메이션 효과를 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "Glow (빛나는 효과)", "value": "glow"},
+        {"label": "None (효과 없음)", "value": "none"}
+      ]
+    },
+    {
+      "id": "style.ctaGlowDirection",
+      "label": "Glow 스캔 방향",
+      "description": "Glow 효과가 스캔되는 방향을 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "left-to-right"},
+        {"label": "오른쪽", "value": "right-to-left"},
+        {"label": "위", "value": "top-to-bottom"},
+        {"label": "아래", "value": "bottom-to-top"}
+      ],
+      "isVisible": "property.style.ctaHoverAnimType === 'glow'"
+    },
+    {
+      "id": "style.ctaHoverTranslateY",
+      "label": "Hover 시 Y축 이동 (px)",
+      "description": "마우스를 올렸을 때 버튼이 위로 이동하는 정도입니다. 음수 값을 권장합니다. 숫자만 입력해주세요. 예: -2",
+      "type": "TEXT",
+      "placeholder": "-2",
+      "isVisible": "property.style.ctaHoverAnimType === 'glow'"
+    },
+    {
+      "id": "style.ctaHoverShadowPreset",
+      "label": "Hover 시 그림자 강도",
+      "description": "마우스를 올렸을 때 나타나는 그림자 효과의 강도를 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "없음", "value": "none"},
+        {"label": "약함", "value": "0 10px 20px rgba(0,0,0,.3)"},
+        {"label": "보통", "value": "0 20px 40px rgba(0,0,0,.5)"},
+        {"label": "강함", "value": "0 30px 60px rgba(0,0,0,.7)"}
+      ],
+      "isVisible": "property.style.ctaHoverAnimType === 'glow'"
+    },
+    {
+      "id": "style.ctaGlowGradientColor",
+      "label": "Glow 하이라이트 색상",
+      "description": "Glow 효과의 하이라이트 색상을 선택해주세요.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.ctaHoverAnimType === 'glow'"
+    },
+    {
+      "id": "style.ctaGlowScanSpeedS",
+      "label": "Glow 스캔 속도 (초)",
+      "description": "Glow 효과가 움직이는 속도입니다. 숫자만 입력해주세요. 예: 0.6",
+      "type": "TEXT",
+      "placeholder": "0.6",
+      "isVisible": "property.style.ctaHoverAnimType === 'glow'"
+    },
+    {
+      "id": "style.ctaHoverLiftSpeedS",
+      "label": "Hover 전환 속도 (초)",
+      "description": "Hover 효과의 전환 속도입니다. 숫자만 입력해주세요. 예: 0.3",
+      "type": "TEXT",
+      "placeholder": "0.3",
+      "isVisible": "property.style.ctaHoverAnimType === 'glow'"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "⬅➡ 화살표 버튼"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "좌/우 슬라이드 화살표 버튼의 표시 여부, 스타일, 위치를 설정하실 수 있습니다."
+    },
+    {
+      "id": "style.navArrowShow",
+      "label": "화살표 표시",
+      "description": "체크를 해제하시면 화살표가 숨겨집니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.navArrowHideMobile",
+      "label": "모바일에서 화살표 숨기기",
+      "description": "체크하시면 모바일에서 화살표가 표시되지 않습니다.",
+      "type": "CHECKBOX",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowStyle",
+      "label": "화살표 스타일",
+      "description": "화살표 버튼의 외형을 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "솔리드 원형", "value": "solid-circle"},
+        {"label": "글래스 블러", "value": "glass-blur"},
+        {"label": "미니멀 라인", "value": "minimal-line"}
+      ],
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowIconColor",
+      "label": "아이콘 색상",
+      "description": "화살표 아이콘의 색상을 선택해주세요.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowBgColor",
+      "label": "배경색",
+      "description": "화살표 버튼의 배경색을 선택해주세요. 글래스 블러 스타일에도 적용됩니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowBorderColor",
+      "label": "테두리 색상",
+      "description": "화살표 버튼 테두리의 색상을 선택해주세요.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowBorderWidth",
+      "label": "테두리 두께 (px)",
+      "description": "화살표 버튼 테두리의 두께입니다. 숫자만 입력해주세요. 예: 1",
+      "type": "TEXT",
+      "placeholder": "1",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowRadius",
+      "label": "모서리 둥글기 (px)",
+      "description": "화살표 버튼 모서리의 둥근 정도입니다. 999를 입력하시면 원형이 됩니다. 숫자만 입력해주세요.",
+      "type": "TEXT",
+      "placeholder": "999",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowSize",
+      "label": "아이콘 크기 (px)",
+      "description": "화살표 아이콘의 크기입니다. 숫자만 입력해주세요. 예: 20",
+      "type": "TEXT",
+      "placeholder": "20",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowOffsetXPercent",
+      "label": "좌우 추가 여백 (%)",
+      "description": "전역 패딩을 기준으로 추가로 더 떨어뜨릴 여백입니다. 0을 입력하면 전역 패딩만 적용됩니다. 숫자만 입력해주세요. 예: 0",
+      "type": "TEXT",
+      "placeholder": "0",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowOffsetYPercent",
+      "label": "세로 위치 (%)",
+      "description": "화면 상단에서부터의 세로 위치입니다. 50이면 중앙입니다. 숫자만 입력해주세요.",
+      "type": "TEXT",
+      "placeholder": "50",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowIconSvgLeft",
+      "label": "왼쪽 화살표 SVG (선택)",
+      "description": "사용자 정의 SVG 아이콘을 사용하시려면 <svg> 전체 코드를 입력해주세요. 비워두시면 기본 화살표가 표시됩니다.",
+      "type": "TEXTAREA",
+      "placeholder": "",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+    {
+      "id": "style.navArrowIconSvgRight",
+      "label": "오른쪽 화살표 SVG (선택)",
+      "description": "사용자 정의 SVG 아이콘을 사용하시려면 <svg> 전체 코드를 입력해주세요. 비워두시면 기본 화살표가 표시됩니다.",
+      "type": "TEXTAREA",
+      "placeholder": "",
+      "isVisible": "property.style.navArrowShow === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📊 데스크톱 하단 게이지"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "데스크톱/태블릿 화면 하단에 표시되는 진행 게이지와 슬라이드 번호의 위치, 색상, 크기를 설정하실 수 있습니다."
+    },
+    {
+      "id": "style.desktopGaugeShow",
+      "label": "데스크톱 게이지 표시",
+      "description": "체크를 해제하시면 데스크톱 게이지가 숨겨집니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.desktopGaugeHideMobile",
+      "label": "모바일에서 데스크톱 게이지 숨기기",
+      "description": "체크하시면 모바일에서 데스크톱 게이지가 표시되지 않습니다.",
+      "type": "CHECKBOX",
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "progressMode",
+      "label": "진행 게이지 스타일",
+      "description": "데스크톱 하단 진행 게이지의 표시 방식을 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "단일 바", "value": "singleBar"},
+        {"label": "슬라이드별 막대", "value": "multiStep"}
+      ],
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "style.gaugeAlignDesktop",
+      "label": "가로 정렬",
+      "description": "게이지의 가로 정렬 방향을 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "left"},
+        {"label": "가운데", "value": "center"},
+        {"label": "오른쪽", "value": "right"}
+      ],
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "style.gaugeOffsetXPercentDesktop",
+      "label": "가로 오프셋 (%)",
+      "description": "정렬 기준에서 좌우로 미세하게 이동시킬 수 있습니다. 왼쪽 정렬 시 왼쪽 가장자리에서의 거리가 됩니다. 숫자만 입력해주세요.",
+      "type": "TEXT",
+      "placeholder": "0",
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "style.gaugeHeight",
+      "label": "게이지 두께 (px)",
+      "description": "진행 게이지 바의 두께입니다. 숫자만 입력해주세요. 예: 4",
+      "type": "TEXT",
+      "placeholder": "4",
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "style.gaugeRadius",
+      "label": "모서리 둥글기 (px)",
+      "description": "게이지 바 모서리의 둥근 정도입니다. 999를 입력하시면 알약 형태가 됩니다. 숫자만 입력해주세요.",
+      "type": "TEXT",
+      "placeholder": "999",
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "style.gaugeGap",
+      "label": "멀티스텝 막대 간격 (px)",
+      "description": "멀티스텝 모드에서 각 막대 사이의 간격입니다. 숫자만 입력해주세요. 예: 6",
+      "type": "TEXT",
+      "placeholder": "6",
+      "isVisible": "property.style.desktopGaugeShow === true && property.progressMode === 'multiStep'"
+    },
+    {
+      "id": "style.gaugeMaxWidth",
+      "label": "게이지 최대 가로폭 (px)",
+      "description": "게이지 바의 최대 가로 크기입니다. 숫자만 입력해주세요. 예: 600",
+      "type": "TEXT",
+      "placeholder": "600",
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "style.gaugeTrackColor",
+      "label": "활성 트랙 색상",
+      "description": "현재 진행 중인 슬라이드의 트랙 배경색입니다. (멀티스텝 모드에서 활성 막대)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "style.gaugeTrackInactiveColor",
+      "label": "비활성 트랙 색상",
+      "description": "진행되지 않은 슬라이드의 트랙 배경색입니다. (멀티스텝 모드에서 비활성 막대)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.desktopGaugeShow === true && property.progressMode === 'multiStep'"
+    },
+    {
+      "id": "style.gaugeFillColor",
+      "label": "진행 색상",
+      "description": "게이지가 채워지는 영역의 색상입니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.desktopGaugeShow === true"
+    },
+    {
+      "id": "style.slideCounterFontSize",
+      "label": "슬라이드 번호 크기 (px)",
+      "description": "게이지 위에 표시되는 슬라이드 번호의 글자 크기입니다. 숫자만 입력해주세요. 예: 12",
+      "type": "TEXT",
+      "placeholder": "12",
+      "isVisible": "property.style.desktopGaugeShow === true && property.progressMode === 'multiStep'"
+    },
+    {
+      "id": "style.slideCounterActiveColor",
+      "label": "현재 슬라이드 번호 색상",
+      "description": "현재 활성화된 슬라이드 번호의 색상입니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.desktopGaugeShow === true && property.progressMode === 'multiStep'"
+    },
+    {
+      "id": "style.slideCounterInactiveColor",
+      "label": "비활성 슬라이드 번호 색상",
+      "description": "비활성 슬라이드 번호의 색상입니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.desktopGaugeShow === true && property.progressMode === 'multiStep'"
+    },
+    {
+      "id": "style.slideCounterOffsetYPx",
+      "label": "번호 세로 위치 조절 (px)",
+      "description": "슬라이드 번호를 게이지 막대에서 위로 띄우는 정도입니다. 숫자만 입력해주세요. 예: 8",
+      "type": "TEXT",
+      "placeholder": "8",
+      "isVisible": "property.style.desktopGaugeShow === true && property.progressMode === 'multiStep'"
+    },
+    {
+      "id": "style.slideCounterOffsetXPercent",
+      "label": "번호 가로 위치 조절 (%)",
+      "description": "슬라이드 번호를 중앙에서 좌우로 이동시킵니다. 양수는 오른쪽, 음수는 왼쪽입니다. 숫자만 입력해주세요. 예: 0",
+      "type": "TEXT",
+      "placeholder": "0",
+      "isVisible": "property.style.desktopGaugeShow === true && property.progressMode === 'multiStep'"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 전용 풀가로 게이지바"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "모바일 화면에서만 상단 또는 하단에 표시되는 얇은 진행 바입니다. 단일 바 모드에서만 의미가 있습니다."
+    },
+    {
+      "id": "style.mobileGaugeBarShow",
+      "label": "모바일 게이지바 표시",
+      "description": "체크하시면 모바일에서 상/하단 풀가로 진행 바가 표시됩니다. (단일 바 모드에서만 작동)",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.mobileGaugeBarPosition",
+      "label": "위치",
+      "description": "모바일 게이지바가 화면 상단/하단 중 어디에 고정될지 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "상단 고정", "value": "top"},
+        {"label": "하단 고정", "value": "bottom"}
+      ],
+      "isVisible": "property.style.mobileGaugeBarShow === true"
+    },
+    {
+      "id": "style.mobileGaugeHeight",
+      "label": "게이지 두께 (px)",
+      "description": "모바일 게이지바의 두께입니다. 숫자만 입력해주세요. 예: 3",
+      "type": "TEXT",
+      "placeholder": "3",
+      "isVisible": "property.style.mobileGaugeBarShow === true"
+    },
+    {
+      "id": "style.mobileGaugeTrackColor",
+      "label": "트랙 색상",
+      "description": "모바일 게이지바의 배경(트랙) 색상입니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.mobileGaugeBarShow === true"
+    },
+    {
+      "id": "style.mobileGaugeFillColor",
+      "label": "진행 색상",
+      "description": "모바일 게이지바가 채워지는 영역의 색상입니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.mobileGaugeBarShow === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "👇 스크롤 힌트"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "화면 하단 중앙에 표시되는 스크롤 안내 아이콘과 텍스트입니다."
+    },
+    {
+      "id": "style.scrollHintShow",
+      "label": "스크롤 힌트 표시",
+      "description": "체크를 해제하시면 스크롤 힌트가 숨겨집니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.scrollHintHideMobile",
+      "label": "모바일에서 힌트 숨기기",
+      "description": "체크하시면 모바일에서 스크롤 힌트가 표시되지 않습니다.",
+      "type": "CHECKBOX",
+      "isVisible": "property.style.scrollHintShow === true"
+    },
+    {
+      "id": "style.scrollHintText",
+      "label": "힌트 문구",
+      "description": "스크롤 힌트에 표시될 텍스트입니다. 예: Scroll, 더 알아보기",
+      "type": "TEXT",
+      "placeholder": "Scroll",
+      "isVisible": "property.style.scrollHintShow === true"
+    },
+    {
+      "id": "style.scrollHintColor",
+      "label": "힌트 색상",
+      "description": "스크롤 힌트 아이콘과 텍스트의 색상입니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.style.scrollHintShow === true"
+    },
+    {
+      "id": "style.scrollHintFontSize",
+      "label": "힌트 글자 크기 (px)",
+      "description": "스크롤 힌트 텍스트의 글자 크기입니다. 숫자만 입력해주세요. 예: 12",
+      "type": "TEXT",
+      "placeholder": "12",
+      "isVisible": "property.style.scrollHintShow === true"
+    },
+    {
+      "id": "style.scrollHintAnimType",
+      "label": "애니메이션",
+      "description": "스크롤 힌트의 애니메이션 효과를 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {"label": "튀기기", "value": "bounce"},
+        {"label": "펄스", "value": "pulse"},
+        {"label": "효과 없음", "value": "none"}
+      ],
+      "isVisible": "property.style.scrollHintShow === true"
+    },
+    {
+      "id": "style.scrollHintAnimSpeedMs",
+      "label": "애니메이션 속도 (ms)",
+      "description": "애니메이션이 반복되는 속도입니다. 숫자만 입력해주세요. 예: 800",
+      "type": "TEXT",
+      "placeholder": "800",
+      "isVisible": "property.style.scrollHintShow === true"
+    }
+  ],
+  "property": {
+    "headline": "당신의 브랜드를 세계로",
+    "subtext": "차별화된 이미지 및 영상 히어로 섹션입니다.",
+    "supportingNote": "Trusted by 120+ clients worldwide",
+    "ctaPrimary": {
+      "label": "지금 시작하기",
+      "link": {
+        "id": null,
+        "type": "url",
+        "label": "#",
+        "value": "#"
+      },
+      "openInNewTab": false
+    },
+    "ctaSecondary": {
+      "label": "자세히 보기",
+      "link": {
+        "id": null,
+        "type": "url",
+        "label": "#",
+        "value": "#"
+      },
+      "openInNewTab": false
+    },
+    "slides": [
+      {
+        "type": "video",
+        "mediaUrl": "https://example.com/video.mp4",
+        "caption": "Global operations at scale"
+      },
+      {
+        "type": "image",
+        "mediaUrl": "https://example.com/slide2.jpg",
+        "caption": "High-impact creative"
+      }
+    ],
+    "progressMode": "multiStep",
+    "loopSlides": true,
+    "style": {
+      "headlineColor": "#FFFFFF",
+      "headlineFontSizeDesktop": "64",
+      "headlineFontSizeMobile": "32",
+      "contentMaxWidth": "600",
+      "textAlignDesktop": "center",
+      "textAlignMobile": "center",
+      "subtextColor": "rgba(255,255,255,0.9)",
+      "subtextFontSizeDesktop": "20",
+      "subtextFontSizeMobile": "16",
+      "supportingColor": "rgba(255,255,255,0.7)",
+      "supportingFontSizeDesktop": "16",
+      "supportingFontSizeMobile": "14",
+      "ctaJustifyDesktop": "center",
+      "ctaJustifyMobile": "center",
+      "ctaBgColor": "#ffffff",
+      "ctaTextColor": "#000000",
+      "ctaBorderColor": "rgba(255,255,255,0.4)",
+      "ctaBorderWidth": "1",
+      "ctaRadius": "8",
+      "ctaWidthDesktop": "0",
+      "ctaHeightDesktop": "44",
+      "ctaFontSizeDesktop": "16",
+      "ctaWidthMobile": "100",
+      "ctaHeightMobile": "44",
+      "ctaFontSizeMobile": "16",
+      "ctaHoverTranslateY": "-2",
+      "ctaHoverShadowPreset": "0 20px 40px rgba(0,0,0,.5)",
+      "ctaHoverLiftSpeedS": "0.3",
+      "ctaGlowGradientColor": "rgba(255,255,255,.6)",
+      "ctaGlowDirection": "left-to-right",
+      "ctaGlowScanSpeedS": "0.6",
+      "ctaHoverAnimType": "glow",
+      "slideTransitionType": "fade",
+      "desktopGaugeShow": true,
+      "desktopGaugeHideMobile": true,
+      "gaugeAlignDesktop": "center",
+      "gaugeOffsetXPercentDesktop": "0",
+      "gaugeHeight": "4",
+      "gaugeRadius": "999",
+      "gaugeGap": "6",
+      "gaugeMaxWidth": "600",
+      "gaugeTrackColor": "rgba(255,255,255,0.4)",
+      "gaugeTrackInactiveColor": "rgba(255,255,255,0.2)",
+      "gaugeFillColor": "#00bfff",
+      "slideCounterFontSize": "12",
+      "slideCounterActiveColor": "#FFFFFF",
+      "slideCounterInactiveColor": "rgba(255,255,255,.4)",
+      "slideCounterOffsetYPx": "8",
+      "slideCounterOffsetXPercent": "0",
+      "mobileGaugeBarShow": true,
+      "mobileGaugeBarPosition": "top",
+      "mobileGaugeHeight": "3",
+      "mobileGaugeTrackColor": "rgba(0,0,0,0.4)",
+      "mobileGaugeFillColor": "#00bfff",
+      "navArrowShow": true,
+      "navArrowHideMobile": false,
+      "navArrowStyle": "glass-blur",
+      "navArrowIconColor": "#FFFFFF",
+      "navArrowBgColor": "rgba(0,0,0,0.4)",
+      "navArrowBorderColor": "rgba(255,255,255,0.4)",
+      "navArrowBorderWidth": "1",
+      "navArrowRadius": "999",
+      "navArrowSize": "20",
+      "navArrowOffsetXPercent": "0",
+      "navArrowOffsetYPercent": "50",
+      "navArrowIconSvgLeft": "",
+      "navArrowIconSvgRight": "",
+      "scrollHintShow": true,
+      "scrollHintHideMobile": false,
+      "scrollHintText": "Scroll",
+      "scrollHintColor": "#FFFFFF",
+      "scrollHintFontSize": "12",
+      "scrollHintAnimType": "pulse",
+      "scrollHintAnimSpeedMs": "800",
+      "slideCaptionHideMobile": false,
+      "heroHeightVh": "100",
+      "heroPaddingXPercent": "5",
+      "bottomElementsOffset": "40",
+      "overlayColor": "rgba(0,0,0,0.6)",
+      "zIndex": "10",
+      "slideTransitionMs": "400",
+      "slideDurationMs": "5000",
+      "gaugeDurationMs": "5000"
+    }
+  }
+}
