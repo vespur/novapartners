@@ -1,0 +1,305 @@
+<style>
+  .tech-stack-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .tech-stack-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .tech-stack-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .tech-stack-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 기술 그리드 */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat({{property.columnsDesktop}}, 1fr);
+    gap: {{property.gridGapDesktop}}px;
+  }
+
+  /* 개별 기술 카드 */
+  .tech-item {
+    background-color: {{property.itemBg}};
+    border-radius: {{property.itemRadius}}px;
+    padding: {{property.itemPaddingY}}px {{property.itemPaddingX}}px;
+    transition: all 0.4s ease;
+    {{#if property.itemBorderEnabled}}
+    border: {{property.itemBorderWidth}}px solid {{property.itemBorderColor}};
+    {{/if}}
+    {{#if property.itemShadowEnabled}}
+    box-shadow: {{property.itemShadowX}}px {{property.itemShadowY}}px {{property.itemShadowBlur}}px {{property.itemShadowColor}};
+    {{/if}}
+  }
+
+  /* 호버 애니메이션 */
+  {{#if (eq property.itemHoverAnimation "lift")}}
+  .tech-item:hover {
+    transform: translateY(-6px);
+    box-shadow: {{property.itemShadowX}}px {{add property.itemShadowY 10}}px {{add property.itemShadowBlur 12}}px {{property.itemShadowColor}};
+  }
+  {{/if}}
+
+  {{#if (eq property.itemHoverAnimation "scale")}}
+  .tech-item:hover {
+    transform: scale(1.03);
+  }
+  {{/if}}
+
+  {{#if (eq property.itemHoverAnimation "glow")}}
+  .tech-item:hover {
+    box-shadow: 0 0 25px {{property.glowColor}}44;
+  }
+  {{/if}}
+
+  /* 기술 제목 */
+  .tech-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.techTitleFontSizeDesktop}}px;
+    font-weight: {{property.techTitleFontWeight}};
+    line-height: {{property.techTitleLineHeight}};
+    color: {{property.techTitleColor}};
+    margin-bottom: {{property.techTitleMarginBottom}}px;
+    {{#if property.showTitleIcon}}
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    {{/if}}
+  }
+
+  {{#if property.showTitleIcon}}
+  .tech-title::before {
+    content: '{{property.titleIcon}}';
+    font-size: {{property.titleIconSize}}px;
+    color: {{property.titleIconColor}};
+    flex-shrink: 0;
+  }
+  {{/if}}
+
+  /* 설명 리스트 */
+  .tech-description {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tech-description li {
+    font-family: var(--font-family-body);
+    font-size: {{property.descriptionFontSizeDesktop}}px;
+    font-weight: {{property.descriptionFontWeight}};
+    line-height: {{property.descriptionLineHeight}};
+    color: {{property.descriptionColor}};
+    padding-left: {{property.bulletIndent}}px;
+    position: relative;
+    margin-bottom: {{property.itemSpacing}}px;
+  }
+
+  .tech-description li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Bullet 스타일 */
+  {{#if (eq property.bulletStyle "dot")}}
+  .tech-description li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: {{property.bulletColor}};
+    font-weight: bold;
+    font-size: {{property.bulletSize}}px;
+  }
+  {{/if}}
+
+  {{#if (eq property.bulletStyle "check")}}
+  .tech-description li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: {{property.bulletColor}};
+    font-weight: bold;
+    font-size: {{property.bulletSize}}px;
+  }
+  {{/if}}
+
+  {{#if (eq property.bulletStyle "arrow")}}
+  .tech-description li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: {{property.bulletColor}};
+    font-weight: bold;
+    font-size: {{property.bulletSize}}px;
+  }
+  {{/if}}
+
+  {{#if (eq property.bulletStyle "square")}}
+  .tech-description li::before {
+    content: '■';
+    position: absolute;
+    left: 0;
+    color: {{property.bulletColor}};
+    font-size: {{property.bulletSize}}px;
+  }
+  {{/if}}
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .tech-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  .tech-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .tech-item.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease-out;
+  }
+  .tech-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .tech-item.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.6s ease-out;
+  }
+  .tech-item.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .tech-stack-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .tech-stack-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .tech-stack-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .tech-grid {
+      grid-template-columns: repeat({{property.columnsMobile}}, 1fr);
+      gap: {{property.gridGapMobile}}px;
+    }
+
+    .tech-title {
+      font-size: {{property.techTitleFontSizeMobile}}px;
+    }
+
+    .tech-description li {
+      font-size: {{property.descriptionFontSizeMobile}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="tech-stack-section">
+    <div class="tech-stack-container">
+      {{#if property.title}}
+        <h2 class="tech-stack-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="tech-stack-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="tech-grid">
+        {{#each property.techStack}}
+          <div class="tech-item {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}" data-tech-index="{{@index}}">
+            <h3 class="tech-title">{{title}}</h3>
+            <ul class="tech-description">
+              {{#each items}}
+                <li>{{this}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const techItems = container.querySelectorAll('.tech-item');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const techIndex = parseInt(entry.target.dataset.techIndex);
+            const delay = techIndex * (context.property.scrollAnimationDelay || 150);
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      techItems.forEach(item => {
+        observer.observe(item);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
