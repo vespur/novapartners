@@ -1,0 +1,323 @@
+<style>
+  .map-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .map-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .map-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .map-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+  }
+
+  /* 탭 버튼 */
+  .map-tabs {
+    display: flex;
+    gap: {{property.tabGap}}px;
+    margin-bottom: {{property.tabMarginBottom}}px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .map-tab-btn {
+    font-family: var(--font-family-body);
+    font-size: {{property.tabFontSizeDesktop}}px;
+    font-weight: {{property.tabFontWeight}};
+    line-height: {{property.tabLineHeight}};
+    color: {{property.tabColor}};
+    background-color: {{property.tabBg}};
+    border: 1px solid {{property.tabBorderColor}};
+    border-radius: {{property.tabRadius}}px;
+    padding: {{property.tabPaddingY}}px {{property.tabPaddingX}}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .map-tab-btn:hover {
+    background-color: {{property.tabActiveBg}};
+    border-color: {{property.tabActiveColor}};
+  }
+
+  .map-tab-btn.active {
+    color: {{property.tabActiveColor}};
+    background-color: {{property.tabActiveBg}};
+    border-color: {{property.tabActiveColor}};
+    font-weight: 700;
+  }
+
+  /* 지도 컨테이너 */
+  .map-frame-container {
+    position: relative;
+    width: 100%;
+    height: {{property.mapHeightDesktop}}px;
+    border-radius: {{property.mapBorderRadius}}px;
+    overflow: hidden;
+    {{#if property.mapBorderEnabled}}
+    border: {{property.mapBorderWidth}}px solid {{property.mapBorderColor}};
+    {{/if}}
+    {{#if property.mapShadowEnabled}}
+    box-shadow: {{property.mapShadowX}}px {{property.mapShadowY}}px {{property.mapShadowBlur}}px {{property.mapShadowColor}};
+    {{/if}}
+  }
+
+  .map-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+  }
+
+  .map-frame.active {
+    display: block;
+  }
+
+  /* 주소 정보 */
+  {{#if property.showAddressInfo}}
+  .map-address-info {
+    font-family: var(--font-family-body);
+    font-size: {{property.addressFontSizeDesktop}}px;
+    font-weight: {{property.addressFontWeight}};
+    line-height: {{property.addressLineHeight}};
+    color: {{property.addressColor}};
+    margin-top: {{property.addressMarginTop}}px;
+    text-align: center;
+    white-space: pre-line;
+  }
+  {{/if}}
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .map-container.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+  .map-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .map-container.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+  }
+  .map-container.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "zoom-in")}}
+  .map-container.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.8s ease-out;
+  }
+  .map-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .map-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .map-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .map-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .map-tab-btn {
+      font-size: {{property.tabFontSizeMobile}}px;
+    }
+
+    .map-frame-container {
+      height: {{property.mapHeightMobile}}px;
+    }
+
+    {{#if property.showAddressInfo}}
+    .map-address-info {
+      font-size: {{property.addressFontSizeMobile}}px;
+    }
+    {{/if}}
+  }
+</style>
+
+<template>
+  <section class="map-section">
+    <div class="map-container {{#if property.scrollAnimation}}animate-on-scroll{{/if}}">
+      <!-- 타이틀 -->
+      {{#if property.title}}
+        <h2 class="map-title">{{property.title}}</h2>
+      {{/if}}
+
+      <!-- 부제목 -->
+      {{#if property.subtitle}}
+        <p class="map-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <!-- 탭 버튼 -->
+      <div class="map-tabs">
+        {{#if property.showGoogleMaps}}
+          <button class="map-tab-btn {{#if (eq property.defaultMap 'google')}}active{{/if}}" data-map="google">
+            구글 지도
+          </button>
+        {{/if}}
+
+        {{#if property.showNaverMaps}}
+          <button class="map-tab-btn {{#if (eq property.defaultMap 'naver')}}active{{/if}}" data-map="naver">
+            네이버 지도
+          </button>
+        {{/if}}
+
+        {{#if property.showKakaoMaps}}
+          <button class="map-tab-btn {{#if (eq property.defaultMap 'kakao')}}active{{/if}}" data-map="kakao">
+            카카오맵
+          </button>
+        {{/if}}
+      </div>
+
+      <!-- 지도 iframe -->
+      <div class="map-frame-container">
+        {{#if property.showGoogleMaps}}
+          <iframe
+            class="map-frame {{#if (eq property.defaultMap 'google')}}active{{/if}}"
+            data-map-frame="google"
+            src="{{property.googleMapsUrl}}"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="구글 지도">
+          </iframe>
+        {{/if}}
+
+        {{#if property.showNaverMaps}}
+          <iframe
+            class="map-frame {{#if (eq property.defaultMap 'naver')}}active{{/if}}"
+            data-map-frame="naver"
+            src="{{property.naverMapsUrl}}"
+            allowfullscreen=""
+            loading="lazy"
+            title="네이버 지도">
+          </iframe>
+        {{/if}}
+
+        {{#if property.showKakaoMaps}}
+          <iframe
+            class="map-frame {{#if (eq property.defaultMap 'kakao')}}active{{/if}}"
+            data-map-frame="kakao"
+            src="{{property.kakaoMapsUrl}}"
+            allowfullscreen=""
+            loading="lazy"
+            title="카카오맵">
+          </iframe>
+        {{/if}}
+      </div>
+
+      <!-- 주소 정보 -->
+      {{#if property.showAddressInfo}}
+        <p class="map-address-info">{{property.addressText}}</p>
+      {{/if}}
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 탭 버튼 클릭 이벤트 (이벤트 위임)
+    container.addEventListener('click', (e) => {
+      const tabBtn = e.target.closest('.map-tab-btn');
+      if (!tabBtn) return;
+
+      const mapType = tabBtn.dataset.map;
+
+      // 모든 탭 버튼 비활성화
+      const allTabs = container.querySelectorAll('.map-tab-btn');
+      allTabs.forEach(tab => tab.classList.remove('active'));
+
+      // 클릭한 탭 활성화
+      tabBtn.classList.add('active');
+
+      // 모든 지도 숨기기
+      const allFrames = container.querySelectorAll('.map-frame');
+      allFrames.forEach(frame => frame.classList.remove('active'));
+
+      // 선택한 지도만 표시
+      const activeFrame = container.querySelector(`[data-map-frame="${mapType}"]`);
+      if (activeFrame) {
+        activeFrame.classList.add('active');
+      }
+    });
+
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const mapContainer = container.querySelector('.map-container');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      if (mapContainer) {
+        observer.observe(mapContainer);
+      }
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>

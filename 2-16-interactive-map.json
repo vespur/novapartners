@@ -1,0 +1,443 @@
+{
+  "name": "인터랙티브 지도",
+  "settings": [
+    {
+      "id": "sectionTitle",
+      "type": "TITLE",
+      "label": "섹션 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 80
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 60
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "type": "NUMBER",
+      "default": 1200
+    },
+
+    {
+      "id": "titleSettings",
+      "type": "TITLE",
+      "label": "타이틀 설정"
+    },
+    {
+      "id": "title",
+      "label": "메인 타이틀",
+      "type": "TEXT",
+      "default": "찾아오시는 길"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "타이틀 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 36
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "타이틀 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 28
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "타이틀 굵기",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "타이틀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.3
+    },
+    {
+      "id": "titleColor",
+      "label": "타이틀 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "titleAlign",
+      "label": "타이틀 정렬",
+      "type": "SELECT",
+      "options": ["left", "center", "right"],
+      "default": "center"
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "타이틀 하단 여백",
+      "type": "NUMBER",
+      "default": 16
+    },
+
+    {
+      "id": "subtitleSettings",
+      "type": "TITLE",
+      "label": "부제목 설정"
+    },
+    {
+      "id": "subtitle",
+      "label": "부제목",
+      "type": "TEXT",
+      "default": "노바 파트너스 서울 본사 오피스"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 18
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR",
+      "default": "#666666"
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 하단 여백",
+      "type": "NUMBER",
+      "default": 32
+    },
+
+    {
+      "id": "mapServicesTitle",
+      "type": "TITLE",
+      "label": "지도 서비스 설정"
+    },
+    {
+      "id": "showGoogleMaps",
+      "label": "구글 지도 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "googleMapsUrl",
+      "label": "구글 지도 iframe URL",
+      "type": "TEXT",
+      "default": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.1234567890!2d127.027621!3d37.497952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDI5JzUyLjYiTiAxMjfCsDAxJzM5LjQiRQ!5e0!3m2!1sko!2skr!4v1234567890",
+      "isVisible": "{{property.showGoogleMaps}}"
+    },
+    {
+      "id": "showNaverMaps",
+      "label": "네이버 지도 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "naverMapsUrl",
+      "label": "네이버 지도 iframe URL",
+      "type": "TEXT",
+      "default": "https://map.naver.com/v5/",
+      "isVisible": "{{property.showNaverMaps}}"
+    },
+    {
+      "id": "showKakaoMaps",
+      "label": "카카오맵 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "kakaoMapsUrl",
+      "label": "카카오맵 iframe URL",
+      "type": "TEXT",
+      "default": "https://map.kakao.com/",
+      "isVisible": "{{property.showKakaoMaps}}"
+    },
+    {
+      "id": "defaultMap",
+      "label": "기본 지도 서비스",
+      "type": "SELECT",
+      "options": ["google", "naver", "kakao"],
+      "default": "naver"
+    },
+
+    {
+      "id": "mapDesignTitle",
+      "type": "TITLE",
+      "label": "지도 디자인"
+    },
+    {
+      "id": "mapHeightDesktop",
+      "label": "지도 높이 (데스크톱, px)",
+      "type": "NUMBER",
+      "default": 450
+    },
+    {
+      "id": "mapHeightMobile",
+      "label": "지도 높이 (모바일, px)",
+      "type": "NUMBER",
+      "default": 350
+    },
+    {
+      "id": "mapBorderRadius",
+      "label": "지도 둥근 모서리",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "mapBorderEnabled",
+      "label": "지도 테두리 활성화",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "mapBorderWidth",
+      "label": "지도 테두리 두께",
+      "type": "NUMBER",
+      "default": 1,
+      "isVisible": "{{property.mapBorderEnabled}}"
+    },
+    {
+      "id": "mapBorderColor",
+      "label": "지도 테두리 색상",
+      "type": "COLOR",
+      "default": "#E0E0E0",
+      "isVisible": "{{property.mapBorderEnabled}}"
+    },
+    {
+      "id": "mapShadowEnabled",
+      "label": "지도 그림자 활성화",
+      "type": "CHECKBOX",
+      "default": false
+    },
+    {
+      "id": "mapShadowX",
+      "label": "그림자 X 오프셋",
+      "type": "NUMBER",
+      "default": 0,
+      "isVisible": "{{property.mapShadowEnabled}}"
+    },
+    {
+      "id": "mapShadowY",
+      "label": "그림자 Y 오프셋",
+      "type": "NUMBER",
+      "default": 4,
+      "isVisible": "{{property.mapShadowEnabled}}"
+    },
+    {
+      "id": "mapShadowBlur",
+      "label": "그림자 블러",
+      "type": "NUMBER",
+      "default": 20,
+      "isVisible": "{{property.mapShadowEnabled}}"
+    },
+    {
+      "id": "mapShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR",
+      "default": "#00000015",
+      "isVisible": "{{property.mapShadowEnabled}}"
+    },
+
+    {
+      "id": "tabDesignTitle",
+      "type": "TITLE",
+      "label": "탭 버튼 디자인"
+    },
+    {
+      "id": "tabFontSizeDesktop",
+      "label": "탭 버튼 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 15
+    },
+    {
+      "id": "tabFontSizeMobile",
+      "label": "탭 버튼 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 14
+    },
+    {
+      "id": "tabFontWeight",
+      "label": "탭 버튼 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "tabLineHeight",
+      "label": "탭 버튼 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "tabColor",
+      "label": "탭 버튼 색상 (비활성)",
+      "type": "COLOR",
+      "default": "#666666"
+    },
+    {
+      "id": "tabActiveColor",
+      "label": "탭 버튼 색상 (활성)",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "tabBg",
+      "label": "탭 버튼 배경 색상 (비활성)",
+      "type": "COLOR",
+      "default": "#F0F0F0"
+    },
+    {
+      "id": "tabActiveBg",
+      "label": "탭 버튼 배경 색상 (활성)",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "tabBorderColor",
+      "label": "탭 버튼 테두리 색상",
+      "type": "COLOR",
+      "default": "#E0E0E0"
+    },
+    {
+      "id": "tabRadius",
+      "label": "탭 버튼 둥근 모서리",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "tabPaddingY",
+      "label": "탭 버튼 상하 패딩",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "tabPaddingX",
+      "label": "탭 버튼 좌우 패딩",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "tabGap",
+      "label": "탭 버튼 간격",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "tabMarginBottom",
+      "label": "탭 영역 하단 여백",
+      "type": "NUMBER",
+      "default": 24
+    },
+
+    {
+      "id": "addressInfoTitle",
+      "type": "TITLE",
+      "label": "주소 정보"
+    },
+    {
+      "id": "showAddressInfo",
+      "label": "주소 정보 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "addressText",
+      "label": "주소",
+      "type": "TEXTAREA",
+      "default": "서울시 강남구 강남대로 94길 12, 더리빙센트럴 12층\n(우편번호: 06230)",
+      "isVisible": "{{property.showAddressInfo}}"
+    },
+    {
+      "id": "addressFontSizeDesktop",
+      "label": "주소 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 16,
+      "isVisible": "{{property.showAddressInfo}}"
+    },
+    {
+      "id": "addressFontSizeMobile",
+      "label": "주소 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 15,
+      "isVisible": "{{property.showAddressInfo}}"
+    },
+    {
+      "id": "addressFontWeight",
+      "label": "주소 굵기",
+      "type": "NUMBER",
+      "default": 400,
+      "isVisible": "{{property.showAddressInfo}}"
+    },
+    {
+      "id": "addressLineHeight",
+      "label": "주소 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6,
+      "isVisible": "{{property.showAddressInfo}}"
+    },
+    {
+      "id": "addressColor",
+      "label": "주소 색상",
+      "type": "COLOR",
+      "default": "#333333",
+      "isVisible": "{{property.showAddressInfo}}"
+    },
+    {
+      "id": "addressMarginTop",
+      "label": "주소 상단 여백",
+      "type": "NUMBER",
+      "default": 24,
+      "isVisible": "{{property.showAddressInfo}}"
+    },
+
+    {
+      "id": "animationTitle",
+      "type": "TITLE",
+      "label": "애니메이션 설정"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 애니메이션",
+      "type": "SELECT",
+      "options": ["none", "fade-up", "fade-in", "zoom-in"],
+      "default": "fade-up"
+    }
+  ]
+}
