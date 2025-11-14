@@ -1,0 +1,527 @@
+{
+  "name": "AI 솔루션 비교 테이블",
+  "settings": [
+    {
+      "id": "sectionTitle",
+      "type": "TITLE",
+      "label": "섹션 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR",
+      "default": "#F8F9FA"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 80
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 60
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "type": "NUMBER",
+      "default": 1200
+    },
+
+    {
+      "id": "titleSettings",
+      "type": "TITLE",
+      "label": "타이틀 설정"
+    },
+    {
+      "id": "title",
+      "label": "메인 타이틀",
+      "type": "TEXT",
+      "default": "AI 솔루션별 기능 비교"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "타이틀 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 36
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "타이틀 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 28
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "타이틀 굵기",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "타이틀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.3
+    },
+    {
+      "id": "titleColor",
+      "label": "타이틀 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "titleAlign",
+      "label": "타이틀 정렬",
+      "type": "SELECT",
+      "options": ["left", "center", "right"],
+      "default": "center"
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "타이틀 하단 여백",
+      "type": "NUMBER",
+      "default": 16
+    },
+
+    {
+      "id": "subtitleSettings",
+      "type": "TITLE",
+      "label": "부제목 설정"
+    },
+    {
+      "id": "subtitle",
+      "label": "부제목",
+      "type": "TEXTAREA",
+      "default": "4개의 핵심 AI 솔루션을 한눈에 비교하세요"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 18
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR",
+      "default": "#666666"
+    },
+    {
+      "id": "subtitleMaxWidth",
+      "label": "부제목 최대 너비",
+      "type": "NUMBER",
+      "default": 800
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 하단 여백",
+      "type": "NUMBER",
+      "default": 40
+    },
+
+    {
+      "id": "tableSettings",
+      "type": "TITLE",
+      "label": "테이블 디자인"
+    },
+    {
+      "id": "tableBg",
+      "label": "테이블 배경 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "tableRadius",
+      "label": "테이블 둥근 모서리",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "tableShadowEnabled",
+      "label": "테이블 그림자 활성화",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "tableShadowX",
+      "label": "그림자 X 오프셋",
+      "type": "NUMBER",
+      "default": 0,
+      "isVisible": "{{property.tableShadowEnabled}}"
+    },
+    {
+      "id": "tableShadowY",
+      "label": "그림자 Y 오프셋",
+      "type": "NUMBER",
+      "default": 4,
+      "isVisible": "{{property.tableShadowEnabled}}"
+    },
+    {
+      "id": "tableShadowBlur",
+      "label": "그림자 블러",
+      "type": "NUMBER",
+      "default": 20,
+      "isVisible": "{{property.tableShadowEnabled}}"
+    },
+    {
+      "id": "tableShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR",
+      "default": "#00000010",
+      "isVisible": "{{property.tableShadowEnabled}}"
+    },
+    {
+      "id": "borderWidth",
+      "label": "테두리 두께",
+      "type": "NUMBER",
+      "default": 1
+    },
+    {
+      "id": "borderColor",
+      "label": "테두리 색상",
+      "type": "COLOR",
+      "default": "#E8E8E8"
+    },
+
+    {
+      "id": "headerSettings",
+      "type": "TITLE",
+      "label": "헤더 행 설정"
+    },
+    {
+      "id": "headerBg",
+      "label": "헤더 배경 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "headerColor",
+      "label": "헤더 글자 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "headerFontSizeDesktop",
+      "label": "헤더 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "headerFontSizeMobile",
+      "label": "헤더 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 14
+    },
+    {
+      "id": "headerFontWeight",
+      "label": "헤더 글자 굵기",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "headerLineHeight",
+      "label": "헤더 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "headerPaddingY",
+      "label": "헤더 상하 패딩",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "headerPaddingX",
+      "label": "헤더 좌우 패딩",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "mobileHeaderPaddingY",
+      "label": "헤더 상하 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "mobileHeaderPaddingX",
+      "label": "헤더 좌우 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 12
+    },
+
+    {
+      "id": "labelSettings",
+      "type": "TITLE",
+      "label": "라벨 열 설정 (첫 번째 열)"
+    },
+    {
+      "id": "labelBg",
+      "label": "라벨 배경 색상",
+      "type": "COLOR",
+      "default": "#F5F7FA"
+    },
+    {
+      "id": "labelColor",
+      "label": "라벨 글자 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "labelFontWeight",
+      "label": "라벨 글자 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+
+    {
+      "id": "cellSettings",
+      "type": "TITLE",
+      "label": "셀 설정"
+    },
+    {
+      "id": "cellAlign",
+      "label": "셀 정렬",
+      "type": "SELECT",
+      "options": ["left", "center", "right"],
+      "default": "center"
+    },
+    {
+      "id": "cellFontSizeDesktop",
+      "label": "셀 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 15
+    },
+    {
+      "id": "cellFontSizeMobile",
+      "label": "셀 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 13
+    },
+    {
+      "id": "cellFontWeight",
+      "label": "셀 글자 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "cellLineHeight",
+      "label": "셀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6
+    },
+    {
+      "id": "cellColor",
+      "label": "셀 글자 색상",
+      "type": "COLOR",
+      "default": "#333333"
+    },
+    {
+      "id": "cellPaddingY",
+      "label": "셀 상하 패딩",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "cellPaddingX",
+      "label": "셀 좌우 패딩",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "mobileCellPaddingY",
+      "label": "셀 상하 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "mobileCellPaddingX",
+      "label": "셀 좌우 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 12
+    },
+
+    {
+      "id": "interactionSettings",
+      "type": "TITLE",
+      "label": "인터랙션 설정"
+    },
+    {
+      "id": "rowHoverEffect",
+      "label": "행 호버 효과",
+      "type": "SELECT",
+      "options": ["none", "highlight"],
+      "default": "highlight"
+    },
+    {
+      "id": "rowHoverBg",
+      "label": "행 호버 배경 색상",
+      "type": "COLOR",
+      "default": "#F8F9FA",
+      "isVisible": "{{#if (eq property.rowHoverEffect 'highlight')}}true{{else}}false{{/if}}"
+    },
+
+    {
+      "id": "animationSettings",
+      "type": "TITLE",
+      "label": "애니메이션 설정"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 애니메이션",
+      "type": "SELECT",
+      "options": ["none", "fade-up", "scale-in"],
+      "default": "fade-up"
+    },
+
+    {
+      "id": "mobileSettings",
+      "type": "TITLE",
+      "label": "모바일 설정"
+    },
+    {
+      "id": "mobileMinWidth",
+      "label": "모바일 테이블 최소 너비 (가로 스크롤)",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "mobileFontSize",
+      "label": "모바일 기본 글자 크기",
+      "type": "NUMBER",
+      "default": 13
+    },
+
+    {
+      "id": "tableData",
+      "type": "TITLE",
+      "label": "테이블 데이터"
+    },
+    {
+      "id": "labelColumnHeader",
+      "label": "라벨 열 헤더",
+      "type": "TEXT",
+      "default": "구분"
+    },
+    {
+      "id": "columns",
+      "label": "열 목록 (솔루션 종류)",
+      "type": "LIST",
+      "default": [
+        {"name": "자연어 처리 (NLP)"},
+        {"name": "이미지 인식 (Vision)"},
+        {"name": "예측 분석"},
+        {"name": "프로세스 자동화"}
+      ],
+      "children": [
+        {
+          "id": "name",
+          "label": "열 이름",
+          "type": "TEXT"
+        }
+      ]
+    },
+    {
+      "id": "rows",
+      "label": "행 목록",
+      "type": "LIST",
+      "default": [
+        {
+          "label": "주요 기능",
+          "values": [
+            "챗봇, 감정분석,\n텍스트 분류",
+            "객체 인식, 불량\n감지, OCR",
+            "수요 예측, 이상\n감지, 트렌드 분석",
+            "RPA, 업무 자동화\n프로세스 개선"
+          ]
+        },
+        {
+          "label": "정확도",
+          "values": [
+            "95~99%",
+            "99.5%",
+            "91~95%",
+            "98~99%"
+          ]
+        },
+        {
+          "label": "처리 속도",
+          "values": [
+            "100ms~500ms",
+            "50~200ms",
+            "실시간",
+            "즉시 실행"
+          ]
+        },
+        {
+          "label": "적용 산업",
+          "values": [
+            "금융, 고객서비스",
+            "제조, 물류, 보안",
+            "소매, 금융, 에너지",
+            "금융, 인사, 회계"
+          ]
+        },
+        {
+          "label": "월 구독료\n(기업 규모별)",
+          "values": [
+            "$2,000~$10,000",
+            "$3,000~$15,000",
+            "$2,500~$12,000",
+            "$1,500~$8,000"
+          ]
+        }
+      ],
+      "children": [
+        {
+          "id": "label",
+          "label": "행 라벨",
+          "type": "TEXT"
+        },
+        {
+          "id": "values",
+          "label": "셀 값 (열 개수만큼)",
+          "type": "LIST",
+          "children": [
+            {
+              "id": "value",
+              "type": "TEXTAREA"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+<style>
+  .comparison-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .comparison-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .comparison-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .comparison-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 테이블 래퍼 (모바일 스크롤) */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 테이블 */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: {{property.tableBg}};
+    border-radius: {{property.tableRadius}}px;
+    overflow: hidden;
+    {{#if property.tableShadowEnabled}}
+    box-shadow: {{property.tableShadowX}}px {{property.tableShadowY}}px {{property.tableShadowBlur}}px {{property.tableShadowColor}};
+    {{/if}}
+  }
+
+  /* 헤더 행 */
+  .comparison-table thead tr {
+    background-color: {{property.headerBg}};
+  }
+
+  .comparison-table th {
+    padding: {{property.headerPaddingY}}px {{property.headerPaddingX}}px;
+    font-family: var(--font-family-heading);
+    font-size: {{property.headerFontSizeDesktop}}px;
+    font-weight: {{property.headerFontWeight}};
+    line-height: {{property.headerLineHeight}};
+    color: {{property.headerColor}};
+    text-align: {{property.cellAlign}};
+    border-bottom: {{property.borderWidth}}px solid {{property.borderColor}};
+  }
+
+  /* 첫 번째 열 (구분) */
+  .comparison-table th:first-child,
+  .comparison-table td:first-child {
+    text-align: left;
+    font-weight: {{property.labelFontWeight}};
+    background-color: {{property.labelBg}};
+    color: {{property.labelColor}};
+  }
+
+  /* 바디 셀 */
+  .comparison-table tbody tr {
+    transition: background-color 0.3s ease;
+  }
+
+  {{#if (eq property.rowHoverEffect "highlight")}}
+  .comparison-table tbody tr:hover {
+    background-color: {{property.rowHoverBg}};
+  }
+  {{/if}}
+
+  .comparison-table td {
+    padding: {{property.cellPaddingY}}px {{property.cellPaddingX}}px;
+    font-family: var(--font-family-body);
+    font-size: {{property.cellFontSizeDesktop}}px;
+    font-weight: {{property.cellFontWeight}};
+    line-height: {{property.cellLineHeight}};
+    color: {{property.cellColor}};
+    text-align: {{property.cellAlign}};
+    border-bottom: {{property.borderWidth}}px solid {{property.borderColor}};
+    white-space: pre-line;
+  }
+
+  /* 마지막 행 테두리 제거 */
+  .comparison-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .table-wrapper.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+  .table-wrapper.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .table-wrapper.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.8s ease-out;
+  }
+  .table-wrapper.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .comparison-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .comparison-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .comparison-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .comparison-table {
+      font-size: {{property.mobileFontSize}}px;
+    }
+
+    .comparison-table th {
+      font-size: {{property.headerFontSizeMobile}}px;
+      padding: {{property.mobileHeaderPaddingY}}px {{property.mobileHeaderPaddingX}}px;
+    }
+
+    .comparison-table td {
+      font-size: {{property.cellFontSizeMobile}}px;
+      padding: {{property.mobileCellPaddingY}}px {{property.mobileCellPaddingX}}px;
+    }
+
+    /* 모바일에서 최소 너비 설정 (가로 스크롤) */
+    .comparison-table {
+      min-width: {{property.mobileMinWidth}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="comparison-section">
+    <div class="comparison-container">
+      {{#if property.title}}
+        <h2 class="comparison-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="comparison-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="table-wrapper {{#if property.scrollAnimation}}animate-on-scroll{{/if}}">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>{{property.labelColumnHeader}}</th>
+              {{#each property.columns}}
+                <th>{{name}}</th>
+              {{/each}}
+            </tr>
+          </thead>
+          <tbody>
+            {{#each property.rows}}
+              <tr>
+                <td>{{label}}</td>
+                {{#each values}}
+                  <td>{{this}}</td>
+                {{/each}}
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const tableWrapper = container.querySelector('.table-wrapper');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      if (tableWrapper) {
+        observer.observe(tableWrapper);
+      }
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
