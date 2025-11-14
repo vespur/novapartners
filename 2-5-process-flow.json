@@ -1,0 +1,745 @@
+{
+  "name": "3단계 프로세스 플로우",
+  "description": "서비스 프로세스를 단계별로 시각화하는 블록입니다. 번호, 아이콘, 제목, 설명으로 구성되며 화살표로 연결됩니다.",
+  "properties": [
+    {
+      "type": "TITLE",
+      "label": "📝 제목 설정"
+    },
+    {
+      "id": "title",
+      "label": "섹션 제목",
+      "type": "TEXT",
+      "defaultValue": "어떻게 작동하나요?"
+    },
+    {
+      "id": "subtitle",
+      "label": "섹션 부제목",
+      "type": "TEXTAREA",
+      "defaultValue": "노바 파트너스는 3단계의 완전한 솔루션 프로세스를 제공합니다"
+    },
+
+    {
+      "type": "TITLE",
+      "label": "🔢 프로세스 단계"
+    },
+    {
+      "id": "steps",
+      "label": "단계 목록",
+      "type": "LIST",
+      "maxCount": 6,
+      "defaultValue": [
+        {
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-analysis.png",
+          "title": "진단 & 컨설팅",
+          "description": "귀사의 비즈니스 현황을 분석하고 AI 도입 로드맵을 수립합니다.\n전문가 컨설팅을 통해 최적의 솔루션을 제시합니다."
+        },
+        {
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-build.png",
+          "title": "맞춤 시스템 구축",
+          "description": "프로토타입부터 프로덕션까지 완전한 개발 사이클을 지원합니다.\n애자일 방식의 빠른 구현으로 시간과 비용을 절감합니다."
+        },
+        {
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-support.png",
+          "title": "지속적 지원 & 최적화",
+          "description": "구축 후에도 24/7 기술 지원과 정기적인 성능 최적화를 제공합니다.\n데이터 기반의 개선안으로 ROI를 지속적으로 증대합니다."
+        }
+      ],
+      "properties": [
+        {
+          "id": "icon",
+          "label": "아이콘 이미지",
+          "type": "IMAGE"
+        },
+        {
+          "id": "title",
+          "label": "단계 제목",
+          "type": "TEXT"
+        },
+        {
+          "id": "description",
+          "label": "단계 설명",
+          "type": "TEXTAREA"
+        }
+      ]
+    },
+
+    {
+      "type": "TITLE",
+      "label": "📐 레이아웃 설정"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "type": "RANGE",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "defaultValue": 1200
+    },
+    {
+      "id": "stepsPerRowDesktop",
+      "label": "한 줄당 단계 수 (데스크톱)",
+      "type": "RADIO",
+      "options": [
+        { "label": "2개", "value": "2" },
+        { "label": "3개", "value": "3" },
+        { "label": "4개", "value": "4" }
+      ],
+      "defaultValue": "3"
+    },
+    {
+      "id": "stepsPerRowMobile",
+      "label": "한 줄당 단계 수 (모바일)",
+      "type": "RADIO",
+      "options": [
+        { "label": "1개", "value": "1" },
+        { "label": "2개", "value": "2" }
+      ],
+      "defaultValue": "1"
+    },
+    {
+      "id": "stepGapDesktop",
+      "label": "단계 간격 (데스크톱)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 40
+    },
+    {
+      "id": "stepGapMobile",
+      "label": "단계 간격 (모바일)",
+      "type": "RANGE",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 30
+    },
+    {
+      "id": "stepAlign",
+      "label": "단계 내용 정렬",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ],
+      "defaultValue": "center"
+    },
+
+    {
+      "type": "TITLE",
+      "label": "🎨 배경 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#ffffff"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백",
+      "type": "RANGE",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "defaultValue": 80
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "defaultValue": 40
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "RANGE",
+      "min": 30,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "defaultValue": 60
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "RANGE",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 20
+    },
+
+    {
+      "type": "TITLE",
+      "label": "✏️ 제목 스타일"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 42
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 28
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ],
+      "defaultValue": "700"
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.0,
+      "step": 0.1,
+      "defaultValue": 1.3
+    },
+    {
+      "id": "titleColor",
+      "label": "제목 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#1a1a1a"
+    },
+    {
+      "id": "titleAlign",
+      "label": "제목 정렬",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ],
+      "defaultValue": "center"
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "제목 하단 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 20
+    },
+
+    {
+      "type": "TITLE",
+      "label": "📄 부제목 스타일"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 20
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 16
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" }
+      ],
+      "defaultValue": "400"
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.5,
+      "step": 0.1,
+      "defaultValue": 1.6
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#666666"
+    },
+    {
+      "id": "subtitleMaxWidth",
+      "label": "부제목 최대 너비",
+      "type": "RANGE",
+      "min": 400,
+      "max": 900,
+      "step": 50,
+      "unit": "px",
+      "defaultValue": 700
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 하단 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 50
+    },
+
+    {
+      "type": "TITLE",
+      "label": "🎴 단계 박스 스타일"
+    },
+    {
+      "id": "stepBg",
+      "label": "단계 배경색",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#f9fafb"
+    },
+    {
+      "id": "stepPaddingY",
+      "label": "단계 상하 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 40
+    },
+    {
+      "id": "stepPaddingX",
+      "label": "단계 좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 30
+    },
+    {
+      "id": "stepRadius",
+      "label": "단계 모서리 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 12
+    },
+    {
+      "id": "stepBorderEnabled",
+      "label": "단계 테두리 활성화",
+      "type": "TOGGLE",
+      "defaultValue": true
+    },
+    {
+      "id": "stepBorderWidth",
+      "label": "테두리 두께",
+      "type": "RANGE",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 1,
+      "isVisible": "{{property.stepBorderEnabled}}"
+    },
+    {
+      "id": "stepBorderColor",
+      "label": "테두리 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#e5e7eb",
+      "isVisible": "{{property.stepBorderEnabled}}"
+    },
+    {
+      "id": "stepShadowEnabled",
+      "label": "단계 그림자 활성화",
+      "type": "TOGGLE",
+      "defaultValue": true
+    },
+    {
+      "id": "stepShadowX",
+      "label": "그림자 X 위치",
+      "type": "RANGE",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 0,
+      "isVisible": "{{property.stepShadowEnabled}}"
+    },
+    {
+      "id": "stepShadowY",
+      "label": "그림자 Y 위치",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 4
+    },
+    {
+      "id": "stepShadowBlur",
+      "label": "그림자 흐림 정도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 12,
+      "isVisible": "{{property.stepShadowEnabled}}"
+    },
+    {
+      "id": "stepShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "rgba(0,0,0,0.1)",
+      "isVisible": "{{property.stepShadowEnabled}}"
+    },
+    {
+      "id": "stepHoverAnimation",
+      "label": "단계 호버 애니메이션",
+      "type": "RADIO",
+      "options": [
+        { "label": "없음", "value": "none" },
+        { "label": "살짝 올라감", "value": "lift" },
+        { "label": "크기 확대", "value": "scale" },
+        { "label": "빛나는 효과", "value": "glow" }
+      ],
+      "defaultValue": "lift"
+    },
+
+    {
+      "type": "TITLE",
+      "label": "🔢 번호 배지 설정"
+    },
+    {
+      "id": "showNumbers",
+      "label": "번호 표시",
+      "type": "TOGGLE",
+      "defaultValue": true
+    },
+    {
+      "id": "numberSizeDesktop",
+      "label": "번호 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 60,
+      "isVisible": "{{property.showNumbers}}"
+    },
+    {
+      "id": "numberSizeMobile",
+      "label": "번호 크기 (모바일)",
+      "type": "RANGE",
+      "min": 35,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 50,
+      "isVisible": "{{property.showNumbers}}"
+    },
+    {
+      "id": "numberBg",
+      "label": "번호 배경색",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#3b82f6",
+      "isVisible": "{{property.showNumbers}}"
+    },
+    {
+      "id": "numberColor",
+      "label": "번호 글자 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#ffffff",
+      "isVisible": "{{property.showNumbers}}"
+    },
+    {
+      "id": "numberFontSize",
+      "label": "번호 글자 크기",
+      "type": "RANGE",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 24,
+      "isVisible": "{{property.showNumbers}}"
+    },
+    {
+      "id": "numberFontWeight",
+      "label": "번호 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ],
+      "defaultValue": "700",
+      "isVisible": "{{property.showNumbers}}"
+    },
+    {
+      "id": "numberMarginBottom",
+      "label": "번호 하단 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 20,
+      "isVisible": "{{property.showNumbers}}"
+    },
+
+    {
+      "type": "TITLE",
+      "label": "🎯 아이콘 설정"
+    },
+    {
+      "id": "iconSizeDesktop",
+      "label": "아이콘 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 70
+    },
+    {
+      "id": "iconSizeMobile",
+      "label": "아이콘 크기 (모바일)",
+      "type": "RANGE",
+      "min": 35,
+      "max": 90,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 60
+    },
+    {
+      "id": "iconMarginBottom",
+      "label": "아이콘 하단 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 20
+    },
+
+    {
+      "type": "TITLE",
+      "label": "📝 단계 제목 스타일"
+    },
+    {
+      "id": "stepTitleFontSizeDesktop",
+      "label": "단계 제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 18,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 24
+    },
+    {
+      "id": "stepTitleFontSizeMobile",
+      "label": "단계 제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 20
+    },
+    {
+      "id": "stepTitleFontWeight",
+      "label": "단계 제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ],
+      "defaultValue": "600"
+    },
+    {
+      "id": "stepTitleLineHeight",
+      "label": "단계 제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.0,
+      "step": 0.1,
+      "defaultValue": 1.4
+    },
+    {
+      "id": "stepTitleColor",
+      "label": "단계 제목 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#1a1a1a"
+    },
+    {
+      "id": "stepTitleMarginBottom",
+      "label": "단계 제목 하단 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 15
+    },
+
+    {
+      "type": "TITLE",
+      "label": "📄 단계 설명 스타일"
+    },
+    {
+      "id": "stepDescFontSizeDesktop",
+      "label": "단계 설명 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 16
+    },
+    {
+      "id": "stepDescFontSizeMobile",
+      "label": "단계 설명 크기 (모바일)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 14
+    },
+    {
+      "id": "stepDescFontWeight",
+      "label": "단계 설명 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" }
+      ],
+      "defaultValue": "400"
+    },
+    {
+      "id": "stepDescLineHeight",
+      "label": "단계 설명 줄 간격",
+      "type": "RANGE",
+      "min": 1.2,
+      "max": 2.5,
+      "step": 0.1,
+      "defaultValue": 1.7
+    },
+    {
+      "id": "stepDescColor",
+      "label": "단계 설명 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#666666"
+    },
+
+    {
+      "type": "TITLE",
+      "label": "➡️ 화살표 설정"
+    },
+    {
+      "id": "showArrows",
+      "label": "연결 화살표 표시",
+      "type": "TOGGLE",
+      "defaultValue": true
+    },
+    {
+      "id": "arrowSize",
+      "label": "화살표 크기",
+      "type": "RANGE",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 32,
+      "isVisible": "{{property.showArrows}}"
+    },
+    {
+      "id": "arrowColor",
+      "label": "화살표 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#3b82f6",
+      "isVisible": "{{property.showArrows}}"
+    },
+    {
+      "id": "arrowTopPosition",
+      "label": "화살표 위치 (위에서)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 60,
+      "isVisible": "{{property.showArrows}}"
+    },
+
+    {
+      "type": "TITLE",
+      "label": "✨ 애니메이션 설정"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 애니메이션",
+      "type": "RADIO",
+      "options": [
+        { "label": "없음", "value": "none" },
+        { "label": "아래에서 위로", "value": "fade-up" },
+        { "label": "크기 확대", "value": "scale-in" }
+      ],
+      "defaultValue": "fade-up"
+    },
+    {
+      "id": "scrollAnimationDelay",
+      "label": "순차 등장 지연 시간",
+      "type": "RANGE",
+      "min": 0,
+      "max": 500,
+      "step": 50,
+      "unit": "ms",
+      "defaultValue": 150,
+      "isVisible": "{{property.scrollAnimation}}"
+    }
+  ]
+}

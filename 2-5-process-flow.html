@@ -1,0 +1,291 @@
+<style>
+  .process-flow-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .process-flow-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .process-flow-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .process-flow-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 스텝 그리드 */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat({{property.stepsPerRowDesktop}}, 1fr);
+    gap: {{property.stepGapDesktop}}px;
+    position: relative;
+  }
+
+  /* 연결 화살표 (데스크톱) */
+  {{#if property.showArrows}}
+  .process-step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: calc(-{{property.stepGapDesktop}}px / 2);
+    top: {{property.arrowTopPosition}}px;
+    font-size: {{property.arrowSize}}px;
+    color: {{property.arrowColor}};
+    font-weight: bold;
+    transform: translateX(50%);
+  }
+  {{/if}}
+
+  /* 스텝 아이템 */
+  .process-step {
+    text-align: {{property.stepAlign}};
+    padding: {{property.stepPaddingY}}px {{property.stepPaddingX}}px;
+    background-color: {{property.stepBg}};
+    border-radius: {{property.stepRadius}}px;
+    position: relative;
+    transition: all 0.3s ease;
+    {{#if property.stepBorderEnabled}}
+    border: {{property.stepBorderWidth}}px solid {{property.stepBorderColor}};
+    {{/if}}
+    {{#if property.stepShadowEnabled}}
+    box-shadow: {{property.stepShadowX}}px {{property.stepShadowY}}px {{property.stepShadowBlur}}px {{property.stepShadowColor}};
+    {{/if}}
+  }
+
+  /* 스텝 호버 */
+  {{#if (eq property.stepHoverAnimation "lift")}}
+  .process-step:hover {
+    transform: translateY(-5px);
+    box-shadow: {{property.stepShadowX}}px {{add property.stepShadowY 8}}px {{add property.stepShadowBlur 10}}px {{property.stepShadowColor}};
+  }
+  {{/if}}
+
+  {{#if (eq property.stepHoverAnimation "scale")}}
+  .process-step:hover {
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  {{#if (eq property.stepHoverAnimation "glow")}}
+  .process-step:hover {
+    box-shadow: 0 0 25px {{property.numberBg}}66;
+  }
+  {{/if}}
+
+  /* 번호 배지 */
+  .step-number {
+    width: {{property.numberSizeDesktop}}px;
+    height: {{property.numberSizeDesktop}}px;
+    background-color: {{property.numberBg}};
+    color: {{property.numberColor}};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-heading);
+    font-size: {{property.numberFontSize}}px;
+    font-weight: {{property.numberFontWeight}};
+    margin: 0 auto {{property.numberMarginBottom}}px;
+  }
+
+  /* 아이콘 */
+  .step-icon {
+    width: {{property.iconSizeDesktop}}px;
+    height: {{property.iconSizeDesktop}}px;
+    margin: 0 auto {{property.iconMarginBottom}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* 제목 */
+  .step-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.stepTitleFontSizeDesktop}}px;
+    font-weight: {{property.stepTitleFontWeight}};
+    line-height: {{property.stepTitleLineHeight}};
+    color: {{property.stepTitleColor}};
+    margin-bottom: {{property.stepTitleMarginBottom}}px;
+  }
+
+  /* 설명 */
+  .step-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.stepDescFontSizeDesktop}}px;
+    font-weight: {{property.stepDescFontWeight}};
+    line-height: {{property.stepDescLineHeight}};
+    color: {{property.stepDescColor}};
+    white-space: pre-line;
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .process-step.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  .process-step.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .process-step.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s ease-out;
+  }
+  .process-step.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .process-flow-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .process-flow-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .process-flow-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .process-steps {
+      grid-template-columns: repeat({{property.stepsPerRowMobile}}, 1fr);
+      gap: {{property.stepGapMobile}}px;
+    }
+
+    /* 모바일에서 화살표 숨김 또는 아래로 */
+    .process-step::after {
+      display: none;
+    }
+
+    .step-number {
+      width: {{property.numberSizeMobile}}px;
+      height: {{property.numberSizeMobile}}px;
+    }
+
+    .step-icon {
+      width: {{property.iconSizeMobile}}px;
+      height: {{property.iconSizeMobile}}px;
+    }
+
+    .step-title {
+      font-size: {{property.stepTitleFontSizeMobile}}px;
+    }
+
+    .step-description {
+      font-size: {{property.stepDescFontSizeMobile}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="process-flow-section">
+    <div class="process-flow-container">
+      {{#if property.title}}
+        <h2 class="process-flow-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="process-flow-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="process-steps">
+        {{#each property.steps}}
+          <div class="process-step {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}">
+            {{#if ../property.showNumbers}}
+              <div class="step-number">{{@index}}</div>
+            {{/if}}
+
+            {{#if icon}}
+              <div class="step-icon">
+                <img src="{{icon}}" alt="{{title}}" loading="lazy">
+              </div>
+            {{/if}}
+
+            <h3 class="step-title">{{title}}</h3>
+            <p class="step-description">{{description}}</p>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            const delay = index * (context.property.scrollAnimationDelay || 150);
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      container.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
