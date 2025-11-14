@@ -6,7 +6,7 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "히어로 섹션(어두운 배경)과 일반 페이지(밝은 배경)에서 헤더 색상을 자동으로 전환할 수 있습니다."
+      "content": "💡 Light/Dark 모드는 페이지의 배경색에 따라 헤더 색상을 자동으로 바꿔주는 기능입니다.\n예를 들어, 페이지 상단에 어두운 히어로 이미지가 있다면 헤더를 밝은 색으로, 스크롤해서 내려가면 헤더를 어두운 색으로 자동 전환할 수 있습니다."
     },
     {
       "id": "useLightMode",
@@ -64,27 +64,33 @@
       "content": "🏷️ 로고"
     },
     {
+      "type": "DESCRIPTION",
+      "content": "헤더에 표시될 브랜드 로고를 설정할 수 있습니다. Light/Dark 모드별로 다른 로고를 사용할 수 있습니다."
+    },
+    {
       "id": "enableLogo",
-      "label": "로고 사용",
+      "label": "로고 사용하기",
+      "description": "체크하면 헤더에 로고가 표시됩니다. 체크 해제하면 로고 없이 메뉴만 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "logoImage",
       "label": "로고 이미지 (Light 모드)",
-      "description": "밝은 배경용 로고",
+      "description": "밝은 배경에서 사용할 로고 이미지를 업로드해주세요. PNG 형식을 권장합니다.",
       "type": "IMAGE_PICKER",
       "isVisible": "property.enableLogo === true && property.useLightMode === true"
     },
     {
       "id": "logoImageDark",
       "label": "로고 이미지 (Dark 모드)",
-      "description": "어두운 배경용 로고",
+      "description": "어두운 배경에서 사용할 로고 이미지를 업로드해주세요. 밝은 색상의 로고를 추천합니다.",
       "type": "IMAGE_PICKER",
       "isVisible": "property.enableLogo === true && property.useDarkMode === true"
     },
     {
       "id": "logoWidth",
       "label": "로고 너비",
+      "description": "로고의 가로 크기를 설정합니다. 높이는 자동으로 조절됩니다. (권장: 120-180px)",
       "type": "RANGE",
       "min": 50,
       "max": 300,
@@ -95,12 +101,14 @@
     {
       "id": "logoLink",
       "label": "로고 클릭 시 이동할 페이지",
+      "description": "로고를 클릭했을 때 이동할 페이지를 선택해주세요. 보통 홈페이지(/)로 설정합니다.",
       "type": "LINK",
       "isVisible": "property.enableLogo === true"
     },
     {
       "id": "logoAlign",
       "label": "로고 위치",
+      "description": "헤더에서 로고가 표시될 위치를 선택해주세요.",
       "type": "RADIO",
       "options": [
         { "label": "왼쪽", "value": "left" },
@@ -111,7 +119,8 @@
     },
     {
       "id": "logoMarginX",
-      "label": "로고 가로 여백",
+      "label": "로고 좌우 여백",
+      "description": "로고의 좌우 여백을 조절합니다. 값이 클수록 로고가 가장자리에서 멀어집니다.",
       "type": "RANGE",
       "min": 0,
       "max": 100,
@@ -121,7 +130,8 @@
     },
     {
       "id": "logoMarginY",
-      "label": "로고 세로 여백",
+      "label": "로고 상하 여백",
+      "description": "로고의 상하 여백을 조절합니다. 헤더 내에서 로고의 세로 위치를 미세 조정할 수 있습니다.",
       "type": "RANGE",
       "min": 0,
       "max": 50,
@@ -135,14 +145,19 @@
       "content": "📋 메인 메뉴"
     },
     {
+      "type": "DESCRIPTION",
+      "content": "헤더에 표시될 메인 메뉴를 설정합니다. 각 메뉴는 하위 메뉴를 가질 수 있으며, 마우스를 올리면 드롭다운으로 표시됩니다."
+    },
+    {
       "id": "enableMainMenu",
-      "label": "메인 메뉴 사용",
+      "label": "메인 메뉴 사용하기",
+      "description": "체크하면 헤더에 메인 메뉴가 표시됩니다. 체크 해제하면 메뉴 없이 로고만 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "menuItems",
-      "label": "메뉴 항목",
-      "description": "헤더에 표시할 메뉴를 추가해주세요 (최대 10개)",
+      "label": "메뉴 항목 관리",
+      "description": "헤더에 표시할 메뉴를 추가해주세요. 최대 10개까지 추가할 수 있습니다. '+ 항목 추가' 버튼을 눌러 새 메뉴를 추가하세요.",
       "type": "LIST",
       "maxCount": 10,
       "isVisible": "property.enableMainMenu === true",
@@ -150,22 +165,25 @@
         {
           "id": "name",
           "label": "메뉴 이름",
+          "description": "헤더에 표시될 메뉴 텍스트 (예: 제품소개, 서비스, 고객센터)",
           "type": "TEXT"
         },
         {
           "id": "link",
-          "label": "링크",
+          "label": "메뉴 링크",
+          "description": "메뉴를 클릭했을 때 이동할 페이지를 선택해주세요.",
           "type": "LINK"
         },
         {
           "id": "hasSubmenu",
-          "label": "하위 메뉴 사용",
-          "description": "마우스 올릴 때 나타나는 하위 메뉴 활성화",
+          "label": "하위 메뉴 사용하기 (드롭다운)",
+          "description": "체크하면 마우스를 올렸을 때 하위 메뉴가 드롭다운으로 나타납니다. 최대 3개 그룹, 각 그룹당 10개 항목까지 추가할 수 있습니다.",
           "type": "CHECKBOX"
         },
         {
           "id": "group1Title",
           "label": "📁 그룹 1 제목",
+          "description": "하위 메뉴의 첫 번째 그룹 제목입니다. 빈칸으로 두면 제목 없이 항목만 표시됩니다.",
           "type": "TEXT",
           "isVisible": "property.menuItems[index].hasSubmenu === true"
         },
@@ -580,14 +598,20 @@
       "content": "🎨 메뉴 스타일 (Light 모드)"
     },
     {
+      "type": "DESCRIPTION",
+      "content": "밝은 배경에서 사용할 메뉴의 색상과 효과를 설정합니다."
+    },
+    {
       "id": "menuColorDesktop",
       "label": "메뉴 텍스트 색상",
+      "description": "메뉴 글자의 기본 색상을 설정합니다. 밝은 배경에서는 어두운 색을 권장합니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.useLightMode === true"
     },
     {
       "id": "menuSizeDesktop",
       "label": "메뉴 글자 크기",
+      "description": "메뉴 텍스트의 크기를 설정합니다. (권장: 14-18px)",
       "type": "RANGE",
       "min": 12,
       "max": 24,
@@ -598,6 +622,7 @@
     {
       "id": "menuGapDesktop",
       "label": "메뉴 간격",
+      "description": "메뉴 항목들 사이의 간격을 설정합니다. 값이 클수록 메뉴 간격이 넓어집니다.",
       "type": "RANGE",
       "min": 10,
       "max": 80,
@@ -608,6 +633,7 @@
     {
       "id": "menuHoverEffect",
       "label": "마우스 올릴 때 효과",
+      "description": "메뉴에 마우스를 올렸을 때 나타날 시각적 효과를 선택해주세요. 다양한 효과를 미리보기로 확인해보세요.",
       "type": "SELECT",
       "options": [
         { "label": "투명도 변화", "value": "opacity" },
@@ -622,19 +648,22 @@
     },
     {
       "id": "menuHoverColor",
-      "label": "호버 시 색상",
+      "label": "호버 시 변경될 색상",
+      "description": "마우스를 올렸을 때 메뉴 텍스트가 이 색상으로 변경됩니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'color' && property.useLightMode === true"
     },
     {
       "id": "menuUnderlineColor",
       "label": "밑줄 색상",
+      "description": "메뉴 아래에 표시될 밑줄의 색상을 설정합니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && (property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center' || property.menuHoverEffect === 'underline')"
     },
     {
       "id": "menuUnderlineThickness",
       "label": "밑줄 두께",
+      "description": "밑줄의 두께를 설정합니다. 값이 클수록 두껍게 표시됩니다.",
       "type": "RANGE",
       "min": 1,
       "max": 5,
@@ -645,6 +674,7 @@
     {
       "id": "menuHoverBgColor",
       "label": "배경 슬라이드 색상",
+      "description": "배경 슬라이드 효과에 사용될 배경 색상을 설정합니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'background-slide'"
     },
@@ -671,20 +701,27 @@
       "content": "📂 서브메뉴 스타일 (Light 모드)"
     },
     {
+      "type": "DESCRIPTION",
+      "content": "메인 메뉴에 마우스를 올렸을 때 나타나는 드롭다운 서브메뉴의 디자인을 설정합니다."
+    },
+    {
       "id": "submenuBg",
       "label": "서브메뉴 배경색",
+      "description": "드롭다운 서브메뉴의 배경 색상을 설정합니다. 투명도를 조절하여 뒤 배경이 비치게 할 수 있습니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.useLightMode === true"
     },
     {
       "id": "submenuBlurEnabled",
-      "label": "배경 블러 효과 사용",
+      "label": "배경 블러 효과 사용하기",
+      "description": "체크하면 서브메뉴 배경에 블러(흐림) 효과가 적용됩니다. 모던한 느낌을 줄 수 있습니다.",
       "type": "CHECKBOX",
       "isVisible": "property.enableMainMenu === true"
     },
     {
       "id": "submenuBlur",
       "label": "블러 강도",
+      "description": "배경 흐림 효과의 강도를 조절합니다. 값이 클수록 더 흐릿해집니다. (권장: 8-15px)",
       "type": "RANGE",
       "min": 0,
       "max": 30,
@@ -694,7 +731,8 @@
     },
     {
       "id": "submenuPaddingTop",
-      "label": "서브메뉴 위 여백",
+      "label": "서브메뉴 위쪽 여백",
+      "description": "서브메뉴 내용의 위쪽 여백을 설정합니다. 메인 메뉴와의 간격을 조절할 수 있습니다.",
       "type": "RANGE",
       "min": 0,
       "max": 50,
@@ -704,7 +742,8 @@
     },
     {
       "id": "submenuPaddingBottom",
-      "label": "서브메뉴 아래 여백",
+      "label": "서브메뉴 아래쪽 여백",
+      "description": "서브메뉴 내용의 아래쪽 여백을 설정합니다.",
       "type": "RANGE",
       "min": 0,
       "max": 50,
@@ -714,7 +753,8 @@
     },
     {
       "id": "submenuGroupGap",
-      "label": "그룹 간격",
+      "label": "그룹 사이 간격",
+      "description": "서브메뉴 내에서 그룹들 사이의 가로 간격을 설정합니다.",
       "type": "RANGE",
       "min": 20,
       "max": 80,
@@ -725,12 +765,14 @@
     {
       "id": "submenuTitleColor",
       "label": "그룹 제목 색상",
+      "description": "서브메뉴에서 각 그룹 제목의 색상을 설정합니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.useLightMode === true"
     },
     {
       "id": "submenuTitleSize",
-      "label": "그룹 제목 크기",
+      "label": "그룹 제목 글자 크기",
+      "description": "그룹 제목의 글자 크기를 설정합니다.",
       "type": "RANGE",
       "min": 12,
       "max": 20,
@@ -942,17 +984,18 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "로그인, 회원가입, 마이페이지 등 작은 메뉴를 추가할 수 있습니다."
+      "content": "💡 유틸리티 메뉴는 로그인, 회원가입, 마이페이지 등 작은 보조 메뉴입니다.\n주로 헤더 오른쪽 상단에 작은 크기로 표시되며, 메인 메뉴와 함께 사용할 수 있습니다."
     },
     {
       "id": "enableUtilityMenu",
-      "label": "유틸리티 메뉴 사용",
+      "label": "유틸리티 메뉴 사용하기",
+      "description": "체크하면 작은 보조 메뉴가 헤더 오른쪽에 표시됩니다. 로그인, 장바구니 등의 링크를 추가할 수 있습니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "utilityMenuItems",
-      "label": "유틸리티 메뉴 항목",
-      "description": "작은 보조 메뉴를 추가해주세요",
+      "label": "유틸리티 메뉴 항목 관리",
+      "description": "작은 보조 메뉴를 추가해주세요. 최대 5개까지 추가할 수 있습니다. (예: 로그인, 회원가입, 마이페이지, 장바구니)",
       "type": "LIST",
       "maxCount": 5,
       "isVisible": "property.enableUtilityMenu === true",
@@ -960,11 +1003,13 @@
         {
           "id": "name",
           "label": "메뉴 이름",
+          "description": "표시될 텍스트를 입력하세요 (예: 로그인, 회원가입)",
           "type": "TEXT"
         },
         {
           "id": "link",
-          "label": "링크",
+          "label": "메뉴 링크",
+          "description": "클릭 시 이동할 페이지를 선택하세요",
           "type": "LINK"
         },
         {
@@ -1075,34 +1120,38 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "다국어 사이트를 위한 언어 전환 버튼입니다."
+      "content": "💡 다국어 사이트를 위한 언어 전환 버튼입니다.\n방문자가 원하는 언어로 사이트를 볼 수 있도록 언어 전환 버튼을 제공합니다. 헤더 오른쪽에 작은 버튼으로 표시됩니다."
     },
     {
       "id": "enableLanguageButtons",
-      "label": "언어 선택 버튼 사용",
+      "label": "언어 선택 버튼 사용하기",
+      "description": "체크하면 언어 전환 버튼이 헤더에 표시됩니다. 다국어 사이트가 아니면 사용하지 않아도 됩니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "languageButtons",
-      "label": "언어 버튼",
-      "description": "언어 버튼을 추가해주세요",
+      "label": "언어 버튼 관리",
+      "description": "제공할 언어들을 추가해주세요. 최대 5개까지 추가할 수 있습니다. (예: 한국어, English, 日本語)",
       "type": "LIST",
       "maxCount": 5,
       "isVisible": "property.enableLanguageButtons === true",
       "settings": [
         {
           "id": "text",
-          "label": "버튼 텍스트 (예: KR, EN, JP)",
+          "label": "버튼 텍스트",
+          "description": "버튼에 표시될 텍스트를 입력하세요 (예: KR, EN, JP, 한국어, English)",
           "type": "TEXT"
         },
         {
           "id": "link",
-          "label": "링크",
+          "label": "언어 페이지 링크",
+          "description": "해당 언어 버전 페이지의 링크를 선택하세요",
           "type": "LINK"
         },
         {
           "id": "isActive",
-          "label": "현재 선택된 언어",
+          "label": "현재 선택된 언어로 표시",
+          "description": "체크하면 이 언어가 현재 선택된 언어로 강조 표시됩니다",
           "type": "CHECKBOX"
         }
       ]
@@ -1296,7 +1345,7 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "모바일과 태블릿 작은 화면에서 표시되는 헤더 설정입니다."
+      "content": "💡 모바일과 태블릿 작은 화면에서 표시되는 헤더 설정입니다.\n모바일에서는 햄버거 메뉴 버튼을 눌렀을 때 드로어(서랍)가 열리면서 메뉴가 표시됩니다."
     },
 
     {
@@ -1304,8 +1353,13 @@
       "content": "📐 모바일 헤더 기본 설정"
     },
     {
+      "type": "DESCRIPTION",
+      "content": "모바일 화면에서 보이는 헤더의 기본 크기와 여백을 설정합니다."
+    },
+    {
       "id": "mobileHeaderHeight",
       "label": "모바일 헤더 높이",
+      "description": "모바일 화면의 헤더 높이를 설정합니다. (권장: 60-70px)",
       "type": "RANGE",
       "min": 50,
       "max": 100,
@@ -1314,7 +1368,8 @@
     },
     {
       "id": "mobileHeaderPaddingX",
-      "label": "좌우 여백",
+      "label": "헤더 좌우 여백",
+      "description": "헤더 내부의 좌우 여백을 설정합니다. 로고와 햄버거 버튼의 가장자리 간격입니다.",
       "type": "RANGE",
       "min": 10,
       "max": 50,
@@ -1903,7 +1958,7 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "헤더의 기본 스타일과 동작 설정입니다."
+      "content": "💡 헤더의 전체적인 디자인과 동작 방식을 설정합니다.\n헤더 크기, 배경색, 그림자, 스크롤 효과 등을 커스터마이징할 수 있습니다."
     },
 
     {
@@ -1911,8 +1966,13 @@
       "content": "⚙️ 헤더 기본 설정"
     },
     {
+      "type": "DESCRIPTION",
+      "content": "헤더의 기본 크기와 위치, 레이아웃을 설정합니다."
+    },
+    {
       "id": "headerHeight",
       "label": "헤더 높이 (데스크톱)",
+      "description": "PC 화면에서 헤더의 높이를 설정합니다. (권장: 70-90px)",
       "type": "RANGE",
       "min": 60,
       "max": 120,
@@ -1922,6 +1982,7 @@
     {
       "id": "headerPadding",
       "label": "헤더 좌우 여백",
+      "description": "헤더 내부의 좌우 여백을 설정합니다. 화면 가장자리와의 간격입니다.",
       "type": "RANGE",
       "min": 0,
       "max": 100,
@@ -1930,7 +1991,8 @@
     },
     {
       "id": "headerRightMargin",
-      "label": "오른쪽 끝 여백 (메뉴가 오른쪽 정렬일 때)",
+      "label": "오른쪽 끝 여백",
+      "description": "메뉴가 오른쪽 정렬일 때 오른쪽 끝의 여백을 추가로 설정합니다.",
       "type": "RANGE",
       "min": 0,
       "max": 100,
@@ -1939,13 +2001,14 @@
     },
     {
       "id": "containerMaxWidthEnabled",
-      "label": "최대 너비 제한 사용",
-      "description": "헤더 콘텐츠의 최대 너비를 제한합니다",
+      "label": "최대 너비 제한 사용하기",
+      "description": "체크하면 헤더 내용의 최대 너비를 제한합니다. 큰 화면에서 헤더가 너무 넓게 퍼지지 않도록 할 수 있습니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "containerMaxWidth",
-      "label": "최대 너비",
+      "label": "최대 너비 값",
+      "description": "헤더 콘텐츠의 최대 너비를 설정합니다. 이 값보다 화면이 넓으면 헤더는 중앙 정렬됩니다. (권장: 1200-1400px)",
       "type": "RANGE",
       "min": 800,
       "max": 1920,
@@ -1956,6 +2019,7 @@
     {
       "id": "containerPaddingDesktop",
       "label": "콘텐츠 좌우 여백",
+      "description": "최대 너비 제한을 사용할 때 콘텐츠의 좌우 여백을 설정합니다.",
       "type": "RANGE",
       "min": 0,
       "max": 200,
@@ -1965,14 +2029,14 @@
     },
     {
       "id": "isSticky",
-      "label": "상단 고정 (Sticky)",
-      "description": "스크롤해도 헤더가 상단에 고정됩니다",
+      "label": "상단 고정 (Sticky) 사용하기",
+      "description": "체크하면 페이지를 스크롤해도 헤더가 항상 화면 상단에 고정됩니다. 방문자가 언제든지 메뉴에 접근할 수 있습니다.",
       "type": "CHECKBOX"
     },
     {
       "id": "isOverlay",
-      "label": "오버레이 (겹침)",
-      "description": "헤더를 아래 콘텐츠 위에 겹쳐서 표시합니다",
+      "label": "오버레이 모드 (콘텐츠 위에 겹치기)",
+      "description": "체크하면 헤더가 페이지 콘텐츠 위에 투명하게 겹쳐집니다. 히어로 이미지 위에 헤더를 표시할 때 유용합니다.",
       "type": "CHECKBOX"
     },
 
@@ -1981,8 +2045,13 @@
       "content": "🎨 헤더 배경 & 디자인"
     },
     {
+      "type": "DESCRIPTION",
+      "content": "헤더의 배경색, 그림자, 테두리 등 시각적 스타일을 설정합니다."
+    },
+    {
       "id": "headerBgType",
       "label": "배경 타입",
+      "description": "헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
       "type": "RADIO",
       "options": [
         { "label": "단색", "value": "solid" },
