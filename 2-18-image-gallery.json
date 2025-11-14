@@ -1,0 +1,394 @@
+{
+  "name": "이미지 갤러리",
+  "settings": [
+    {
+      "id": "sectionTitle",
+      "type": "TITLE",
+      "label": "섹션 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR",
+      "default": "#F8F9FA"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 80
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 60
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "type": "NUMBER",
+      "default": 1200
+    },
+
+    {
+      "id": "titleSettings",
+      "type": "TITLE",
+      "label": "타이틀 설정"
+    },
+    {
+      "id": "showTitle",
+      "label": "타이틀 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "title",
+      "label": "타이틀",
+      "type": "TEXT",
+      "default": "갤러리",
+      "isVisible": "{{property.showTitle}}"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "타이틀 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 36,
+      "isVisible": "{{property.showTitle}}"
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "타이틀 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 28,
+      "isVisible": "{{property.showTitle}}"
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "타이틀 굵기",
+      "type": "NUMBER",
+      "default": 700,
+      "isVisible": "{{property.showTitle}}"
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "타이틀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.3,
+      "isVisible": "{{property.showTitle}}"
+    },
+    {
+      "id": "titleColor",
+      "label": "타이틀 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A",
+      "isVisible": "{{property.showTitle}}"
+    },
+    {
+      "id": "titleAlign",
+      "label": "타이틀 정렬",
+      "type": "SELECT",
+      "options": ["left", "center", "right"],
+      "default": "center",
+      "isVisible": "{{property.showTitle}}"
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "타이틀 하단 여백",
+      "type": "NUMBER",
+      "default": 16,
+      "isVisible": "{{property.showTitle}}"
+    },
+
+    {
+      "id": "subtitleSettings",
+      "type": "TITLE",
+      "label": "부제목 설정"
+    },
+    {
+      "id": "showSubtitle",
+      "label": "부제목 표시",
+      "type": "CHECKBOX",
+      "default": false
+    },
+    {
+      "id": "subtitle",
+      "label": "부제목",
+      "type": "TEXT",
+      "default": "프로젝트 사진을 확인하세요",
+      "isVisible": "{{property.showSubtitle}}"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 18,
+      "isVisible": "{{property.showSubtitle}}"
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16,
+      "isVisible": "{{property.showSubtitle}}"
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 굵기",
+      "type": "NUMBER",
+      "default": 400,
+      "isVisible": "{{property.showSubtitle}}"
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6,
+      "isVisible": "{{property.showSubtitle}}"
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR",
+      "default": "#666666",
+      "isVisible": "{{property.showSubtitle}}"
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 하단 여백",
+      "type": "NUMBER",
+      "default": 48,
+      "isVisible": "{{property.showSubtitle}}"
+    },
+
+    {
+      "id": "imagesTitle",
+      "type": "TITLE",
+      "label": "이미지 목록"
+    },
+    {
+      "id": "images",
+      "label": "이미지 목록",
+      "type": "LIST",
+      "default": [
+        {
+          "url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
+          "alt": "프로젝트 이미지 1",
+          "caption": "AI 플랫폼 대시보드"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
+          "alt": "프로젝트 이미지 2",
+          "caption": "데이터 분석 화면"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800",
+          "alt": "프로젝트 이미지 3",
+          "caption": "모바일 앱"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800",
+          "alt": "프로젝트 이미지 4",
+          "caption": "팀 협업"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800",
+          "alt": "프로젝트 이미지 5",
+          "caption": "프로젝트 회의"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800",
+          "alt": "프로젝트 이미지 6",
+          "caption": "개발 중인 화면"
+        }
+      ],
+      "fields": [
+        {
+          "id": "url",
+          "label": "이미지 URL",
+          "type": "TEXT"
+        },
+        {
+          "id": "alt",
+          "label": "대체 텍스트",
+          "type": "TEXT"
+        },
+        {
+          "id": "caption",
+          "label": "캡션 (선택)",
+          "type": "TEXT"
+        }
+      ]
+    },
+
+    {
+      "id": "layoutTitle",
+      "type": "TITLE",
+      "label": "레이아웃 설정"
+    },
+    {
+      "id": "columnsDesktop",
+      "label": "열 개수 (데스크톱)",
+      "type": "SELECT",
+      "options": ["2", "3", "4"],
+      "default": "3"
+    },
+    {
+      "id": "columnsMobile",
+      "label": "열 개수 (모바일)",
+      "type": "SELECT",
+      "options": ["1", "2"],
+      "default": "2"
+    },
+    {
+      "id": "imageGap",
+      "label": "이미지 간격",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "imageAspectRatio",
+      "label": "이미지 비율",
+      "type": "SELECT",
+      "options": ["1:1", "4:3", "16:9", "auto"],
+      "default": "4:3"
+    },
+
+    {
+      "id": "imageStyleTitle",
+      "type": "TITLE",
+      "label": "이미지 스타일"
+    },
+    {
+      "id": "imageRadius",
+      "label": "이미지 둥근 모서리",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "imageObjectFit",
+      "label": "이미지 채우기 방식",
+      "type": "SELECT",
+      "options": ["cover", "contain"],
+      "default": "cover"
+    },
+    {
+      "id": "hoverEffect",
+      "label": "호버 효과",
+      "type": "SELECT",
+      "options": ["none", "zoom", "overlay", "lift"],
+      "default": "zoom"
+    },
+    {
+      "id": "overlayColor",
+      "label": "오버레이 색상",
+      "type": "COLOR",
+      "default": "#00000066",
+      "isVisible": "{{eq property.hoverEffect 'overlay'}}"
+    },
+
+    {
+      "id": "captionTitle",
+      "type": "TITLE",
+      "label": "캡션 스타일"
+    },
+    {
+      "id": "showCaptions",
+      "label": "캡션 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "captionFontSizeDesktop",
+      "label": "캡션 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 14,
+      "isVisible": "{{property.showCaptions}}"
+    },
+    {
+      "id": "captionFontSizeMobile",
+      "label": "캡션 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 13,
+      "isVisible": "{{property.showCaptions}}"
+    },
+    {
+      "id": "captionFontWeight",
+      "label": "캡션 굵기",
+      "type": "NUMBER",
+      "default": 400,
+      "isVisible": "{{property.showCaptions}}"
+    },
+    {
+      "id": "captionLineHeight",
+      "label": "캡션 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5,
+      "isVisible": "{{property.showCaptions}}"
+    },
+    {
+      "id": "captionColor",
+      "label": "캡션 색상",
+      "type": "COLOR",
+      "default": "#666666",
+      "isVisible": "{{property.showCaptions}}"
+    },
+    {
+      "id": "captionMarginTop",
+      "label": "캡션 상단 여백",
+      "type": "NUMBER",
+      "default": 12,
+      "isVisible": "{{property.showCaptions}}"
+    },
+
+    {
+      "id": "lightboxTitle",
+      "type": "TITLE",
+      "label": "Lightbox 설정"
+    },
+    {
+      "id": "enableLightbox",
+      "label": "Lightbox 활성화",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "lightboxBg",
+      "label": "Lightbox 배경 색상",
+      "type": "COLOR",
+      "default": "#000000EE",
+      "isVisible": "{{property.enableLightbox}}"
+    },
+
+    {
+      "id": "animationTitle",
+      "type": "TITLE",
+      "label": "애니메이션 설정"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 애니메이션",
+      "type": "SELECT",
+      "options": ["none", "fade-up", "fade-in", "scale-in"],
+      "default": "fade-up"
+    },
+    {
+      "id": "staggerDelay",
+      "label": "순차 지연 시간 (ms)",
+      "type": "NUMBER",
+      "default": 100
+    }
+  ]
+}

@@ -1,0 +1,527 @@
+<style>
+  .gallery-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .gallery-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  {{#if property.showTitle}}
+  .gallery-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+  {{/if}}
+
+  /* 부제목 */
+  {{#if property.showSubtitle}}
+  .gallery-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+  }
+  {{/if}}
+
+  /* 갤러리 그리드 */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat({{property.columnsDesktop}}, 1fr);
+    gap: {{property.imageGap}}px;
+  }
+
+  /* 갤러리 아이템 */
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{property.imageRadius}}px;
+    cursor: {{#if property.enableLightbox}}pointer{{else}}default{{/if}};
+  }
+
+  /* 이미지 컨테이너 */
+  .gallery-image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{property.imageRadius}}px;
+    {{#if (eq property.imageAspectRatio "1:1")}}
+    padding-bottom: 100%;
+    {{/if}}
+    {{#if (eq property.imageAspectRatio "4:3")}}
+    padding-bottom: 75%;
+    {{/if}}
+    {{#if (eq property.imageAspectRatio "16:9")}}
+    padding-bottom: 56.25%;
+    {{/if}}
+  }
+
+  .gallery-image {
+    {{#if (eq property.imageAspectRatio "auto")}}
+    position: relative;
+    {{else}}
+    position: absolute;
+    top: 0;
+    left: 0;
+    {{/if}}
+    width: 100%;
+    height: 100%;
+    object-fit: {{property.imageObjectFit}};
+    transition: all 0.4s ease;
+  }
+
+  /* 호버 효과 */
+  {{#if (eq property.hoverEffect "zoom")}}
+  .gallery-item:hover .gallery-image {
+    transform: scale(1.1);
+  }
+  {{/if}}
+
+  {{#if (eq property.hoverEffect "lift")}}
+  .gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+  .gallery-item {
+    transition: all 0.3s ease;
+  }
+  {{/if}}
+
+  {{#if (eq property.hoverEffect "overlay")}}
+  .gallery-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{property.overlayColor}};
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+  }
+  .gallery-item:hover .gallery-image-overlay {
+    opacity: 1;
+  }
+  {{/if}}
+
+  /* 캡션 */
+  {{#if property.showCaptions}}
+  .gallery-caption {
+    font-family: var(--font-family-body);
+    font-size: {{property.captionFontSizeDesktop}}px;
+    font-weight: {{property.captionFontWeight}};
+    line-height: {{property.captionLineHeight}};
+    color: {{property.captionColor}};
+    margin-top: {{property.captionMarginTop}}px;
+    text-align: center;
+  }
+  {{/if}}
+
+  /* Lightbox */
+  {{#if property.enableLightbox}}
+  .gallery-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{property.lightboxBg}};
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+  }
+
+  .gallery-lightbox.active {
+    display: flex;
+  }
+
+  .gallery-lightbox-image {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .gallery-lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+
+  .gallery-lightbox-close:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .gallery-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .gallery-lightbox-nav:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .gallery-lightbox-prev {
+    left: 30px;
+  }
+
+  .gallery-lightbox-next {
+    right: 30px;
+  }
+
+  .gallery-lightbox-caption {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: var(--font-family-body);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 80%;
+  }
+  {{/if}}
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .gallery-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  .gallery-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .gallery-item.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.6s ease-out;
+  }
+  .gallery-item.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .gallery-item.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease-out;
+  }
+  .gallery-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .gallery-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    {{#if property.showTitle}}
+    .gallery-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+    {{/if}}
+
+    {{#if property.showSubtitle}}
+    .gallery-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+    {{/if}}
+
+    .gallery-grid {
+      grid-template-columns: repeat({{property.columnsMobile}}, 1fr);
+    }
+
+    {{#if property.showCaptions}}
+    .gallery-caption {
+      font-size: {{property.captionFontSizeMobile}}px;
+    }
+    {{/if}}
+
+    {{#if property.enableLightbox}}
+    .gallery-lightbox-nav,
+    .gallery-lightbox-close {
+      font-size: 30px;
+      width: 45px;
+      height: 45px;
+    }
+
+    .gallery-lightbox-prev {
+      left: 15px;
+    }
+
+    .gallery-lightbox-next {
+      right: 15px;
+    }
+
+    .gallery-lightbox-close {
+      top: 15px;
+      right: 15px;
+    }
+    {{/if}}
+  }
+</style>
+
+<template>
+  <section class="gallery-section">
+    <div class="gallery-container">
+      <!-- 타이틀 -->
+      {{#if property.showTitle}}
+        {{#if property.title}}
+          <h2 class="gallery-title">{{property.title}}</h2>
+        {{/if}}
+      {{/if}}
+
+      <!-- 부제목 -->
+      {{#if property.showSubtitle}}
+        {{#if property.subtitle}}
+          <p class="gallery-subtitle">{{property.subtitle}}</p>
+        {{/if}}
+      {{/if}}
+
+      <!-- 갤러리 그리드 -->
+      <div class="gallery-grid">
+        {{#each property.images}}
+          <div class="gallery-item {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}" data-index="{{@index}}">
+            <div class="gallery-image-wrapper">
+              <img
+                src="{{url}}"
+                alt="{{alt}}"
+                class="gallery-image"
+                loading="lazy"
+                {{#if ../property.enableLightbox}}
+                data-gallery-image
+                {{/if}}>
+              {{#if (eq ../property.hoverEffect "overlay")}}
+                <div class="gallery-image-overlay">🔍</div>
+              {{/if}}
+            </div>
+            {{#if ../property.showCaptions}}
+              {{#if caption}}
+                <p class="gallery-caption">{{caption}}</p>
+              {{/if}}
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    {{#if property.enableLightbox}}
+    <div class="gallery-lightbox" data-lightbox>
+      <button class="gallery-lightbox-close" data-lightbox-close aria-label="닫기">×</button>
+      <button class="gallery-lightbox-nav gallery-lightbox-prev" data-lightbox-prev aria-label="이전">‹</button>
+      <button class="gallery-lightbox-nav gallery-lightbox-next" data-lightbox-next aria-label="다음">›</button>
+      <img src="" alt="" class="gallery-lightbox-image" data-lightbox-image>
+      <p class="gallery-lightbox-caption" data-lightbox-caption></p>
+    </div>
+    {{/if}}
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const items = container.querySelectorAll('.gallery-item');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index || 0);
+            const delay = index * context.property.staggerDelay;
+
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      items.forEach(item => {
+        observer.observe(item);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+
+    // Lightbox 기능
+    if (context.property.enableLightbox) {
+      const lightbox = container.querySelector('[data-lightbox]');
+      const lightboxImage = container.querySelector('[data-lightbox-image]');
+      const lightboxCaption = container.querySelector('[data-lightbox-caption]');
+      const images = context.property.images || [];
+      let currentIndex = 0;
+
+      // 이미지 클릭 이벤트 (이벤트 위임)
+      container.addEventListener('click', (e) => {
+        const imageEl = e.target.closest('[data-gallery-image]');
+        if (imageEl) {
+          e.preventDefault();
+          const item = imageEl.closest('.gallery-item');
+          currentIndex = parseInt(item.dataset.index || 0);
+          showLightbox(currentIndex);
+        }
+
+        // 닫기 버튼
+        const closeBtn = e.target.closest('[data-lightbox-close]');
+        if (closeBtn) {
+          hideLightbox();
+        }
+
+        // 이전 버튼
+        const prevBtn = e.target.closest('[data-lightbox-prev]');
+        if (prevBtn) {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          showLightbox(currentIndex);
+        }
+
+        // 다음 버튼
+        const nextBtn = e.target.closest('[data-lightbox-next]');
+        if (nextBtn) {
+          currentIndex = (currentIndex + 1) % images.length;
+          showLightbox(currentIndex);
+        }
+      });
+
+      // Lightbox 배경 클릭 시 닫기
+      if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) {
+            hideLightbox();
+          }
+        });
+      }
+
+      // ESC 키로 닫기
+      const handleEscKey = (e) => {
+        if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) {
+          hideLightbox();
+        }
+      };
+
+      document.addEventListener('keydown', handleEscKey);
+
+      // 화살표 키로 이동
+      const handleArrowKeys = (e) => {
+        if (!lightbox || !lightbox.classList.contains('active')) return;
+
+        if (e.key === 'ArrowLeft') {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          showLightbox(currentIndex);
+        } else if (e.key === 'ArrowRight') {
+          currentIndex = (currentIndex + 1) % images.length;
+          showLightbox(currentIndex);
+        }
+      };
+
+      document.addEventListener('keydown', handleArrowKeys);
+
+      function showLightbox(index) {
+        if (!lightbox || !images[index]) return;
+
+        lightboxImage.src = images[index].url;
+        lightboxImage.alt = images[index].alt || '';
+        lightboxCaption.textContent = images[index].caption || '';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function hideLightbox() {
+        if (!lightbox) return;
+
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          document.removeEventListener('keydown', handleEscKey);
+          document.removeEventListener('keydown', handleArrowKeys);
+          document.body.style.overflow = '';
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          document.removeEventListener('keydown', handleEscKey);
+          document.removeEventListener('keydown', handleArrowKeys);
+          document.body.style.overflow = '';
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
