@@ -1,0 +1,311 @@
+<style>
+  .cta-triple-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+    position: relative;
+    overflow: hidden;
+    {{#if property.backgroundImage}}
+    background-image: url('{{property.backgroundImage}}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    {{/if}}
+  }
+
+  /* 배경 오버레이 */
+  {{#if property.showOverlay}}
+  .cta-triple-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: {{property.overlayGradient}};
+    z-index: 1;
+  }
+  {{/if}}
+
+  .cta-triple-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  /* 타이틀 */
+  .cta-triple-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .cta-triple-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 버튼 그룹 */
+  .cta-triple-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: {{property.buttonGap}}px;
+    margin-bottom: {{property.buttonsMarginBottom}}px;
+    flex-wrap: wrap;
+  }
+
+  /* 공통 버튼 스타일 */
+  .cta-triple-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{property.buttonPaddingY}}px {{property.buttonPaddingX}}px;
+    font-family: var(--font-family-body);
+    font-size: {{property.buttonFontSizeDesktop}}px;
+    font-weight: {{property.buttonFontWeight}};
+    line-height: {{property.buttonLineHeight}};
+    border-radius: {{property.buttonRadius}}px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    white-space: nowrap;
+  }
+
+  /* 주 버튼 (Primary) */
+  .cta-triple-btn-primary {
+    background-color: {{property.primaryBg}};
+    color: {{property.primaryColor}};
+    {{#if property.primaryBorderEnabled}}
+    border: {{property.primaryBorderWidth}}px solid {{property.primaryBorderColor}};
+    {{/if}}
+  }
+
+  .cta-triple-btn-primary:hover {
+    background-color: {{property.primaryBgHover}};
+    {{#if (eq property.buttonHoverAnimation "lift")}}
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px {{property.primaryBg}}44;
+    {{/if}}
+    {{#if (eq property.buttonHoverAnimation "scale")}}
+    transform: scale(1.05);
+    {{/if}}
+    {{#if (eq property.buttonHoverAnimation "glow")}}
+    box-shadow: 0 0 20px {{property.primaryBg}}88;
+    {{/if}}
+  }
+
+  /* 보조 버튼 (Secondary) */
+  .cta-triple-btn-secondary {
+    background-color: {{property.secondaryBg}};
+    color: {{property.secondaryColor}};
+    {{#if property.secondaryBorderEnabled}}
+    border: {{property.secondaryBorderWidth}}px solid {{property.secondaryBorderColor}};
+    {{/if}}
+  }
+
+  .cta-triple-btn-secondary:hover {
+    background-color: {{property.secondaryBgHover}};
+    {{#if (eq property.buttonHoverAnimation "lift")}}
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px {{property.secondaryBg}}44;
+    {{/if}}
+    {{#if (eq property.buttonHoverAnimation "scale")}}
+    transform: scale(1.05);
+    {{/if}}
+    {{#if (eq property.buttonHoverAnimation "glow")}}
+    box-shadow: 0 0 20px {{property.secondaryBg}}88;
+    {{/if}}
+  }
+
+  /* 3번째 버튼 (Tertiary) */
+  .cta-triple-btn-tertiary {
+    background-color: {{property.tertiaryBg}};
+    color: {{property.tertiaryColor}};
+    {{#if property.tertiaryBorderEnabled}}
+    border: {{property.tertiaryBorderWidth}}px solid {{property.tertiaryBorderColor}};
+    {{/if}}
+  }
+
+  .cta-triple-btn-tertiary:hover {
+    background-color: {{property.tertiaryBgHover}};
+    {{#if (eq property.buttonHoverAnimation "lift")}}
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px {{property.tertiaryBg}}44;
+    {{/if}}
+    {{#if (eq property.buttonHoverAnimation "scale")}}
+    transform: scale(1.05);
+    {{/if}}
+    {{#if (eq property.buttonHoverAnimation "glow")}}
+    box-shadow: 0 0 20px {{property.tertiaryBg}}88;
+    {{/if}}
+  }
+
+  /* 하단 텍스트 */
+  .cta-triple-footer {
+    font-family: var(--font-family-body);
+    font-size: {{property.footerFontSizeDesktop}}px;
+    font-weight: {{property.footerFontWeight}};
+    line-height: {{property.footerLineHeight}};
+    color: {{property.footerColor}};
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .cta-triple-container.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+  .cta-triple-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .cta-triple-container.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+  }
+  .cta-triple-container.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "zoom-in")}}
+  .cta-triple-container.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s ease-out;
+  }
+  .cta-triple-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .cta-triple-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .cta-triple-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .cta-triple-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .cta-triple-buttons {
+      flex-direction: column;
+      gap: {{property.mobileButtonGap}}px;
+    }
+
+    .cta-triple-btn {
+      width: 100%;
+      font-size: {{property.buttonFontSizeMobile}}px;
+    }
+
+    .cta-triple-footer {
+      font-size: {{property.footerFontSizeMobile}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="cta-triple-section">
+    <div class="cta-triple-container {{#if property.scrollAnimation}}animate-on-scroll{{/if}}">
+      {{#if property.title}}
+        <h2 class="cta-triple-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="cta-triple-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="cta-triple-buttons">
+        {{#if property.showSecondaryButton}}
+          <a href="{{property.secondaryButtonLink}}" class="cta-triple-btn cta-triple-btn-secondary">
+            {{property.secondaryButtonText}}
+          </a>
+        {{/if}}
+
+        {{#if property.showTertiaryButton}}
+          <a href="{{property.tertiaryButtonLink}}" class="cta-triple-btn cta-triple-btn-tertiary">
+            {{property.tertiaryButtonText}}
+          </a>
+        {{/if}}
+
+        {{#if property.showPrimaryButton}}
+          <a href="{{property.primaryButtonLink}}" class="cta-triple-btn cta-triple-btn-primary">
+            {{property.primaryButtonText}}
+          </a>
+        {{/if}}
+      </div>
+
+      {{#if property.footerText}}
+        <p class="cta-triple-footer">{{property.footerText}}</p>
+      {{/if}}
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const ctaContainer = container.querySelector('.cta-triple-container');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, { threshold: 0.3 });
+
+      if (ctaContainer) {
+        observer.observe(ctaContainer);
+      }
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
