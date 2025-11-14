@@ -1,0 +1,262 @@
+<style>
+  .multi-button-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .multi-button-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  {{#if property.showTitle}}
+  .multi-button-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+  {{/if}}
+
+  /* 설명 */
+  {{#if property.showDescription}}
+  .multi-button-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.descriptionFontSizeDesktop}}px;
+    font-weight: {{property.descriptionFontWeight}};
+    line-height: {{property.descriptionLineHeight}};
+    color: {{property.descriptionColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.descriptionMarginBottom}}px;
+  }
+  {{/if}}
+
+  /* 버튼 그리드 */
+  .multi-button-grid {
+    display: grid;
+    grid-template-columns: repeat({{property.columnsDesktop}}, 1fr);
+    gap: {{property.buttonGap}}px;
+  }
+
+  /* 버튼 */
+  .multi-button-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-body);
+    font-size: {{property.buttonFontSizeDesktop}}px;
+    font-weight: {{property.buttonFontWeight}};
+    line-height: {{property.buttonLineHeight}};
+    border-radius: {{property.buttonRadius}}px;
+    padding: {{property.buttonPaddingY}}px {{property.buttonPaddingX}}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    {{#if property.buttonShadowEnabled}}
+    box-shadow: {{property.buttonShadowX}}px {{property.buttonShadowY}}px {{property.buttonShadowBlur}}px {{property.buttonShadowColor}};
+    {{/if}}
+  }
+
+  /* 버튼 아이콘 */
+  .multi-button-icon {
+    font-size: {{property.iconSize}}px;
+    margin-right: {{property.iconMarginRight}}px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .multi-button-icon img {
+    width: {{property.iconSize}}px;
+    height: {{property.iconSize}}px;
+    object-fit: contain;
+  }
+
+  /* 버튼 호버 효과 */
+  {{#if (eq property.buttonHoverEffect "darken")}}
+  .multi-button-item:hover {
+    filter: brightness(0.9);
+  }
+  {{/if}}
+
+  {{#if (eq property.buttonHoverEffect "lift")}}
+  .multi-button-item:hover {
+    transform: translateY(-4px);
+    {{#if property.buttonShadowEnabled}}
+    box-shadow: {{property.buttonShadowX}}px {{add property.buttonShadowY 4}}px {{add property.buttonShadowBlur 4}}px {{property.buttonShadowColor}};
+    {{/if}}
+  }
+  {{/if}}
+
+  {{#if (eq property.buttonHoverEffect "scale")}}
+  .multi-button-item:hover {
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .multi-button-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+  }
+  .multi-button-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .multi-button-item.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.6s ease-out;
+  }
+  .multi-button-item.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .multi-button-item.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease-out;
+  }
+  .multi-button-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .multi-button-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    {{#if property.showTitle}}
+    .multi-button-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+    {{/if}}
+
+    {{#if property.showDescription}}
+    .multi-button-description {
+      font-size: {{property.descriptionFontSizeMobile}}px;
+    }
+    {{/if}}
+
+    .multi-button-grid {
+      grid-template-columns: repeat({{property.columnsMobile}}, 1fr);
+    }
+
+    .multi-button-item {
+      font-size: {{property.buttonFontSizeMobile}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="multi-button-section">
+    <div class="multi-button-container">
+      <!-- 타이틀 -->
+      {{#if property.showTitle}}
+        {{#if property.title}}
+          <h2 class="multi-button-title">{{property.title}}</h2>
+        {{/if}}
+      {{/if}}
+
+      <!-- 설명 -->
+      {{#if property.showDescription}}
+        {{#if property.description}}
+          <p class="multi-button-description">{{property.description}}</p>
+        {{/if}}
+      {{/if}}
+
+      <!-- 버튼 그리드 -->
+      <div class="multi-button-grid">
+        {{#each property.buttons}}
+          <a
+            href="{{link}}"
+            class="multi-button-item {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}"
+            style="background-color: {{bgColor}}; color: {{textColor}};"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-index="{{@index}}">
+            {{#if icon}}
+              <span class="multi-button-icon">
+                {{#if (startsWith icon "http")}}
+                  <img src="{{icon}}" alt="{{text}}" loading="lazy">
+                {{else}}
+                  {{icon}}
+                {{/if}}
+              </span>
+            {{/if}}
+            <span class="multi-button-text">{{text}}</span>
+          </a>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  // Helper: 문자열 시작 확인
+  if (!Handlebars.helpers.startsWith) {
+    Handlebars.registerHelper('startsWith', function(str, prefix) {
+      if (!str || !prefix) return false;
+      return str.toString().startsWith(prefix.toString());
+    });
+  }
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const buttons = container.querySelectorAll('.multi-button-item');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index || 0);
+            const delay = index * context.property.staggerDelay;
+
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      buttons.forEach(button => {
+        observer.observe(button);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
