@@ -169,7 +169,7 @@
       "id": "title",
       "label": "제목 텍스트",
       "type": "TEXT",
-      "defaultValue": "숫자로 입증된 AI 전문성"
+      "defaultValue": "노바 파트너스를 신뢰합니다"
     },
     {
       "id": "titleFontSizeDesktop",
@@ -250,7 +250,7 @@
       "id": "subtitle",
       "label": "부제목 텍스트",
       "type": "TEXT",
-      "defaultValue": "글로벌 기업들이 신뢰하는 AI 파트너"
+      "defaultValue": "250개 이상의 기업과 함께 성장해왔습니다"
     },
     {
       "id": "subtitleFontSizeDesktop",
@@ -320,28 +320,28 @@
       "type": "LIST",
       "defaultValue": [
         {
-          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-ai-models.png",
-          "number": 200,
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-clients.png",
+          "number": 250,
           "suffix": "+",
-          "label": "AI 모델 구축"
+          "label": "기업 고객"
         },
         {
-          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-enterprise.png",
-          "number": 150,
-          "suffix": "+",
-          "label": "엔터프라이즈 고객"
-        },
-        {
-          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-experience.png",
-          "number": 15,
-          "suffix": "년",
-          "label": "AI 연구 개발"
-        },
-        {
-          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-accuracy.png",
-          "number": 97,
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-satisfaction.png",
+          "number": 98,
           "suffix": "%",
-          "label": "평균 정확도"
+          "label": "고객 만족도"
+        },
+        {
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-projects.png",
+          "number": 2400,
+          "suffix": "+",
+          "label": "구현 프로젝트"
+        },
+        {
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-global.png",
+          "number": 20,
+          "suffix": "개국",
+          "label": "글로벌 서비스"
         }
       ],
       "properties": [
