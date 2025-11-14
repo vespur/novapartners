@@ -1,0 +1,323 @@
+<style>
+  .stats-counter-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 배경 그라디언트 오버레이 */
+  {{#if property.gradientEnabled}}
+  .stats-counter-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient({{property.gradientAngle}}deg, {{property.gradientStart}}, {{property.gradientEnd}});
+    opacity: {{property.gradientOpacity}};
+    z-index: 0;
+  }
+  {{/if}}
+
+  .stats-counter-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* 제목 */
+  .stats-counter-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .stats-counter-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+  }
+
+  /* 통계 그리드 */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat({{property.columnsDesktop}}, 1fr);
+    gap: {{property.statsGapDesktop}}px;
+  }
+
+  /* 통계 아이템 */
+  .stats-item {
+    text-align: {{property.statsAlign}};
+    padding: {{property.itemPaddingY}}px {{property.itemPaddingX}}px;
+    background-color: {{property.itemBg}};
+    border-radius: {{property.itemRadius}}px;
+    {{#if property.itemBorderEnabled}}
+    border: {{property.itemBorderWidth}}px {{property.itemBorderStyle}} {{property.itemBorderColor}};
+    {{/if}}
+    {{#if property.itemShadowEnabled}}
+    box-shadow: {{property.itemShadowX}}px {{property.itemShadowY}}px {{property.itemShadowBlur}}px {{property.itemShadowColor}};
+    {{/if}}
+    transition: all 0.3s ease;
+  }
+
+  /* 통계 아이템 Hover */
+  {{#if (eq property.itemHoverAnimation "lift")}}
+  .stats-item:hover {
+    transform: translateY(-5px);
+    box-shadow: {{property.itemShadowX}}px {{add property.itemShadowY 8}}px {{add property.itemShadowBlur 10}}px {{property.itemShadowColor}};
+  }
+  {{/if}}
+
+  {{#if (eq property.itemHoverAnimation "scale")}}
+  .stats-item:hover {
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  {{#if (eq property.itemHoverAnimation "glow")}}
+  .stats-item:hover {
+    box-shadow: 0 0 25px {{property.numberColor}}33;
+  }
+  {{/if}}
+
+  /* 아이콘 */
+  .stats-icon {
+    width: {{property.iconSizeDesktop}}px;
+    height: {{property.iconSizeDesktop}}px;
+    margin: 0 auto {{property.iconMarginBottom}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{property.iconBg}};
+    border-radius: {{property.iconRadius}}px;
+  }
+
+  .stats-icon img {
+    max-width: 60%;
+    max-height: 60%;
+    object-fit: contain;
+  }
+
+  /* 숫자 */
+  .stats-number {
+    font-family: var(--font-family-heading);
+    font-size: {{property.numberFontSizeDesktop}}px;
+    font-weight: {{property.numberFontWeight}};
+    line-height: {{property.numberLineHeight}};
+    color: {{property.numberColor}};
+    margin-bottom: {{property.numberMarginBottom}}px;
+  }
+
+  .stats-suffix {
+    font-size: 0.7em;
+    margin-left: 2px;
+  }
+
+  /* 레이블 */
+  .stats-label {
+    font-family: var(--font-family-body);
+    font-size: {{property.labelFontSizeDesktop}}px;
+    font-weight: {{property.labelFontWeight}};
+    line-height: {{property.labelLineHeight}};
+    color: {{property.labelColor}};
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .stats-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  .stats-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .stats-item.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s ease-out;
+  }
+  .stats-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "slide-up")}}
+  .stats-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+  }
+  .stats-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .stats-counter-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .stats-counter-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .stats-counter-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat({{property.columnsMobile}}, 1fr);
+      gap: {{property.statsGapMobile}}px;
+    }
+
+    .stats-icon {
+      width: {{property.iconSizeMobile}}px;
+      height: {{property.iconSizeMobile}}px;
+    }
+
+    .stats-number {
+      font-size: {{property.numberFontSizeMobile}}px;
+    }
+
+    .stats-label {
+      font-size: {{property.labelFontSizeMobile}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="stats-counter-section">
+    <div class="stats-counter-container">
+      {{#if property.title}}
+        <h2 class="stats-counter-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="stats-counter-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="stats-grid">
+        {{#each property.stats}}
+          <div class="stats-item {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}" data-target="{{number}}">
+            {{#if icon}}
+              <div class="stats-icon">
+                <img src="{{icon}}" alt="{{label}}" loading="lazy">
+              </div>
+            {{/if}}
+
+            <div class="stats-number">
+              <span class="counter" data-target="{{number}}">0</span><span class="stats-suffix">{{suffix}}</span>
+            </div>
+
+            <div class="stats-label">{{label}}</div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function animateCounter(element, target, duration) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        element.textContent = Math.round(target);
+        clearInterval(timer);
+      } else {
+        element.textContent = Math.round(current);
+      }
+    }, 16);
+
+    return timer;
+  }
+
+  function init() {
+    const counters = container.querySelectorAll('.counter');
+    const animatedCounters = new Set();
+    let activeTimers = [];
+
+    // 스크롤 애니메이션 및 카운터 애니메이션
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          // 스크롤 애니메이션
+          if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+            const delay = index * (context.property.scrollAnimationDelay || 100);
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+
+          // 카운터 애니메이션
+          const counter = entry.target.querySelector('.counter');
+          if (counter && !animatedCounters.has(counter)) {
+            animatedCounters.add(counter);
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = context.property.counterDuration || 2000;
+
+            setTimeout(() => {
+              const timer = animateCounter(counter, target, duration);
+              activeTimers.push(timer);
+            }, index * 150);
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+
+    container.querySelectorAll('.stats-item').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Cleanup
+    if (bm.onDestroy) {
+      const oldDestroy = bm.onDestroy;
+      bm.onDestroy = () => {
+        observer.disconnect();
+        activeTimers.forEach(timer => clearInterval(timer));
+        activeTimers = [];
+        oldDestroy();
+      };
+    } else {
+      bm.onDestroy = () => {
+        observer.disconnect();
+        activeTimers.forEach(timer => clearInterval(timer));
+        activeTimers = [];
+      };
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>

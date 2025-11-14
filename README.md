@@ -4,9 +4,11 @@
 
 ---
 
-## 📦 포함된 블록 (3개)
+## 📦 포함된 블록 (7개)
 
-### 1. 글로벌 헤더 (Global Header)
+### 메인 페이지 블록
+
+#### 1. 글로벌 헤더 (Global Header)
 **파일:** `global-header.html`, `global-header.json`
 **크기:** 79KB + 69KB
 **설명:**
@@ -15,7 +17,7 @@
 - 하위 메뉴 지원 (드롭다운/아코디언)
 - 완벽한 디자인 커스터마이징
 
-### 2. 히어로 캐러셀 v3.3 (Hero Carousel)
+#### 2. 히어로 캐러셀 v3.3 (Hero Carousel)
 **파일:** `hero-carousel-v3-fixed.html`, `hero-carousel-v3-settings.json`
 **크기:** 39KB + 36KB
 **설명:**
@@ -24,7 +26,7 @@
 - 진행 게이지, 화살표 네비게이션
 - Glow 효과, 자동재생 제어
 
-### 3. 로고 배너 슬라이드 (Logo Banner Slide)
+#### 3. 로고 배너 슬라이드 (Logo Banner Slide)
 **파일:** `logo-banner-slide.html`, `logo-banner-slide.json`
 **크기:** 4.3KB + 7.5KB
 **설명:**
@@ -32,6 +34,44 @@
 - 템플릿 6세트 복제 방식 (끊김 없음)
 - 그레이스케일 + 호버 효과
 - 파트너/고객사 로고 표시용
+
+### 서브 페이지 콘텐츠 블록
+
+#### 4. 서비스 카드 그리드 (Service Cards Grid)
+**파일:** `service-cards-grid.html`, `service-cards-grid.json`
+**설명:**
+- 3단 그리드 반응형 카드 레이아웃
+- 아이콘 + 제목 + 설명 + 버튼 구조
+- 카드 호버 애니메이션 (lift, scale, glow)
+- 스크롤 애니메이션 (fade-up, scale-in, fade-left)
+- 완전한 데스크톱/모바일 분리
+
+#### 5. CTA 섹션 (Call-to-Action Section)
+**파일:** `cta-section.html`, `cta-section.json`
+**설명:**
+- 배경 이미지 + 그라디언트 오버레이 지원
+- 주 버튼 + 보조 버튼 이중 구성
+- 다양한 버튼 호버 애니메이션
+- 스크롤 인입 애니메이션
+- 중앙 정렬 콘텐츠 레이아웃
+
+#### 6. 텍스트+이미지 섹션 (Text+Image Section)
+**파일:** `text-image-section.html`, `text-image-section.json`
+**설명:**
+- 이미지 좌/우 위치 선택 가능
+- 제목 + 부제목 + 설명 + 버튼 구성
+- 이미지 호버 효과 (zoom, lift)
+- 슬라이드 애니메이션 (좌우 분리)
+- 수직 정렬 옵션 (상/중/하)
+
+#### 7. 통계 카운터 (Statistics Counter)
+**파일:** `stats-counter.html`, `stats-counter.json`
+**설명:**
+- 숫자 카운팅 애니메이션 효과
+- 4단 그리드 통계 표시
+- 아이콘 + 숫자 + 레이블 구조
+- 그라디언트 배경 오버레이 옵션
+- 아이템 호버 애니메이션
 
 ---
 
@@ -148,6 +188,16 @@
 ---
 
 ## 📖 버전 이력
+
+### v2.3 (2025-11-14)
+- 서브 페이지 콘텐츠 블록 4개 추가
+  - 서비스 카드 그리드 (3단 반응형)
+  - CTA 섹션 (배경 그라디언트 + 이중 버튼)
+  - 텍스트+이미지 섹션 (좌우 배치)
+  - 통계 카운터 (애니메이션 카운팅)
+- 모든 블록에 스크롤 애니메이션 적용
+- 호버 효과 다양화 (lift, scale, glow, zoom)
+- v2.2 가이드라인 완전 준수
 
 ### v2.2 (2025-01-13)
 - 디자인 자유도 극대화 원칙 추가

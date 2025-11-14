@@ -1,0 +1,317 @@
+<style>
+  .service-cards-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .service-cards-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 제목 */
+  .service-cards-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .service-cards-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+  }
+
+  /* 그리드 */
+  .service-cards-grid {
+    display: grid;
+    grid-template-columns: repeat({{property.columnsDesktop}}, 1fr);
+    gap: {{property.cardGapDesktop}}px;
+  }
+
+  /* 카드 */
+  .service-card {
+    background-color: {{property.cardBg}};
+    padding: {{property.cardPaddingY}}px {{property.cardPaddingX}}px;
+    border-radius: {{property.cardRadius}}px;
+    border: {{property.cardBorderWidth}}px {{property.cardBorderStyle}} {{property.cardBorderColor}};
+    box-shadow: {{property.cardShadowX}}px {{property.cardShadowY}}px {{property.cardShadowBlur}}px {{property.cardShadowColor}};
+    transition: all 0.3s ease;
+    text-align: {{property.cardContentAlign}};
+  }
+
+  /* 카드 Hover 애니메이션 */
+  {{#if (eq property.cardHoverAnimation "lift")}}
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: {{property.cardShadowX}}px {{add property.cardShadowY 8}}px {{add property.cardShadowBlur 10}}px {{property.cardShadowColor}};
+  }
+  {{/if}}
+
+  {{#if (eq property.cardHoverAnimation "scale")}}
+  .service-card:hover {
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  {{#if (eq property.cardHoverAnimation "glow")}}
+  .service-card:hover {
+    box-shadow: 0 0 20px {{property.cardBorderColor}}66;
+  }
+  {{/if}}
+
+  /* 아이콘 */
+  .service-card-icon {
+    width: {{property.iconSizeDesktop}}px;
+    height: {{property.iconSizeDesktop}}px;
+    margin: 0 auto {{property.iconMarginBottom}}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{property.iconBg}};
+    border-radius: {{property.iconRadius}}px;
+  }
+
+  .service-card-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* 카드 제목 */
+  .service-card-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.cardTitleFontSizeDesktop}}px;
+    font-weight: {{property.cardTitleFontWeight}};
+    line-height: {{property.cardTitleLineHeight}};
+    color: {{property.cardTitleColor}};
+    margin-bottom: {{property.cardTitleMarginBottom}}px;
+  }
+
+  /* 카드 설명 */
+  .service-card-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.cardDescFontSizeDesktop}}px;
+    font-weight: {{property.cardDescFontWeight}};
+    line-height: {{property.cardDescLineHeight}};
+    color: {{property.cardDescColor}};
+    margin-bottom: {{property.cardDescMarginBottom}}px;
+  }
+
+  /* 카드 버튼 */
+  .service-card-button {
+    display: inline-block;
+    padding: {{property.buttonPaddingY}}px {{property.buttonPaddingX}}px;
+    background-color: {{property.buttonBg}};
+    color: {{property.buttonTextColor}};
+    font-family: var(--font-family-body);
+    font-size: {{property.buttonFontSize}}px;
+    font-weight: {{property.buttonFontWeight}};
+    border-radius: {{property.buttonRadius}}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  {{#if (eq property.buttonHoverAnimation "lift")}}
+  .service-card-button:hover {
+    background-color: {{property.buttonHoverBg}};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  {{/if}}
+
+  {{#if (eq property.buttonHoverAnimation "scale")}}
+  .service-card-button:hover {
+    background-color: {{property.buttonHoverBg}};
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  {{#if (eq property.buttonHoverAnimation "none")}}
+  .service-card-button:hover {
+    background-color: {{property.buttonHoverBg}};
+  }
+  {{/if}}
+
+  .service-card-button:active {
+    transform: scale(0.98);
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .service-card.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  .service-card.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .service-card.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s ease-out;
+  }
+  .service-card.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-left")}}
+  .service-card.animate-on-scroll {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease-out;
+  }
+  .service-card.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .service-cards-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .service-cards-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .service-cards-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .service-cards-grid {
+      grid-template-columns: repeat({{property.columnsMobile}}, 1fr);
+      gap: {{property.cardGapMobile}}px;
+    }
+
+    .service-card-icon {
+      width: {{property.iconSizeMobile}}px;
+      height: {{property.iconSizeMobile}}px;
+    }
+
+    .service-card-title {
+      font-size: {{property.cardTitleFontSizeMobile}}px;
+    }
+
+    .service-card-description {
+      font-size: {{property.cardDescFontSizeMobile}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="service-cards-section">
+    <div class="service-cards-container">
+      {{#if property.title}}
+        <h2 class="service-cards-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="service-cards-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="service-cards-grid">
+        {{#each property.cards}}
+          <div class="service-card {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}">
+            {{#if icon}}
+              <div class="service-card-icon">
+                <img src="{{icon}}" alt="{{title}}" loading="lazy">
+              </div>
+            {{/if}}
+
+            <h3 class="service-card-title">{{title}}</h3>
+
+            {{#if description}}
+              <p class="service-card-description">{{description}}</p>
+            {{/if}}
+
+            {{#if buttonText}}
+              <a href="{{buttonLink.url}}"
+                 class="service-card-button"
+                 {{#if buttonLink.openNewTab}}target="_blank" rel="noopener"{{/if}}>
+                {{buttonText}}
+              </a>
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            const delay = index * (context.property.scrollAnimationDelay || 100);
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      container.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+
+    // 빈 링크 클릭 방지
+    bm.container.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (link) {
+        const href = link.getAttribute('href');
+        if (!href || href === '' || href === '#') {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    }, true);
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>

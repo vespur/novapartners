@@ -1,0 +1,309 @@
+<style>
+  .cta-section {
+    width: 100%;
+    position: relative;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+    overflow: hidden;
+  }
+
+  /* 배경 이미지 */
+  {{#if property.backgroundImage}}
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('{{property.backgroundImage}}');
+    background-size: cover;
+    background-position: center;
+    opacity: {{property.backgroundImageOpacity}};
+    z-index: 0;
+  }
+  {{/if}}
+
+  /* 그라디언트 오버레이 */
+  {{#if property.gradientEnabled}}
+  .cta-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient({{property.gradientAngle}}deg, {{property.gradientStart}}, {{property.gradientEnd}});
+    z-index: 1;
+  }
+  {{/if}}
+
+  .cta-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    text-align: {{property.contentAlign}};
+  }
+
+  /* 제목 */
+  .cta-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .cta-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 버튼 컨테이너 */
+  .cta-buttons {
+    display: flex;
+    gap: {{property.buttonGap}}px;
+    justify-content: {{property.contentAlign}};
+    flex-wrap: wrap;
+  }
+
+  /* 기본 버튼 */
+  .cta-button {
+    display: inline-block;
+    padding: {{property.primaryButtonPaddingY}}px {{property.primaryButtonPaddingX}}px;
+    background-color: {{property.primaryButtonBg}};
+    color: {{property.primaryButtonTextColor}};
+    font-family: var(--font-family-body);
+    font-size: {{property.primaryButtonFontSize}}px;
+    font-weight: {{property.primaryButtonFontWeight}};
+    line-height: 1.5;
+    border-radius: {{property.primaryButtonRadius}}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: {{property.primaryButtonBorderWidth}}px solid {{property.primaryButtonBorderColor}};
+    cursor: pointer;
+  }
+
+  /* 기본 버튼 Hover */
+  {{#if (eq property.primaryButtonHoverAnimation "lift")}}
+  .cta-button:hover {
+    background-color: {{property.primaryButtonHoverBg}};
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+  {{/if}}
+
+  {{#if (eq property.primaryButtonHoverAnimation "scale")}}
+  .cta-button:hover {
+    background-color: {{property.primaryButtonHoverBg}};
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  {{#if (eq property.primaryButtonHoverAnimation "glow")}}
+  .cta-button:hover {
+    background-color: {{property.primaryButtonHoverBg}};
+    box-shadow: 0 0 25px {{property.primaryButtonBg}}66;
+  }
+  {{/if}}
+
+  {{#if (eq property.primaryButtonHoverAnimation "none")}}
+  .cta-button:hover {
+    background-color: {{property.primaryButtonHoverBg}};
+  }
+  {{/if}}
+
+  .cta-button:active {
+    transform: scale(0.98);
+  }
+
+  /* 보조 버튼 */
+  .cta-button-secondary {
+    display: inline-block;
+    padding: {{property.secondaryButtonPaddingY}}px {{property.secondaryButtonPaddingX}}px;
+    background-color: {{property.secondaryButtonBg}};
+    color: {{property.secondaryButtonTextColor}};
+    font-family: var(--font-family-body);
+    font-size: {{property.secondaryButtonFontSize}}px;
+    font-weight: {{property.secondaryButtonFontWeight}};
+    line-height: 1.5;
+    border-radius: {{property.secondaryButtonRadius}}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: {{property.secondaryButtonBorderWidth}}px solid {{property.secondaryButtonBorderColor}};
+    cursor: pointer;
+  }
+
+  /* 보조 버튼 Hover */
+  {{#if (eq property.secondaryButtonHoverAnimation "lift")}}
+  .cta-button-secondary:hover {
+    background-color: {{property.secondaryButtonHoverBg}};
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+  {{/if}}
+
+  {{#if (eq property.secondaryButtonHoverAnimation "scale")}}
+  .cta-button-secondary:hover {
+    background-color: {{property.secondaryButtonHoverBg}};
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  {{#if (eq property.secondaryButtonHoverAnimation "none")}}
+  .cta-button-secondary:hover {
+    background-color: {{property.secondaryButtonHoverBg}};
+  }
+  {{/if}}
+
+  .cta-button-secondary:active {
+    transform: scale(0.98);
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .cta-container.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+  .cta-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .cta-container.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s ease-out;
+  }
+  .cta-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .cta-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .cta-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .cta-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .cta-buttons {
+      justify-content: center;
+      gap: {{property.mobileButtonGap}}px;
+    }
+
+    .cta-button,
+    .cta-button-secondary {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<template>
+  <section class="cta-section">
+    <div class="cta-container {{#if property.scrollAnimation}}animate-on-scroll{{/if}}">
+      {{#if property.title}}
+        <h2 class="cta-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="cta-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="cta-buttons">
+        {{#if property.primaryButtonText}}
+          <a href="{{property.primaryButtonLink.url}}"
+             class="cta-button"
+             {{#if property.primaryButtonLink.openNewTab}}target="_blank" rel="noopener"{{/if}}>
+            {{property.primaryButtonText}}
+          </a>
+        {{/if}}
+
+        {{#if property.secondaryButtonText}}
+          <a href="{{property.secondaryButtonLink.url}}"
+             class="cta-button-secondary"
+             {{#if property.secondaryButtonLink.openNewTab}}target="_blank" rel="noopener"{{/if}}>
+            {{property.secondaryButtonText}}
+          </a>
+        {{/if}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, { threshold: 0.3 });
+
+      const ctaContainer = container.querySelector('.animate-on-scroll');
+      if (ctaContainer) {
+        observer.observe(ctaContainer);
+      }
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+
+    // 빈 링크 클릭 방지
+    bm.container.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (link) {
+        const href = link.getAttribute('href');
+        if (!href || href === '' || href === '#') {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    }, true);
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>

@@ -1,0 +1,295 @@
+<style>
+  .text-image-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .text-image-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+    display: flex;
+    align-items: {{property.verticalAlign}};
+    gap: {{property.contentGapDesktop}}px;
+    {{#if (eq property.imagePosition "right")}}
+    flex-direction: row;
+    {{else}}
+    flex-direction: row-reverse;
+    {{/if}}
+  }
+
+  /* 텍스트 영역 */
+  .text-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .text-image-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  .text-image-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+  }
+
+  .text-image-description {
+    font-family: var(--font-family-body);
+    font-size: {{property.descriptionFontSizeDesktop}}px;
+    font-weight: {{property.descriptionFontWeight}};
+    line-height: {{property.descriptionLineHeight}};
+    color: {{property.descriptionColor}};
+    margin-bottom: {{property.descriptionMarginBottom}}px;
+    white-space: pre-line;
+  }
+
+  /* 버튼 */
+  .text-image-button {
+    display: inline-block;
+    padding: {{property.buttonPaddingY}}px {{property.buttonPaddingX}}px;
+    background-color: {{property.buttonBg}};
+    color: {{property.buttonTextColor}};
+    font-family: var(--font-family-body);
+    font-size: {{property.buttonFontSize}}px;
+    font-weight: {{property.buttonFontWeight}};
+    line-height: 1.5;
+    border-radius: {{property.buttonRadius}}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: {{property.buttonBorderWidth}}px solid {{property.buttonBorderColor}};
+    cursor: pointer;
+  }
+
+  {{#if (eq property.buttonHoverAnimation "lift")}}
+  .text-image-button:hover {
+    background-color: {{property.buttonHoverBg}};
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+  {{/if}}
+
+  {{#if (eq property.buttonHoverAnimation "scale")}}
+  .text-image-button:hover {
+    background-color: {{property.buttonHoverBg}};
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  {{#if (eq property.buttonHoverAnimation "glow")}}
+  .text-image-button:hover {
+    background-color: {{property.buttonHoverBg}};
+    box-shadow: 0 0 25px {{property.buttonBg}}66;
+  }
+  {{/if}}
+
+  {{#if (eq property.buttonHoverAnimation "none")}}
+  .text-image-button:hover {
+    background-color: {{property.buttonHoverBg}};
+  }
+  {{/if}}
+
+  .text-image-button:active {
+    transform: scale(0.98);
+  }
+
+  /* 이미지 영역 */
+  .image-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .text-image-img {
+    width: 100%;
+    height: auto;
+    border-radius: {{property.imageRadius}}px;
+    {{#if property.imageShadowEnabled}}
+    box-shadow: {{property.imageShadowX}}px {{property.imageShadowY}}px {{property.imageShadowBlur}}px {{property.imageShadowColor}};
+    {{/if}}
+    transition: all 0.3s ease;
+  }
+
+  {{#if (eq property.imageHoverAnimation "zoom")}}
+  .image-content:hover .text-image-img {
+    transform: scale(1.05);
+  }
+  {{/if}}
+
+  {{#if (eq property.imageHoverAnimation "lift")}}
+  .image-content:hover .text-image-img {
+    transform: translateY(-5px);
+    box-shadow: {{property.imageShadowX}}px {{add property.imageShadowY 10}}px {{add property.imageShadowBlur 15}}px {{property.imageShadowColor}};
+  }
+  {{/if}}
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .text-image-container.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+  .text-image-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "slide-left")}}
+  .text-image-container.animate-on-scroll .text-content {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.8s ease-out;
+  }
+  .text-image-container.animate-on-scroll .image-content {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s ease-out 0.2s;
+  }
+  .text-image-container.animate-on-scroll.animate-in .text-content,
+  .text-image-container.animate-on-scroll.animate-in .image-content {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .text-image-container.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s ease-out;
+  }
+  .text-image-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .text-image-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .text-image-container {
+      flex-direction: column !important;
+      gap: {{property.contentGapMobile}}px;
+    }
+
+    .text-image-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .text-image-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .text-image-description {
+      font-size: {{property.descriptionFontSizeMobile}}px;
+    }
+
+    .text-image-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<template>
+  <section class="text-image-section">
+    <div class="text-image-container {{#if property.scrollAnimation}}animate-on-scroll{{/if}}">
+      <div class="text-content">
+        {{#if property.title}}
+          <h2 class="text-image-title">{{property.title}}</h2>
+        {{/if}}
+
+        {{#if property.subtitle}}
+          <p class="text-image-subtitle">{{property.subtitle}}</p>
+        {{/if}}
+
+        {{#if property.description}}
+          <p class="text-image-description">{{property.description}}</p>
+        {{/if}}
+
+        {{#if property.buttonText}}
+          <a href="{{property.buttonLink.url}}"
+             class="text-image-button"
+             {{#if property.buttonLink.openNewTab}}target="_blank" rel="noopener"{{/if}}>
+            {{property.buttonText}}
+          </a>
+        {{/if}}
+      </div>
+
+      <div class="image-content">
+        {{#if property.image}}
+          <img src="{{property.image}}"
+               alt="{{property.imageAlt}}"
+               class="text-image-img"
+               loading="lazy">
+        {{/if}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, { threshold: 0.3 });
+
+      const animateContainer = container.querySelector('.animate-on-scroll');
+      if (animateContainer) {
+        observer.observe(animateContainer);
+      }
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+
+    // 빈 링크 클릭 방지
+    bm.container.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (link) {
+        const href = link.getAttribute('href');
+        if (!href || href === '' || href === '#') {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    }, true);
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>

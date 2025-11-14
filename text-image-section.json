@@ -1,0 +1,538 @@
+{
+  "name": "텍스트+이미지 섹션",
+  "description": "텍스트와 이미지를 조합한 콘텐츠 섹션입니다. 이미지 위치를 좌/우로 선택하실 수 있으며, 제목, 부제목, 설명, 버튼을 모두 커스터마이징할 수 있습니다.",
+  "properties": [
+    {
+      "type": "TITLE",
+      "label": "📐 레이아웃 설정"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "type": "RANGE",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "defaultValue": 1200
+    },
+    {
+      "id": "imagePosition",
+      "label": "이미지 위치",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "오른쪽", "value": "right" }
+      ],
+      "defaultValue": "right"
+    },
+    {
+      "id": "verticalAlign",
+      "label": "수직 정렬",
+      "type": "RADIO",
+      "options": [
+        { "label": "상단", "value": "flex-start" },
+        { "label": "중앙", "value": "center" },
+        { "label": "하단", "value": "flex-end" }
+      ],
+      "defaultValue": "center"
+    },
+    {
+      "id": "contentGapDesktop",
+      "label": "텍스트-이미지 간격 (데스크톱)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "defaultValue": 60
+    },
+    {
+      "id": "contentGapMobile",
+      "label": "텍스트-이미지 간격 (모바일)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "defaultValue": 40
+    },
+
+    {
+      "type": "TITLE",
+      "label": "🎨 배경 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#ffffff"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백",
+      "type": "RANGE",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "defaultValue": 80
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "defaultValue": 40
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "RANGE",
+      "min": 30,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "defaultValue": 60
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "RANGE",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 20
+    },
+
+    {
+      "type": "TITLE",
+      "label": "📝 제목 설정"
+    },
+    {
+      "id": "title",
+      "label": "제목 텍스트",
+      "type": "TEXT",
+      "defaultValue": "우리의 강점"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 42
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 28
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "가늘게 (300)", "value": "300" },
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" },
+        { "label": "가장 굵게 (800)", "value": "800" }
+      ],
+      "defaultValue": "700"
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.0,
+      "step": 0.1,
+      "defaultValue": 1.3
+    },
+    {
+      "id": "titleColor",
+      "label": "제목 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#1a1a1a"
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "제목 하단 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 20
+    },
+
+    {
+      "type": "TITLE",
+      "label": "📌 부제목 설정"
+    },
+    {
+      "id": "subtitle",
+      "label": "부제목 텍스트",
+      "type": "TEXT",
+      "defaultValue": "차별화된 경쟁력"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 24
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 18
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "가늘게 (300)", "value": "300" },
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ],
+      "defaultValue": "600"
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.0,
+      "step": 0.1,
+      "defaultValue": 1.4
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#333333"
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 하단 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 25
+    },
+
+    {
+      "type": "TITLE",
+      "label": "📄 설명 설정"
+    },
+    {
+      "id": "description",
+      "label": "설명 텍스트",
+      "type": "TEXTAREA",
+      "defaultValue": "우리는 고객의 성공을 최우선으로 생각합니다. 전문적인 기술력과 풍부한 경험을 바탕으로 최상의 서비스를 제공하며, 고객과 함께 성장하는 파트너가 되겠습니다.\n\n지속적인 혁신과 개선을 통해 업계 최고 수준의 솔루션을 제공하고 있습니다."
+    },
+    {
+      "id": "descriptionFontSizeDesktop",
+      "label": "설명 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 18
+    },
+    {
+      "id": "descriptionFontSizeMobile",
+      "label": "설명 크기 (모바일)",
+      "type": "RANGE",
+      "min": 13,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 16
+    },
+    {
+      "id": "descriptionFontWeight",
+      "label": "설명 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "가늘게 (300)", "value": "300" },
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" }
+      ],
+      "defaultValue": "400"
+    },
+    {
+      "id": "descriptionLineHeight",
+      "label": "설명 줄 간격",
+      "type": "RANGE",
+      "min": 1.2,
+      "max": 2.5,
+      "step": 0.1,
+      "defaultValue": 1.7
+    },
+    {
+      "id": "descriptionColor",
+      "label": "설명 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#666666"
+    },
+    {
+      "id": "descriptionMarginBottom",
+      "label": "설명 하단 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 30
+    },
+
+    {
+      "type": "TITLE",
+      "label": "🔘 버튼 설정"
+    },
+    {
+      "id": "buttonText",
+      "label": "버튼 텍스트",
+      "type": "TEXT",
+      "defaultValue": "자세히 알아보기"
+    },
+    {
+      "id": "buttonLink",
+      "label": "버튼 링크",
+      "type": "LINK",
+      "defaultValue": {
+        "url": "#",
+        "openNewTab": false
+      }
+    },
+    {
+      "id": "buttonFontSize",
+      "label": "버튼 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 16
+    },
+    {
+      "id": "buttonFontWeight",
+      "label": "버튼 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ],
+      "defaultValue": "600"
+    },
+    {
+      "id": "buttonPaddingY",
+      "label": "버튼 상하 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 14
+    },
+    {
+      "id": "buttonPaddingX",
+      "label": "버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 32
+    },
+    {
+      "id": "buttonRadius",
+      "label": "버튼 모서리 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 6
+    },
+    {
+      "id": "buttonBg",
+      "label": "버튼 배경색",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#007bff"
+    },
+    {
+      "id": "buttonTextColor",
+      "label": "버튼 글자 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#ffffff"
+    },
+    {
+      "id": "buttonBorderWidth",
+      "label": "버튼 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 0
+    },
+    {
+      "id": "buttonBorderColor",
+      "label": "버튼 테두리 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#007bff"
+    },
+    {
+      "id": "buttonHoverBg",
+      "label": "버튼 호버 배경색",
+      "type": "COLOR_PICKER",
+      "defaultValue": "#0056b3"
+    },
+    {
+      "id": "buttonHoverAnimation",
+      "label": "버튼 호버 애니메이션",
+      "type": "RADIO",
+      "options": [
+        { "label": "없음", "value": "none" },
+        { "label": "살짝 올라감", "value": "lift" },
+        { "label": "크기 확대", "value": "scale" },
+        { "label": "빛나는 효과", "value": "glow" }
+      ],
+      "defaultValue": "lift"
+    },
+
+    {
+      "type": "TITLE",
+      "label": "🖼️ 이미지 설정"
+    },
+    {
+      "id": "image",
+      "label": "이미지",
+      "type": "IMAGE",
+      "defaultValue": "https://via.placeholder.com/600x400"
+    },
+    {
+      "id": "imageAlt",
+      "label": "이미지 대체 텍스트",
+      "type": "TEXT",
+      "defaultValue": "섹션 이미지"
+    },
+    {
+      "id": "imageRadius",
+      "label": "이미지 모서리 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "defaultValue": 8
+    },
+    {
+      "id": "imageShadowEnabled",
+      "label": "이미지 그림자 활성화",
+      "type": "TOGGLE",
+      "defaultValue": true
+    },
+    {
+      "id": "imageShadowX",
+      "label": "그림자 X 위치",
+      "type": "RANGE",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 0,
+      "isVisible": "{{property.imageShadowEnabled}}"
+    },
+    {
+      "id": "imageShadowY",
+      "label": "그림자 Y 위치",
+      "type": "RANGE",
+      "min": -20,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "defaultValue": 10,
+      "isVisible": "{{property.imageShadowEnabled}}"
+    },
+    {
+      "id": "imageShadowBlur",
+      "label": "그림자 흐림 정도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "defaultValue": 30,
+      "isVisible": "{{property.imageShadowEnabled}}"
+    },
+    {
+      "id": "imageShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR_PICKER",
+      "defaultValue": "rgba(0,0,0,0.15)",
+      "isVisible": "{{property.imageShadowEnabled}}"
+    },
+    {
+      "id": "imageHoverAnimation",
+      "label": "이미지 호버 애니메이션",
+      "type": "RADIO",
+      "options": [
+        { "label": "없음", "value": "none" },
+        { "label": "확대", "value": "zoom" },
+        { "label": "살짝 올라감", "value": "lift" }
+      ],
+      "defaultValue": "zoom"
+    },
+
+    {
+      "type": "TITLE",
+      "label": "✨ 애니메이션 설정"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 애니메이션",
+      "type": "RADIO",
+      "options": [
+        { "label": "없음", "value": "none" },
+        { "label": "아래에서 위로", "value": "fade-up" },
+        { "label": "좌우에서 슬라이드", "value": "slide-left" },
+        { "label": "크기 확대", "value": "scale-in" }
+      ],
+      "defaultValue": "fade-up"
+    }
+  ]
+}

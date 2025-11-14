@@ -1,0 +1,568 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 CTA 내용"
+    },
+    {
+      "id": "title",
+      "label": "제목",
+      "type": "TEXT",
+      "placeholder": "지금 바로 시작하세요",
+      "description": "CTA 섹션의 제목을 입력해주세요."
+    },
+    {
+      "id": "subtitle",
+      "label": "부제목",
+      "type": "TEXTAREA",
+      "placeholder": "간단한 몇 단계만으로 시작할 수 있습니다",
+      "description": "제목 아래에 표시될 부제목을 입력해주세요. 비워두셔도 됩니다."
+    },
+    {
+      "type": "TITLE",
+      "content": "🔘 기본 버튼"
+    },
+    {
+      "id": "primaryButtonText",
+      "label": "기본 버튼 텍스트",
+      "type": "TEXT",
+      "placeholder": "무료로 시작하기",
+      "description": "기본 행동 유도 버튼의 텍스트를 입력해주세요."
+    },
+    {
+      "id": "primaryButtonLink",
+      "label": "기본 버튼 링크",
+      "type": "LINK",
+      "isVisible": "property.primaryButtonText"
+    },
+    {
+      "type": "TITLE",
+      "content": "⭕ 보조 버튼 (선택)"
+    },
+    {
+      "id": "secondaryButtonText",
+      "label": "보조 버튼 텍스트",
+      "type": "TEXT",
+      "placeholder": "더 알아보기",
+      "description": "보조 버튼을 표시하려면 텍스트를 입력해주세요. 비워두시면 표시되지 않습니다."
+    },
+    {
+      "id": "secondaryButtonLink",
+      "label": "보조 버튼 링크",
+      "type": "LINK",
+      "isVisible": "property.secondaryButtonText"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 배경 디자인"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR_PICKER",
+      "description": "섹션 전체 배경색을 설정해주세요."
+    },
+    {
+      "id": "backgroundImage",
+      "label": "배경 이미지 (선택)",
+      "type": "IMAGE_PICKER",
+      "description": "배경 이미지를 추가하려면 선택해주세요. 비워두시면 배경색만 사용됩니다."
+    },
+    {
+      "id": "backgroundImageOpacity",
+      "label": "배경 이미지 투명도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "description": "배경 이미지의 투명도를 조절해주세요. 1.0은 완전 불투명입니다.",
+      "isVisible": "property.backgroundImage"
+    },
+    {
+      "id": "gradientEnabled",
+      "label": "그라디언트 오버레이 사용",
+      "type": "CHECKBOX",
+      "description": "체크하시면 배경에 그라디언트 효과가 추가됩니다."
+    },
+    {
+      "id": "gradientStart",
+      "label": "그라디언트 시작 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.gradientEnabled === true"
+    },
+    {
+      "id": "gradientEnd",
+      "label": "그라디언트 끝 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.gradientEnabled === true"
+    },
+    {
+      "id": "gradientAngle",
+      "label": "그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 45,
+      "unit": "deg",
+      "description": "그라디언트의 방향을 조절해주세요.",
+      "isVisible": "property.gradientEnabled === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "📐 레이아웃"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백 (데스크톱)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백 (데스크톱)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨텐츠 최대 너비",
+      "type": "RANGE",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px"
+    },
+    {
+      "id": "contentAlign",
+      "label": "컨텐츠 정렬",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "left"},
+        {"label": "가운데", "value": "center"},
+        {"label": "오른쪽", "value": "right"}
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "✏️ 제목 스타일"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 28,
+      "max": 80,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.0,
+      "step": 0.1
+    },
+    {
+      "id": "titleColor",
+      "label": "제목 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "제목 아래 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "📄 부제목 스타일"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 36,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.5,
+      "step": 0.1
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "subtitleMaxWidth",
+      "label": "부제목 최대 너비",
+      "type": "RANGE",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "description": "부제목의 최대 너비를 제한하여 가독성을 높일 수 있습니다."
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 아래 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "🔘 기본 버튼 스타일"
+    },
+    {
+      "id": "primaryButtonBg",
+      "label": "기본 버튼 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "primaryButtonHoverBg",
+      "label": "기본 버튼 Hover 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "primaryButtonTextColor",
+      "label": "기본 버튼 텍스트 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "primaryButtonFontSize",
+      "label": "기본 버튼 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "primaryButtonFontWeight",
+      "label": "기본 버튼 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "primaryButtonPaddingY",
+      "label": "기본 버튼 상하 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "primaryButtonPaddingX",
+      "label": "기본 버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "id": "primaryButtonRadius",
+      "label": "기본 버튼 모서리 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "primaryButtonBorderWidth",
+      "label": "기본 버튼 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "primaryButtonBorderColor",
+      "label": "기본 버튼 테두리 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "type": "TITLE",
+      "content": "⭕ 보조 버튼 스타일"
+    },
+    {
+      "id": "secondaryButtonBg",
+      "label": "보조 버튼 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "secondaryButtonHoverBg",
+      "label": "보조 버튼 Hover 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "secondaryButtonTextColor",
+      "label": "보조 버튼 텍스트 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "secondaryButtonFontSize",
+      "label": "보조 버튼 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "secondaryButtonFontWeight",
+      "label": "보조 버튼 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "secondaryButtonPaddingY",
+      "label": "보조 버튼 상하 여백",
+      "type": "RANGE",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "secondaryButtonPaddingX",
+      "label": "보조 버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "id": "secondaryButtonRadius",
+      "label": "보조 버튼 모서리 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "secondaryButtonBorderWidth",
+      "label": "보조 버튼 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "secondaryButtonBorderColor",
+      "label": "보조 버튼 테두리 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "type": "TITLE",
+      "content": "📏 버튼 간격"
+    },
+    {
+      "id": "buttonGap",
+      "label": "버튼 간격 (데스크톱)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "description": "두 버튼 사이의 간격을 조절해주세요."
+    },
+    {
+      "id": "mobileButtonGap",
+      "label": "버튼 간격 (모바일)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎬 애니메이션 효과"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 등장 효과",
+      "type": "RADIO",
+      "options": [
+        {"label": "없음", "value": "none"},
+        {"label": "페이드업 (아래→위)", "value": "fade-up"},
+        {"label": "스케일 인 (확대)", "value": "scale-in"}
+      ],
+      "description": "CTA 섹션이 화면에 나타날 때의 애니메이션을 선택해주세요."
+    },
+    {
+      "id": "primaryButtonHoverAnimation",
+      "label": "기본 버튼 Hover 효과",
+      "type": "RADIO",
+      "options": [
+        {"label": "없음", "value": "none"},
+        {"label": "살짝 위로", "value": "lift"},
+        {"label": "확대", "value": "scale"},
+        {"label": "글로우", "value": "glow"}
+      ]
+    },
+    {
+      "id": "secondaryButtonHoverAnimation",
+      "label": "보조 버튼 Hover 효과",
+      "type": "RADIO",
+      "options": [
+        {"label": "없음", "value": "none"},
+        {"label": "살짝 위로", "value": "lift"},
+        {"label": "확대", "value": "scale"}
+      ]
+    }
+  ],
+  "property": {
+    "title": "지금 바로 시작하세요",
+    "subtitle": "간단한 몇 단계만으로 시작할 수 있습니다. 신용카드 필요 없이 무료로 체험해보세요.",
+    "primaryButtonText": "무료로 시작하기",
+    "primaryButtonLink": {"url": "#", "openNewTab": false},
+    "secondaryButtonText": "더 알아보기",
+    "secondaryButtonLink": {"url": "#", "openNewTab": false},
+    "backgroundColor": "#1F2937FF",
+    "backgroundImage": "",
+    "backgroundImageOpacity": 0.5,
+    "gradientEnabled": true,
+    "gradientStart": "#1F2937FF",
+    "gradientEnd": "#3B82F6FF",
+    "gradientAngle": 135,
+    "sectionPaddingY": 100,
+    "sectionPaddingX": 24,
+    "mobileSectionPaddingY": 80,
+    "mobileSectionPaddingX": 16,
+    "containerMaxWidth": 900,
+    "contentAlign": "center",
+    "titleFontSizeDesktop": 48,
+    "titleFontSizeMobile": 32,
+    "titleFontWeight": "700",
+    "titleLineHeight": 1.2,
+    "titleColor": "#FFFFFFFF",
+    "titleMarginBottom": 20,
+    "subtitleFontSizeDesktop": 20,
+    "subtitleFontSizeMobile": 16,
+    "subtitleFontWeight": "400",
+    "subtitleLineHeight": 1.6,
+    "subtitleColor": "#F3F4F6FF",
+    "subtitleMaxWidth": 700,
+    "subtitleMarginBottom": 40,
+    "primaryButtonBg": "#FFFFFFFF",
+    "primaryButtonHoverBg": "#F3F4F6FF",
+    "primaryButtonTextColor": "#1F2937FF",
+    "primaryButtonFontSize": 16,
+    "primaryButtonFontWeight": "600",
+    "primaryButtonPaddingY": 16,
+    "primaryButtonPaddingX": 40,
+    "primaryButtonRadius": 8,
+    "primaryButtonBorderWidth": 0,
+    "primaryButtonBorderColor": "#FFFFFFFF",
+    "secondaryButtonBg": "transparent",
+    "secondaryButtonHoverBg": "#FFFFFF1A",
+    "secondaryButtonTextColor": "#FFFFFFFF",
+    "secondaryButtonFontSize": 16,
+    "secondaryButtonFontWeight": "500",
+    "secondaryButtonPaddingY": 16,
+    "secondaryButtonPaddingX": 40,
+    "secondaryButtonRadius": 8,
+    "secondaryButtonBorderWidth": 2,
+    "secondaryButtonBorderColor": "#FFFFFFFF",
+    "buttonGap": 20,
+    "mobileButtonGap": 15,
+    "scrollAnimation": "fade-up",
+    "primaryButtonHoverAnimation": "lift",
+    "secondaryButtonHoverAnimation": "lift"
+  }
+}

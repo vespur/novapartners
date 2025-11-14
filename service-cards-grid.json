@@ -1,0 +1,749 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "📝 섹션 제목 및 부제목"
+    },
+    {
+      "id": "title",
+      "label": "섹션 제목",
+      "type": "TEXT",
+      "placeholder": "우리의 서비스",
+      "description": "섹션의 메인 제목을 입력해주세요. 비워두시면 표시되지 않습니다."
+    },
+    {
+      "id": "subtitle",
+      "label": "섹션 부제목",
+      "type": "TEXTAREA",
+      "placeholder": "고객에게 최고의 가치를 제공합니다",
+      "description": "제목 아래에 표시될 부제목을 입력해주세요. 비워두셔도 됩니다."
+    },
+    {
+      "type": "TITLE",
+      "content": "🎴 서비스 카드 목록"
+    },
+    {
+      "id": "cards",
+      "label": "카드 목록",
+      "type": "LIST",
+      "maxCount": 12,
+      "description": "서비스 카드를 추가해주세요. 최대 12개까지 추가 가능합니다.",
+      "settings": [
+        {
+          "id": "icon",
+          "label": "아이콘 이미지",
+          "type": "IMAGE_PICKER",
+          "description": "카드에 표시될 아이콘 이미지를 선택해주세요."
+        },
+        {
+          "id": "title",
+          "label": "카드 제목",
+          "type": "TEXT",
+          "placeholder": "웹 개발"
+        },
+        {
+          "id": "description",
+          "label": "카드 설명",
+          "type": "TEXTAREA",
+          "placeholder": "전문적인 웹사이트와 웹 애플리케이션을 개발합니다."
+        },
+        {
+          "id": "buttonText",
+          "label": "버튼 텍스트 (선택)",
+          "type": "TEXT",
+          "placeholder": "자세히 보기",
+          "description": "버튼을 표시하려면 텍스트를 입력해주세요."
+        },
+        {
+          "id": "buttonLink",
+          "label": "버튼 링크",
+          "type": "LINK",
+          "isVisible": "property.cards[index].buttonText"
+        }
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 디자인 - 섹션"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR_PICKER",
+      "description": "섹션 전체 배경색을 설정해주세요."
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백 (데스크톱)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백 (데스크톱)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨텐츠 최대 너비",
+      "type": "RANGE",
+      "min": 960,
+      "max": 1920,
+      "step": 20,
+      "unit": "px",
+      "description": "컨텐츠의 최대 너비를 설정해주세요."
+    },
+    {
+      "type": "TITLE",
+      "content": "📐 그리드 레이아웃"
+    },
+    {
+      "id": "columnsDesktop",
+      "label": "컬럼 수 (데스크톱)",
+      "type": "RANGE",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "description": "데스크톱에서 한 줄에 표시될 카드 개수를 설정해주세요."
+    },
+    {
+      "id": "columnsMobile",
+      "label": "컬럼 수 (모바일)",
+      "type": "RANGE",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "description": "모바일에서 한 줄에 표시될 카드 개수를 설정해주세요."
+    },
+    {
+      "id": "cardGapDesktop",
+      "label": "카드 간격 (데스크톱)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "cardGapMobile",
+      "label": "카드 간격 (모바일)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "✏️ 제목 스타일"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.5,
+      "step": 0.1,
+      "description": "제목의 줄 간격을 조절해주세요. 1.5가 기본값입니다."
+    },
+    {
+      "id": "titleColor",
+      "label": "제목 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "titleAlign",
+      "label": "제목 정렬",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "left"},
+        {"label": "가운데", "value": "center"},
+        {"label": "오른쪽", "value": "right"}
+      ]
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "제목 아래 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "📄 부제목 스타일"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.5,
+      "step": 0.1,
+      "description": "부제목의 줄 간격을 조절해주세요."
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 아래 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎴 카드 스타일"
+    },
+    {
+      "id": "cardBg",
+      "label": "카드 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "cardPaddingY",
+      "label": "카드 상하 안쪽 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "cardPaddingX",
+      "label": "카드 좌우 안쪽 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "cardRadius",
+      "label": "카드 모서리 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "cardBorderWidth",
+      "label": "카드 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "cardBorderStyle",
+      "label": "카드 테두리 스타일",
+      "type": "RADIO",
+      "options": [
+        {"label": "실선", "value": "solid"},
+        {"label": "점선", "value": "dashed"},
+        {"label": "파선", "value": "dotted"}
+      ]
+    },
+    {
+      "id": "cardBorderColor",
+      "label": "카드 테두리 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "cardShadowX",
+      "label": "카드 그림자 X 위치",
+      "type": "RANGE",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "cardShadowY",
+      "label": "카드 그림자 Y 위치",
+      "type": "RANGE",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "cardShadowBlur",
+      "label": "카드 그림자 흐림",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "cardShadowColor",
+      "label": "카드 그림자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "cardContentAlign",
+      "label": "카드 내용 정렬",
+      "type": "RADIO",
+      "options": [
+        {"label": "왼쪽", "value": "left"},
+        {"label": "가운데", "value": "center"},
+        {"label": "오른쪽", "value": "right"}
+      ]
+    },
+    {
+      "type": "TITLE",
+      "content": "🎯 아이콘 스타일"
+    },
+    {
+      "id": "iconSizeDesktop",
+      "label": "아이콘 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 40,
+      "max": 150,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "iconSizeMobile",
+      "label": "아이콘 크기 (모바일)",
+      "type": "RANGE",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "iconBg",
+      "label": "아이콘 배경색",
+      "type": "COLOR_PICKER",
+      "description": "아이콘을 감싸는 배경색입니다. 투명하게 하려면 투명도를 0으로 설정하세요."
+    },
+    {
+      "id": "iconRadius",
+      "label": "아이콘 배경 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "description": "100%로 설정하면 원형이 됩니다."
+    },
+    {
+      "id": "iconMarginBottom",
+      "label": "아이콘 아래 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "📝 카드 제목 스타일"
+    },
+    {
+      "id": "cardTitleFontSizeDesktop",
+      "label": "카드 제목 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "cardTitleFontSizeMobile",
+      "label": "카드 제목 크기 (모바일)",
+      "type": "RANGE",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "cardTitleFontWeight",
+      "label": "카드 제목 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "cardTitleLineHeight",
+      "label": "카드 제목 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.5,
+      "step": 0.1
+    },
+    {
+      "id": "cardTitleColor",
+      "label": "카드 제목 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "cardTitleMarginBottom",
+      "label": "카드 제목 아래 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "📄 카드 설명 스타일"
+    },
+    {
+      "id": "cardDescFontSizeDesktop",
+      "label": "카드 설명 크기 (데스크톱)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 28,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "cardDescFontSizeMobile",
+      "label": "카드 설명 크기 (모바일)",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "cardDescFontWeight",
+      "label": "카드 설명 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "cardDescLineHeight",
+      "label": "카드 설명 줄 간격",
+      "type": "RANGE",
+      "min": 1.0,
+      "max": 2.5,
+      "step": 0.1
+    },
+    {
+      "id": "cardDescColor",
+      "label": "카드 설명 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "cardDescMarginBottom",
+      "label": "카드 설명 아래 여백",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "🔘 버튼 스타일"
+    },
+    {
+      "id": "buttonBg",
+      "label": "버튼 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "buttonHoverBg",
+      "label": "버튼 Hover 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "buttonTextColor",
+      "label": "버튼 텍스트 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "buttonFontSize",
+      "label": "버튼 글자 크기",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "buttonFontWeight",
+      "label": "버튼 글자 굵기",
+      "type": "RADIO",
+      "options": [
+        {"label": "일반 (400)", "value": "400"},
+        {"label": "중간 (500)", "value": "500"},
+        {"label": "Semi Bold (600)", "value": "600"},
+        {"label": "Bold (700)", "value": "700"}
+      ]
+    },
+    {
+      "id": "buttonPaddingY",
+      "label": "버튼 상하 여백",
+      "type": "RANGE",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "buttonPaddingX",
+      "label": "버튼 좌우 여백",
+      "type": "RANGE",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "buttonRadius",
+      "label": "버튼 모서리 둥글기",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎬 애니메이션 효과"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 등장 효과",
+      "type": "RADIO",
+      "options": [
+        {"label": "없음", "value": "none"},
+        {"label": "페이드업 (아래→위)", "value": "fade-up"},
+        {"label": "페이드 좌측", "value": "fade-left"},
+        {"label": "스케일 인 (확대)", "value": "scale-in"}
+      ],
+      "description": "카드가 화면에 나타날 때의 애니메이션을 선택해주세요."
+    },
+    {
+      "id": "scrollAnimationDelay",
+      "label": "순차 등장 딜레이",
+      "type": "RANGE",
+      "min": 0,
+      "max": 500,
+      "step": 50,
+      "unit": "ms",
+      "description": "카드가 순차적으로 등장할 때 간격을 조절해주세요.",
+      "isVisible": "property.scrollAnimation !== 'none'"
+    },
+    {
+      "id": "cardHoverAnimation",
+      "label": "카드 Hover 효과",
+      "type": "RADIO",
+      "options": [
+        {"label": "없음", "value": "none"},
+        {"label": "살짝 위로", "value": "lift"},
+        {"label": "확대", "value": "scale"},
+        {"label": "글로우", "value": "glow"}
+      ],
+      "description": "마우스를 카드에 올렸을 때의 효과를 선택해주세요."
+    },
+    {
+      "id": "buttonHoverAnimation",
+      "label": "버튼 Hover 효과",
+      "type": "RADIO",
+      "options": [
+        {"label": "없음", "value": "none"},
+        {"label": "살짝 위로", "value": "lift"},
+        {"label": "확대", "value": "scale"}
+      ]
+    }
+  ],
+  "property": {
+    "title": "우리의 서비스",
+    "subtitle": "고객에게 최고의 가치를 제공하는 전문 서비스",
+    "cards": [
+      {
+        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-web.png",
+        "title": "웹 개발",
+        "description": "최신 기술을 활용한 반응형 웹사이트와 웹 애플리케이션을 개발합니다.",
+        "buttonText": "자세히 보기",
+        "buttonLink": {"url": "#", "openNewTab": false}
+      },
+      {
+        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-mobile.png",
+        "title": "모바일 앱",
+        "description": "사용자 경험을 최우선으로 하는 iOS 및 Android 앱을 제작합니다.",
+        "buttonText": "자세히 보기",
+        "buttonLink": {"url": "#", "openNewTab": false}
+      },
+      {
+        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-design.png",
+        "title": "UI/UX 디자인",
+        "description": "사용자 중심의 직관적이고 아름다운 인터페이스를 디자인합니다.",
+        "buttonText": "자세히 보기",
+        "buttonLink": {"url": "#", "openNewTab": false}
+      }
+    ],
+    "backgroundColor": "#F9FAFBFF",
+    "sectionPaddingY": 80,
+    "sectionPaddingX": 24,
+    "mobileSectionPaddingY": 60,
+    "mobileSectionPaddingX": 16,
+    "containerMaxWidth": 1200,
+    "columnsDesktop": 3,
+    "columnsMobile": 1,
+    "cardGapDesktop": 30,
+    "cardGapMobile": 20,
+    "titleFontSizeDesktop": 36,
+    "titleFontSizeMobile": 24,
+    "titleFontWeight": "700",
+    "titleLineHeight": 1.3,
+    "titleColor": "#1F2937FF",
+    "titleAlign": "center",
+    "titleMarginBottom": 20,
+    "subtitleFontSizeDesktop": 18,
+    "subtitleFontSizeMobile": 16,
+    "subtitleFontWeight": "400",
+    "subtitleLineHeight": 1.6,
+    "subtitleColor": "#6B7280FF",
+    "subtitleMarginBottom": 50,
+    "cardBg": "#FFFFFFFF",
+    "cardPaddingY": 40,
+    "cardPaddingX": 30,
+    "cardRadius": 12,
+    "cardBorderWidth": 1,
+    "cardBorderStyle": "solid",
+    "cardBorderColor": "#E5E7EBFF",
+    "cardShadowX": 0,
+    "cardShadowY": 4,
+    "cardShadowBlur": 12,
+    "cardShadowColor": "#0000001A",
+    "cardContentAlign": "center",
+    "iconSizeDesktop": 80,
+    "iconSizeMobile": 60,
+    "iconBg": "#3B82F61A",
+    "iconRadius": 50,
+    "iconMarginBottom": 20,
+    "cardTitleFontSizeDesktop": 24,
+    "cardTitleFontSizeMobile": 20,
+    "cardTitleFontWeight": "600",
+    "cardTitleLineHeight": 1.4,
+    "cardTitleColor": "#1F2937FF",
+    "cardTitleMarginBottom": 15,
+    "cardDescFontSizeDesktop": 16,
+    "cardDescFontSizeMobile": 14,
+    "cardDescFontWeight": "400",
+    "cardDescLineHeight": 1.6,
+    "cardDescColor": "#6B7280FF",
+    "cardDescMarginBottom": 20,
+    "buttonBg": "#3B82F6FF",
+    "buttonHoverBg": "#2563EBFF",
+    "buttonTextColor": "#FFFFFFFF",
+    "buttonFontSize": 14,
+    "buttonFontWeight": "500",
+    "buttonPaddingY": 10,
+    "buttonPaddingX": 24,
+    "buttonRadius": 6,
+    "scrollAnimation": "fade-up",
+    "scrollAnimationDelay": 100,
+    "cardHoverAnimation": "lift",
+    "buttonHoverAnimation": "lift"
+  }
+}
