@@ -656,29 +656,29 @@
     }
   ],
   "property": {
-    "title": "우리의 서비스",
-    "subtitle": "고객에게 최고의 가치를 제공하는 전문 서비스",
+    "title": "AI 솔루션 & 서비스",
+    "subtitle": "최첨단 인공지능 기술로 비즈니스 혁신을 실현합니다",
     "cards": [
       {
-        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-web.png",
-        "title": "웹 개발",
-        "description": "최신 기술을 활용한 반응형 웹사이트와 웹 애플리케이션을 개발합니다.",
-        "buttonText": "자세히 보기",
-        "buttonLink": {"url": "#", "openNewTab": false}
+        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-nlp.png",
+        "title": "자연어 처리 (NLP)",
+        "description": "고도화된 자연어 처리 기술로 챗봇, 감정 분석, 문서 분류 등 다양한 언어 AI 솔루션을 제공합니다.",
+        "buttonText": "솔루션 보기",
+        "buttonLink": {"url": "/solutions/nlp", "openNewTab": false}
       },
       {
-        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-mobile.png",
-        "title": "모바일 앱",
-        "description": "사용자 경험을 최우선으로 하는 iOS 및 Android 앱을 제작합니다.",
-        "buttonText": "자세히 보기",
-        "buttonLink": {"url": "#", "openNewTab": false}
+        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-vision.png",
+        "title": "이미지 인식 (Vision)",
+        "description": "딥러닝 기반의 컴퓨터 비전 기술로 불량 감지, 객체 인식, OCR 등 시각 지능 솔루션을 구현합니다.",
+        "buttonText": "솔루션 보기",
+        "buttonLink": {"url": "/solutions/vision", "openNewTab": false}
       },
       {
-        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-design.png",
-        "title": "UI/UX 디자인",
-        "description": "사용자 중심의 직관적이고 아름다운 인터페이스를 디자인합니다.",
-        "buttonText": "자세히 보기",
-        "buttonLink": {"url": "#", "openNewTab": false}
+        "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-analytics.png",
+        "title": "예측 분석 (Analytics)",
+        "description": "머신러닝 알고리즘을 활용한 수요 예측, 고객 이탈 분석, 가격 최적화 등 데이터 기반 의사결정을 지원합니다.",
+        "buttonText": "솔루션 보기",
+        "buttonLink": {"url": "/solutions/analytics", "openNewTab": false}
       }
     ],
     "backgroundColor": "#F9FAFBFF",

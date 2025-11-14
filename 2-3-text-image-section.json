@@ -117,7 +117,7 @@
       "id": "title",
       "label": "제목 텍스트",
       "type": "TEXT",
-      "defaultValue": "우리의 강점"
+      "defaultValue": "AI 기술 리더십"
     },
     {
       "id": "titleFontSizeDesktop",
@@ -187,7 +187,7 @@
       "id": "subtitle",
       "label": "부제목 텍스트",
       "type": "TEXT",
-      "defaultValue": "차별화된 경쟁력"
+      "defaultValue": "혁신적인 AI 솔루션으로 산업을 선도합니다"
     },
     {
       "id": "subtitleFontSizeDesktop",
@@ -256,7 +256,7 @@
       "id": "description",
       "label": "설명 텍스트",
       "type": "TEXTAREA",
-      "defaultValue": "우리는 고객의 성공을 최우선으로 생각합니다. 전문적인 기술력과 풍부한 경험을 바탕으로 최상의 서비스를 제공하며, 고객과 함께 성장하는 파트너가 되겠습니다.\n\n지속적인 혁신과 개선을 통해 업계 최고 수준의 솔루션을 제공하고 있습니다."
+      "defaultValue": "노바 파트너스는 15년 이상의 AI 연구 개발 경험을 바탕으로 자연어 처리, 컴퓨터 비전, 예측 분석 등 최첨단 인공지능 기술을 제공합니다. 글로벌 기업들과의 협업을 통해 검증된 AI 솔루션으로 고객의 디지털 전환을 성공적으로 이끌어왔습니다.\n\n대규모 데이터 처리부터 실시간 AI 추론까지, 기업이 필요로 하는 모든 AI 역량을 원스톱으로 제공하며 지속적인 기술 혁신을 통해 업계를 선도하고 있습니다."
     },
     {
       "id": "descriptionFontSizeDesktop",
@@ -324,7 +324,7 @@
       "id": "buttonText",
       "label": "버튼 텍스트",
       "type": "TEXT",
-      "defaultValue": "자세히 알아보기"
+      "defaultValue": "기술 역량 보기"
     },
     {
       "id": "buttonLink",

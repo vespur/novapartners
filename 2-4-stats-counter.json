@@ -169,7 +169,7 @@
       "id": "title",
       "label": "제목 텍스트",
       "type": "TEXT",
-      "defaultValue": "우리의 성과"
+      "defaultValue": "숫자로 입증된 AI 전문성"
     },
     {
       "id": "titleFontSizeDesktop",
@@ -250,7 +250,7 @@
       "id": "subtitle",
       "label": "부제목 텍스트",
       "type": "TEXT",
-      "defaultValue": "숫자로 증명하는 우리의 역량"
+      "defaultValue": "글로벌 기업들이 신뢰하는 AI 파트너"
     },
     {
       "id": "subtitleFontSizeDesktop",
@@ -320,28 +320,28 @@
       "type": "LIST",
       "defaultValue": [
         {
-          "icon": "https://via.placeholder.com/80x80",
-          "number": 1500,
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-ai-models.png",
+          "number": 200,
           "suffix": "+",
-          "label": "완료 프로젝트"
+          "label": "AI 모델 구축"
         },
         {
-          "icon": "https://via.placeholder.com/80x80",
-          "number": 850,
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-enterprise.png",
+          "number": 150,
           "suffix": "+",
-          "label": "만족한 고객"
+          "label": "엔터프라이즈 고객"
         },
         {
-          "icon": "https://via.placeholder.com/80x80",
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-experience.png",
           "number": 15,
           "suffix": "년",
-          "label": "업계 경력"
+          "label": "AI 연구 개발"
         },
         {
-          "icon": "https://via.placeholder.com/80x80",
-          "number": 98,
+          "icon": "https://cdn.sixshop.io/sf-gateway/public/stores/novapartners/themes/icon-accuracy.png",
+          "number": 97,
           "suffix": "%",
-          "label": "고객 만족도"
+          "label": "평균 정확도"
         }
       ],
       "properties": [
