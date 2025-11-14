@@ -1,0 +1,508 @@
+{
+  "name": "아코디언 FAQ",
+  "settings": [
+    {
+      "id": "sectionTitle",
+      "type": "TITLE",
+      "label": "섹션 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 80
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 60
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "type": "NUMBER",
+      "default": 900
+    },
+
+    {
+      "id": "titleSettings",
+      "type": "TITLE",
+      "label": "타이틀 설정"
+    },
+    {
+      "id": "title",
+      "label": "메인 타이틀",
+      "type": "TEXT",
+      "default": "자주 묻는 질문 (FAQ)"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "타이틀 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 36
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "타이틀 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 28
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "타이틀 굵기",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "타이틀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.3
+    },
+    {
+      "id": "titleColor",
+      "label": "타이틀 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "titleAlign",
+      "label": "타이틀 정렬",
+      "type": "SELECT",
+      "options": ["left", "center", "right"],
+      "default": "center"
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "타이틀 하단 여백",
+      "type": "NUMBER",
+      "default": 16
+    },
+
+    {
+      "id": "subtitleSettings",
+      "type": "TITLE",
+      "label": "부제목 설정"
+    },
+    {
+      "id": "subtitle",
+      "label": "부제목",
+      "type": "TEXTAREA",
+      "default": "노바 파트너스 AI 플랫폼에 대해 궁금한 점을 확인하세요"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 18
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR",
+      "default": "#666666"
+    },
+    {
+      "id": "subtitleMaxWidth",
+      "label": "부제목 최대 너비",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 하단 여백",
+      "type": "NUMBER",
+      "default": 40
+    },
+
+    {
+      "id": "itemSettings",
+      "type": "TITLE",
+      "label": "FAQ 아이템 설정"
+    },
+    {
+      "id": "itemGap",
+      "label": "아이템 간격",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "itemBg",
+      "label": "아이템 배경 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "activeItemBg",
+      "label": "활성 아이템 배경 색상",
+      "type": "COLOR",
+      "default": "#F8F9FA"
+    },
+    {
+      "id": "itemRadius",
+      "label": "아이템 둥근 모서리",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "itemBorderEnabled",
+      "label": "아이템 테두리 활성화",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "itemBorderWidth",
+      "label": "아이템 테두리 두께",
+      "type": "NUMBER",
+      "default": 1,
+      "isVisible": "{{property.itemBorderEnabled}}"
+    },
+    {
+      "id": "itemBorderColor",
+      "label": "아이템 테두리 색상",
+      "type": "COLOR",
+      "default": "#E0E0E0",
+      "isVisible": "{{property.itemBorderEnabled}}"
+    },
+    {
+      "id": "itemShadowEnabled",
+      "label": "아이템 그림자 활성화",
+      "type": "CHECKBOX",
+      "default": false
+    },
+    {
+      "id": "itemShadowX",
+      "label": "그림자 X 오프셋",
+      "type": "NUMBER",
+      "default": 0,
+      "isVisible": "{{property.itemShadowEnabled}}"
+    },
+    {
+      "id": "itemShadowY",
+      "label": "그림자 Y 오프셋",
+      "type": "NUMBER",
+      "default": 2,
+      "isVisible": "{{property.itemShadowEnabled}}"
+    },
+    {
+      "id": "itemShadowBlur",
+      "label": "그림자 블러",
+      "type": "NUMBER",
+      "default": 8,
+      "isVisible": "{{property.itemShadowEnabled}}"
+    },
+    {
+      "id": "itemShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR",
+      "default": "#00000010",
+      "isVisible": "{{property.itemShadowEnabled}}"
+    },
+
+    {
+      "id": "questionSettings",
+      "type": "TITLE",
+      "label": "질문 설정"
+    },
+    {
+      "id": "questionPaddingY",
+      "label": "질문 상하 패딩",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "questionPaddingX",
+      "label": "질문 좌우 패딩",
+      "type": "NUMBER",
+      "default": 24
+    },
+    {
+      "id": "mobileQuestionPaddingY",
+      "label": "질문 상하 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "mobileQuestionPaddingX",
+      "label": "질문 좌우 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "questionFontSizeDesktop",
+      "label": "질문 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 18
+    },
+    {
+      "id": "questionFontSizeMobile",
+      "label": "질문 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "questionFontWeight",
+      "label": "질문 글자 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "questionLineHeight",
+      "label": "질문 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "questionColor",
+      "label": "질문 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "questionColorHover",
+      "label": "질문 호버 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "questionColorActive",
+      "label": "질문 활성 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+
+    {
+      "id": "answerSettings",
+      "type": "TITLE",
+      "label": "답변 설정"
+    },
+    {
+      "id": "answerPaddingY",
+      "label": "답변 상하 패딩",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "answerPaddingX",
+      "label": "답변 좌우 패딩",
+      "type": "NUMBER",
+      "default": 24
+    },
+    {
+      "id": "mobileAnswerPaddingY",
+      "label": "답변 상하 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "mobileAnswerPaddingX",
+      "label": "답변 좌우 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "answerFontSizeDesktop",
+      "label": "답변 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "answerFontSizeMobile",
+      "label": "답변 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 14
+    },
+    {
+      "id": "answerFontWeight",
+      "label": "답변 글자 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "answerLineHeight",
+      "label": "답변 줄 높이",
+      "type": "NUMBER",
+      "default": 1.7
+    },
+    {
+      "id": "answerColor",
+      "label": "답변 색상",
+      "type": "COLOR",
+      "default": "#555555"
+    },
+
+    {
+      "id": "iconSettings",
+      "type": "TITLE",
+      "label": "아이콘 설정"
+    },
+    {
+      "id": "icon",
+      "label": "아이콘 문자",
+      "type": "TEXT",
+      "default": "+"
+    },
+    {
+      "id": "iconSize",
+      "label": "아이콘 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 24
+    },
+    {
+      "id": "mobileIconSize",
+      "label": "아이콘 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "iconColor",
+      "label": "아이콘 색상",
+      "type": "COLOR",
+      "default": "#999999"
+    },
+    {
+      "id": "iconColorActive",
+      "label": "아이콘 활성 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "iconRotation",
+      "label": "아이콘 회전 각도 (활성 시)",
+      "type": "NUMBER",
+      "default": 45
+    },
+
+    {
+      "id": "behaviorSettings",
+      "type": "TITLE",
+      "label": "동작 설정"
+    },
+    {
+      "id": "allowMultiple",
+      "label": "다중 열기 허용",
+      "type": "CHECKBOX",
+      "default": false
+    },
+    {
+      "id": "openFirstItem",
+      "label": "첫 번째 항목 자동 열기",
+      "type": "CHECKBOX",
+      "default": false
+    },
+
+    {
+      "id": "animationSettings",
+      "type": "TITLE",
+      "label": "애니메이션 설정"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 애니메이션",
+      "type": "SELECT",
+      "options": ["none", "fade-up", "fade-in"],
+      "default": "fade-up"
+    },
+    {
+      "id": "scrollAnimationDelay",
+      "label": "애니메이션 지연 시간 (ms)",
+      "type": "NUMBER",
+      "default": 100,
+      "isVisible": "{{#if (eq property.scrollAnimation 'none')}}false{{else}}true{{/if}}"
+    },
+
+    {
+      "id": "faqData",
+      "type": "TITLE",
+      "label": "FAQ 데이터"
+    },
+    {
+      "id": "faqs",
+      "label": "FAQ 목록",
+      "type": "LIST",
+      "default": [
+        {
+          "question": "기존 시스템과 호환되나요?",
+          "answer": "네. API 기반으로 설계되어 거의 모든 엔터프라이즈 시스템(ERP, CRM, DW 등)과 연동 가능합니다. 기술 팀에서 맞춤형 연동을 지원합니다."
+        },
+        {
+          "question": "데이터 보안은 어떻게 보장되나요?",
+          "answer": "ISO 27001, SOC 2 Type II 인증을 보유했으며, 엔드-투-엔드 암호화, 다중 인증, 접근 제어 등 다층 보안을 적용합니다. 고객 데이터는 귀사의 프라이빗 클라우드에 저장됩니다."
+        },
+        {
+          "question": "구현에 얼마나 걸리나요?",
+          "answer": "표준 구현은 4주, 맞춤형 구현은 8~12주가 소요됩니다. 구현 기간 동안 전담 기술 팀이 지원합니다."
+        },
+        {
+          "question": "비용은 어느 정도인가요?",
+          "answer": "기업 규모와 사용 범위에 따라 월 2,000~15,000달러입니다. 무료 상담을 통해 정확한 견적을 제공해드립니다."
+        },
+        {
+          "question": "기술 지원은 어떻게 받나요?",
+          "answer": "24/7 기술 지원 센터를 운영하며, 평균 응답 시간은 30분 이내입니다. 이메일, 전화, 채팅 등 다양한 채널로 지원합니다."
+        },
+        {
+          "question": "커스터마이징이 가능한가요?",
+          "answer": "네. 기본 기능은 즉시 사용 가능하며, 특정 요구사항에 맞춘 커스터마이징도 가능합니다. 별도 비용이 발생할 수 있습니다."
+        },
+        {
+          "question": "데이터 마이그레이션을 지원하나요?",
+          "answer": "네. 기존 시스템에서 데이터를 안전하게 이관하는 전체 프로세스를 지원합니다. 데이터 검증 및 테스트도 포함됩니다."
+        },
+        {
+          "question": "무료 평가판이 있나요?",
+          "answer": "네. 2주 무료 평가판을 제공합니다. 기술 팀의 지원 하에 귀사 환경에서 직접 테스트할 수 있습니다."
+        }
+      ],
+      "children": [
+        {
+          "id": "question",
+          "label": "질문",
+          "type": "TEXT"
+        },
+        {
+          "id": "answer",
+          "label": "답변",
+          "type": "TEXTAREA"
+        }
+      ]
+    }
+  ]
+}

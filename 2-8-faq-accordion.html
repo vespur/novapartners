@@ -1,0 +1,296 @@
+<style>
+  .faq-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .faq-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .faq-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .faq-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* FAQ 아이템 리스트 */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: {{property.itemGap}}px;
+  }
+
+  /* 개별 FAQ 아이템 */
+  .faq-item {
+    background-color: {{property.itemBg}};
+    border-radius: {{property.itemRadius}}px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    {{#if property.itemBorderEnabled}}
+    border: {{property.itemBorderWidth}}px solid {{property.itemBorderColor}};
+    {{/if}}
+    {{#if property.itemShadowEnabled}}
+    box-shadow: {{property.itemShadowX}}px {{property.itemShadowY}}px {{property.itemShadowBlur}}px {{property.itemShadowColor}};
+    {{/if}}
+  }
+
+  /* 질문 버튼 */
+  .faq-question {
+    width: 100%;
+    padding: {{property.questionPaddingY}}px {{property.questionPaddingX}}px;
+    font-family: var(--font-family-heading);
+    font-size: {{property.questionFontSizeDesktop}}px;
+    font-weight: {{property.questionFontWeight}};
+    line-height: {{property.questionLineHeight}};
+    color: {{property.questionColor}};
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .faq-question:hover {
+    color: {{property.questionColorHover}};
+  }
+
+  /* 아이콘 */
+  .faq-icon {
+    font-size: {{property.iconSize}}px;
+    color: {{property.iconColor}};
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate({{property.iconRotation}}deg);
+    color: {{property.iconColorActive}};
+  }
+
+  /* 답변 영역 */
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 {{property.answerPaddingX}}px;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 1000px;
+    padding: {{property.answerPaddingY}}px {{property.answerPaddingX}}px;
+    padding-top: 0;
+  }
+
+  .faq-answer-text {
+    font-family: var(--font-family-body);
+    font-size: {{property.answerFontSizeDesktop}}px;
+    font-weight: {{property.answerFontWeight}};
+    line-height: {{property.answerLineHeight}};
+    color: {{property.answerColor}};
+    white-space: pre-line;
+  }
+
+  /* 활성 상태 스타일 */
+  .faq-item.active {
+    {{#if property.activeItemBg}}
+    background-color: {{property.activeItemBg}};
+    {{/if}}
+  }
+
+  .faq-item.active .faq-question {
+    color: {{property.questionColorActive}};
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .faq-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+  }
+  .faq-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .faq-item.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.5s ease-out;
+  }
+  .faq-item.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .faq-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .faq-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .faq-question {
+      font-size: {{property.questionFontSizeMobile}}px;
+      padding: {{property.mobileQuestionPaddingY}}px {{property.mobileQuestionPaddingX}}px;
+    }
+
+    .faq-answer {
+      padding: 0 {{property.mobileAnswerPaddingX}}px;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: {{property.mobileAnswerPaddingY}}px {{property.mobileAnswerPaddingX}}px;
+      padding-top: 0;
+    }
+
+    .faq-answer-text {
+      font-size: {{property.answerFontSizeMobile}}px;
+    }
+
+    .faq-icon {
+      font-size: {{property.mobileIconSize}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="faq-section">
+    <div class="faq-container">
+      {{#if property.title}}
+        <h2 class="faq-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="faq-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="faq-list">
+        {{#each property.faqs}}
+          <div class="faq-item {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}" data-faq-index="{{@index}}">
+            <button class="faq-question" type="button">
+              <span>{{question}}</span>
+              <span class="faq-icon">{{../property.icon}}</span>
+            </button>
+            <div class="faq-answer">
+              <p class="faq-answer-text">{{answer}}</p>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    const faqItems = container.querySelectorAll('.faq-item');
+
+    // 이벤트 위임으로 질문 클릭 처리
+    container.addEventListener('click', (e) => {
+      const questionBtn = e.target.closest('.faq-question');
+      if (!questionBtn) return;
+
+      e.preventDefault();
+
+      const faqItem = questionBtn.closest('.faq-item');
+
+      // 다중 열기 모드인지 단일 열기 모드인지 확인
+      if (context.property.allowMultiple) {
+        // 다중 열기: 클릭한 항목만 토글
+        faqItem.classList.toggle('active');
+      } else {
+        // 단일 열기: 다른 항목은 닫고 클릭한 항목만 토글
+        const isActive = faqItem.classList.contains('active');
+
+        // 모든 항목 닫기
+        faqItems.forEach(item => item.classList.remove('active'));
+
+        // 클릭한 항목이 닫혀있었다면 열기
+        if (!isActive) {
+          faqItem.classList.add('active');
+        }
+      }
+    });
+
+    // 첫 번째 항목 자동 열기
+    if (context.property.openFirstItem && faqItems.length > 0) {
+      faqItems[0].classList.add('active');
+    }
+
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            const faqIndex = parseInt(entry.target.dataset.faqIndex);
+            const delay = faqIndex * (context.property.scrollAnimationDelay || 100);
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      faqItems.forEach(item => {
+        observer.observe(item);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
