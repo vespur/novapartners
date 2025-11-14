@@ -1,0 +1,358 @@
+<style>
+  .tabs-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .tabs-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .tabs-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .tabs-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 탭 버튼 그룹 */
+  .tabs-nav {
+    display: flex;
+    gap: {{property.tabGap}}px;
+    margin-bottom: {{property.tabMarginBottom}}px;
+    flex-wrap: wrap;
+    {{#if (eq property.tabAlign "center")}}
+    justify-content: center;
+    {{/if}}
+    {{#if (eq property.tabAlign "left")}}
+    justify-content: flex-start;
+    {{/if}}
+    {{#if (eq property.tabAlign "right")}}
+    justify-content: flex-end;
+    {{/if}}
+  }
+
+  /* 개별 탭 버튼 */
+  .tab-btn {
+    padding: {{property.tabPaddingY}}px {{property.tabPaddingX}}px;
+    font-family: var(--font-family-body);
+    font-size: {{property.tabFontSizeDesktop}}px;
+    font-weight: {{property.tabFontWeight}};
+    line-height: {{property.tabLineHeight}};
+    color: {{property.tabColorInactive}};
+    background-color: {{property.tabBgInactive}};
+    border: {{property.tabBorderWidth}}px solid {{property.tabBorderColor}};
+    border-radius: {{property.tabRadius}}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tab-btn:hover {
+    background-color: {{property.tabBgHover}};
+    color: {{property.tabColorHover}};
+  }
+
+  .tab-btn.active {
+    background-color: {{property.tabBgActive}};
+    color: {{property.tabColorActive}};
+    border-color: {{property.tabBgActive}};
+  }
+
+  /* 탭 콘텐츠 영역 */
+  .tabs-content {
+    background-color: {{property.contentBg}};
+    border-radius: {{property.contentRadius}}px;
+    padding: {{property.contentPaddingY}}px {{property.contentPaddingX}}px;
+    {{#if property.contentBorderEnabled}}
+    border: {{property.contentBorderWidth}}px solid {{property.contentBorderColor}};
+    {{/if}}
+    {{#if property.contentShadowEnabled}}
+    box-shadow: {{property.contentShadowX}}px {{property.contentShadowY}}px {{property.contentShadowBlur}}px {{property.contentShadowColor}};
+    {{/if}}
+  }
+
+  /* 개별 탭 패널 */
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 패널 안내 */
+  .tab-panel-guide {
+    font-family: var(--font-family-heading);
+    font-size: {{property.guideFontSizeDesktop}}px;
+    font-weight: {{property.guideFontWeight}};
+    line-height: {{property.guideLineHeight}};
+    color: {{property.guideColor}};
+    margin-bottom: {{property.guideMarginBottom}}px;
+  }
+
+  /* 패널 상세 */
+  .tab-panel-details {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 {{property.detailsMarginBottom}}px 0;
+  }
+
+  .tab-panel-details li {
+    font-family: var(--font-family-body);
+    font-size: {{property.detailsFontSizeDesktop}}px;
+    font-weight: {{property.detailsFontWeight}};
+    line-height: {{property.detailsLineHeight}};
+    color: {{property.detailsColor}};
+    padding-left: {{property.bulletIndent}}px;
+    position: relative;
+    margin-bottom: {{property.detailsItemSpacing}}px;
+  }
+
+  .tab-panel-details li::before {
+    content: '{{property.bulletIcon}}';
+    position: absolute;
+    left: 0;
+    color: {{property.bulletColor}};
+    font-size: {{property.bulletSize}}px;
+  }
+
+  /* 패널 링크 */
+  .tab-panel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: {{property.linkPaddingY}}px {{property.linkPaddingX}}px;
+    font-family: var(--font-family-body);
+    font-size: {{property.linkFontSizeDesktop}}px;
+    font-weight: {{property.linkFontWeight}};
+    line-height: {{property.linkLineHeight}};
+    color: {{property.linkColor}};
+    background-color: {{property.linkBg}};
+    border-radius: {{property.linkRadius}}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .tab-panel-link:hover {
+    background-color: {{property.linkBgHover}};
+    transform: translateY(-2px);
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .tabs-container.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+  .tabs-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .tabs-container.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+  }
+  .tabs-container.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .tabs-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .tabs-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .tabs-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .tabs-nav {
+      {{#if property.mobileFullWidth}}
+      flex-direction: column;
+      {{/if}}
+    }
+
+    .tab-btn {
+      font-size: {{property.tabFontSizeMobile}}px;
+      {{#if property.mobileFullWidth}}
+      width: 100%;
+      justify-content: center;
+      {{/if}}
+    }
+
+    .tab-panel-guide {
+      font-size: {{property.guideFontSizeMobile}}px;
+    }
+
+    .tab-panel-details li {
+      font-size: {{property.detailsFontSizeMobile}}px;
+    }
+
+    .tab-panel-link {
+      font-size: {{property.linkFontSizeMobile}}px;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<template>
+  <section class="tabs-section">
+    <div class="tabs-container {{#if property.scrollAnimation}}animate-on-scroll{{/if}}">
+      {{#if property.title}}
+        <h2 class="tabs-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="tabs-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <!-- 탭 버튼 -->
+      <div class="tabs-nav">
+        {{#each property.tabs}}
+          <button class="tab-btn {{#if @first}}active{{/if}}" data-tab="{{@index}}">
+            {{#if icon}}
+              <span>{{icon}}</span>
+            {{/if}}
+            {{label}}
+          </button>
+        {{/each}}
+      </div>
+
+      <!-- 탭 콘텐츠 -->
+      <div class="tabs-content">
+        {{#each property.tabs}}
+          <div class="tab-panel {{#if @first}}active{{/if}}" data-panel="{{@index}}">
+            {{#if guide}}
+              <div class="tab-panel-guide">{{guide}}</div>
+            {{/if}}
+
+            {{#if details}}
+              <ul class="tab-panel-details">
+                {{#each details}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            {{/if}}
+
+            {{#if linkText}}
+              <a href="{{linkUrl}}" class="tab-panel-link">
+                {{linkText}}
+              </a>
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    const tabButtons = container.querySelectorAll('.tab-btn');
+    const tabPanels = container.querySelectorAll('.tab-panel');
+
+    // 이벤트 위임으로 탭 클릭 처리
+    container.addEventListener('click', (e) => {
+      const tabBtn = e.target.closest('.tab-btn');
+      if (!tabBtn) return;
+
+      e.preventDefault();
+
+      const tabIndex = tabBtn.dataset.tab;
+
+      // 모든 탭 버튼 비활성화
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+
+      // 클릭한 탭 버튼 활성화
+      tabBtn.classList.add('active');
+
+      // 모든 탭 패널 숨김
+      tabPanels.forEach(panel => panel.classList.remove('active'));
+
+      // 해당 탭 패널 표시
+      const activePanel = container.querySelector(`.tab-panel[data-panel="${tabIndex}"]`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+      }
+    });
+
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const tabsContainer = container.querySelector('.tabs-container');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, { threshold: 0.3 });
+
+      if (tabsContainer) {
+        observer.observe(tabsContainer);
+      }
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>

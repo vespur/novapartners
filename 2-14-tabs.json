@@ -1,0 +1,653 @@
+{
+  "name": "탭 네비게이션",
+  "settings": [
+    {
+      "id": "sectionTitle",
+      "type": "TITLE",
+      "label": "섹션 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 80
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 60
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "type": "NUMBER",
+      "default": 1000
+    },
+
+    {
+      "id": "titleSettings",
+      "type": "TITLE",
+      "label": "타이틀 설정"
+    },
+    {
+      "id": "title",
+      "label": "메인 타이틀",
+      "type": "TEXT",
+      "default": "오시는 길"
+    },
+    {
+      "id": "titleFontSizeDesktop",
+      "label": "타이틀 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 36
+    },
+    {
+      "id": "titleFontSizeMobile",
+      "label": "타이틀 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 28
+    },
+    {
+      "id": "titleFontWeight",
+      "label": "타이틀 굵기",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "타이틀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.3
+    },
+    {
+      "id": "titleColor",
+      "label": "타이틀 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "titleAlign",
+      "label": "타이틀 정렬",
+      "type": "SELECT",
+      "options": ["left", "center", "right"],
+      "default": "center"
+    },
+    {
+      "id": "titleMarginBottom",
+      "label": "타이틀 하단 여백",
+      "type": "NUMBER",
+      "default": 16
+    },
+
+    {
+      "id": "subtitleSettings",
+      "type": "TITLE",
+      "label": "부제목 설정"
+    },
+    {
+      "id": "subtitle",
+      "label": "부제목",
+      "type": "TEXTAREA",
+      "default": "편리한 교통 수단을 선택하세요"
+    },
+    {
+      "id": "subtitleFontSizeDesktop",
+      "label": "부제목 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 18
+    },
+    {
+      "id": "subtitleFontSizeMobile",
+      "label": "부제목 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "subtitleFontWeight",
+      "label": "부제목 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "부제목 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6
+    },
+    {
+      "id": "subtitleColor",
+      "label": "부제목 색상",
+      "type": "COLOR",
+      "default": "#666666"
+    },
+    {
+      "id": "subtitleMaxWidth",
+      "label": "부제목 최대 너비",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "subtitleMarginBottom",
+      "label": "부제목 하단 여백",
+      "type": "NUMBER",
+      "default": 40
+    },
+
+    {
+      "id": "tabNavSettings",
+      "type": "TITLE",
+      "label": "탭 버튼 설정"
+    },
+    {
+      "id": "tabAlign",
+      "label": "탭 정렬",
+      "type": "SELECT",
+      "options": ["left", "center", "right"],
+      "default": "center"
+    },
+    {
+      "id": "tabGap",
+      "label": "탭 간격",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "tabMarginBottom",
+      "label": "탭 하단 여백",
+      "type": "NUMBER",
+      "default": 32
+    },
+    {
+      "id": "tabPaddingY",
+      "label": "탭 상하 패딩",
+      "type": "NUMBER",
+      "default": 14
+    },
+    {
+      "id": "tabPaddingX",
+      "label": "탭 좌우 패딩",
+      "type": "NUMBER",
+      "default": 28
+    },
+    {
+      "id": "tabFontSizeDesktop",
+      "label": "탭 글자 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "tabFontSizeMobile",
+      "label": "탭 글자 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 15
+    },
+    {
+      "id": "tabFontWeight",
+      "label": "탭 글자 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "tabLineHeight",
+      "label": "탭 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "tabColorInactive",
+      "label": "탭 비활성 글자 색상",
+      "type": "COLOR",
+      "default": "#666666"
+    },
+    {
+      "id": "tabBgInactive",
+      "label": "탭 비활성 배경 색상",
+      "type": "COLOR",
+      "default": "#F5F5F5"
+    },
+    {
+      "id": "tabColorActive",
+      "label": "탭 활성 글자 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "tabBgActive",
+      "label": "탭 활성 배경 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "tabColorHover",
+      "label": "탭 호버 글자 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "tabBgHover",
+      "label": "탭 호버 배경 색상",
+      "type": "COLOR",
+      "default": "#E8F0FF"
+    },
+    {
+      "id": "tabBorderWidth",
+      "label": "탭 테두리 두께",
+      "type": "NUMBER",
+      "default": 1
+    },
+    {
+      "id": "tabBorderColor",
+      "label": "탭 테두리 색상",
+      "type": "COLOR",
+      "default": "#E0E0E0"
+    },
+    {
+      "id": "tabRadius",
+      "label": "탭 둥근 모서리",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "mobileFullWidth",
+      "label": "모바일 전체 너비",
+      "type": "CHECKBOX",
+      "default": true
+    },
+
+    {
+      "id": "contentSettings",
+      "type": "TITLE",
+      "label": "콘텐츠 영역 설정"
+    },
+    {
+      "id": "contentBg",
+      "label": "콘텐츠 배경 색상",
+      "type": "COLOR",
+      "default": "#F8F9FA"
+    },
+    {
+      "id": "contentRadius",
+      "label": "콘텐츠 둥근 모서리",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "contentPaddingY",
+      "label": "콘텐츠 상하 패딩",
+      "type": "NUMBER",
+      "default": 32
+    },
+    {
+      "id": "contentPaddingX",
+      "label": "콘텐츠 좌우 패딩",
+      "type": "NUMBER",
+      "default": 32
+    },
+    {
+      "id": "contentBorderEnabled",
+      "label": "콘텐츠 테두리 활성화",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "contentBorderWidth",
+      "label": "콘텐츠 테두리 두께",
+      "type": "NUMBER",
+      "default": 1,
+      "isVisible": "{{property.contentBorderEnabled}}"
+    },
+    {
+      "id": "contentBorderColor",
+      "label": "콘텐츠 테두리 색상",
+      "type": "COLOR",
+      "default": "#E0E0E0",
+      "isVisible": "{{property.contentBorderEnabled}}"
+    },
+    {
+      "id": "contentShadowEnabled",
+      "label": "콘텐츠 그림자 활성화",
+      "type": "CHECKBOX",
+      "default": false
+    },
+    {
+      "id": "contentShadowX",
+      "label": "그림자 X 오프셋",
+      "type": "NUMBER",
+      "default": 0,
+      "isVisible": "{{property.contentShadowEnabled}}"
+    },
+    {
+      "id": "contentShadowY",
+      "label": "그림자 Y 오프셋",
+      "type": "NUMBER",
+      "default": 4,
+      "isVisible": "{{property.contentShadowEnabled}}"
+    },
+    {
+      "id": "contentShadowBlur",
+      "label": "그림자 블러",
+      "type": "NUMBER",
+      "default": 16,
+      "isVisible": "{{property.contentShadowEnabled}}"
+    },
+    {
+      "id": "contentShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR",
+      "default": "#00000010",
+      "isVisible": "{{property.contentShadowEnabled}}"
+    },
+
+    {
+      "id": "guideSettings",
+      "type": "TITLE",
+      "label": "안내 텍스트 설정"
+    },
+    {
+      "id": "guideFontSizeDesktop",
+      "label": "안내 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "guideFontSizeMobile",
+      "label": "안내 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 18
+    },
+    {
+      "id": "guideFontWeight",
+      "label": "안내 글자 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "guideLineHeight",
+      "label": "안내 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "guideColor",
+      "label": "안내 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "guideMarginBottom",
+      "label": "안내 하단 여백",
+      "type": "NUMBER",
+      "default": 16
+    },
+
+    {
+      "id": "detailsSettings",
+      "type": "TITLE",
+      "label": "상세 내용 설정"
+    },
+    {
+      "id": "detailsFontSizeDesktop",
+      "label": "상세 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 15
+    },
+    {
+      "id": "detailsFontSizeMobile",
+      "label": "상세 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 14
+    },
+    {
+      "id": "detailsFontWeight",
+      "label": "상세 글자 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "detailsLineHeight",
+      "label": "상세 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6
+    },
+    {
+      "id": "detailsColor",
+      "label": "상세 색상",
+      "type": "COLOR",
+      "default": "#555555"
+    },
+    {
+      "id": "detailsMarginBottom",
+      "label": "상세 하단 여백",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "detailsItemSpacing",
+      "label": "상세 아이템 간격",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "bulletIcon",
+      "label": "Bullet 아이콘",
+      "type": "TEXT",
+      "default": "•"
+    },
+    {
+      "id": "bulletColor",
+      "label": "Bullet 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "bulletSize",
+      "label": "Bullet 크기",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "bulletIndent",
+      "label": "Bullet 들여쓰기",
+      "type": "NUMBER",
+      "default": 20
+    },
+
+    {
+      "id": "linkSettings",
+      "type": "TITLE",
+      "label": "링크 버튼 설정"
+    },
+    {
+      "id": "linkPaddingY",
+      "label": "링크 상하 패딩",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "linkPaddingX",
+      "label": "링크 좌우 패딩",
+      "type": "NUMBER",
+      "default": 24
+    },
+    {
+      "id": "linkFontSizeDesktop",
+      "label": "링크 글자 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 15
+    },
+    {
+      "id": "linkFontSizeMobile",
+      "label": "링크 글자 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 14
+    },
+    {
+      "id": "linkFontWeight",
+      "label": "링크 글자 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "linkLineHeight",
+      "label": "링크 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "linkColor",
+      "label": "링크 글자 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "linkBg",
+      "label": "링크 배경 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "linkBgHover",
+      "label": "링크 호버 배경 색상",
+      "type": "COLOR",
+      "default": "#0044DD"
+    },
+    {
+      "id": "linkRadius",
+      "label": "링크 둥근 모서리",
+      "type": "NUMBER",
+      "default": 6
+    },
+
+    {
+      "id": "animationSettings",
+      "type": "TITLE",
+      "label": "애니메이션 설정"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 애니메이션",
+      "type": "SELECT",
+      "options": ["none", "fade-up", "fade-in"],
+      "default": "fade-up"
+    },
+
+    {
+      "id": "tabsData",
+      "type": "TITLE",
+      "label": "탭 데이터"
+    },
+    {
+      "id": "tabs",
+      "label": "탭 목록",
+      "type": "LIST",
+      "default": [
+        {
+          "label": "지하철",
+          "icon": "🚇",
+          "guide": "강남역 8번 출구 도보 5분",
+          "details": [
+            "2호선 강남역 하차",
+            "8번 출구로 나가서 직진",
+            "약 5분 거리"
+          ],
+          "linkText": "지도에서 확인",
+          "linkUrl": "#"
+        },
+        {
+          "label": "버스",
+          "icon": "🚌",
+          "guide": "종로 인근 각 지역에서 쉽게 접근 가능",
+          "details": [
+            "강남대로 직행 버스 이용 가능",
+            "운행 버스: 302, 306, 407 등 다수",
+            "버스정류장에서 도보 3분"
+          ],
+          "linkText": "버스 노선 확인",
+          "linkUrl": "#"
+        },
+        {
+          "label": "자차",
+          "icon": "🚗",
+          "guide": "더리빙센트럴 지하주차장 이용 (1시간 무료)",
+          "details": [
+            "강남역 인근 위성도로 이용",
+            "주차장: B1~B3 (300면)",
+            "최대 10시간 이상 무료 주차 가능 (사전 예약)",
+            "장애인 주차장 별도 운영"
+          ],
+          "linkText": "네비게이션 시작",
+          "linkUrl": "#"
+        },
+        {
+          "label": "택시",
+          "icon": "🚕",
+          "guide": "서울 전역에서 약 15~30분",
+          "details": [
+            "강남역 택시 승강장에서 승차",
+            "혼잡시간대(출근/퇴근): 20~30분",
+            "비교: ₩10,000 ~ ₩15,000 (지역별)"
+          ],
+          "linkText": "택시 호출",
+          "linkUrl": "#"
+        }
+      ],
+      "children": [
+        {
+          "id": "label",
+          "label": "탭 라벨",
+          "type": "TEXT"
+        },
+        {
+          "id": "icon",
+          "label": "탭 아이콘",
+          "type": "TEXT"
+        },
+        {
+          "id": "guide",
+          "label": "안내 텍스트",
+          "type": "TEXT"
+        },
+        {
+          "id": "details",
+          "label": "상세 내용 (줄바꿈으로 구분)",
+          "type": "LIST",
+          "children": [
+            {
+              "id": "detail",
+              "type": "TEXT"
+            }
+          ]
+        },
+        {
+          "id": "linkText",
+          "label": "링크 텍스트",
+          "type": "TEXT"
+        },
+        {
+          "id": "linkUrl",
+          "label": "링크 URL",
+          "type": "TEXT"
+        }
+      ]
+    }
+  ]
+}
