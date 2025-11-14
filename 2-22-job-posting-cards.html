@@ -1,0 +1,525 @@
+<div class="job-posting-wrapper" style="
+  background-color: {{property.bgColor}};
+  padding: {{property.paddingY}}px {{property.paddingX}}px;
+">
+  <div class="job-posting-container" style="
+    max-width: {{#if property.maxWidth}}{{property.maxWidth}}px{{else}}100%{{/if}};
+    margin: 0 auto;
+  ">
+    {{#if property.showTitle}}
+    <div class="job-posting-header" style="
+      text-align: center;
+      margin-bottom: 60px;
+    ">
+      <h2 class="job-posting-title" style="
+        font-size: {{property.titleSize}}px;
+        font-weight: {{property.titleWeight}};
+        line-height: {{property.titleLineHeight}};
+        color: {{property.titleColor}};
+        margin: 0 0 16px 0;
+      ">{{property.title}}</h2>
+
+      <p class="job-posting-subtitle" style="
+        font-size: {{property.subtitleSize}}px;
+        font-weight: {{property.subtitleWeight}};
+        line-height: {{property.subtitleLineHeight}};
+        color: {{property.subtitleColor}};
+        margin: 0;
+      ">{{property.subtitle}}</p>
+    </div>
+    {{/if}}
+
+    <div class="job-posting-grid" style="
+      display: grid;
+      grid-template-columns: repeat({{property.columns}}, 1fr);
+      gap: {{property.cardGap}}px;
+    ">
+      {{#each property.items}}
+      <div class="job-card"
+           data-index="{{@index}}"
+           data-animation="{{../property.animationStyle}}"
+           style="
+             background-color: {{../property.cardBgColor}};
+             border: 1px solid {{../property.cardBorderColor}};
+             border-radius: 12px;
+             padding: 28px;
+             cursor: pointer;
+             transition: all 0.3s ease;
+             position: relative;
+             overflow: hidden;
+           ">
+
+        <div class="job-card-header" style="margin-bottom: 20px;">
+          <span class="job-category" style="
+            display: inline-block;
+            padding: 6px 14px;
+            background-color: {{../property.categoryBgColor}};
+            color: {{../property.categoryTextColor}};
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-bottom: 12px;
+          ">{{category}}</span>
+
+          <h3 class="job-title" style="
+            font-size: {{../property.jobTitleSize}}px;
+            font-weight: {{../property.jobTitleWeight}};
+            line-height: {{../property.jobTitleLineHeight}};
+            color: {{../property.jobTitleColor}};
+            margin: 0 0 12px 0;
+          ">{{jobTitle}}</h3>
+
+          <div class="job-meta" style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            font-size: {{../property.metaSize}}px;
+            font-weight: {{../property.metaWeight}};
+            line-height: {{../property.metaLineHeight}};
+            color: {{../property.metaColor}};
+            margin-bottom: 16px;
+          ">
+            <span class="job-meta-item">📍 {{location}}</span>
+            <span class="job-meta-item">💼 {{experience}}</span>
+            <span class="job-meta-item">🏢 {{employmentType}}</span>
+          </div>
+
+          <div class="job-salary-deadline" style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            font-size: {{../property.metaSize}}px;
+            font-weight: {{../property.metaWeight}};
+            line-height: {{../property.metaLineHeight}};
+            color: {{../property.metaColor}};
+          ">
+            <span class="job-salary" style="font-weight: 600;">💰 {{salary}}</span>
+            <span class="job-deadline">⏰ {{deadline}}</span>
+          </div>
+        </div>
+
+        <div class="job-description" style="
+          font-size: {{../property.contentSize}}px;
+          font-weight: {{../property.contentWeight}};
+          line-height: {{../property.contentLineHeight}};
+          color: {{../property.contentColor}};
+          margin-bottom: 16px;
+        ">{{description}}</div>
+
+        <div class="job-toggle-wrapper">
+          <button class="job-toggle-btn" data-action="toggle-details" style="
+            background: none;
+            border: 1px solid {{../property.cardBorderColor}};
+            color: {{../property.metaColor}};
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: {{../property.metaSize}}px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+          ">
+            <span>상세보기</span>
+            <span class="toggle-icon" style="
+              transition: transform 0.3s ease;
+              display: inline-block;
+            ">▼</span>
+          </button>
+        </div>
+
+        <div class="job-details" style="
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          transition: all 0.4s ease;
+          margin-top: 0;
+        ">
+          <div class="job-details-content" style="padding-top: 24px;">
+            {{#if responsibilities}}
+            <div class="job-section" style="margin-bottom: 20px;">
+              <h4 style="
+                font-size: {{../property.contentSize}}px;
+                font-weight: 600;
+                line-height: 1.4;
+                color: {{../property.jobTitleColor}};
+                margin: 0 0 10px 0;
+              ">📋 주요 업무</h4>
+              <ul class="job-list" style="
+                list-style: none;
+                padding: 0;
+                margin: 0;
+              ">
+                {{#each (split responsibilities "\n")}}
+                {{#if this}}
+                <li style="
+                  font-size: {{../../property.contentSize}}px;
+                  font-weight: {{../../property.contentWeight}};
+                  line-height: {{../../property.contentLineHeight}};
+                  color: {{../../property.contentColor}};
+                  padding-left: 20px;
+                  position: relative;
+                  margin-bottom: 8px;
+                ">
+                  <span style="
+                    position: absolute;
+                    left: 0;
+                    color: {{../../property.categoryBgColor}};
+                  ">•</span>
+                  {{this}}
+                </li>
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+            {{/if}}
+
+            {{#if requirements}}
+            <div class="job-section" style="margin-bottom: 20px;">
+              <h4 style="
+                font-size: {{../property.contentSize}}px;
+                font-weight: 600;
+                line-height: 1.4;
+                color: {{../property.jobTitleColor}};
+                margin: 0 0 10px 0;
+              ">✅ 자격 요건</h4>
+              <ul class="job-list" style="
+                list-style: none;
+                padding: 0;
+                margin: 0;
+              ">
+                {{#each (split requirements "\n")}}
+                {{#if this}}
+                <li style="
+                  font-size: {{../../property.contentSize}}px;
+                  font-weight: {{../../property.contentWeight}};
+                  line-height: {{../../property.contentLineHeight}};
+                  color: {{../../property.contentColor}};
+                  padding-left: 20px;
+                  position: relative;
+                  margin-bottom: 8px;
+                ">
+                  <span style="
+                    position: absolute;
+                    left: 0;
+                    color: {{../../property.categoryBgColor}};
+                  ">•</span>
+                  {{this}}
+                </li>
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+            {{/if}}
+
+            {{#if preferred}}
+            <div class="job-section" style="margin-bottom: 20px;">
+              <h4 style="
+                font-size: {{../property.contentSize}}px;
+                font-weight: 600;
+                line-height: 1.4;
+                color: {{../property.jobTitleColor}};
+                margin: 0 0 10px 0;
+              ">⭐ 우대사항</h4>
+              <ul class="job-list" style="
+                list-style: none;
+                padding: 0;
+                margin: 0;
+              ">
+                {{#each (split preferred "\n")}}
+                {{#if this}}
+                <li style="
+                  font-size: {{../../property.contentSize}}px;
+                  font-weight: {{../../property.contentWeight}};
+                  line-height: {{../../property.contentLineHeight}};
+                  color: {{../../property.contentColor}};
+                  padding-left: 20px;
+                  position: relative;
+                  margin-bottom: 8px;
+                ">
+                  <span style="
+                    position: absolute;
+                    left: 0;
+                    color: {{../../property.categoryBgColor}};
+                  ">•</span>
+                  {{this}}
+                </li>
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+            {{/if}}
+
+            {{#if benefits}}
+            <div class="job-section" style="margin-bottom: 20px;">
+              <h4 style="
+                font-size: {{../property.contentSize}}px;
+                font-weight: 600;
+                line-height: 1.4;
+                color: {{../property.jobTitleColor}};
+                margin: 0 0 10px 0;
+              ">🎁 제공 조건</h4>
+              <ul class="job-list" style="
+                list-style: none;
+                padding: 0;
+                margin: 0;
+              ">
+                {{#each (split benefits "\n")}}
+                {{#if this}}
+                <li style="
+                  font-size: {{../../property.contentSize}}px;
+                  font-weight: {{../../property.contentWeight}};
+                  line-height: {{../../property.contentLineHeight}};
+                  color: {{../../property.contentColor}};
+                  padding-left: 20px;
+                  position: relative;
+                  margin-bottom: 8px;
+                ">
+                  <span style="
+                    position: absolute;
+                    left: 0;
+                    color: {{../../property.categoryBgColor}};
+                  ">•</span>
+                  {{this}}
+                </li>
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+            {{/if}}
+
+            <a href="{{applyLink}}" class="job-apply-btn" data-action="apply" style="
+              display: inline-block;
+              width: 100%;
+              padding: 14px 28px;
+              background-color: {{../property.buttonBgColor}};
+              color: {{../property.buttonTextColor}};
+              text-decoration: none;
+              border-radius: 8px;
+              font-size: {{../property.contentSize}}px;
+              font-weight: 600;
+              text-align: center;
+              transition: all 0.3s ease;
+              margin-top: 8px;
+            ">{{../property.buttonText}}</a>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+<style>
+  .job-posting-wrapper {
+    position: relative;
+  }
+
+  .job-card {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .job-card.animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .job-card[data-animation="fade-up"].animated {
+    animation: jobFadeUp 0.6s ease forwards;
+  }
+
+  .job-card[data-animation="fade-in"].animated {
+    animation: jobFadeIn 0.6s ease forwards;
+  }
+
+  .job-card[data-animation="scale-in"].animated {
+    animation: jobScaleIn 0.6s ease forwards;
+  }
+
+  .job-card[data-animation="none"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes jobFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes jobFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes jobScaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .job-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .job-card.expanded .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .job-card.expanded .job-details {
+    max-height: 2000px;
+    opacity: 1;
+    margin-top: 20px;
+  }
+
+  .job-toggle-btn:hover {
+    background-color: rgba(0, 85, 255, 0.05);
+    border-color: {{property.categoryBgColor}};
+    color: {{property.categoryBgColor}};
+  }
+
+  .job-apply-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 85, 255, 0.3);
+    opacity: 0.9;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .job-posting-wrapper {
+      padding: {{property.paddingYMobile}}px {{property.paddingXMobile}}px !important;
+    }
+
+    .job-posting-title {
+      font-size: {{property.titleSizeMobile}}px !important;
+    }
+
+    .job-posting-subtitle {
+      font-size: {{property.subtitleSizeMobile}}px !important;
+    }
+
+    .job-posting-grid {
+      grid-template-columns: repeat({{property.columnsMobile}}, 1fr) !important;
+    }
+
+    .job-title {
+      font-size: {{property.jobTitleSizeMobile}}px !important;
+    }
+
+    .job-meta,
+    .job-meta-item,
+    .job-salary-deadline,
+    .job-toggle-btn {
+      font-size: {{property.metaSizeMobile}}px !important;
+    }
+
+    .job-description,
+    .job-list li,
+    .job-apply-btn {
+      font-size: {{property.contentSizeMobile}}px !important;
+    }
+
+    .job-card {
+      padding: 24px !important;
+    }
+
+    .job-posting-header {
+      margin-bottom: 40px !important;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const container = bm.container;
+    const animationStyle = '{{property.animationStyle}}';
+
+    // Handlebars helper for split (defined inline for this block)
+    Handlebars.registerHelper('split', function(str, delimiter) {
+      if (!str) return [];
+      return str.split(delimiter);
+    });
+
+    // Toggle expand/collapse
+    container.addEventListener('click', (e) => {
+      // Toggle details button
+      const toggleBtn = e.target.closest('[data-action="toggle-details"]');
+      if (toggleBtn) {
+        const jobCard = toggleBtn.closest('.job-card');
+        if (jobCard) {
+          jobCard.classList.toggle('expanded');
+        }
+        return;
+      }
+
+      // Prevent default for apply button if empty link
+      const applyBtn = e.target.closest('[data-action="apply"]');
+      if (applyBtn) {
+        const href = applyBtn.getAttribute('href');
+        if (!href || href === '#' || href === '') {
+          e.preventDefault();
+        }
+      }
+    });
+
+    // Scroll animation
+    if (animationStyle !== 'none') {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cards = entry.target.querySelectorAll('.job-card');
+            cards.forEach((card, i) => {
+              setTimeout(() => {
+                card.classList.add('animated');
+              }, i * 150);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const gridElement = container.querySelector('.job-posting-grid');
+      if (gridElement) {
+        observer.observe(gridElement);
+      }
+
+      // Cleanup
+      bm.onDestroy = () => {
+        if (gridElement) {
+          observer.unobserve(gridElement);
+        }
+      };
+    } else {
+      // No animation - show all cards immediately
+      const cards = container.querySelectorAll('.job-card');
+      cards.forEach(card => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      });
+    }
+  })();
+</script>
