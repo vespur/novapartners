@@ -8,8 +8,8 @@
 
 ### 메인 페이지 블록
 
-#### 1. 글로벌 헤더 (Global Header)
-**파일:** `global-header.html`, `global-header.json`
+#### 1-1. 글로벌 헤더 (Global Header)
+**파일:** `1-1-global-header.html`, `1-1-global-header.json`
 **크기:** 79KB + 69KB
 **설명:**
 - 엔터프라이즈급 네비게이션 헤더
@@ -17,8 +17,8 @@
 - 하위 메뉴 지원 (드롭다운/아코디언)
 - 완벽한 디자인 커스터마이징
 
-#### 2. 히어로 캐러셀 v3.3 (Hero Carousel)
-**파일:** `hero-carousel-v3-fixed.html`, `hero-carousel-v3-settings.json`
+#### 1-2. 히어로 캐러셀 v3.3 (Hero Carousel)
+**파일:** `1-2-hero-carousel-v3.html`, `1-2-hero-carousel-v3.json`
 **크기:** 39KB + 36KB
 **설명:**
 - 비디오/이미지 슬라이드 캐러셀
@@ -26,8 +26,8 @@
 - 진행 게이지, 화살표 네비게이션
 - Glow 효과, 자동재생 제어
 
-#### 3. 로고 배너 슬라이드 (Logo Banner Slide)
-**파일:** `logo-banner-slide.html`, `logo-banner-slide.json`
+#### 1-3. 로고 배너 슬라이드 (Logo Banner Slide)
+**파일:** `1-3-logo-banner-slide.html`, `1-3-logo-banner-slide.json`
 **크기:** 4.3KB + 7.5KB
 **설명:**
 - 무한 스크롤 로고 배너
@@ -37,8 +37,8 @@
 
 ### 서브 페이지 콘텐츠 블록
 
-#### 4. 서비스 카드 그리드 (Service Cards Grid)
-**파일:** `service-cards-grid.html`, `service-cards-grid.json`
+#### 2-1. 서비스 카드 그리드 (Service Cards Grid)
+**파일:** `2-1-service-cards-grid.html`, `2-1-service-cards-grid.json`
 **설명:**
 - 3단 그리드 반응형 카드 레이아웃
 - 아이콘 + 제목 + 설명 + 버튼 구조
@@ -46,8 +46,8 @@
 - 스크롤 애니메이션 (fade-up, scale-in, fade-left)
 - 완전한 데스크톱/모바일 분리
 
-#### 5. CTA 섹션 (Call-to-Action Section)
-**파일:** `cta-section.html`, `cta-section.json`
+#### 2-2. CTA 섹션 (Call-to-Action Section)
+**파일:** `2-2-cta-section.html`, `2-2-cta-section.json`
 **설명:**
 - 배경 이미지 + 그라디언트 오버레이 지원
 - 주 버튼 + 보조 버튼 이중 구성
@@ -55,8 +55,8 @@
 - 스크롤 인입 애니메이션
 - 중앙 정렬 콘텐츠 레이아웃
 
-#### 6. 텍스트+이미지 섹션 (Text+Image Section)
-**파일:** `text-image-section.html`, `text-image-section.json`
+#### 2-3. 텍스트+이미지 섹션 (Text+Image Section)
+**파일:** `2-3-text-image-section.html`, `2-3-text-image-section.json`
 **설명:**
 - 이미지 좌/우 위치 선택 가능
 - 제목 + 부제목 + 설명 + 버튼 구성
@@ -64,8 +64,8 @@
 - 슬라이드 애니메이션 (좌우 분리)
 - 수직 정렬 옵션 (상/중/하)
 
-#### 7. 통계 카운터 (Statistics Counter)
-**파일:** `stats-counter.html`, `stats-counter.json`
+#### 2-4. 통계 카운터 (Statistics Counter)
+**파일:** `2-4-stats-counter.html`, `2-4-stats-counter.json`
 **설명:**
 - 숫자 카운팅 애니메이션 효과
 - 4단 그리드 통계 표시
