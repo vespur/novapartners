@@ -1,0 +1,458 @@
+{
+  "name": "프로필 메시지",
+  "settings": [
+    {
+      "id": "sectionTitle",
+      "type": "TITLE",
+      "label": "섹션 설정"
+    },
+    {
+      "id": "backgroundColor",
+      "label": "배경 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "sectionPaddingY",
+      "label": "섹션 상하 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 80
+    },
+    {
+      "id": "sectionPaddingX",
+      "label": "섹션 좌우 여백 (데스크톱)",
+      "type": "NUMBER",
+      "default": 20
+    },
+    {
+      "id": "mobileSectionPaddingY",
+      "label": "섹션 상하 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 60
+    },
+    {
+      "id": "mobileSectionPaddingX",
+      "label": "섹션 좌우 여백 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "type": "NUMBER",
+      "default": 1200
+    },
+
+    {
+      "id": "layoutTitle",
+      "type": "TITLE",
+      "label": "레이아웃 설정"
+    },
+    {
+      "id": "imagePosition",
+      "label": "이미지 위치",
+      "type": "SELECT",
+      "options": ["left", "right"],
+      "default": "left"
+    },
+    {
+      "id": "imageWidth",
+      "label": "이미지 영역 너비 (%)",
+      "type": "NUMBER",
+      "default": 35
+    },
+    {
+      "id": "contentGap",
+      "label": "이미지-내용 간격",
+      "type": "NUMBER",
+      "default": 60
+    },
+
+    {
+      "id": "profileImageTitle",
+      "type": "TITLE",
+      "label": "프로필 이미지"
+    },
+    {
+      "id": "showImage",
+      "label": "프로필 이미지 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "imageUrl",
+      "label": "이미지 URL",
+      "type": "TEXT",
+      "default": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600",
+      "isVisible": "{{property.showImage}}"
+    },
+    {
+      "id": "imageAlt",
+      "label": "이미지 대체 텍스트",
+      "type": "TEXT",
+      "default": "CEO 프로필 사진",
+      "isVisible": "{{property.showImage}}"
+    },
+    {
+      "id": "imageRadius",
+      "label": "이미지 둥근 모서리",
+      "type": "NUMBER",
+      "default": 12,
+      "isVisible": "{{property.showImage}}"
+    },
+    {
+      "id": "imageAspectRatio",
+      "label": "이미지 비율",
+      "type": "SELECT",
+      "options": ["1:1", "4:3", "3:4", "auto"],
+      "default": "4:3",
+      "isVisible": "{{property.showImage}}"
+    },
+
+    {
+      "id": "nameTitle",
+      "type": "TITLE",
+      "label": "이름 및 직책"
+    },
+    {
+      "id": "name",
+      "label": "이름",
+      "type": "TEXT",
+      "default": "박준호"
+    },
+    {
+      "id": "nameFontSizeDesktop",
+      "label": "이름 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 32
+    },
+    {
+      "id": "nameFontSizeMobile",
+      "label": "이름 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 26
+    },
+    {
+      "id": "nameFontWeight",
+      "label": "이름 굵기",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "nameLineHeight",
+      "label": "이름 줄 높이",
+      "type": "NUMBER",
+      "default": 1.3
+    },
+    {
+      "id": "nameColor",
+      "label": "이름 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "nameMarginBottom",
+      "label": "이름 하단 여백",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "position",
+      "label": "직책",
+      "type": "TEXT",
+      "default": "대표이사 CEO"
+    },
+    {
+      "id": "positionFontSizeDesktop",
+      "label": "직책 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 18
+    },
+    {
+      "id": "positionFontSizeMobile",
+      "label": "직책 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "positionFontWeight",
+      "label": "직책 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "positionLineHeight",
+      "label": "직책 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "positionColor",
+      "label": "직책 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "positionMarginBottom",
+      "label": "직책 하단 여백",
+      "type": "NUMBER",
+      "default": 24
+    },
+
+    {
+      "id": "bioTitle",
+      "type": "TITLE",
+      "label": "약력"
+    },
+    {
+      "id": "showBio",
+      "label": "약력 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "bioItems",
+      "label": "약력 항목",
+      "type": "LIST",
+      "default": [
+        { "text": "서울대학교 컴퓨터공학과 졸업" },
+        { "text": "삼성종합기술원 AI 연구팀장 (8년)" },
+        { "text": "마이크로소프트 AI 리서처 (3년)" },
+        { "text": "노바 파트너스 창립자 & CEO (2020~)" }
+      ],
+      "fields": [
+        {
+          "id": "text",
+          "label": "약력 내용",
+          "type": "TEXT"
+        }
+      ],
+      "isVisible": "{{property.showBio}}"
+    },
+    {
+      "id": "bioFontSizeDesktop",
+      "label": "약력 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 15,
+      "isVisible": "{{property.showBio}}"
+    },
+    {
+      "id": "bioFontSizeMobile",
+      "label": "약력 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 14,
+      "isVisible": "{{property.showBio}}"
+    },
+    {
+      "id": "bioFontWeight",
+      "label": "약력 굵기",
+      "type": "NUMBER",
+      "default": 400,
+      "isVisible": "{{property.showBio}}"
+    },
+    {
+      "id": "bioLineHeight",
+      "label": "약력 줄 높이",
+      "type": "NUMBER",
+      "default": 1.8,
+      "isVisible": "{{property.showBio}}"
+    },
+    {
+      "id": "bioColor",
+      "label": "약력 색상",
+      "type": "COLOR",
+      "default": "#666666",
+      "isVisible": "{{property.showBio}}"
+    },
+    {
+      "id": "bioMarginBottom",
+      "label": "약력 하단 여백",
+      "type": "NUMBER",
+      "default": 32,
+      "isVisible": "{{property.showBio}}"
+    },
+
+    {
+      "id": "messageTitleSettings",
+      "type": "TITLE",
+      "label": "메시지 타이틀"
+    },
+    {
+      "id": "showMessageTitle",
+      "label": "메시지 타이틀 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "messageTitle",
+      "label": "메시지 타이틀",
+      "type": "TEXT",
+      "default": "AI의 미래를 함께 만들어가겠습니다",
+      "isVisible": "{{property.showMessageTitle}}"
+    },
+    {
+      "id": "messageTitleFontSizeDesktop",
+      "label": "메시지 타이틀 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 28,
+      "isVisible": "{{property.showMessageTitle}}"
+    },
+    {
+      "id": "messageTitleFontSizeMobile",
+      "label": "메시지 타이틀 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 24,
+      "isVisible": "{{property.showMessageTitle}}"
+    },
+    {
+      "id": "messageTitleFontWeight",
+      "label": "메시지 타이틀 굵기",
+      "type": "NUMBER",
+      "default": 700,
+      "isVisible": "{{property.showMessageTitle}}"
+    },
+    {
+      "id": "messageTitleLineHeight",
+      "label": "메시지 타이틀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.4,
+      "isVisible": "{{property.showMessageTitle}}"
+    },
+    {
+      "id": "messageTitleColor",
+      "label": "메시지 타이틀 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A",
+      "isVisible": "{{property.showMessageTitle}}"
+    },
+    {
+      "id": "messageTitleMarginBottom",
+      "label": "메시지 타이틀 하단 여백",
+      "type": "NUMBER",
+      "default": 24,
+      "isVisible": "{{property.showMessageTitle}}"
+    },
+
+    {
+      "id": "messageContentTitle",
+      "type": "TITLE",
+      "label": "메시지 내용"
+    },
+    {
+      "id": "message",
+      "label": "메시지",
+      "type": "TEXTAREA",
+      "default": "안녕하세요. 노바 파트너스 CEO 박준호입니다.\n\n저는 20년 이상 AI 기술을 연구하고 개발해왔습니다.\n그 과정에서 저는 한 가지 깨달았습니다:\n'기술은 결국 사람의 삶과 일을 더 나아지게 하기 위해 존재한다'는 것입니다."
+    },
+    {
+      "id": "messageFontSizeDesktop",
+      "label": "메시지 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 17
+    },
+    {
+      "id": "messageFontSizeMobile",
+      "label": "메시지 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "messageFontWeight",
+      "label": "메시지 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "messageLineHeight",
+      "label": "메시지 줄 높이",
+      "type": "NUMBER",
+      "default": 1.8
+    },
+    {
+      "id": "messageColor",
+      "label": "메시지 색상",
+      "type": "COLOR",
+      "default": "#333333"
+    },
+    {
+      "id": "messageMarginBottom",
+      "label": "메시지 하단 여백",
+      "type": "NUMBER",
+      "default": 32
+    },
+
+    {
+      "id": "signatureTitle",
+      "type": "TITLE",
+      "label": "서명"
+    },
+    {
+      "id": "showSignature",
+      "label": "서명 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "signatureName",
+      "label": "서명 이름",
+      "type": "TEXT",
+      "default": "박준호",
+      "isVisible": "{{property.showSignature}}"
+    },
+    {
+      "id": "signaturePosition",
+      "label": "서명 직책",
+      "type": "TEXT",
+      "default": "노바 파트너스 대표이사",
+      "isVisible": "{{property.showSignature}}"
+    },
+    {
+      "id": "signatureFontSizeDesktop",
+      "label": "서명 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 16,
+      "isVisible": "{{property.showSignature}}"
+    },
+    {
+      "id": "signatureFontSizeMobile",
+      "label": "서명 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 15,
+      "isVisible": "{{property.showSignature}}"
+    },
+    {
+      "id": "signatureFontWeight",
+      "label": "서명 굵기",
+      "type": "NUMBER",
+      "default": 600,
+      "isVisible": "{{property.showSignature}}"
+    },
+    {
+      "id": "signatureLineHeight",
+      "label": "서명 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6,
+      "isVisible": "{{property.showSignature}}"
+    },
+    {
+      "id": "signatureColor",
+      "label": "서명 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A",
+      "isVisible": "{{property.showSignature}}"
+    },
+
+    {
+      "id": "animationTitle",
+      "type": "TITLE",
+      "label": "애니메이션 설정"
+    },
+    {
+      "id": "scrollAnimation",
+      "label": "스크롤 애니메이션",
+      "type": "SELECT",
+      "options": ["none", "fade-up", "fade-in", "slide-left", "slide-right"],
+      "default": "fade-up"
+    }
+  ]
+}

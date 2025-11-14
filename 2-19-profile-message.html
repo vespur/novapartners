@@ -1,0 +1,354 @@
+<style>
+  .profile-message-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .profile-message-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+    display: flex;
+    {{#if (eq property.imagePosition "left")}}
+    flex-direction: row;
+    {{else}}
+    flex-direction: row-reverse;
+    {{/if}}
+    gap: {{property.contentGap}}px;
+    align-items: flex-start;
+  }
+
+  /* 이미지 영역 */
+  {{#if property.showImage}}
+  .profile-image-wrapper {
+    width: {{property.imageWidth}}%;
+    flex-shrink: 0;
+  }
+
+  .profile-image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{property.imageRadius}}px;
+    {{#if (eq property.imageAspectRatio "1:1")}}
+    padding-bottom: 100%;
+    {{/if}}
+    {{#if (eq property.imageAspectRatio "4:3")}}
+    padding-bottom: 75%;
+    {{/if}}
+    {{#if (eq property.imageAspectRatio "3:4")}}
+    padding-bottom: 133.33%;
+    {{/if}}
+  }
+
+  .profile-image {
+    {{#if (eq property.imageAspectRatio "auto")}}
+    position: relative;
+    {{else}}
+    position: absolute;
+    top: 0;
+    left: 0;
+    {{/if}}
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  {{/if}}
+
+  /* 내용 영역 */
+  .profile-content {
+    flex: 1;
+  }
+
+  /* 이름 */
+  .profile-name {
+    font-family: var(--font-family-heading);
+    font-size: {{property.nameFontSizeDesktop}}px;
+    font-weight: {{property.nameFontWeight}};
+    line-height: {{property.nameLineHeight}};
+    color: {{property.nameColor}};
+    margin-bottom: {{property.nameMarginBottom}}px;
+  }
+
+  /* 직책 */
+  .profile-position {
+    font-family: var(--font-family-body);
+    font-size: {{property.positionFontSizeDesktop}}px;
+    font-weight: {{property.positionFontWeight}};
+    line-height: {{property.positionLineHeight}};
+    color: {{property.positionColor}};
+    margin-bottom: {{property.positionMarginBottom}}px;
+  }
+
+  /* 약력 */
+  {{#if property.showBio}}
+  .profile-bio {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 {{property.bioMarginBottom}}px 0;
+  }
+
+  .profile-bio-item {
+    font-family: var(--font-family-body);
+    font-size: {{property.bioFontSizeDesktop}}px;
+    font-weight: {{property.bioFontWeight}};
+    line-height: {{property.bioLineHeight}};
+    color: {{property.bioColor}};
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .profile-bio-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: {{property.positionColor}};
+  }
+  {{/if}}
+
+  /* 메시지 타이틀 */
+  {{#if property.showMessageTitle}}
+  .profile-message-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.messageTitleFontSizeDesktop}}px;
+    font-weight: {{property.messageTitleFontWeight}};
+    line-height: {{property.messageTitleLineHeight}};
+    color: {{property.messageTitleColor}};
+    margin-bottom: {{property.messageTitleMarginBottom}}px;
+  }
+  {{/if}}
+
+  /* 메시지 */
+  .profile-message-content {
+    font-family: var(--font-family-body);
+    font-size: {{property.messageFontSizeDesktop}}px;
+    font-weight: {{property.messageFontWeight}};
+    line-height: {{property.messageLineHeight}};
+    color: {{property.messageColor}};
+    margin-bottom: {{property.messageMarginBottom}}px;
+    white-space: pre-line;
+  }
+
+  /* 서명 */
+  {{#if property.showSignature}}
+  .profile-signature {
+    font-family: var(--font-family-body);
+    font-size: {{property.signatureFontSizeDesktop}}px;
+    font-weight: {{property.signatureFontWeight}};
+    line-height: {{property.signatureLineHeight}};
+    color: {{property.signatureColor}};
+  }
+
+  .profile-signature-name {
+    display: block;
+  }
+
+  .profile-signature-position {
+    display: block;
+  }
+  {{/if}}
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .profile-message-container.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+  .profile-message-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .profile-message-container.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+  }
+  .profile-message-container.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "slide-left")}}
+  .profile-message-container.animate-on-scroll {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s ease-out;
+  }
+  .profile-message-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "slide-right")}}
+  .profile-message-container.animate-on-scroll {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s ease-out;
+  }
+  .profile-message-container.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .profile-message-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .profile-message-container {
+      flex-direction: column;
+    }
+
+    {{#if property.showImage}}
+    .profile-image-wrapper {
+      width: 100%;
+    }
+    {{/if}}
+
+    .profile-name {
+      font-size: {{property.nameFontSizeMobile}}px;
+    }
+
+    .profile-position {
+      font-size: {{property.positionFontSizeMobile}}px;
+    }
+
+    {{#if property.showBio}}
+    .profile-bio-item {
+      font-size: {{property.bioFontSizeMobile}}px;
+    }
+    {{/if}}
+
+    {{#if property.showMessageTitle}}
+    .profile-message-title {
+      font-size: {{property.messageTitleFontSizeMobile}}px;
+    }
+    {{/if}}
+
+    .profile-message-content {
+      font-size: {{property.messageFontSizeMobile}}px;
+    }
+
+    {{#if property.showSignature}}
+    .profile-signature {
+      font-size: {{property.signatureFontSizeMobile}}px;
+    }
+    {{/if}}
+  }
+</style>
+
+<template>
+  <section class="profile-message-section">
+    <div class="profile-message-container {{#if property.scrollAnimation}}animate-on-scroll{{/if}}">
+      <!-- 이미지 영역 -->
+      {{#if property.showImage}}
+      <div class="profile-image-wrapper">
+        <div class="profile-image-container">
+          <img
+            src="{{property.imageUrl}}"
+            alt="{{property.imageAlt}}"
+            class="profile-image"
+            loading="lazy">
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- 내용 영역 -->
+      <div class="profile-content">
+        <!-- 이름 -->
+        {{#if property.name}}
+        <h2 class="profile-name">{{property.name}}</h2>
+        {{/if}}
+
+        <!-- 직책 -->
+        {{#if property.position}}
+        <p class="profile-position">{{property.position}}</p>
+        {{/if}}
+
+        <!-- 약력 -->
+        {{#if property.showBio}}
+          {{#if property.bioItems}}
+          <ul class="profile-bio">
+            {{#each property.bioItems}}
+            <li class="profile-bio-item">{{text}}</li>
+            {{/each}}
+          </ul>
+          {{/if}}
+        {{/if}}
+
+        <!-- 메시지 타이틀 -->
+        {{#if property.showMessageTitle}}
+          {{#if property.messageTitle}}
+          <h3 class="profile-message-title">{{property.messageTitle}}</h3>
+          {{/if}}
+        {{/if}}
+
+        <!-- 메시지 -->
+        {{#if property.message}}
+        <div class="profile-message-content">{{property.message}}</div>
+        {{/if}}
+
+        <!-- 서명 -->
+        {{#if property.showSignature}}
+        <div class="profile-signature">
+          {{#if property.signatureName}}
+          <span class="profile-signature-name">{{property.signatureName}}</span>
+          {{/if}}
+          {{#if property.signaturePosition}}
+          <span class="profile-signature-position">{{property.signaturePosition}}</span>
+          {{/if}}
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const profileContainer = container.querySelector('.profile-message-container');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      if (profileContainer) {
+        observer.observe(profileContainer);
+      }
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
