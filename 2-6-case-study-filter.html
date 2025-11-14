@@ -1,0 +1,446 @@
+<style>
+  .case-study-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .case-study-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .case-study-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .case-study-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 필터 버튼 그룹 */
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: {{property.filterGap}}px;
+    margin-bottom: {{property.filterMarginBottom}}px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: {{property.filterPaddingY}}px {{property.filterPaddingX}}px;
+    font-family: var(--font-family-body);
+    font-size: {{property.filterFontSizeDesktop}}px;
+    font-weight: {{property.filterFontWeight}};
+    line-height: {{property.filterLineHeight}};
+    color: {{property.filterColorInactive}};
+    background-color: {{property.filterBgInactive}};
+    border: {{property.filterBorderWidth}}px solid {{property.filterBorderColor}};
+    border-radius: {{property.filterRadius}}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filter-btn:hover {
+    background-color: {{property.filterBgHover}};
+    color: {{property.filterColorHover}};
+  }
+
+  .filter-btn.active {
+    background-color: {{property.filterBgActive}};
+    color: {{property.filterColorActive}};
+    border-color: {{property.filterBgActive}};
+  }
+
+  /* 카드 그리드 */
+  .case-cards {
+    display: grid;
+    grid-template-columns: repeat({{property.cardsPerRowDesktop}}, 1fr);
+    gap: {{property.cardGapDesktop}}px;
+  }
+
+  /* 개별 카드 */
+  .case-card {
+    background-color: {{property.cardBg}};
+    border-radius: {{property.cardRadius}}px;
+    padding: {{property.cardPaddingY}}px {{property.cardPaddingX}}px;
+    transition: all 0.4s ease;
+    {{#if property.cardBorderEnabled}}
+    border: {{property.cardBorderWidth}}px solid {{property.cardBorderColor}};
+    {{/if}}
+    {{#if property.cardShadowEnabled}}
+    box-shadow: {{property.cardShadowX}}px {{property.cardShadowY}}px {{property.cardShadowBlur}}px {{property.cardShadowColor}};
+    {{/if}}
+  }
+
+  /* 카드 숨김 */
+  .case-card.hidden {
+    display: none;
+  }
+
+  /* 카드 호버 */
+  {{#if (eq property.cardHoverAnimation "lift")}}
+  .case-card:hover {
+    transform: translateY(-8px);
+    box-shadow: {{property.cardShadowX}}px {{add property.cardShadowY 12}}px {{add property.cardShadowBlur 15}}px {{property.cardShadowColor}};
+  }
+  {{/if}}
+
+  {{#if (eq property.cardHoverAnimation "scale")}}
+  .case-card:hover {
+    transform: scale(1.03);
+  }
+  {{/if}}
+
+  {{#if (eq property.cardHoverAnimation "glow")}}
+  .case-card:hover {
+    box-shadow: 0 0 30px {{property.filterBgActive}}44;
+  }
+  {{/if}}
+
+  /* 업종 배지 */
+  .case-industry {
+    display: inline-block;
+    padding: {{property.badgePaddingY}}px {{property.badgePaddingX}}px;
+    background-color: {{property.badgeBg}};
+    color: {{property.badgeColor}};
+    font-family: var(--font-family-body);
+    font-size: {{property.badgeFontSize}}px;
+    font-weight: {{property.badgeFontWeight}};
+    line-height: {{property.badgeLineHeight}};
+    border-radius: {{property.badgeRadius}}px;
+    margin-bottom: {{property.badgeMarginBottom}}px;
+  }
+
+  /* 기업명 */
+  .case-company {
+    font-family: var(--font-family-heading);
+    font-size: {{property.companyFontSizeDesktop}}px;
+    font-weight: {{property.companyFontWeight}};
+    line-height: {{property.companyLineHeight}};
+    color: {{property.companyColor}};
+    margin-bottom: {{property.companyMarginBottom}}px;
+  }
+
+  /* 과제 섹션 */
+  .case-challenge {
+    margin-bottom: {{property.sectionSpacing}}px;
+  }
+
+  .challenge-label {
+    font-family: var(--font-family-heading);
+    font-size: {{property.labelFontSizeDesktop}}px;
+    font-weight: {{property.labelFontWeight}};
+    line-height: {{property.labelLineHeight}};
+    color: {{property.labelColor}};
+    margin-bottom: {{property.labelMarginBottom}}px;
+  }
+
+  .challenge-text {
+    font-family: var(--font-family-body);
+    font-size: {{property.textFontSizeDesktop}}px;
+    font-weight: {{property.textFontWeight}};
+    line-height: {{property.textLineHeight}};
+    color: {{property.textColor}};
+  }
+
+  /* 솔루션 섹션 */
+  .case-solution {
+    margin-bottom: {{property.sectionSpacing}}px;
+  }
+
+  .solution-label {
+    font-family: var(--font-family-heading);
+    font-size: {{property.labelFontSizeDesktop}}px;
+    font-weight: {{property.labelFontWeight}};
+    line-height: {{property.labelLineHeight}};
+    color: {{property.labelColor}};
+    margin-bottom: {{property.labelMarginBottom}}px;
+  }
+
+  .solution-text {
+    font-family: var(--font-family-body);
+    font-size: {{property.textFontSizeDesktop}}px;
+    font-weight: {{property.textFontWeight}};
+    line-height: {{property.textLineHeight}};
+    color: {{property.textColor}};
+  }
+
+  /* 결과 섹션 */
+  .case-results {
+    margin-bottom: {{property.sectionSpacing}}px;
+  }
+
+  .results-label {
+    font-family: var(--font-family-heading);
+    font-size: {{property.labelFontSizeDesktop}}px;
+    font-weight: {{property.labelFontWeight}};
+    line-height: {{property.labelLineHeight}};
+    color: {{property.labelColor}};
+    margin-bottom: {{property.labelMarginBottom}}px;
+  }
+
+  .results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .results-list li {
+    font-family: var(--font-family-body);
+    font-size: {{property.textFontSizeDesktop}}px;
+    font-weight: {{property.textFontWeight}};
+    line-height: {{property.textLineHeight}};
+    color: {{property.textColor}};
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  .results-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: {{property.checkmarkColor}};
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  /* CTA 버튼 */
+  .case-button {
+    display: inline-block;
+    padding: {{property.buttonPaddingY}}px {{property.buttonPaddingX}}px;
+    font-family: var(--font-family-body);
+    font-size: {{property.buttonFontSizeDesktop}}px;
+    font-weight: {{property.buttonFontWeight}};
+    line-height: {{property.buttonLineHeight}};
+    color: {{property.buttonTextColor}};
+    background-color: {{property.buttonBg}};
+    border-radius: {{property.buttonRadius}}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .case-button:hover {
+    background-color: {{property.buttonBgHover}};
+    transform: translateY(-2px);
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .case-card.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  .case-card.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .case-card.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease-out;
+  }
+  .case-card.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .case-study-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .case-study-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .case-study-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .filter-btn {
+      font-size: {{property.filterFontSizeMobile}}px;
+    }
+
+    .case-cards {
+      grid-template-columns: repeat({{property.cardsPerRowMobile}}, 1fr);
+      gap: {{property.cardGapMobile}}px;
+    }
+
+    .case-company {
+      font-size: {{property.companyFontSizeMobile}}px;
+    }
+
+    .challenge-label,
+    .solution-label,
+    .results-label {
+      font-size: {{property.labelFontSizeMobile}}px;
+    }
+
+    .challenge-text,
+    .solution-text,
+    .results-list li {
+      font-size: {{property.textFontSizeMobile}}px;
+    }
+
+    .case-button {
+      font-size: {{property.buttonFontSizeMobile}}px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<template>
+  <section class="case-study-section">
+    <div class="case-study-container">
+      {{#if property.title}}
+        <h2 class="case-study-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="case-study-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <!-- 필터 버튼 -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">전체</button>
+        <button class="filter-btn" data-filter="금융">금융</button>
+        <button class="filter-btn" data-filter="제조">제조</button>
+        <button class="filter-btn" data-filter="소매">소매</button>
+      </div>
+
+      <!-- 케이스 카드 -->
+      <div class="case-cards">
+        {{#each property.cases}}
+          <div class="case-card {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}" data-industry="{{industry}}">
+            <span class="case-industry">{{industry}}</span>
+            <h3 class="case-company">{{company}}</h3>
+
+            <div class="case-challenge">
+              <h4 class="challenge-label">과제</h4>
+              <p class="challenge-text">{{challenge}}</p>
+            </div>
+
+            <div class="case-solution">
+              <h4 class="solution-label">솔루션</h4>
+              <p class="solution-text">{{solution}}</p>
+            </div>
+
+            <div class="case-results">
+              <h4 class="results-label">결과</h4>
+              <ul class="results-list">
+                {{#each results}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+
+            {{#if buttonText}}
+              <a href="{{buttonLink}}" class="case-button">{{buttonText}}</a>
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 필터 버튼 클릭 이벤트
+    const filterButtons = container.querySelectorAll('.filter-btn');
+    const cards = container.querySelectorAll('.case-card');
+
+    // 이벤트 위임으로 필터 버튼 처리
+    container.addEventListener('click', (e) => {
+      const filterBtn = e.target.closest('.filter-btn');
+      if (!filterBtn) return;
+
+      e.preventDefault();
+
+      const filter = filterBtn.dataset.filter;
+
+      // 활성 버튼 업데이트
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      filterBtn.classList.add('active');
+
+      // 카드 필터링
+      cards.forEach(card => {
+        const industry = card.dataset.industry;
+
+        if (filter === 'all' || industry === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            const delay = index * (context.property.scrollAnimationDelay || 150);
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
