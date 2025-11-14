@@ -1,0 +1,387 @@
+<style>
+  .testimonial-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .testimonial-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .testimonial-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .testimonial-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 리뷰 그리드 */
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat({{property.columnsDesktop}}, 1fr);
+    gap: {{property.gridGapDesktop}}px;
+  }
+
+  /* 개별 리뷰 카드 */
+  .testimonial-item {
+    background-color: {{property.cardBg}};
+    border-radius: {{property.cardRadius}}px;
+    padding: {{property.cardPaddingY}}px {{property.cardPaddingX}}px;
+    transition: all 0.4s ease;
+    {{#if property.cardBorderEnabled}}
+    border: {{property.cardBorderWidth}}px solid {{property.cardBorderColor}};
+    {{/if}}
+    {{#if property.cardShadowEnabled}}
+    box-shadow: {{property.cardShadowX}}px {{property.cardShadowY}}px {{property.cardShadowBlur}}px {{property.cardShadowColor}};
+    {{/if}}
+  }
+
+  /* 호버 애니메이션 */
+  {{#if (eq property.cardHoverAnimation "lift")}}
+  .testimonial-item:hover {
+    transform: translateY(-6px);
+    box-shadow: {{property.cardShadowX}}px {{add property.cardShadowY 10}}px {{add property.cardShadowBlur 12}}px {{property.cardShadowColor}};
+  }
+  {{/if}}
+
+  {{#if (eq property.cardHoverAnimation "scale")}}
+  .testimonial-item:hover {
+    transform: scale(1.03);
+  }
+  {{/if}}
+
+  {{#if (eq property.cardHoverAnimation "glow")}}
+  .testimonial-item:hover {
+    box-shadow: 0 0 25px {{property.glowColor}}44;
+  }
+  {{/if}}
+
+  /* 별점 */
+  .testimonial-rating {
+    display: flex;
+    align-items: center;
+    gap: {{property.ratingGap}}px;
+    margin-bottom: {{property.ratingMarginBottom}}px;
+  }
+
+  .testimonial-stars {
+    display: flex;
+    gap: {{property.starGap}}px;
+  }
+
+  .star {
+    font-size: {{property.starSizeDesktop}}px;
+    color: {{property.starColor}};
+  }
+
+  .star.empty {
+    color: {{property.starEmptyColor}};
+  }
+
+  .testimonial-score {
+    font-family: var(--font-family-body);
+    font-size: {{property.scoreFontSizeDesktop}}px;
+    font-weight: {{property.scoreFontWeight}};
+    line-height: {{property.scoreLineHeight}};
+    color: {{property.scoreColor}};
+  }
+
+  /* 코멘트 */
+  .testimonial-comment {
+    font-family: var(--font-family-body);
+    font-size: {{property.commentFontSizeDesktop}}px;
+    font-weight: {{property.commentFontWeight}};
+    line-height: {{property.commentLineHeight}};
+    color: {{property.commentColor}};
+    margin-bottom: {{property.commentMarginBottom}}px;
+    white-space: pre-line;
+    {{#if property.showQuotes}}
+    position: relative;
+    padding-left: {{property.quotesPadding}}px;
+    {{/if}}
+  }
+
+  {{#if property.showQuotes}}
+  .testimonial-comment::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -10px;
+    font-size: {{property.quotesSize}}px;
+    color: {{property.quotesColor}};
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  {{/if}}
+
+  /* 하단 정보 */
+  .testimonial-footer {
+    display: flex;
+    align-items: center;
+    gap: {{property.footerGap}}px;
+  }
+
+  {{#if property.showAvatar}}
+  .testimonial-avatar {
+    width: {{property.avatarSize}}px;
+    height: {{property.avatarSize}}px;
+    border-radius: {{property.avatarRadius}}%;
+    background-color: {{property.avatarBg}};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-heading);
+    font-size: {{property.avatarFontSize}}px;
+    font-weight: 700;
+    color: {{property.avatarColor}};
+    flex-shrink: 0;
+  }
+
+  .testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: {{property.avatarRadius}}%;
+    object-fit: cover;
+  }
+  {{/if}}
+
+  .testimonial-info {
+    flex: 1;
+  }
+
+  .testimonial-name {
+    font-family: var(--font-family-heading);
+    font-size: {{property.nameFontSizeDesktop}}px;
+    font-weight: {{property.nameFontWeight}};
+    line-height: {{property.nameLineHeight}};
+    color: {{property.nameColor}};
+    margin-bottom: {{property.nameMarginBottom}}px;
+  }
+
+  .testimonial-company {
+    font-family: var(--font-family-body);
+    font-size: {{property.companyFontSizeDesktop}}px;
+    font-weight: {{property.companyFontWeight}};
+    line-height: {{property.companyLineHeight}};
+    color: {{property.companyColor}};
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .testimonial-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  .testimonial-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "scale-in")}}
+  .testimonial-item.animate-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease-out;
+  }
+  .testimonial-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .testimonial-item.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.6s ease-out;
+  }
+  .testimonial-item.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .testimonial-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .testimonial-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .testimonial-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .testimonial-grid {
+      grid-template-columns: repeat({{property.columnsMobile}}, 1fr);
+      gap: {{property.gridGapMobile}}px;
+    }
+
+    .star {
+      font-size: {{property.starSizeMobile}}px;
+    }
+
+    .testimonial-score {
+      font-size: {{property.scoreFontSizeMobile}}px;
+    }
+
+    .testimonial-comment {
+      font-size: {{property.commentFontSizeMobile}}px;
+    }
+
+    .testimonial-name {
+      font-size: {{property.nameFontSizeMobile}}px;
+    }
+
+    .testimonial-company {
+      font-size: {{property.companyFontSizeMobile}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="testimonial-section">
+    <div class="testimonial-container">
+      {{#if property.title}}
+        <h2 class="testimonial-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="testimonial-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="testimonial-grid">
+        {{#each property.testimonials}}
+          <div class="testimonial-item {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}" data-testimonial-index="{{@index}}">
+            <!-- 별점 -->
+            <div class="testimonial-rating">
+              <div class="testimonial-stars">
+                {{#each (Array rating)}}
+                  <span class="star">★</span>
+                {{/each}}
+                {{#each (Array (subtract 5 ../rating))}}
+                  <span class="star empty">★</span>
+                {{/each}}
+              </div>
+              {{#if ../property.showScore}}
+                <span class="testimonial-score">({{rating}}.0)</span>
+              {{/if}}
+            </div>
+
+            <!-- 코멘트 -->
+            <p class="testimonial-comment">{{comment}}</p>
+
+            <!-- 하단 정보 -->
+            <div class="testimonial-footer">
+              {{#if ../property.showAvatar}}
+                <div class="testimonial-avatar">
+                  {{#if avatar}}
+                    <img src="{{avatar}}" alt="{{name}}" loading="lazy">
+                  {{else}}
+                    {{substring name 0 1}}
+                  {{/if}}
+                </div>
+              {{/if}}
+
+              <div class="testimonial-info">
+                <div class="testimonial-name">{{name}}</div>
+                <div class="testimonial-company">{{company}}</div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  // Helper: 배열 생성 (별점 렌더링용)
+  if (!Handlebars.helpers.Array) {
+    Handlebars.registerHelper('Array', function(count) {
+      return new Array(Math.floor(count)).fill(0);
+    });
+  }
+
+  // Helper: 빼기
+  if (!Handlebars.helpers.subtract) {
+    Handlebars.registerHelper('subtract', function(a, b) {
+      return a - b;
+    });
+  }
+
+  // Helper: 문자열 자르기
+  if (!Handlebars.helpers.substring) {
+    Handlebars.registerHelper('substring', function(str, start, end) {
+      return str ? str.substring(start, end) : '';
+    });
+  }
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const testimonialItems = container.querySelectorAll('.testimonial-item');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const testimonialIndex = parseInt(entry.target.dataset.testimonialIndex);
+            const delay = testimonialIndex * (context.property.scrollAnimationDelay || 150);
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      testimonialItems.forEach(item => {
+        observer.observe(item);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
