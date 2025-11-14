@@ -1,0 +1,342 @@
+<div class="notice-board-wrapper" style="
+  background-color: {{property.bgColor}};
+  padding: {{property.paddingY}}px {{property.paddingX}}px;
+">
+  <div class="notice-board-container" style="
+    max-width: {{#if property.maxWidth}}{{property.maxWidth}}px{{else}}100%{{/if}};
+    margin: 0 auto;
+  ">
+    {{#if property.showTitle}}
+    <div class="notice-board-header" style="
+      text-align: center;
+      margin-bottom: 60px;
+    ">
+      <h2 class="notice-board-title" style="
+        font-size: {{property.titleSize}}px;
+        font-weight: {{property.titleWeight}};
+        line-height: {{property.titleLineHeight}};
+        color: {{property.titleColor}};
+        margin: 0 0 16px 0;
+      ">{{property.title}}</h2>
+
+      <p class="notice-board-subtitle" style="
+        font-size: {{property.subtitleSize}}px;
+        font-weight: {{property.subtitleWeight}};
+        line-height: {{property.subtitleLineHeight}};
+        color: {{property.subtitleColor}};
+        margin: 0;
+      ">{{property.subtitle}}</p>
+    </div>
+    {{/if}}
+
+    <div class="notice-board-list">
+      {{#each property.items}}
+      <div class="notice-item {{#if isPinned}}notice-pinned{{/if}}"
+           data-index="{{@index}}"
+           data-animation="{{../property.animationStyle}}"
+           style="
+             background-color: {{#if isPinned}}{{../property.pinnedBgColor}}{{else}}{{../property.itemBgColor}}{{/if}};
+             border: 1px solid {{#if isPinned}}{{../property.pinnedBorderColor}}{{else}}{{../property.itemBorderColor}}{{/if}};
+             border-radius: 12px;
+             padding: 24px;
+             margin-bottom: {{../property.itemSpacing}}px;
+             cursor: pointer;
+             transition: all 0.3s ease;
+             position: relative;
+             overflow: hidden;
+           ">
+
+        <div class="notice-item-header" style="
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 16px;
+          margin-bottom: 12px;
+        ">
+          <div class="notice-item-main" style="flex: 1; min-width: 0;">
+            <div class="notice-item-top" style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              margin-bottom: 8px;
+              flex-wrap: wrap;
+            ">
+              {{#if isPinned}}
+              <span class="notice-pin-icon" style="
+                font-size: 16px;
+                color: {{../property.pinnedBorderColor}};
+              ">📌</span>
+              {{/if}}
+
+              <span class="notice-category" style="
+                display: inline-block;
+                padding: 4px 12px;
+                background-color: {{../property.categoryBgColor}};
+                color: {{../property.categoryTextColor}};
+                font-size: 12px;
+                font-weight: 600;
+                border-radius: 4px;
+              ">{{category}}</span>
+
+              <span class="notice-date" style="
+                font-size: {{../property.noticeMetaSize}}px;
+                font-weight: {{../property.noticeMetaWeight}};
+                line-height: {{../property.noticeMetaLineHeight}};
+                color: {{../property.noticeMetaColor}};
+              ">{{date}}</span>
+            </div>
+
+            <h3 class="notice-item-title" style="
+              font-size: {{../property.noticeTitleSize}}px;
+              font-weight: {{../property.noticeTitleWeight}};
+              line-height: {{../property.noticeTitleLineHeight}};
+              color: {{../property.noticeTitleColor}};
+              margin: 0 0 8px 0;
+              word-break: break-word;
+            ">{{title}}</h3>
+
+            <div class="notice-item-meta" style="
+              display: flex;
+              align-items: center;
+              gap: 16px;
+              font-size: {{../property.noticeMetaSize}}px;
+              font-weight: {{../property.noticeMetaWeight}};
+              line-height: {{../property.noticeMetaLineHeight}};
+              color: {{../property.noticeMetaColor}};
+              flex-wrap: wrap;
+            ">
+              <span class="notice-author">✍️ {{author}}</span>
+              <span class="notice-views">👁️ {{views}}</span>
+            </div>
+          </div>
+
+          <div class="notice-toggle-icon" style="
+            font-size: 20px;
+            color: {{../property.noticeMetaColor}};
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+          ">▼</div>
+        </div>
+
+        <div class="notice-item-content" style="
+          font-size: {{../property.noticeContentSize}}px;
+          font-weight: {{../property.noticeContentWeight}};
+          line-height: {{../property.noticeContentLineHeight}};
+          color: {{../property.noticeContentColor}};
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          transition: all 0.3s ease;
+          padding-top: 0;
+          border-top: 0;
+          margin-top: 0;
+        ">
+          <div style="
+            padding-top: 16px;
+            border-top: 1px solid {{../property.itemBorderColor}};
+            margin-top: 16px;
+          ">{{content}}</div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+<style>
+  .notice-board-wrapper {
+    position: relative;
+  }
+
+  .notice-item {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .notice-item.animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .notice-item[data-animation="fade-up"].animated {
+    animation: noticeFadeUp 0.6s ease forwards;
+  }
+
+  .notice-item[data-animation="fade-in"].animated {
+    animation: noticeFadeIn 0.6s ease forwards;
+  }
+
+  .notice-item[data-animation="slide-up"].animated {
+    animation: noticeSlideUp 0.6s ease forwards;
+  }
+
+  .notice-item[data-animation="none"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes noticeFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes noticeFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes noticeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .notice-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .notice-item.expanded .notice-toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .notice-item.expanded .notice-item-content {
+    max-height: 1000px;
+    opacity: 1;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .notice-board-wrapper {
+      padding: {{property.paddingYMobile}}px {{property.paddingXMobile}}px !important;
+    }
+
+    .notice-board-title {
+      font-size: {{property.titleSizeMobile}}px !important;
+    }
+
+    .notice-board-subtitle {
+      font-size: {{property.subtitleSizeMobile}}px !important;
+    }
+
+    .notice-item-title {
+      font-size: {{property.noticeTitleSizeMobile}}px !important;
+    }
+
+    .notice-item-meta,
+    .notice-date,
+    .notice-author,
+    .notice-views {
+      font-size: {{property.noticeMetaSizeMobile}}px !important;
+    }
+
+    .notice-item-content {
+      font-size: {{property.noticeContentSizeMobile}}px !important;
+    }
+
+    .notice-item {
+      padding: 20px !important;
+    }
+
+    .notice-board-header {
+      margin-bottom: 40px !important;
+    }
+
+    .notice-item-top {
+      gap: 8px !important;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const container = bm.container;
+    const animationStyle = '{{property.animationStyle}}';
+
+    // Sort items: pinned items first
+    const noticeList = container.querySelector('.notice-board-list');
+    const noticeItems = Array.from(noticeList.querySelectorAll('.notice-item'));
+
+    // Sort: pinned first, then by index
+    noticeItems.sort((a, b) => {
+      const aPinned = a.classList.contains('notice-pinned');
+      const bPinned = b.classList.contains('notice-pinned');
+
+      if (aPinned && !bPinned) return -1;
+      if (!aPinned && bPinned) return 1;
+
+      const aIndex = parseInt(a.dataset.index || 0);
+      const bIndex = parseInt(b.dataset.index || 0);
+      return aIndex - bIndex;
+    });
+
+    // Re-append sorted items
+    noticeItems.forEach(item => {
+      noticeList.appendChild(item);
+    });
+
+    // Toggle expand/collapse
+    container.addEventListener('click', (e) => {
+      const noticeItem = e.target.closest('.notice-item');
+      if (!noticeItem) return;
+
+      noticeItem.classList.toggle('expanded');
+    });
+
+    // Scroll animation
+    if (animationStyle !== 'none') {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            const items = entry.target.querySelectorAll('.notice-item');
+            items.forEach((item, i) => {
+              setTimeout(() => {
+                item.classList.add('animated');
+              }, i * 100);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const listElement = container.querySelector('.notice-board-list');
+      if (listElement) {
+        observer.observe(listElement);
+      }
+
+      // Cleanup
+      bm.onDestroy = () => {
+        if (listElement) {
+          observer.unobserve(listElement);
+        }
+      };
+    } else {
+      // No animation - show all items immediately
+      const items = container.querySelectorAll('.notice-item');
+      items.forEach(item => {
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0)';
+      });
+    }
+  })();
+</script>

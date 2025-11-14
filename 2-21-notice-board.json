@@ -1,0 +1,393 @@
+{
+  "id": "notice-board",
+  "name": "공지사항 리스트",
+  "description": "공지사항을 표시하는 블록입니다",
+  "category": "콘텐츠",
+  "properties": [
+    {
+      "id": "title",
+      "label": "섹션 타이틀",
+      "type": "TEXT",
+      "default": "공지사항"
+    },
+    {
+      "id": "subtitle",
+      "label": "섹션 서브타이틀",
+      "type": "TEXT",
+      "default": "노바 파트너스의 최신 소식을 전해드립니다"
+    },
+    {
+      "id": "showTitle",
+      "label": "타이틀 표시",
+      "type": "TOGGLE",
+      "default": true
+    },
+    {
+      "id": "items",
+      "label": "공지사항 목록",
+      "type": "LIST",
+      "default": [
+        {
+          "date": "2025-01-15",
+          "title": "신해년, 더욱 혁신적인 AI 솔루션으로 인사드립니다",
+          "author": "관리자",
+          "views": "1,203",
+          "category": "공지",
+          "content": "새해, 노바 파트너스는 더욱 강화된 AI 솔루션과 서비스로 고객 여러분을 찾아갑니다. 올해도 함께하겠습니다.",
+          "isPinned": true
+        },
+        {
+          "date": "2025-01-10",
+          "title": "2024년 성과 보고회 개최 안내",
+          "author": "마케팅 팀",
+          "views": "856",
+          "category": "행사",
+          "content": "지난 1년간의 프로젝트 성과와 고객 사례를 공유하는 성과 보고회를 개최합니다. [2025-01-22] 서울 강남역",
+          "isPinned": false
+        },
+        {
+          "date": "2025-01-05",
+          "title": "기술 교육 프로그램 신규 개설",
+          "author": "교육 팀",
+          "views": "2,104",
+          "category": "교육",
+          "content": "AI 기술 기초부터 고급까지 온/오프라인 무료 교육을 개설합니다. 고객사 임직원 대상, 매월 2회 개최",
+          "isPinned": false
+        },
+        {
+          "date": "2024-12-28",
+          "title": "연말 휴무 안내",
+          "author": "관리자",
+          "views": "892",
+          "category": "공지",
+          "content": "다음과 같이 연말 휴무를 안내드립니다: 2024.12.28(토)~2025.01.02(목) 휴무. 긴급 기술 지원: 연중무휴",
+          "isPinned": false
+        }
+      ],
+      "fields": [
+        {
+          "id": "date",
+          "label": "날짜 (YYYY-MM-DD)",
+          "type": "TEXT"
+        },
+        {
+          "id": "title",
+          "label": "제목",
+          "type": "TEXT"
+        },
+        {
+          "id": "author",
+          "label": "작성자",
+          "type": "TEXT"
+        },
+        {
+          "id": "views",
+          "label": "조회수",
+          "type": "TEXT"
+        },
+        {
+          "id": "category",
+          "label": "카테고리",
+          "type": "TEXT"
+        },
+        {
+          "id": "content",
+          "label": "내용",
+          "type": "TEXTAREA"
+        },
+        {
+          "id": "isPinned",
+          "label": "중요 공지 (상단 고정)",
+          "type": "TOGGLE"
+        }
+      ]
+    },
+    {
+      "id": "titleSize",
+      "label": "섹션 타이틀 크기 (Desktop)",
+      "type": "NUMBER",
+      "default": 36,
+      "min": 16,
+      "max": 72
+    },
+    {
+      "id": "titleSizeMobile",
+      "label": "섹션 타이틀 크기 (Mobile)",
+      "type": "NUMBER",
+      "default": 28,
+      "min": 16,
+      "max": 72
+    },
+    {
+      "id": "titleWeight",
+      "label": "섹션 타이틀 굵기",
+      "type": "SELECT",
+      "options": ["300", "400", "500", "600", "700", "800", "900"],
+      "default": "700"
+    },
+    {
+      "id": "titleLineHeight",
+      "label": "섹션 타이틀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.2,
+      "min": 1,
+      "max": 2,
+      "step": 0.1
+    },
+    {
+      "id": "titleColor",
+      "label": "섹션 타이틀 색상",
+      "type": "COLOR",
+      "default": "#1a1a1a"
+    },
+    {
+      "id": "subtitleSize",
+      "label": "서브타이틀 크기 (Desktop)",
+      "type": "NUMBER",
+      "default": 18,
+      "min": 12,
+      "max": 32
+    },
+    {
+      "id": "subtitleSizeMobile",
+      "label": "서브타이틀 크기 (Mobile)",
+      "type": "NUMBER",
+      "default": 16,
+      "min": 12,
+      "max": 32
+    },
+    {
+      "id": "subtitleWeight",
+      "label": "서브타이틀 굵기",
+      "type": "SELECT",
+      "options": ["300", "400", "500", "600", "700"],
+      "default": "400"
+    },
+    {
+      "id": "subtitleLineHeight",
+      "label": "서브타이틀 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5,
+      "min": 1,
+      "max": 2,
+      "step": 0.1
+    },
+    {
+      "id": "subtitleColor",
+      "label": "서브타이틀 색상",
+      "type": "COLOR",
+      "default": "#666666"
+    },
+    {
+      "id": "noticeTitleSize",
+      "label": "공지 제목 크기 (Desktop)",
+      "type": "NUMBER",
+      "default": 18,
+      "min": 12,
+      "max": 32
+    },
+    {
+      "id": "noticeTitleSizeMobile",
+      "label": "공지 제목 크기 (Mobile)",
+      "type": "NUMBER",
+      "default": 16,
+      "min": 12,
+      "max": 32
+    },
+    {
+      "id": "noticeTitleWeight",
+      "label": "공지 제목 굵기",
+      "type": "SELECT",
+      "options": ["400", "500", "600", "700"],
+      "default": "600"
+    },
+    {
+      "id": "noticeTitleLineHeight",
+      "label": "공지 제목 줄 높이",
+      "type": "NUMBER",
+      "default": 1.4,
+      "min": 1,
+      "max": 2,
+      "step": 0.1
+    },
+    {
+      "id": "noticeTitleColor",
+      "label": "공지 제목 색상",
+      "type": "COLOR",
+      "default": "#1a1a1a"
+    },
+    {
+      "id": "noticeMetaSize",
+      "label": "공지 메타정보 크기 (Desktop)",
+      "type": "NUMBER",
+      "default": 14,
+      "min": 10,
+      "max": 20
+    },
+    {
+      "id": "noticeMetaSizeMobile",
+      "label": "공지 메타정보 크기 (Mobile)",
+      "type": "NUMBER",
+      "default": 12,
+      "min": 10,
+      "max": 20
+    },
+    {
+      "id": "noticeMetaWeight",
+      "label": "공지 메타정보 굵기",
+      "type": "SELECT",
+      "options": ["300", "400", "500", "600"],
+      "default": "400"
+    },
+    {
+      "id": "noticeMetaLineHeight",
+      "label": "공지 메타정보 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5,
+      "min": 1,
+      "max": 2,
+      "step": 0.1
+    },
+    {
+      "id": "noticeMetaColor",
+      "label": "공지 메타정보 색상",
+      "type": "COLOR",
+      "default": "#888888"
+    },
+    {
+      "id": "noticeContentSize",
+      "label": "공지 내용 크기 (Desktop)",
+      "type": "NUMBER",
+      "default": 15,
+      "min": 12,
+      "max": 24
+    },
+    {
+      "id": "noticeContentSizeMobile",
+      "label": "공지 내용 크기 (Mobile)",
+      "type": "NUMBER",
+      "default": 14,
+      "min": 12,
+      "max": 24
+    },
+    {
+      "id": "noticeContentWeight",
+      "label": "공지 내용 굵기",
+      "type": "SELECT",
+      "options": ["300", "400", "500", "600"],
+      "default": "400"
+    },
+    {
+      "id": "noticeContentLineHeight",
+      "label": "공지 내용 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6,
+      "min": 1,
+      "max": 2.5,
+      "step": 0.1
+    },
+    {
+      "id": "noticeContentColor",
+      "label": "공지 내용 색상",
+      "type": "COLOR",
+      "default": "#444444"
+    },
+    {
+      "id": "bgColor",
+      "label": "배경 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "itemBgColor",
+      "label": "공지 항목 배경 색상",
+      "type": "COLOR",
+      "default": "#F9F9F9"
+    },
+    {
+      "id": "itemBorderColor",
+      "label": "공지 항목 테두리 색상",
+      "type": "COLOR",
+      "default": "#E0E0E0"
+    },
+    {
+      "id": "pinnedBgColor",
+      "label": "중요 공지 배경 색상",
+      "type": "COLOR",
+      "default": "#FFF9E6"
+    },
+    {
+      "id": "pinnedBorderColor",
+      "label": "중요 공지 테두리 색상",
+      "type": "COLOR",
+      "default": "#FFD700"
+    },
+    {
+      "id": "categoryBgColor",
+      "label": "카테고리 배지 배경 색상",
+      "type": "COLOR",
+      "default": "#0055FF"
+    },
+    {
+      "id": "categoryTextColor",
+      "label": "카테고리 배지 텍스트 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "paddingY",
+      "label": "상하 패딩 (Desktop, px)",
+      "type": "NUMBER",
+      "default": 80,
+      "min": 0,
+      "max": 200
+    },
+    {
+      "id": "paddingYMobile",
+      "label": "상하 패딩 (Mobile, px)",
+      "type": "NUMBER",
+      "default": 60,
+      "min": 0,
+      "max": 200
+    },
+    {
+      "id": "paddingX",
+      "label": "좌우 패딩 (Desktop, px)",
+      "type": "NUMBER",
+      "default": 20,
+      "min": 0,
+      "max": 200
+    },
+    {
+      "id": "paddingXMobile",
+      "label": "좌우 패딩 (Mobile, px)",
+      "type": "NUMBER",
+      "default": 20,
+      "min": 0,
+      "max": 200
+    },
+    {
+      "id": "maxWidth",
+      "label": "최대 너비 (px, 0 = 제한없음)",
+      "type": "NUMBER",
+      "default": 1200,
+      "min": 0,
+      "max": 2000
+    },
+    {
+      "id": "animationStyle",
+      "label": "애니메이션 스타일",
+      "type": "SELECT",
+      "options": ["none", "fade-up", "fade-in", "slide-up"],
+      "default": "fade-up"
+    },
+    {
+      "id": "itemSpacing",
+      "label": "공지사항 간격 (px)",
+      "type": "NUMBER",
+      "default": 16,
+      "min": 0,
+      "max": 50
+    }
+  ]
+}
