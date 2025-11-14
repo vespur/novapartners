@@ -1,0 +1,384 @@
+<style>
+  .timeline-section {
+    width: 100%;
+    background-color: {{property.backgroundColor}};
+    padding: {{property.sectionPaddingY}}px {{property.sectionPaddingX}}px;
+  }
+
+  .timeline-container {
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+  }
+
+  /* 타이틀 */
+  .timeline-title {
+    font-family: var(--font-family-heading);
+    font-size: {{property.titleFontSizeDesktop}}px;
+    font-weight: {{property.titleFontWeight}};
+    line-height: {{property.titleLineHeight}};
+    color: {{property.titleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.titleMarginBottom}}px;
+  }
+
+  /* 부제목 */
+  .timeline-subtitle {
+    font-family: var(--font-family-body);
+    font-size: {{property.subtitleFontSizeDesktop}}px;
+    font-weight: {{property.subtitleFontWeight}};
+    line-height: {{property.subtitleLineHeight}};
+    color: {{property.subtitleColor}};
+    text-align: {{property.titleAlign}};
+    margin-bottom: {{property.subtitleMarginBottom}}px;
+    max-width: {{property.subtitleMaxWidth}}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 타임라인 */
+  .timeline {
+    position: relative;
+    padding-left: {{property.timelinePaddingLeft}}px;
+  }
+
+  /* 타임라인 라인 */
+  {{#if property.showLine}}
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: {{property.linePosition}}px;
+    top: 0;
+    bottom: 0;
+    width: {{property.lineWidth}}px;
+    background-color: {{property.lineColor}};
+  }
+  {{/if}}
+
+  /* 타임라인 아이템 */
+  .timeline-item {
+    position: relative;
+    margin-bottom: {{property.itemSpacing}}px;
+    padding-bottom: {{property.itemPaddingBottom}}px;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  /* 타임라인 점 */
+  {{#if property.showDot}}
+  .timeline-dot {
+    position: absolute;
+    left: calc(-{{property.timelinePaddingLeft}}px + {{property.linePosition}}px - {{property.dotSize}}px / 2);
+    top: {{property.dotTopPosition}}px;
+    width: {{property.dotSize}}px;
+    height: {{property.dotSize}}px;
+    border-radius: 50%;
+    background-color: {{property.dotColor}};
+    border: {{property.dotBorderWidth}}px solid {{property.dotBorderColor}};
+    z-index: 2;
+  }
+  {{/if}}
+
+  /* 타임라인 콘텐츠 */
+  .timeline-content {
+    background-color: {{property.contentBg}};
+    border-radius: {{property.contentRadius}}px;
+    padding: {{property.contentPaddingY}}px {{property.contentPaddingX}}px;
+    {{#if property.contentBorderEnabled}}
+    border: {{property.contentBorderWidth}}px solid {{property.contentBorderColor}};
+    {{/if}}
+    {{#if property.contentShadowEnabled}}
+    box-shadow: {{property.contentShadowX}}px {{property.contentShadowY}}px {{property.contentShadowBlur}}px {{property.contentShadowColor}};
+    {{/if}}
+    transition: all 0.3s ease;
+  }
+
+  /* 콘텐츠 호버 */
+  {{#if (eq property.contentHoverAnimation "lift")}}
+  .timeline-content:hover {
+    transform: translateY(-4px);
+    box-shadow: {{property.contentShadowX}}px {{add property.contentShadowY 8}}px {{add property.contentShadowBlur 10}}px {{property.contentShadowColor}};
+  }
+  {{/if}}
+
+  {{#if (eq property.contentHoverAnimation "scale")}}
+  .timeline-content:hover {
+    transform: scale(1.02);
+  }
+  {{/if}}
+
+  {{#if (eq property.contentHoverAnimation "glow")}}
+  .timeline-content:hover {
+    box-shadow: 0 0 20px {{property.glowColor}}44;
+  }
+  {{/if}}
+
+  /* 기간 */
+  .timeline-period {
+    font-family: var(--font-family-heading);
+    font-size: {{property.periodFontSizeDesktop}}px;
+    font-weight: {{property.periodFontWeight}};
+    line-height: {{property.periodLineHeight}};
+    color: {{property.periodColor}};
+    margin-bottom: {{property.periodMarginBottom}}px;
+    display: inline-block;
+    padding: {{property.periodPaddingY}}px {{property.periodPaddingX}}px;
+    background-color: {{property.periodBg}};
+    border-radius: {{property.periodRadius}}px;
+  }
+
+  /* 제목 */
+  .timeline-heading {
+    font-family: var(--font-family-heading);
+    font-size: {{property.headingFontSizeDesktop}}px;
+    font-weight: {{property.headingFontWeight}};
+    line-height: {{property.headingLineHeight}};
+    color: {{property.headingColor}};
+    margin-bottom: {{property.headingMarginBottom}}px;
+  }
+
+  /* 활동 */
+  .timeline-activities {
+    margin-bottom: {{property.activitiesMarginBottom}}px;
+  }
+
+  .timeline-activities-label {
+    font-family: var(--font-family-heading);
+    font-size: {{property.labelFontSizeDesktop}}px;
+    font-weight: {{property.labelFontWeight}};
+    line-height: {{property.labelLineHeight}};
+    color: {{property.labelColor}};
+    margin-bottom: {{property.labelMarginBottom}}px;
+  }
+
+  .timeline-activities-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .timeline-activities-list li {
+    font-family: var(--font-family-body);
+    font-size: {{property.textFontSizeDesktop}}px;
+    font-weight: {{property.textFontWeight}};
+    line-height: {{property.textLineHeight}};
+    color: {{property.textColor}};
+    padding-left: {{property.bulletIndent}}px;
+    position: relative;
+    margin-bottom: {{property.listItemSpacing}}px;
+  }
+
+  .timeline-activities-list li::before {
+    content: '{{property.bulletIcon}}';
+    position: absolute;
+    left: 0;
+    color: {{property.bulletColor}};
+    font-size: {{property.bulletSize}}px;
+  }
+
+  /* 산출물 */
+  .timeline-deliverable {
+    font-family: var(--font-family-body);
+    font-size: {{property.deliverableFontSizeDesktop}}px;
+    font-weight: {{property.deliverableFontWeight}};
+    line-height: {{property.deliverableLineHeight}};
+    color: {{property.deliverableColor}};
+    padding: {{property.deliverablePaddingY}}px {{property.deliverablePaddingX}}px;
+    background-color: {{property.deliverableBg}};
+    border-radius: {{property.deliverableRadius}}px;
+    border-left: {{property.deliverableBorderWidth}}px solid {{property.deliverableBorderColor}};
+  }
+
+  .timeline-deliverable-label {
+    font-weight: 600;
+    color: {{property.deliverableLabelColor}};
+    margin-right: 8px;
+  }
+
+  /* 스크롤 애니메이션 */
+  {{#if (eq property.scrollAnimation "fade-up")}}
+  .timeline-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  .timeline-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-left")}}
+  .timeline-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.6s ease-out;
+  }
+  .timeline-item.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  {{/if}}
+
+  {{#if (eq property.scrollAnimation "fade-in")}}
+  .timeline-item.animate-on-scroll {
+    opacity: 0;
+    transition: all 0.6s ease-out;
+  }
+  .timeline-item.animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  {{/if}}
+
+  /* 모바일 */
+  @media (max-width: 768px) {
+    .timeline-section {
+      padding: {{property.mobileSectionPaddingY}}px {{property.mobileSectionPaddingX}}px;
+    }
+
+    .timeline-title {
+      font-size: {{property.titleFontSizeMobile}}px;
+    }
+
+    .timeline-subtitle {
+      font-size: {{property.subtitleFontSizeMobile}}px;
+    }
+
+    .timeline {
+      padding-left: {{property.mobileTimelinePaddingLeft}}px;
+    }
+
+    {{#if property.showLine}}
+    .timeline::before {
+      left: {{property.mobileLinePosition}}px;
+    }
+    {{/if}}
+
+    {{#if property.showDot}}
+    .timeline-dot {
+      left: calc(-{{property.mobileTimelinePaddingLeft}}px + {{property.mobileLinePosition}}px - {{property.mobileDotSize}}px / 2);
+      width: {{property.mobileDotSize}}px;
+      height: {{property.mobileDotSize}}px;
+    }
+    {{/if}}
+
+    .timeline-period {
+      font-size: {{property.periodFontSizeMobile}}px;
+    }
+
+    .timeline-heading {
+      font-size: {{property.headingFontSizeMobile}}px;
+    }
+
+    .timeline-activities-label {
+      font-size: {{property.labelFontSizeMobile}}px;
+    }
+
+    .timeline-activities-list li {
+      font-size: {{property.textFontSizeMobile}}px;
+    }
+
+    .timeline-deliverable {
+      font-size: {{property.deliverableFontSizeMobile}}px;
+    }
+  }
+</style>
+
+<template>
+  <section class="timeline-section">
+    <div class="timeline-container">
+      {{#if property.title}}
+        <h2 class="timeline-title">{{property.title}}</h2>
+      {{/if}}
+
+      {{#if property.subtitle}}
+        <p class="timeline-subtitle">{{property.subtitle}}</p>
+      {{/if}}
+
+      <div class="timeline">
+        {{#each property.timeline}}
+          <div class="timeline-item {{#if ../property.scrollAnimation}}animate-on-scroll{{/if}}" data-timeline-index="{{@index}}">
+            {{#if ../property.showDot}}
+              <div class="timeline-dot"></div>
+            {{/if}}
+
+            <div class="timeline-content">
+              {{#if period}}
+                <div class="timeline-period">{{period}}</div>
+              {{/if}}
+
+              <h3 class="timeline-heading">{{heading}}</h3>
+
+              {{#if activities}}
+                <div class="timeline-activities">
+                  <div class="timeline-activities-label">활동:</div>
+                  <ul class="timeline-activities-list">
+                    {{#each activities}}
+                      <li>{{this}}</li>
+                    {{/each}}
+                  </ul>
+                </div>
+              {{/if}}
+
+              {{#if deliverable}}
+                <div class="timeline-deliverable">
+                  <span class="timeline-deliverable-label">산출물:</span>
+                  {{deliverable}}
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function init() {
+    // 스크롤 애니메이션
+    if (context.property.scrollAnimation && context.property.scrollAnimation !== 'none') {
+      const timelineItems = container.querySelectorAll('.timeline-item');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const timelineIndex = parseInt(entry.target.dataset.timelineIndex);
+            const delay = timelineIndex * (context.property.scrollAnimationDelay || 200);
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, delay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      timelineItems.forEach(item => {
+        observer.observe(item);
+      });
+
+      // Cleanup
+      if (bm.onDestroy) {
+        const oldDestroy = bm.onDestroy;
+        bm.onDestroy = () => {
+          observer.disconnect();
+          oldDestroy();
+        };
+      } else {
+        bm.onDestroy = () => {
+          observer.disconnect();
+        };
+      }
+    }
+  }
+
+  init();
+
+  bm.onContextChange = () => {
+    init();
+  };
+</script>
