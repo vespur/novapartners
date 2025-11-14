@@ -1219,7 +1219,7 @@ bm.onDestroy = () => {
 
 **1. 모든 텍스트 요소 (제목, 본문, 메뉴, 버튼 등)**
 
-3가지 필수:
+4가지 필수:
 ```json
 {
   "id": "elementFontSize",
@@ -1242,9 +1242,28 @@ bm.onDestroy = () => {
   ]
 }
 {
+  "id": "elementLineHeight",
+  "label": "줄 간격",
+  "type": "RANGE",
+  "min": 1.0,
+  "max": 2.5,
+  "step": 0.1,
+  "description": "텍스트의 줄 간격을 조절해주세요. 1.5가 기본값입니다."
+}
+{
   "id": "elementColor",
   "label": "글자 색상",
   "type": "COLOR_PICKER"
+}
+```
+
+**CSS 적용:**
+```css
+.element {
+  font-size: {{property.elementFontSize}}px;
+  font-weight: {{property.elementFontWeight}};
+  line-height: {{property.elementLineHeight}};
+  color: {{property.elementColor}};
 }
 ```
 
@@ -1431,6 +1450,298 @@ bm.onDestroy = () => {
 }
 ```
 
+**8. 애니메이션 효과 (필수) ⭐**
+
+**목적:** 트렌디하고 다채로운 인터랙션으로 사용자 경험 극대화
+
+**핵심 원칙:** 개발 요소의 특성에 맞는 다양한 애니메이션 효과를 선택 옵션으로 제공
+
+#### Hover 애니메이션 (버튼, 메뉴, 링크 등)
+
+```json
+{
+  "id": "hoverAnimation",
+  "label": "Hover 효과",
+  "type": "RADIO",
+  "options": [
+    {"label": "없음", "value": "none"},
+    {"label": "언더라인 슬라이드 (좌→우)", "value": "underline-slide"},
+    {"label": "언더라인 확장 (중앙→양쪽)", "value": "underline-expand"},
+    {"label": "배경 슬라이드", "value": "bg-slide"},
+    {"label": "글로우 효과", "value": "glow"},
+    {"label": "살짝 위로", "value": "lift"},
+    {"label": "확대", "value": "scale"},
+    {"label": "기울이기", "value": "tilt"}
+  ],
+  "default": "underline-slide"
+}
+```
+
+**CSS 구현 예시:**
+```css
+/* 언더라인 슬라이드 (좌→우) */
+{{#if (eq property.hoverAnimation "underline-slide")}}
+.element {
+  position: relative;
+}
+.element::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: {{property.elementColor}};
+  transition: width 0.3s ease;
+}
+.element:hover::after {
+  width: 100%;
+}
+{{/if}}
+
+/* 글로우 효과 */
+{{#if (eq property.hoverAnimation "glow")}}
+.element {
+  transition: all 0.3s ease;
+}
+.element:hover {
+  box-shadow: 0 0 20px {{property.elementColor}}66;
+  transform: translateY(-2px);
+}
+{{/if}}
+
+/* 살짝 위로 + 확대 */
+{{#if (eq property.hoverAnimation "lift")}}
+.element {
+  transition: all 0.3s ease;
+}
+.element:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+{{/if}}
+```
+
+#### 스크롤 등장 애니메이션 (섹션, 카드, 콘텐츠 블록)
+
+```json
+{
+  "id": "scrollAnimation",
+  "label": "스크롤 등장 효과",
+  "type": "RADIO",
+  "options": [
+    {"label": "없음", "value": "none"},
+    {"label": "페이드업 (아래→위)", "value": "fade-up"},
+    {"label": "페이드 좌측", "value": "fade-left"},
+    {"label": "페이드 우측", "value": "fade-right"},
+    {"label": "스케일 인 (확대)", "value": "scale-in"},
+    {"label": "회전 등장", "value": "rotate-in"},
+    {"label": "슬라이드 좌측", "value": "slide-left"},
+    {"label": "슬라이드 우측", "value": "slide-right"}
+  ],
+  "default": "fade-up"
+}
+{
+  "id": "scrollAnimationDelay",
+  "label": "순차 등장 딜레이",
+  "type": "RANGE",
+  "min": 0,
+  "max": 500,
+  "step": 50,
+  "unit": "ms",
+  "description": "여러 요소가 순차적으로 등장할 때 간격을 조절해주세요.",
+  "default": 100,
+  "isVisible": "property.scrollAnimation !== 'none'"
+}
+```
+
+**JavaScript + CSS 구현:**
+```javascript
+// Intersection Observer 설정
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      const delay = index * context.property.scrollAnimationDelay;
+      setTimeout(() => {
+        entry.target.classList.add('animate-in');
+      }, delay);
+    }
+  });
+}, { threshold: 0.2 });
+
+container.querySelectorAll('.animate-on-scroll').forEach(el => {
+  observer.observe(el);
+});
+
+bm.onDestroy = () => {
+  observer.disconnect();
+};
+```
+
+```css
+/* 페이드업 */
+{{#if (eq property.scrollAnimation "fade-up")}}
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+{{/if}}
+
+/* 스케일 인 */
+{{#if (eq property.scrollAnimation "scale-in")}}
+.animate-on-scroll {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.6s ease-out;
+}
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: scale(1);
+}
+{{/if}}
+
+/* 회전 등장 */
+{{#if (eq property.scrollAnimation "rotate-in")}}
+.animate-on-scroll {
+  opacity: 0;
+  transform: rotate(-10deg) scale(0.9);
+  transition: all 0.6s ease-out;
+}
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+{{/if}}
+```
+
+#### 클릭/활성화 애니메이션 (버튼, 토글, 탭)
+
+```json
+{
+  "id": "clickAnimation",
+  "label": "클릭 효과",
+  "type": "RADIO",
+  "options": [
+    {"label": "없음", "value": "none"},
+    {"label": "누르기", "value": "press"},
+    {"label": "펄스 (파장)", "value": "pulse"},
+    {"label": "바운스", "value": "bounce"},
+    {"label": "셰이크", "value": "shake"},
+    {"label": "리플 효과", "value": "ripple"}
+  ],
+  "default": "press"
+}
+```
+
+**CSS 구현:**
+```css
+/* 누르기 */
+{{#if (eq property.clickAnimation "press")}}
+.element:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+{{/if}}
+
+/* 펄스 */
+{{#if (eq property.clickAnimation "pulse")}}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.element:active {
+  animation: pulse 0.3s ease;
+}
+{{/if}}
+
+/* 바운스 */
+{{#if (eq property.clickAnimation "bounce")}}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.element:active {
+  animation: bounce 0.4s ease;
+}
+{{/if}}
+```
+
+#### 로딩/진행 애니메이션 (프로그레스바, 스피너, 카운터)
+
+```json
+{
+  "id": "loadingAnimation",
+  "label": "로딩 효과",
+  "type": "RADIO",
+  "options": [
+    {"label": "바 채우기", "value": "fill"},
+    {"label": "펄스", "value": "pulse"},
+    {"label": "스피너", "value": "spinner"},
+    {"label": "도트 점프", "value": "dot-jump"},
+    {"label": "그라디언트 이동", "value": "gradient-move"}
+  ],
+  "default": "fill"
+}
+```
+
+#### 슬라이드/캐러셀 전환 효과
+
+```json
+{
+  "id": "slideTransition",
+  "label": "슬라이드 전환 효과",
+  "type": "RADIO",
+  "options": [
+    {"label": "슬라이드", "value": "slide"},
+    {"label": "페이드", "value": "fade"},
+    {"label": "줌 인", "value": "zoom-in"},
+    {"label": "줌 아웃", "value": "zoom-out"},
+    {"label": "플립 (뒤집기)", "value": "flip"},
+    {"label": "큐브 회전", "value": "cube"}
+  ],
+  "default": "slide"
+}
+{
+  "id": "slideSpeed",
+  "label": "전환 속도",
+  "type": "RANGE",
+  "min": 300,
+  "max": 1500,
+  "step": 100,
+  "unit": "ms",
+  "default": 600
+}
+```
+
+#### 애니메이션 적용 대상 및 권장 효과
+
+| 요소 타입 | 필수 애니메이션 | 권장 옵션 |
+|----------|----------------|----------|
+| 버튼 | Hover + Click | 언더라인 슬라이드, 글로우, 누르기 |
+| 메뉴 | Hover | 언더라인 확장, 배경 슬라이드 |
+| 카드/섹션 | Scroll | 페이드업, 스케일 인 |
+| 이미지 | Hover + Scroll | 확대, 페이드 좌/우 |
+| 슬라이드 | Transition | 슬라이드, 페이드, 줌 인/아웃 |
+| 아이콘 | Hover | 회전, 바운스, 셰이크 |
+| 모달/팝업 | Open/Close | 페이드 + 스케일 인 |
+
+#### 애니메이션 체크리스트
+
+**모든 인터랙티브 요소에서 확인:**
+- [ ] Hover 애니메이션 선택 옵션 제공
+- [ ] 클릭 피드백 애니메이션 제공
+- [ ] 스크롤 등장 효과 선택 옵션 (적합한 블록)
+- [ ] 전환 속도 조절 가능
+- [ ] 순차 등장 딜레이 조절 가능 (여러 요소)
+- [ ] GPU 가속 적용 (transform, opacity 사용)
+- [ ] 0.3~0.6s 전환 시간 (부드러운 UX)
+- [ ] 모바일에서도 부드럽게 작동 확인
+
 #### 제목/항목 분리 원칙 ⚠️
 
 **중요:** 계층 구조가 있는 경우 (예: 메뉴 제목 + 메뉴 항목), 반드시 별도 설정 제공
@@ -1480,7 +1791,7 @@ bm.onDestroy = () => {
 #### 디자인 자유도 체크리스트
 
 **모든 블록에서 확인:**
-- [ ] 모든 텍스트 요소에 크기/굵기/색상 제공
+- [ ] 모든 텍스트 요소에 크기/굵기/줄간격/색상 4가지 제공 ⭐
 - [ ] 모든 컨테이너에 배경/여백 제공
 - [ ] Hover 상태 색상 제공
 - [ ] 구분선 표시/색상/두께 제어 가능
@@ -1488,10 +1799,19 @@ bm.onDestroy = () => {
 - [ ] 그림자/블러 효과 제어 가능 (적용 시)
 - [ ] 계층 구조가 있는 경우 제목/항목 분리
 
+**인터랙티브 요소 필수:**
+- [ ] 요소 특성에 맞는 애니메이션 효과 선택 옵션 제공 ⭐
+- [ ] Hover 애니메이션 (버튼, 메뉴, 링크)
+- [ ] 클릭 피드백 애니메이션 (버튼, 토글)
+- [ ] 스크롤 등장 애니메이션 (카드, 섹션)
+- [ ] 전환 효과 (슬라이드, 모달)
+- [ ] 애니메이션 속도 조절 가능
+
 **금지 사항:**
 - [ ] 통이미지로 텍스트 처리 (편집 불가능)
 - [ ] 하드코딩된 색상/크기 (편집 불가능)
 - [ ] 제목과 항목이 같은 설정 공유 (세밀한 제어 불가능)
+- [ ] 애니메이션 효과 없는 인터랙티브 요소 (UX 저하)
 
 ### 10-12) 여백 분리 원칙 ⭐
 
@@ -1738,13 +2058,14 @@ bm.onDestroy = () => {
 - [ ] 모바일 전용 UI 시스템 제공 (헤더의 경우 햄버거+드로어)
 
 ### 디자인 자유도 극대화 ⭐
-- [ ] 모든 텍스트: 크기/굵기/색상 3가지 제공
+- [ ] 모든 텍스트: 크기/굵기/줄간격/색상 4가지 제공
 - [ ] 모든 컨테이너: 배경/paddingY/paddingX 제공
 - [ ] Hover/Active 상태 색상 제공
 - [ ] 구분선: 표시/색상/두께 제어
 - [ ] 간격: 요소 간/그룹 간 조절 가능
 - [ ] 계층 구조: 제목/항목 완전 분리
 - [ ] 통이미지 사용 금지
+- [ ] 애니메이션 효과 선택 옵션 필수 (Hover, Click, Scroll 등)
 
 ### 여백 분리 ⭐
 - [ ] padding을 paddingY/paddingX로 분리
@@ -1786,9 +2107,10 @@ bm.onDestroy = () => {
 12. 텍스트 기본값 (제목 36/24px, 본문 20/16px)
 13. 스크롤 인터렉션 (적합한 블록)
 14. 데스크톱/모바일 완전 분리 (높이, 여백, 크기, 간격)
-15. 모든 텍스트 요소에 크기/굵기/색상 3가지 제공
+15. 모든 텍스트 요소에 크기/굵기/줄간격/색상 4가지 제공
 16. padding을 paddingY/paddingX로 분리
 17. 계층 구조 시 제목/항목 완전 분리
+18. 인터랙티브 요소에 애니메이션 효과 선택 옵션 제공
 
 ---
 
@@ -1808,6 +2130,7 @@ bm.onDestroy = () => {
 - 데스크톱/모바일 완전 분리 원칙 (Section 10-10)
 - 디자인 자유도 극대화 원칙 (Section 10-11)
 - 여백 분리 원칙 paddingY/paddingX (Section 10-12)
-- 모든 텍스트 요소에 크기/굵기/색상 3가지 필수
+- 모든 텍스트 요소에 크기/굵기/줄간격/색상 4가지 필수
 - 계층 구조 시 제목/항목 완전 분리
 - 통이미지 사용 금지
+- 인터랙티브 요소에 애니메이션 효과 선택 옵션 필수 (Hover, Click, Scroll, Transition)
