@@ -1,0 +1,627 @@
+{
+  "name": "CTA 모달",
+  "settings": [
+    {
+      "id": "floatingButtonTitle",
+      "type": "TITLE",
+      "label": "플로팅 버튼 설정"
+    },
+    {
+      "id": "showFloatingButton",
+      "label": "플로팅 버튼 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "floatingButtonText",
+      "label": "플로팅 버튼 텍스트",
+      "type": "TEXT",
+      "default": "무료 상담",
+      "isVisible": "{{property.showFloatingButton}}"
+    },
+    {
+      "id": "floatingButtonIcon",
+      "label": "플로팅 버튼 아이콘",
+      "type": "TEXT",
+      "default": "💬",
+      "isVisible": "{{property.showFloatingButton}}"
+    },
+    {
+      "id": "floatingButtonBg",
+      "label": "플로팅 버튼 배경 색상",
+      "type": "COLOR",
+      "default": "#0055FF",
+      "isVisible": "{{property.showFloatingButton}}"
+    },
+    {
+      "id": "floatingButtonColor",
+      "label": "플로팅 버튼 텍스트 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF",
+      "isVisible": "{{property.showFloatingButton}}"
+    },
+    {
+      "id": "floatingButtonSize",
+      "label": "플로팅 버튼 크기",
+      "type": "NUMBER",
+      "default": 60,
+      "isVisible": "{{property.showFloatingButton}}"
+    },
+    {
+      "id": "floatingButtonBottomOffset",
+      "label": "하단에서 거리",
+      "type": "NUMBER",
+      "default": 30,
+      "isVisible": "{{property.showFloatingButton}}"
+    },
+    {
+      "id": "floatingButtonRightOffset",
+      "label": "우측에서 거리",
+      "type": "NUMBER",
+      "default": 30,
+      "isVisible": "{{property.showFloatingButton}}"
+    },
+
+    {
+      "id": "modalTitle",
+      "type": "TITLE",
+      "label": "모달 헤더"
+    },
+    {
+      "id": "modalHeading",
+      "label": "모달 제목",
+      "type": "TEXT",
+      "default": "전문가 상담 신청"
+    },
+    {
+      "id": "modalHeadingFontSizeDesktop",
+      "label": "제목 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 28
+    },
+    {
+      "id": "modalHeadingFontSizeMobile",
+      "label": "제목 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 24
+    },
+    {
+      "id": "modalHeadingFontWeight",
+      "label": "제목 굵기",
+      "type": "NUMBER",
+      "default": 700
+    },
+    {
+      "id": "modalHeadingLineHeight",
+      "label": "제목 줄 높이",
+      "type": "NUMBER",
+      "default": 1.3
+    },
+    {
+      "id": "modalHeadingColor",
+      "label": "제목 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "modalHeadingMarginBottom",
+      "label": "제목 하단 여백",
+      "type": "NUMBER",
+      "default": 12
+    },
+
+    {
+      "id": "descriptionTitle",
+      "type": "TITLE",
+      "label": "모달 설명"
+    },
+    {
+      "id": "modalDescription",
+      "label": "모달 설명",
+      "type": "TEXTAREA",
+      "default": "AI 솔루션에 대해 궁금한 점이 있으신가요?\n전문가 상담을 통해 귀사의 맞춤형 솔루션을 찾을 수 있습니다."
+    },
+    {
+      "id": "modalDescriptionFontSizeDesktop",
+      "label": "설명 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "modalDescriptionFontSizeMobile",
+      "label": "설명 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 15
+    },
+    {
+      "id": "modalDescriptionFontWeight",
+      "label": "설명 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "modalDescriptionLineHeight",
+      "label": "설명 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6
+    },
+    {
+      "id": "modalDescriptionColor",
+      "label": "설명 색상",
+      "type": "COLOR",
+      "default": "#666666"
+    },
+    {
+      "id": "modalDescriptionMarginBottom",
+      "label": "설명 하단 여백",
+      "type": "NUMBER",
+      "default": 32
+    },
+
+    {
+      "id": "modalDesignTitle",
+      "type": "TITLE",
+      "label": "모달 디자인"
+    },
+    {
+      "id": "modalBg",
+      "label": "모달 배경 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF"
+    },
+    {
+      "id": "modalMaxWidth",
+      "label": "모달 최대 너비",
+      "type": "NUMBER",
+      "default": 540
+    },
+    {
+      "id": "modalRadius",
+      "label": "모달 둥근 모서리",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "modalPaddingY",
+      "label": "모달 상하 패딩 (데스크톱)",
+      "type": "NUMBER",
+      "default": 40
+    },
+    {
+      "id": "modalPaddingX",
+      "label": "모달 좌우 패딩 (데스크톱)",
+      "type": "NUMBER",
+      "default": 40
+    },
+    {
+      "id": "mobileModalPaddingY",
+      "label": "모달 상하 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 32
+    },
+    {
+      "id": "mobileModalPaddingX",
+      "label": "모달 좌우 패딩 (모바일)",
+      "type": "NUMBER",
+      "default": 24
+    },
+    {
+      "id": "modalShadowEnabled",
+      "label": "모달 그림자 활성화",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "modalShadowX",
+      "label": "그림자 X 오프셋",
+      "type": "NUMBER",
+      "default": 0,
+      "isVisible": "{{property.modalShadowEnabled}}"
+    },
+    {
+      "id": "modalShadowY",
+      "label": "그림자 Y 오프셋",
+      "type": "NUMBER",
+      "default": 20,
+      "isVisible": "{{property.modalShadowEnabled}}"
+    },
+    {
+      "id": "modalShadowBlur",
+      "label": "그림자 블러",
+      "type": "NUMBER",
+      "default": 60,
+      "isVisible": "{{property.modalShadowEnabled}}"
+    },
+    {
+      "id": "modalShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR",
+      "default": "#00000030",
+      "isVisible": "{{property.modalShadowEnabled}}"
+    },
+    {
+      "id": "overlayBg",
+      "label": "오버레이 배경 색상",
+      "type": "COLOR",
+      "default": "#000000CC"
+    },
+
+    {
+      "id": "formFieldsTitle",
+      "type": "TITLE",
+      "label": "폼 필드 설정"
+    },
+    {
+      "id": "showCompanyField",
+      "label": "회사명 필드 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "showNameField",
+      "label": "담당자 이름 필드 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "showPhoneField",
+      "label": "연락처 필드 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "showEmailField",
+      "label": "이메일 필드 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "showSolutionField",
+      "label": "관심 솔루션 필드 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "solutionOptions",
+      "label": "관심 솔루션 옵션",
+      "type": "TEXT",
+      "default": "자연어 처리|이미지 인식|예측 분석|프로세스 자동화|전체",
+      "isVisible": "{{property.showSolutionField}}"
+    },
+    {
+      "id": "showCompanySizeField",
+      "label": "기업 규모 필드 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "companySizeOptions",
+      "label": "기업 규모 옵션",
+      "type": "TEXT",
+      "default": "50~500명|500~2,000명|2,000명 이상",
+      "isVisible": "{{property.showCompanySizeField}}"
+    },
+    {
+      "id": "showMessageField",
+      "label": "추가 요청사항 필드 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "messageFieldMaxLength",
+      "label": "추가 요청사항 최대 글자수",
+      "type": "NUMBER",
+      "default": 500,
+      "isVisible": "{{property.showMessageField}}"
+    },
+
+    {
+      "id": "fieldStyleTitle",
+      "type": "TITLE",
+      "label": "필드 스타일"
+    },
+    {
+      "id": "labelFontSizeDesktop",
+      "label": "라벨 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 14
+    },
+    {
+      "id": "labelFontSizeMobile",
+      "label": "라벨 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 13
+    },
+    {
+      "id": "labelFontWeight",
+      "label": "라벨 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "labelLineHeight",
+      "label": "라벨 줄 높이",
+      "type": "NUMBER",
+      "default": 1.4
+    },
+    {
+      "id": "labelColor",
+      "label": "라벨 색상",
+      "type": "COLOR",
+      "default": "#333333"
+    },
+    {
+      "id": "labelMarginBottom",
+      "label": "라벨 하단 여백",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "inputFontSizeDesktop",
+      "label": "입력 필드 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 15
+    },
+    {
+      "id": "inputFontSizeMobile",
+      "label": "입력 필드 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "inputFontWeight",
+      "label": "입력 필드 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "inputLineHeight",
+      "label": "입력 필드 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "inputColor",
+      "label": "입력 필드 텍스트 색상",
+      "type": "COLOR",
+      "default": "#1A1A1A"
+    },
+    {
+      "id": "inputBg",
+      "label": "입력 필드 배경 색상",
+      "type": "COLOR",
+      "default": "#F8F9FA"
+    },
+    {
+      "id": "inputBorder",
+      "label": "입력 필드 테두리 색상",
+      "type": "COLOR",
+      "default": "#E0E0E0"
+    },
+    {
+      "id": "inputBorderWidth",
+      "label": "입력 필드 테두리 두께",
+      "type": "NUMBER",
+      "default": 1
+    },
+    {
+      "id": "inputRadius",
+      "label": "입력 필드 둥근 모서리",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "inputPaddingY",
+      "label": "입력 필드 상하 패딩",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "inputPaddingX",
+      "label": "입력 필드 좌우 패딩",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "fieldSpacing",
+      "label": "필드 간격",
+      "type": "NUMBER",
+      "default": 20
+    },
+
+    {
+      "id": "buttonTitle",
+      "type": "TITLE",
+      "label": "버튼 설정"
+    },
+    {
+      "id": "showPrimaryButton",
+      "label": "Primary 버튼 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "primaryButtonText",
+      "label": "Primary 버튼 텍스트",
+      "type": "TEXT",
+      "default": "상담 신청",
+      "isVisible": "{{property.showPrimaryButton}}"
+    },
+    {
+      "id": "primaryButtonBg",
+      "label": "Primary 버튼 배경 색상",
+      "type": "COLOR",
+      "default": "#0055FF",
+      "isVisible": "{{property.showPrimaryButton}}"
+    },
+    {
+      "id": "primaryButtonColor",
+      "label": "Primary 버튼 텍스트 색상",
+      "type": "COLOR",
+      "default": "#FFFFFF",
+      "isVisible": "{{property.showPrimaryButton}}"
+    },
+    {
+      "id": "primaryButtonBgHover",
+      "label": "Primary 버튼 호버 배경 색상",
+      "type": "COLOR",
+      "default": "#0044DD",
+      "isVisible": "{{property.showPrimaryButton}}"
+    },
+    {
+      "id": "showSecondaryButton",
+      "label": "Secondary 버튼 표시",
+      "type": "CHECKBOX",
+      "default": true
+    },
+    {
+      "id": "secondaryButtonText",
+      "label": "Secondary 버튼 텍스트",
+      "type": "TEXT",
+      "default": "자료 다운로드",
+      "isVisible": "{{property.showSecondaryButton}}"
+    },
+    {
+      "id": "secondaryButtonBg",
+      "label": "Secondary 버튼 배경 색상",
+      "type": "COLOR",
+      "default": "#F0F0F0",
+      "isVisible": "{{property.showSecondaryButton}}"
+    },
+    {
+      "id": "secondaryButtonColor",
+      "label": "Secondary 버튼 텍스트 색상",
+      "type": "COLOR",
+      "default": "#333333",
+      "isVisible": "{{property.showSecondaryButton}}"
+    },
+    {
+      "id": "secondaryButtonBgHover",
+      "label": "Secondary 버튼 호버 배경 색상",
+      "type": "COLOR",
+      "default": "#E0E0E0",
+      "isVisible": "{{property.showSecondaryButton}}"
+    },
+    {
+      "id": "buttonFontSizeDesktop",
+      "label": "버튼 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 16
+    },
+    {
+      "id": "buttonFontSizeMobile",
+      "label": "버튼 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 15
+    },
+    {
+      "id": "buttonFontWeight",
+      "label": "버튼 굵기",
+      "type": "NUMBER",
+      "default": 600
+    },
+    {
+      "id": "buttonLineHeight",
+      "label": "버튼 줄 높이",
+      "type": "NUMBER",
+      "default": 1.5
+    },
+    {
+      "id": "buttonRadius",
+      "label": "버튼 둥근 모서리",
+      "type": "NUMBER",
+      "default": 8
+    },
+    {
+      "id": "buttonPaddingY",
+      "label": "버튼 상하 패딩",
+      "type": "NUMBER",
+      "default": 14
+    },
+    {
+      "id": "buttonPaddingX",
+      "label": "버튼 좌우 패딩",
+      "type": "NUMBER",
+      "default": 28
+    },
+    {
+      "id": "buttonGap",
+      "label": "버튼 간격",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "buttonMarginTop",
+      "label": "버튼 영역 상단 여백",
+      "type": "NUMBER",
+      "default": 32
+    },
+
+    {
+      "id": "footerTextTitle",
+      "type": "TITLE",
+      "label": "하단 안내 텍스트"
+    },
+    {
+      "id": "footerText",
+      "label": "하단 안내 텍스트",
+      "type": "TEXTAREA",
+      "default": "담당자가 24시간 내에 연락드립니다.\n저희와의 상담은 완전히 무료입니다."
+    },
+    {
+      "id": "footerTextFontSizeDesktop",
+      "label": "하단 텍스트 크기 (데스크톱)",
+      "type": "NUMBER",
+      "default": 13
+    },
+    {
+      "id": "footerTextFontSizeMobile",
+      "label": "하단 텍스트 크기 (모바일)",
+      "type": "NUMBER",
+      "default": 12
+    },
+    {
+      "id": "footerTextFontWeight",
+      "label": "하단 텍스트 굵기",
+      "type": "NUMBER",
+      "default": 400
+    },
+    {
+      "id": "footerTextLineHeight",
+      "label": "하단 텍스트 줄 높이",
+      "type": "NUMBER",
+      "default": 1.6
+    },
+    {
+      "id": "footerTextColor",
+      "label": "하단 텍스트 색상",
+      "type": "COLOR",
+      "default": "#888888"
+    },
+    {
+      "id": "footerTextMarginTop",
+      "label": "하단 텍스트 상단 여백",
+      "type": "NUMBER",
+      "default": 20
+    },
+
+    {
+      "id": "animationTitle",
+      "type": "TITLE",
+      "label": "애니메이션 설정"
+    },
+    {
+      "id": "modalAnimation",
+      "label": "모달 열림 애니메이션",
+      "type": "SELECT",
+      "options": ["none", "fade-in", "scale-in", "slide-up"],
+      "default": "scale-in"
+    },
+    {
+      "id": "floatingButtonPulse",
+      "label": "플로팅 버튼 펄스 효과",
+      "type": "CHECKBOX",
+      "default": true
+    }
+  ]
+}
