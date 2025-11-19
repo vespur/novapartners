@@ -88,7 +88,7 @@
     },
     {
       "type": "TITLE",
-      "content": "🎨 헤더 배경 & 디자인 (기본 상태)"
+      "content": "🎨 헤더 배경 & 디자인 (기본 상태 - 스크롤 최상단)"
     },
     {
       "type": "DESCRIPTION",
@@ -172,7 +172,7 @@
     },
     {
       "type": "TITLE",
-      "content": "🎨 메뉴 색상 (기본 상태 - Light 모드)"
+      "content": "🎨 헤더 배경 & 디자인 (Light 모드 - 스크롤 내림)"
     },
     {
       "id": "menuColorDesktop",
@@ -188,7 +188,7 @@
     },
     {
       "type": "TITLE",
-      "content": "🎨 메뉴 색상 (기본 상태 - Dark 모드)"
+      "content": "🎨 헤더 배경 & 디자인 (Dark 모드 - 스크롤 내림)"
     },
     {
       "id": "menuColorDesktopDark",
@@ -209,7 +209,7 @@
     },
     {
       "type": "TITLE",
-      "content": "🎨 헤더 배경 & 디자인 (기본 상태 - Dark 모드)"
+      "content": "🎨 헤더 배경 & 디자인 (Dark 모드 - 스크롤 내림)"
     },
     {
       "type": "DESCRIPTION",
@@ -495,19 +495,12 @@
       "content": "🎯 미리보기 모드"
     },
     {
-      "id": "previewScrolled",
-      "label": "스크롤 상태 미리보기",
-      "description": "에디터에서 스크롤 후 상태를 미리 볼 수 있습니다",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
       "type": "TITLE",
       "content": "=== 🌓 LIGHT/DARK 모드 ==="
     },
     {
       "type": "DESCRIPTION",
-      "content": "💡 Light/Dark 모드는 페이지의 배경색에 따라 헤더 색상을 자동으로 바꿔주는 기능입니다.\n\n📌 사용 방법:\n1. Light 모드만 사용: Light만 체크 → 밝은 배경용 헤더\n2. Dark 모드만 사용: Dark만 체크 → 어두운 배경용 헤더\n3. 자동 전환 사용: 둘 다 체크 + \"스크롤 시 자동 전환\" 체크\n   → 스크롤 위치에 따라 자동으로 Light/Dark 전환\n4. 페이지별 디자인: \"페이지별 디자인 사용\" 체크\n   → 페이지마다 다른 모드 적용\n\n⚠️ 주의: \"페이지별 디자인\"과 \"스크롤 시 자동 전환\"은 동시 사용 불가 (충돌 방지)"
+      "content": "💡 헤더 모드 시스템:\n\n🔹 **기본 상태** (스크롤 최상단):\n   - 스크롤 위치 0~임계값: 히어로 섹션용 디자인\n   - 투명 배경, 흰색 텍스트 등 자유롭게 설정 가능\n   - \":root\" CSS 변수 사용\n\n🔸 **Light 모드** (스크롤 내림):\n   - 스크롤 위치 > 임계값: 밝은 배경용 디자인\n   - 흰색 배경, 어두운 텍스트\n   - \":root.light-mode\" CSS 변수 사용\n\n🔹 **Dark 모드** (스크롤 내림):\n   - 스크롤 위치 > 임계값: 어두운 배경용 디자인\n   - 검정 배경, 밝은 텍스트\n   - \":root.dark-mode\" CSS 변수 사용\n\n📌 사용 방법:\n1. **기본 상태만 사용**: Light/Dark 모두 체크 해제\n   → 항상 기본 디자인 표시\n2. **Light 모드만**: Light만 체크\n   → 스크롤 내림 시 Light 디자인\n3. **Dark 모드만**: Dark만 체크\n   → 스크롤 내림 시 Dark 디자인\n4. **자동 전환**: 둘 다 체크 + \"스크롤 시 자동 전환\"\n   → 스크롤 위치에 따라 자동 전환\n\n⚠️ **중요**:\n- 기본 상태 / Light / Dark는 완전히 독립적\n- 각각 별도로 색상, 로고, 메뉴 스타일 설정 가능\n- \"스크롤 시 자동 전환\"과 \"페이지별 디자인\"은 동시 사용 불가"
     },
     {
       "id": "useLightMode",
@@ -524,14 +517,14 @@
     {
       "id": "autoSwitchMode",
       "label": "🔄 스크롤 시 자동 전환",
-      "description": "스크롤 위치에 따라 Light/Dark 모드를 자동으로 전환합니다",
+      "description": "스크롤 위치에 따라 기본 상태 → Light/Dark 모드로 자동 전환합니다. (Light/Dark 둘 다 체크 필요)",
       "type": "CHECKBOX",
       "isVisible": "property.useLightMode === true && property.useDarkMode === true"
     },
     {
       "id": "switchThreshold",
-      "label": "전환 시점 (픽셀)",
-      "description": "이 픽셀을 넘어 스크롤하면 Light 모드로 전환됩니다",
+      "label": "전환 임계값 (스크롤 px)",
+      "description": "이 픽셀 이하: 기본 상태, 초과: Light/Dark 모드로 전환",
       "type": "RANGE",
       "min": 0,
       "max": 1000,

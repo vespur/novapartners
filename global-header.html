@@ -1,6 +1,6 @@
 <style>
   /* Light/Dark 모드 CSS 변수 - :root에 정의하여 전역 접근 가능 */
-  /* Light 모드 기본값 - 항상 정의됨 */
+  /* 기본 상태 - 클래스 없을 때 (스크롤 최상단) */
   :root {
     --logo-image: url('{{property.logoImage}}');
     --menu-color-desktop: {{property.menuColorDesktop}};
@@ -70,14 +70,46 @@
       top: 0;
       left: 0;
       right: 0;
+      width: 100%;  /* sticky 작동을 위해 명시적 width 필요 */
       {{else}}
       position: relative;
       {{/if}}
     {{/if}}
   }
 
+  /* Light 모드 - CSS 변수 재정의 (:root.light-mode로 전역 적용) */
+  /* Light 모드 색상 - 스크롤 내림 + Light 모드 활성화 시 */
+  :root.light-mode {
+    --logo-image: url('{{property.logoImage}}');
+    --menu-color-desktop: {{property.menuColorDesktop}};
+    --menu-hover-color: {{property.menuHoverColor}};
+    --submenu-bg: {{property.submenuBg}};
+    --submenu-title-color: {{property.submenuTitleColor}};
+    --submenu-color: {{property.submenuColor}};
+    --submenu-hover-bg: {{property.submenuHoverBg}};
+    --submenu-hover-color: {{property.submenuHoverColor}};
+    --utility-menu-color: {{property.utilityMenuColor}};
+    --utility-icon-color: {{property.utilityIconColor}};
+    --language-button-color: {{property.languageButtonColor}};
+    --language-button-bg: {{property.languageButtonBg}};
+    --language-button-border-color: {{property.languageButtonBorderColor}};
+    --language-active-text-color: {{property.languageActiveTextColor}};
+    --language-active-bg: {{property.languageActiveBg}};
+    --language-active-border-color: {{property.languageActiveBorderColor}};
+
+    /* 헤더 기본 스타일 - Light 모드 */
+    {{#if (eq property.headerBgType 'gradient')}}
+    --header-bg: linear-gradient({{property.headerGradientAngle}}deg, {{property.headerGradientStart}}, {{property.headerGradientEnd}});
+    {{else}}
+    --header-bg: {{property.headerBg}};
+    {{/if}}
+    --header-shadow: {{#if (gt property.headerShadow 0)}}0 2px {{property.headerShadow}}px {{property.headerShadowColor}}{{else}}none{{/if}};
+    --header-blur: {{property.headerBlur}}px;
+    --header-border: {{#if (gt property.headerBorder 0)}}{{property.headerBorder}}px solid {{property.headerBorderColor}}{{else}}none{{/if}};
+  }
+
   /* Dark 모드 - CSS 변수 재정의 (:root.dark-mode로 전역 적용) */
-  /* Dark 모드 색상 - 항상 정의됨 (.dark-mode 클래스가 추가되면 자동 적용) */
+  /* Dark 모드 색상 - 스크롤 내림 + Dark 모드 활성화 시 */
   :root.dark-mode {
     --logo-image: url('{{property.logoImageDark}}');
     --menu-color-desktop: {{property.menuColorDesktopDark}};
@@ -1049,7 +1081,7 @@
   <header class="global-header">
     <div class="header-container">
       <div class="header-left">
-        {{#if (eq property.logoAlign 'left')}}
+        {{#if (and property.enableLogo (eq property.logoAlign 'left'))}}
         <div class="logo">
           {{#if property.logoImage}}
           <a href="{{property.logoLink.value}}">
@@ -1248,7 +1280,7 @@
 
       <div class="header-right">
         <div class="header-right-content">
-          {{#if (eq property.logoAlign 'right')}}
+          {{#if (and property.enableLogo (eq property.logoAlign 'right'))}}
           <div class="logo">
             {{#if property.logoImage}}
             <a href="{{property.logoLink.value}}">
@@ -1561,45 +1593,47 @@
 
     // Light/Dark 모드 처리 (페이지별 디자인 매칭이 없을 때만)
     if (!hasMatchingPath) {
-      if (context.property.useLightMode && context.property.useDarkMode && context.property.autoSwitchMode) {
-        // 자동 전환 모드: 스크롤 위치에 따라 전환
-        const scrollY = window.scrollY;
-        const threshold = context.property.switchThreshold || 0;
-        const isDark = scrollY <= threshold;
+      const scrollY = window.scrollY;
+      const threshold = context.property.switchThreshold || 0;
 
-        // 디버깅: 자동 전환 (최초 1회만 출력)
-        if (!window._autoSwitchLogged) {
-          console.log('[자동 전환]', {
-            scrollY: scrollY,
-            threshold: threshold,
-            mode: isDark ? 'Dark' : 'Light'
-          });
-          window._autoSwitchLogged = true;
-          // 5초 후 다시 로깅 가능하도록
-          setTimeout(() => { window._autoSwitchLogged = false; }, 5000);
-        }
+      // 스크롤 최상단 (0~threshold) → 기본 상태 (클래스 없음)
+      // 스크롤 내림 (> threshold) → Light 또는 Dark 모드
+      if (scrollY <= threshold) {
+        // 기본 상태: 모든 모드 클래스 제거
+        document.documentElement.classList.remove('light-mode', 'dark-mode');
+        updateLogoImage(false);  // 기본은 Light 로고 사용
 
-        if (scrollY > threshold) {
-          // 스크롤 내림 (임계값 초과) → Light 모드 (밝은 배경용)
+        console.log('[기본 상태]', { scrollY, threshold });
+      } else {
+        // 스크롤 내림: Light/Dark 모드 전환
+        if (context.property.useLightMode && context.property.useDarkMode && context.property.autoSwitchMode) {
+          // 자동 전환 모드: 사용자 설정에 따라
+          // 기본적으로 스크롤 내림 = Light 모드
           document.documentElement.classList.remove('dark-mode');
+          document.documentElement.classList.add('light-mode');
           updateLogoImage(false);
-        } else {
-          // 페이지 상단 (임계값 이하) → Dark 모드 (어두운 배경용, 히어로 섹션 등)
+
+          console.log('[자동 전환 → Light]', { scrollY, threshold });
+        } else if (context.property.useLightMode && context.property.useDarkMode) {
+          // 둘 다 활성화 + 자동 전환 OFF: Light 모드 고정
+          document.documentElement.classList.remove('dark-mode');
+          document.documentElement.classList.add('light-mode');
+          updateLogoImage(false);
+        } else if (context.property.useDarkMode) {
+          // Dark 모드만 활성화
+          document.documentElement.classList.remove('light-mode');
           document.documentElement.classList.add('dark-mode');
           updateLogoImage(true);
+        } else if (context.property.useLightMode) {
+          // Light 모드만 활성화
+          document.documentElement.classList.remove('dark-mode');
+          document.documentElement.classList.add('light-mode');
+          updateLogoImage(false);
+        } else {
+          // 둘 다 비활성화: 기본 상태 유지
+          document.documentElement.classList.remove('light-mode', 'dark-mode');
+          updateLogoImage(false);
         }
-      } else if (context.property.useLightMode && context.property.useDarkMode) {
-        // 자동 전환 비활성화 시 기본 Light 모드
-        document.documentElement.classList.remove('dark-mode');
-        updateLogoImage(false);
-      } else if (context.property.useDarkMode) {
-        // Dark 모드만 활성화
-        document.documentElement.classList.add('dark-mode');
-        updateLogoImage(true);
-      } else {
-        // Light 모드만 활성화 또는 둘 다 비활성화
-        document.documentElement.classList.remove('dark-mode');
-        updateLogoImage(false);
       }
     }
 
@@ -1609,12 +1643,7 @@
       return;
     }
 
-    if (context.property.previewScrolled === true) {
-      header.classList.add('scrolled');
-      return;
-    }
-
-    if (window.scrollY > (context.property.scrollThreshold || 0)) {
+if (window.scrollY > (context.property.scrollThreshold || 0)) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
@@ -1937,25 +1966,8 @@
 
     // 페이지별 디자인이 적용되지 않았을 때만 기존 로직 실행
     if (pageBasedMode === null) {
-      if (context.property.useLightMode && context.property.useDarkMode) {
-        // 둘 다 활성화: 자동 전환 모드 확인
-        if (context.property.autoSwitchMode) {
-          handleScroll();
-        } else {
-          // 자동 전환 비활성화 시 기본 Light 모드
-          document.documentElement.classList.remove('dark-mode');
-          updateLogoImage(false);
-        }
-      } else if (context.property.useDarkMode) {
-        // Dark 모드만 활성화
-        document.documentElement.classList.add('dark-mode');
-        updateLogoImage(true);
-      } else if (context.property.useLightMode) {
-        // Light 모드만 활성화
-        document.documentElement.classList.remove('dark-mode');
-        updateLogoImage(false);
-      }
-      // 둘 다 해제된 경우: dark-mode 클래스 제거
+      // 초기 로드 시 스크롤 위치 확인하여 모드 설정
+      handleScroll();
     }
 
     // 디버깅: 초기화 완료 후 상태 확인
