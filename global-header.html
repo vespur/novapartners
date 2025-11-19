@@ -193,7 +193,6 @@
   .logo {
     display: flex;
     align-items: center;
-    margin: {{property.logoMarginY}}px {{property.logoMarginX}}px;
   }
 
   .logo a {
@@ -213,7 +212,6 @@
     display: flex;
     gap: {{property.menuGapDesktop}}px;
     align-items: center;
-    margin: {{property.menuMarginY}}px {{property.menuMarginX}}px;
   }
 
   .menu-item-wrapper {
@@ -1012,7 +1010,7 @@
         </div>
         {{/if}}
 
-        {{#if (eq property.menuAlign 'left')}}
+        {{#if (and property.enableMainMenu (eq property.menuAlign 'left'))}}
         <nav class="nav-desktop">
           {{#each property.menuItems}}
             {{#if hasSubmenu}}
@@ -1111,7 +1109,7 @@
         </div>
         {{/if}}
 
-        {{#if (eq property.menuAlign 'center')}}
+        {{#if (and property.enableMainMenu (eq property.menuAlign 'center'))}}
         <nav class="nav-desktop">
           {{#each property.menuItems}}
             {{#if hasSubmenu}}
@@ -1211,7 +1209,7 @@
           </div>
           {{/if}}
 
-          {{#if (eq property.menuAlign 'right')}}
+          {{#if (and property.enableMainMenu (eq property.menuAlign 'right'))}}
           <nav class="nav-desktop">
             {{#each property.menuItems}}
               {{#if hasSubmenu}}
@@ -1497,29 +1495,37 @@
     const header = container.querySelector('.global-header');
     if (!header) return;
 
-    // Light/Dark 모드 자동 전환 처리
-    if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
-      const scrollY = window.scrollY;
-      const threshold = context.property.switchThreshold || 0;
+    // Light/Dark 모드 처리
+    if (context.property.useLightMode && context.property.useDarkMode) {
+      // 둘 다 활성화: 자동 전환 모드 확인
+      if (context.property.autoSwitchMode) {
+        const scrollY = window.scrollY;
+        const threshold = context.property.switchThreshold || 0;
 
-      if (scrollY > threshold) {
-        // 임계값을 넘으면 Light 모드로 전환 (dark-mode 클래스 제거)
-        document.documentElement.classList.remove('dark-mode');
-        updateLogoImage(false); // Light 모드 로고
+        if (scrollY > threshold) {
+          // 임계값을 넘으면 Light 모드로 전환
+          document.documentElement.classList.remove('dark-mode');
+          updateLogoImage(false);
+        } else {
+          // 임계값 이하면 Dark 모드로 전환
+          document.documentElement.classList.add('dark-mode');
+          updateLogoImage(true);
+        }
       } else {
-        // 임계값 이하면 Dark 모드로 전환 (dark-mode 클래스 추가)
-        document.documentElement.classList.add('dark-mode');
-        updateLogoImage(true); // Dark 모드 로고
+        // 자동 전환 비활성화 시 기본 Light 모드
+        document.documentElement.classList.remove('dark-mode');
+        updateLogoImage(false);
       }
-    } else if (context.property.useDarkMode && !context.property.useLightMode) {
-      // Dark 모드만 활성화된 경우
+    } else if (context.property.useDarkMode) {
+      // Dark 모드만 활성화
       document.documentElement.classList.add('dark-mode');
       updateLogoImage(true);
-    } else {
-      // Light 모드만 활성화되거나 자동 전환 비활성화
+    } else if (context.property.useLightMode) {
+      // Light 모드만 활성화
       document.documentElement.classList.remove('dark-mode');
       updateLogoImage(false);
     }
+    // 둘 다 해제된 경우: dark-mode 클래스 제거 (CSS 기본값 사용)
 
     // 기존 스크롤 스타일 처리
     if (!context.property.enableScrollStyle) {
@@ -1833,35 +1839,43 @@
 
     // 페이지별 디자인이 적용되지 않았을 때만 기존 로직 실행
     if (pageBasedMode === null) {
-      if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
-        // 자동 전환 모드: 초기 스크롤 위치에 따라 설정
-        handleScroll();
-      } else if (context.property.useDarkMode && !context.property.useLightMode) {
+      if (context.property.useLightMode && context.property.useDarkMode) {
+        // 둘 다 활성화: 자동 전환 모드 확인
+        if (context.property.autoSwitchMode) {
+          handleScroll();
+        } else {
+          // 자동 전환 비활성화 시 기본 Light 모드
+          document.documentElement.classList.remove('dark-mode');
+          updateLogoImage(false);
+        }
+      } else if (context.property.useDarkMode) {
         // Dark 모드만 활성화
         document.documentElement.classList.add('dark-mode');
         updateLogoImage(true);
-      } else {
-        // Light 모드만 활성화 (기본)
+      } else if (context.property.useLightMode) {
+        // Light 모드만 활성화
         document.documentElement.classList.remove('dark-mode');
         updateLogoImage(false);
       }
+      // 둘 다 해제된 경우: dark-mode 클래스 제거
     }
   }
 
+  // 스크롤 이벤트 핸들러 등록
   if (context.property.enableScrollStyle) {
+    // 스크롤 스타일 활성화 시: backdrop 포함 핸들러 등록
     window.addEventListener('scroll', handleScrollWithBackdrop, { passive: true });
     handleScroll();
+  } else if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
+    // 스크롤 스타일 비활성화 + 자동 전환 활성화 시: 모드 전환만 처리
+    window.addEventListener('scroll', handleScroll, { passive: true });
   } else {
+    // 기타: submenu backdrop만 처리
     window.addEventListener('scroll', () => {
       if (currentActiveSubmenu) {
         updateSubmenuBackdrop(currentActiveSubmenu);
       }
     }, { passive: true });
-  }
-
-  // Light/Dark 모드 자동 전환이 활성화되어 있지 않아도 스크롤 핸들러 등록
-  if (!context.property.enableScrollStyle && (context.property.autoSwitchMode || context.property.useDarkMode)) {
-    window.addEventListener('scroll', handleScroll, { passive: true });
   }
 
   let isApplying = false;

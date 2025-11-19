@@ -170,28 +170,6 @@
       ],
       "isVisible": "property.enableLogo === true"
     },
-    {
-      "id": "logoMarginX",
-      "label": "로고 좌우 여백",
-      "description": "로고의 좌우 여백을 조절합니다. 값이 클수록 로고가 가장자리에서 멀어집니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableLogo === true"
-    },
-    {
-      "id": "logoMarginY",
-      "label": "로고 상하 여백",
-      "description": "로고의 상하 여백을 조절합니다. 헤더 내에서 로고의 세로 위치를 미세 조정할 수 있습니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableLogo === true"
-    },
 
     {
       "type": "TITLE",
@@ -623,26 +601,6 @@
         { "label": "중앙", "value": "center" },
         { "label": "오른쪽", "value": "right" }
       ],
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "menuMarginX",
-      "label": "메뉴 가로 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "menuMarginY",
-      "label": "메뉴 세로 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
       "isVisible": "property.enableMainMenu === true"
     },
 
@@ -2322,8 +2280,6 @@
       "value": "/"
     },
     "logoAlign": "left",
-    "logoMarginX": 0,
-    "logoMarginY": 0,
     "enableMainMenu": true,
     "menuItems": [],
     "menuColorDesktop": "#000000FF",
@@ -2333,8 +2289,6 @@
     "menuColorMobile": "#000000FF",
     "menuSizeMobile": 18,
     "menuAlign": "right",
-    "menuMarginX": 0,
-    "menuMarginY": 0,
     "menuHoverEffect": "opacity",
     "menuHoverColor": "#000000FF",
     "menuHoverColorDark": "#FFFFFFCC",
