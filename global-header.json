@@ -202,8 +202,12 @@
       "type": "COLOR_PICKER"
     },
     {
+      "type": "TITLE",
+      "content": "🎨 헤더 배경 & 디자인 (Light 모드 - 스크롤 내림)"
+    },
+    {
       "type": "DESCRIPTION",
-      "content": "헤더의 기본 상태(스크롤 전) 배경색, 그림자, 테두리 등을 설정합니다. 스크롤 효과가 활성화되면 이 스타일이 변경될 수 있습니다."
+      "content": "Light 모드에서 헤더의 배경색, 그림자, 테두리 등을 설정합니다. 밝은 배경에 적합한 어두운 색상의 헤더를 만들 때 사용하세요."
     },
     {
       "id": "headerBgType",
@@ -219,25 +223,26 @@
           "label": "그라디언트",
           "value": "gradient"
         }
-      ]
+      ],
+      "isVisible": "property.useLightMode === true"
     },
     {
       "id": "headerBg",
       "label": "배경색",
       "type": "COLOR_PICKER",
-      "isVisible": "property.headerBgType === 'solid'"
+      "isVisible": "property.useLightMode === true && property.headerBgType === 'solid'"
     },
     {
       "id": "headerGradientStart",
       "label": "그라디언트 시작 색상",
       "type": "COLOR_PICKER",
-      "isVisible": "property.headerBgType === 'gradient'"
+      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
     },
     {
       "id": "headerGradientEnd",
       "label": "그라디언트 끝 색상",
       "type": "COLOR_PICKER",
-      "isVisible": "property.headerBgType === 'gradient'"
+      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
     },
     {
       "id": "headerGradientAngle",
@@ -247,7 +252,7 @@
       "max": 360,
       "step": 15,
       "unit": "deg",
-      "isVisible": "property.headerBgType === 'gradient'"
+      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
     },
     {
       "id": "headerShadow",
@@ -284,22 +289,6 @@
       "step": 1,
       "unit": "px",
       "isVisible": "property.useLightMode === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "🎨 헤더 배경 & 디자인 (Dark 모드 - 스크롤 내림)"
-    },
-    {
-      "id": "menuColorDesktopDark",
-      "label": "데스크탑 메뉴 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "menuHoverColorDark",
-      "label": "메뉴 호버 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
     },
     {
       "id": "headerBorderColor",
@@ -1346,6 +1335,20 @@
       "label": "호버 시 색상",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'color' && property.useDarkMode === true"
+    },
+    {
+      "id": "menuUnderlineColorDark",
+      "label": "밑줄 색상",
+      "description": "메뉴 아래에 표시될 밑줄의 색상을 설정합니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableMainMenu === true && (property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center' || property.menuHoverEffect === 'underline') && property.useDarkMode === true"
+    },
+    {
+      "id": "menuHoverBgColorDark",
+      "label": "배경 슬라이드 색상",
+      "description": "배경 슬라이드 효과에 사용될 배경 색상을 설정합니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'background-slide' && property.useDarkMode === true"
     },
     {
       "type": "TITLE",

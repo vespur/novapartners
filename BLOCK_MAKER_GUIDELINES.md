@@ -8,6 +8,7 @@
 0. [AI 에이전트 개발 지침](#0-ai-에이전트-개발-지침)
 1. [핵심 제약사항](#1-핵심-제약사항)
 2. [블록 메이커 기본 구조](#2-블록-메이커-기본-구조)
+   - 2-9. [JSON 설정 구조 검증 (CRITICAL)](#2-9-json-설정-구조-검증-critical-)
 3. [필수 요건 (미충족 시 등록 불가)](#3-필수-요건-미충족-시-등록-불가)
 4. [커스텀 블록 점검표](#4-커스텀-블록-점검표)
 5. [고품질 블록 인증 기준](#5-고품질-블록-인증-기준)
@@ -560,6 +561,194 @@ console.log('debug');
 console.error('test');
 
 // 배포 전 모두 삭제 필수
+```
+
+### 2-9) JSON 설정 구조 검증 (CRITICAL) 🔴
+
+> **중요**: JSON 구조 오류는 블록 저장 실패 및 Light/Dark 모드 오작동의 주요 원인입니다.
+
+#### ✅ 필수 검증 항목
+
+**1. 중복 ID 금지**
+```json
+// ❌ 잘못된 예 - 같은 ID가 2번 등장
+{
+  "id": "menuColor",
+  "label": "메뉴 색상"
+}
+// ... 100줄 뒤 ...
+{
+  "id": "menuColor",  // ❌ 중복! 두 번째 값이 첫 번째를 덮어씀
+  "label": "메뉴 텍스트 색상"
+}
+
+// ✅ 올바른 예
+{
+  "id": "menuColorDefault",
+  "label": "메뉴 색상 (기본)"
+}
+{
+  "id": "menuColorLight",
+  "label": "메뉴 색상 (Light)"
+}
+```
+
+**2. 충돌하는 설정 방지**
+```json
+// ❌ 잘못된 예 - 두 개의 제어 시스템이 충돌
+{
+  "id": "mode",
+  "type": "RADIO",  // 하나만 선택 (default/light/dark)
+  "options": [...]
+},
+{
+  "id": "useLightMode",
+  "type": "CHECKBOX"  // ❌ RADIO와 충돌!
+},
+{
+  "id": "useDarkMode",
+  "type": "CHECKBOX"  // ❌ 둘 다 체크 가능 → RADIO와 모순
+}
+
+// ✅ 올바른 예 - 하나의 시스템만 사용
+{
+  "id": "useLightMode",
+  "type": "CHECKBOX"
+},
+{
+  "id": "useDarkMode",
+  "type": "CHECKBOX"
+}
+```
+
+**3. 상호 배타적 기능 명시**
+```json
+// ✅ 올바른 예 - isVisible로 충돌 방지
+{
+  "id": "enableScrollStyle",
+  "type": "CHECKBOX",
+  "isVisible": "property.autoSwitchMode !== true"  // ✅ 자동전환 OFF일때만 표시
+},
+{
+  "id": "autoSwitchMode",
+  "type": "CHECKBOX",
+  "description": "⚠️ '스크롤 효과'와 함께 사용 불가"  // ✅ 사용자에게 경고
+}
+```
+
+**4. 지원되는 타입만 사용**
+```json
+// ❌ 지원하지 않는 타입
+{
+  "type": "IMAGE"  // ❌ 오류 발생!
+}
+
+// ✅ 올바른 타입
+{
+  "type": "IMAGE_PICKER"  // ✅ 지원됨
+}
+
+// 지원 타입 목록:
+// - COLOR_PICKER
+// - IMAGE_PICKER
+// - RANGE
+// - CHECKBOX
+// - RADIO
+// - SELECT
+// - TEXT
+// - TEXTAREA
+// - DIVIDER (deprecated)
+// - TITLE
+// - DESCRIPTION
+```
+
+**5. 섹션 구조 명확화**
+```json
+// ❌ 잘못된 예 - 같은 타이틀 2번
+{
+  "type": "TITLE",
+  "content": "헤더 디자인 (Dark)"
+},
+{
+  "id": "setting1",
+  ...
+},
+{
+  "type": "TITLE",
+  "content": "헤더 디자인 (Dark)"  // ❌ 중복 타이틀!
+},
+{
+  "id": "setting2",
+  ...
+}
+
+// ✅ 올바른 예 - 하나의 섹션으로 통합
+{
+  "type": "TITLE",
+  "content": "헤더 디자인 (Dark)"
+},
+{
+  "type": "DESCRIPTION",
+  "content": "Dark 모드 설정..."
+},
+{
+  "id": "setting1",
+  ...
+},
+{
+  "id": "setting2",
+  ...
+}
+```
+
+**6. 비개발자용 설명 작성**
+```json
+// ❌ 기술 용어 사용 금지
+{
+  "description": ":root CSS 변수를 사용하여..."  // ❌ 비개발자 이해 불가
+}
+
+// ✅ 일반 사용자용 설명
+{
+  "description": "페이지 최상단에서 보이는 초기 디자인입니다. 투명 배경이나 히어로 이미지 위에 표시할 때 사용하세요."
+}
+```
+
+#### 🔍 JSON 검증 프로토콜 (개발 전 필수!)
+
+**Step 1: 중복 ID 검색**
+```bash
+# 터미널에서 실행
+grep -o '"id": "[^"]*"' global-header.json | sort | uniq -d
+# 결과가 나오면 중복 ID 존재!
+```
+
+**Step 2: 충돌 패턴 검색**
+- 같은 기능을 제어하는 RADIO + CHECKBOX 조합 확인
+- 같은 섹션 타이틀이 2번 이상 나오는지 확인
+- 상호 배타적 기능 (scroll effect + auto switch) 분리 확인
+
+**Step 3: 구조 검증**
+- [ ] 각 모드(Default/Light/Dark)에 동일한 옵션 세트 제공
+- [ ] isVisible 조건이 3단계 이상 중첩되지 않음
+- [ ] 모든 Light 모드 설정에 Dark 모드 대응 설정 존재
+
+#### ⚠️ 검증 실패 시 발생 문제
+
+1. **중복 ID**: 두 번째 설정이 첫 번째를 덮어씀 → 일부 설정 작동 안함
+2. **충돌 설정**: 사용자 혼란, 예측 불가능한 동작
+3. **잘못된 타입**: "블록을 저장하지 못했어요" 에러
+4. **중복 섹션**: UI가 뒤죽박죽, 사용자 혼란
+5. **기술 용어**: 비개발자 사용 불가
+
+#### 📋 개발 워크플로우에 통합
+
+```
+1. 기획 → JSON 설계
+2. ✅ JSON 검증 (중복 ID, 충돌 확인) ← 여기서 검증!
+3. HTML/CSS 개발
+4. 테스트
+5. 배포
 ```
 
 ---
