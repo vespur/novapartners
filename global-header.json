@@ -149,7 +149,7 @@
     {
       "id": "logoImageDefault",
       "label": "로고 이미지 (기본 상태)",
-      "type": "IMAGE"
+      "type": "IMAGE_PICKER"
     },
     {
       "id": "utilityMenuColorDefault",
