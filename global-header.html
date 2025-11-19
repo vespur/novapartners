@@ -18,6 +18,16 @@
     --language-active-text-color: {{property.languageActiveTextColor}};
     --language-active-bg: {{property.languageActiveBg}};
     --language-active-border-color: {{property.languageActiveBorderColor}};
+
+    /* 헤더 기본 스타일 - Light 모드 */
+    {{#if (eq property.headerBgType 'gradient')}}
+    --header-bg: linear-gradient({{property.headerGradientAngle}}deg, {{property.headerGradientStart}}, {{property.headerGradientEnd}});
+    {{else}}
+    --header-bg: {{property.headerBg}};
+    {{/if}}
+    --header-shadow: {{#if (gt property.headerShadow 0)}}0 2px {{property.headerShadow}}px {{property.headerShadowColor}}{{else}}none{{/if}};
+    --header-blur: {{property.headerBlur}}px;
+    --header-border: {{#if (gt property.headerBorder 0)}}{{property.headerBorder}}px solid {{property.headerBorderColor}}{{else}}none{{/if}};
   }
 
   /* 모바일은 항상 Dark 모드 색상 사용 */
@@ -30,26 +40,23 @@
   }
 
   .global-header {
-    /* 색상 전환 애니메이션 */
-    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    /* 색상 전환 애니메이션 - transform 제외하여 sticky 방해 방지 */
+    transition: background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease,
+                box-shadow {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease,
+                backdrop-filter {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease,
+                border {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease,
+                height {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
 
     width: 100%;
     height: {{property.headerHeight}}px;
-    {{#if (eq property.headerBgType 'gradient')}}
-    background: linear-gradient({{property.headerGradientAngle}}deg, {{property.headerGradientStart}}, {{property.headerGradientEnd}});
-    {{else}}
-    background: {{property.headerBg}};
-    {{/if}}
-    {{#if (gt property.headerShadow 0)}}
-    box-shadow: 0 2px {{property.headerShadow}}px {{property.headerShadowColor}};
-    {{/if}}
-    {{#if (gt property.headerBlur 0)}}
-    backdrop-filter: blur({{property.headerBlur}}px);
-    -webkit-backdrop-filter: blur({{property.headerBlur}}px);
-    {{/if}}
-    {{#if (gt property.headerBorder 0)}}
-    border-bottom: {{property.headerBorder}}px solid {{property.headerBorderColor}};
-    {{/if}}
+
+    /* CSS 변수 사용 - Light/Dark 모드 자동 전환 */
+    background: var(--header-bg);
+    box-shadow: var(--header-shadow);
+    backdrop-filter: blur(var(--header-blur));
+    -webkit-backdrop-filter: blur(var(--header-blur));
+    border-bottom: var(--header-border);
+
     z-index: 1000;
     overflow: visible; /* submenu가 밖으로 나갈 수 있도록 */
 
@@ -93,6 +100,16 @@
     --drawer-bg: {{property.drawerBgDark}};
     --mobile-menu-color: {{property.mobileMenuColorDark}};
     --accordion-icon-color: {{property.accordionIconColorDark}};
+
+    /* 헤더 기본 스타일 - Dark 모드 */
+    {{#if (eq property.headerBgTypeDark 'gradient')}}
+    --header-bg: linear-gradient({{property.headerGradientAngleDark}}deg, {{property.headerGradientStartDark}}, {{property.headerGradientEndDark}});
+    {{else}}
+    --header-bg: {{property.headerBgDark}};
+    {{/if}}
+    --header-shadow: {{#if (gt property.headerShadowDark 0)}}0 2px {{property.headerShadowDark}}px {{property.headerShadowColorDark}}{{else}}none{{/if}};
+    --header-blur: {{property.headerBlurDark}}px;
+    --header-border: {{#if (gt property.headerBorderDark 0)}}{{property.headerBorderDark}}px solid {{property.headerBorderColorDark}}{{else}}none{{/if}};
   }
 
   /* Submenu 열릴 때 헤더의 backdrop-filter 비활성화 - 통일된 blur 효과 */
@@ -751,6 +768,11 @@
     font-size: {{property.utilityMenuFontSize}}px;
     font-weight: {{property.utilityMenuFontWeight}};
     text-decoration: none;
+  }
+
+  .drawer-utility-item svg {
+    width: {{property.drawerUtilityIconSize}}px;
+    height: {{property.drawerUtilityIconSize}}px;
   }
 
   .drawer-utility-item svg * {
