@@ -2,32 +2,28 @@
   /* Light/Dark 모드 CSS 변수 - :root에 정의하여 전역 접근 가능 */
   /* 기본 상태 - 클래스 없을 때 (스크롤 최상단) */
   :root {
-    --logo-image: url('{{property.logoImage}}');
-    --menu-color-desktop: {{property.menuColorDesktop}};
-    --menu-hover-color: {{property.menuHoverColor}};
-    --submenu-bg: {{property.submenuBg}};
-    --submenu-title-color: {{property.submenuTitleColor}};
-    --submenu-color: {{property.submenuColor}};
-    --submenu-hover-bg: {{property.submenuHoverBg}};
-    --submenu-hover-color: {{property.submenuHoverColor}};
-    --utility-menu-color: {{property.utilityMenuColor}};
-    --utility-icon-color: {{property.utilityIconColor}};
-    --language-button-color: {{property.languageButtonColor}};
-    --language-button-bg: {{property.languageButtonBg}};
-    --language-button-border-color: {{property.languageButtonBorderColor}};
+    --logo-image: url('{{property.logoImageDefault}}');
+    --menu-color-desktop: {{property.menuColorDefault}};
+    --menu-hover-color: {{property.menuHoverColorDefault}};
+    --submenu-bg: {{property.submenuBgDefault}};
+    --submenu-title-color: {{property.submenuTitleColorDefault}};
+    --submenu-color: {{property.submenuColorDefault}};
+    --submenu-hover-bg: {{property.submenuHoverBgDefault}};
+    --submenu-hover-color: {{property.submenuHoverColorDefault}};
+    --utility-menu-color: {{property.utilityMenuColorDefault}};
+    --utility-icon-color: {{property.utilityIconColorDefault}};
+    --language-button-color: {{property.languageButtonColorDefault}};
+    --language-button-bg: {{property.languageButtonBgDefault}};
+    --language-button-border-color: {{property.languageButtonBorderColorDefault}};
     --language-active-text-color: {{property.languageActiveTextColor}};
     --language-active-bg: {{property.languageActiveBg}};
     --language-active-border-color: {{property.languageActiveBorderColor}};
 
-    /* 헤더 기본 스타일 - Light 모드 */
-    {{#if (eq property.headerBgType 'gradient')}}
-    --header-bg: linear-gradient({{property.headerGradientAngle}}deg, {{property.headerGradientStart}}, {{property.headerGradientEnd}});
-    {{else}}
-    --header-bg: {{property.headerBg}};
-    {{/if}}
-    --header-shadow: {{#if (gt property.headerShadow 0)}}0 2px {{property.headerShadow}}px {{property.headerShadowColor}}{{else}}none{{/if}};
-    --header-blur: {{property.headerBlur}}px;
-    --header-border: {{#if (gt property.headerBorder 0)}}{{property.headerBorder}}px solid {{property.headerBorderColor}}{{else}}none{{/if}};
+    /* 헤더 기본 스타일 - 기본 상태 */
+    --header-bg: {{property.headerBgDefault}};
+    --header-shadow: {{#if (gt property.headerShadowDefault 0)}}0 2px {{property.headerShadowDefault}}px {{property.headerShadowColorDefault}}{{else}}none{{/if}};
+    --header-blur: {{property.headerBlurDefault}}px;
+    --header-border: {{#if (gt property.headerBorderDefault 0)}}{{property.headerBorderDefault}}px solid {{property.headerBorderColorDefault}}{{else}}none{{/if}};
   }
 
   /* 모바일은 항상 Dark 모드 색상 사용 */
@@ -1601,7 +1597,7 @@
       if (scrollY <= threshold) {
         // 기본 상태: 모든 모드 클래스 제거
         document.documentElement.classList.remove('light-mode', 'dark-mode');
-        updateLogoImage(false);  // 기본은 Light 로고 사용
+        updateLogoImage('default');
 
         console.log('[기본 상태]', { scrollY, threshold });
       } else {
@@ -1611,28 +1607,28 @@
           // 기본적으로 스크롤 내림 = Light 모드
           document.documentElement.classList.remove('dark-mode');
           document.documentElement.classList.add('light-mode');
-          updateLogoImage(false);
+          updateLogoImage('light');
 
           console.log('[자동 전환 → Light]', { scrollY, threshold });
         } else if (context.property.useLightMode && context.property.useDarkMode) {
           // 둘 다 활성화 + 자동 전환 OFF: Light 모드 고정
           document.documentElement.classList.remove('dark-mode');
           document.documentElement.classList.add('light-mode');
-          updateLogoImage(false);
+          updateLogoImage('light');
         } else if (context.property.useDarkMode) {
           // Dark 모드만 활성화
           document.documentElement.classList.remove('light-mode');
           document.documentElement.classList.add('dark-mode');
-          updateLogoImage(true);
+          updateLogoImage('dark');
         } else if (context.property.useLightMode) {
           // Light 모드만 활성화
           document.documentElement.classList.remove('dark-mode');
           document.documentElement.classList.add('light-mode');
-          updateLogoImage(false);
+          updateLogoImage('light');
         } else {
           // 둘 다 비활성화: 기본 상태 유지
           document.documentElement.classList.remove('light-mode', 'dark-mode');
-          updateLogoImage(false);
+          updateLogoImage('default');
         }
       }
     }
@@ -1651,15 +1647,14 @@ if (window.scrollY > (context.property.scrollThreshold || 0)) {
   }
 
   // 로고 이미지 전환 함수
-  function updateLogoImage(isDarkMode) {
+  function updateLogoImage(mode) {
+    // mode: 'default', 'light', 'dark'
     const logoImages = container.querySelectorAll('.logo img');
     if (!logoImages || logoImages.length === 0) return;
 
+    const defaultLogo = context.property.logoImageDefault;
     const lightLogo = context.property.logoImage;
     const darkLogo = context.property.logoImageDark;
-
-    // 로고 이미지가 없으면 전환하지 않음
-    if (!lightLogo && !darkLogo) return;
 
     // 모바일 체크
     const isMobile = window.innerWidth <= 768;
@@ -1668,10 +1663,12 @@ if (window.scrollY > (context.property.scrollThreshold || 0)) {
       // 모바일에서는 항상 Dark 로고 사용
       if (isMobile && darkLogo) {
         img.src = darkLogo;
-      } else if (isDarkMode && darkLogo) {
+      } else if (mode === 'dark' && darkLogo) {
         img.src = darkLogo;
-      } else if (!isDarkMode && lightLogo) {
+      } else if (mode === 'light' && lightLogo) {
         img.src = lightLogo;
+      } else if (mode === 'default' && defaultLogo) {
+        img.src = defaultLogo;
       }
     });
   }
@@ -1712,14 +1709,18 @@ if (window.scrollY > (context.property.scrollThreshold || 0)) {
     });
 
     // 모드 적용
-    const isDarkMode = modeToApply === 'dark';
-
-    if (isDarkMode) {
+    if (modeToApply === 'dark') {
+      document.documentElement.classList.remove('light-mode');
       document.documentElement.classList.add('dark-mode');
-      updateLogoImage(true);
-    } else {
+      updateLogoImage('dark');
+    } else if (modeToApply === 'light') {
       document.documentElement.classList.remove('dark-mode');
-      updateLogoImage(false);
+      document.documentElement.classList.add('light-mode');
+      updateLogoImage('light');
+    } else {
+      // default 모드
+      document.documentElement.classList.remove('light-mode', 'dark-mode');
+      updateLogoImage('default');
     }
 
     // 적용된 모드 반환 (스크롤 기반 전환과 충돌 방지용)
