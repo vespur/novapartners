@@ -1,6 +1,6 @@
 <style>
   /* Light/Dark 모드 CSS 변수 - :root에 정의하여 전역 접근 가능 */
-  {{#if property.useLightMode}}
+  /* Light 모드 기본값 - 항상 정의됨 */
   :root {
     --logo-image: url('{{property.logoImage}}');
     --menu-color-desktop: {{property.menuColorDesktop}};
@@ -19,7 +19,6 @@
     --language-active-bg: {{property.languageActiveBg}};
     --language-active-border-color: {{property.languageActiveBorderColor}};
   }
-  {{/if}}
 
   /* 모바일은 항상 Dark 모드 색상 사용 */
   :root {
@@ -71,7 +70,7 @@
   }
 
   /* Dark 모드 - CSS 변수 재정의 (:root.dark-mode로 전역 적용) */
-  {{#if property.useDarkMode}}
+  /* Dark 모드 색상 - 항상 정의됨 (.dark-mode 클래스가 추가되면 자동 적용) */
   :root.dark-mode {
     --logo-image: url('{{property.logoImageDark}}');
     --menu-color-desktop: {{property.menuColorDesktopDark}};
@@ -95,7 +94,6 @@
     --mobile-menu-color: {{property.mobileMenuColorDark}};
     --accordion-icon-color: {{property.accordionIconColorDark}};
   }
-  {{/if}}
 
   /* Submenu 열릴 때 헤더의 backdrop-filter 비활성화 - 통일된 blur 효과 */
   .global-header.submenu-open {
@@ -104,8 +102,7 @@
   }
 
   {{#if property.enableScrollStyle}}
-  /* 스크롤 효과 - Light 모드 */
-  {{#if property.useLightMode}}
+  /* 스크롤 효과 - Light 모드 기본 상태 */
   .global-header.scrolled {
     {{#if (eq property.scrollBgType 'gradient')}}
     background: linear-gradient({{property.scrollGradientAngle}}deg, {{property.scrollGradientStart}}, {{property.scrollGradientEnd}}) !important;
@@ -125,10 +122,8 @@
     height: {{property.scrollHeaderHeight}}px !important;
     {{/if}}
   }
-  {{/if}}
 
-  /* 스크롤 효과 - Dark 모드 */
-  {{#if property.useDarkMode}}
+  /* 스크롤 효과 - Dark 모드 (.dark-mode 클래스가 있을 때 우선 적용) */
   :root.dark-mode .global-header.scrolled {
     {{#if (eq property.scrollBgType 'gradient')}}
     background: linear-gradient({{property.scrollGradientAngleDark}}deg, {{property.scrollGradientStartDark}}, {{property.scrollGradientEndDark}}) !important;
@@ -804,27 +799,27 @@
 
   .drawer-language-btn.active {
     {{#if (eq property.languageActiveStyle 'background')}}
-    background: {{property.languageActiveBg}} !important;
-    color: {{property.languageActiveTextColor}} !important;
+    background: {{property.drawerLanguageActiveBgColor}} !important;
+    color: {{property.drawerLanguageActiveTextColor}} !important;
     {{else if (eq property.languageActiveStyle 'border')}}
-    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
-    color: {{property.languageActiveTextColor}} !important;
+    border: {{property.languageActiveBorderWidth}}px solid {{property.drawerLanguageActiveBorderColor}} !important;
+    color: {{property.drawerLanguageActiveTextColor}} !important;
     {{else if (eq property.languageActiveStyle 'underline')}}
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: {{property.languageActiveTextColor}} !important;
+    color: {{property.drawerLanguageActiveTextColor}} !important;
     {{else if (eq property.languageActiveStyle 'bold')}}
     font-weight: bold;
-    color: {{property.languageActiveTextColor}} !important;
+    color: {{property.drawerLanguageActiveTextColor}} !important;
     {{else if (eq property.languageActiveStyle 'bold-underline')}}
     font-weight: bold;
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: {{property.languageActiveTextColor}} !important;
+    color: {{property.drawerLanguageActiveTextColor}} !important;
     {{else if (eq property.languageActiveStyle 'background-border')}}
-    background: {{property.languageActiveBg}} !important;
-    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
-    color: {{property.languageActiveTextColor}} !important;
+    background: {{property.drawerLanguageActiveBgColor}} !important;
+    border: {{property.languageActiveBorderWidth}}px solid {{property.drawerLanguageActiveBorderColor}} !important;
+    color: {{property.drawerLanguageActiveTextColor}} !important;
     {{/if}}
   }
 
@@ -1530,70 +1525,51 @@
 
     // 페이지별 디자인이 활성화되어 있고 현재 페이지에 매칭되는 경로가 있으면
     // 자동 전환을 건너뜀 (페이지별 디자인이 우선)
-    if (context.property.enablePageBasedDesign &&
+    const skipAutoSwitch = context.property.enablePageBasedDesign &&
         context.property.useLightMode &&
-        context.property.useDarkMode) {
+        context.property.useDarkMode;
+
+    let hasMatchingPath = false;
+    if (skipAutoSwitch) {
       const currentPath = context.$page?.path || window.location.pathname;
       const mappings = context.property.pageDesignMappings || [];
-      const hasMatchingPath = mappings.some(mapping => {
+      hasMatchingPath = mappings.some(mapping => {
         return mapping.pagePath && mapping.pagePath === currentPath;
       });
-
-      // 매칭되는 경로가 있으면 Light/Dark 모드 전환을 건너뛰고 스크롤 스타일만 처리
-      if (hasMatchingPath) {
-        // 스크롤 스타일 처리만 실행하고 리턴
-        if (!context.property.enableScrollStyle) {
-          header.classList.remove('scrolled');
-          return;
-        }
-
-        if (context.property.previewScrolled === true) {
-          header.classList.add('scrolled');
-          return;
-        }
-
-        if (window.scrollY > context.property.scrollThreshold) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-        return;
-      }
     }
 
-    // Light/Dark 모드 처리
-    if (context.property.useLightMode && context.property.useDarkMode) {
-      // 둘 다 활성화: 자동 전환 모드 확인
-      if (context.property.autoSwitchMode) {
+    // Light/Dark 모드 처리 (페이지별 디자인 매칭이 없을 때만)
+    if (!hasMatchingPath) {
+      if (context.property.useLightMode && context.property.useDarkMode && context.property.autoSwitchMode) {
+        // 자동 전환 모드: 스크롤 위치에 따라 전환
         const scrollY = window.scrollY;
         const threshold = context.property.switchThreshold || 0;
 
         if (scrollY > threshold) {
-          // 임계값을 넘으면 Light 모드로 전환
+          // 스크롤 내림 (임계값 초과) → Light 모드 (밝은 배경용)
           document.documentElement.classList.remove('dark-mode');
           updateLogoImage(false);
         } else {
-          // 임계값 이하면 Dark 모드로 전환
+          // 페이지 상단 (임계값 이하) → Dark 모드 (어두운 배경용, 히어로 섹션 등)
           document.documentElement.classList.add('dark-mode');
           updateLogoImage(true);
         }
-      } else {
+      } else if (context.property.useLightMode && context.property.useDarkMode) {
         // 자동 전환 비활성화 시 기본 Light 모드
         document.documentElement.classList.remove('dark-mode');
         updateLogoImage(false);
+      } else if (context.property.useDarkMode) {
+        // Dark 모드만 활성화
+        document.documentElement.classList.add('dark-mode');
+        updateLogoImage(true);
+      } else {
+        // Light 모드만 활성화 또는 둘 다 비활성화
+        document.documentElement.classList.remove('dark-mode');
+        updateLogoImage(false);
       }
-    } else if (context.property.useDarkMode) {
-      // Dark 모드만 활성화
-      document.documentElement.classList.add('dark-mode');
-      updateLogoImage(true);
-    } else if (context.property.useLightMode) {
-      // Light 모드만 활성화
-      document.documentElement.classList.remove('dark-mode');
-      updateLogoImage(false);
     }
-    // 둘 다 해제된 경우: dark-mode 클래스 제거 (CSS 기본값 사용)
 
-    // 기존 스크롤 스타일 처리
+    // 스크롤 스타일 처리 (Light/Dark 모드와 독립적)
     if (!context.property.enableScrollStyle) {
       header.classList.remove('scrolled');
       return;
@@ -1604,7 +1580,7 @@
       return;
     }
 
-    if (window.scrollY > context.property.scrollThreshold) {
+    if (window.scrollY > (context.property.scrollThreshold || 0)) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
