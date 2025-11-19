@@ -18,13 +18,17 @@
     --language-active-text-color: {{property.languageActiveTextColor}};
     --language-active-bg: {{property.languageActiveBg}};
     --language-active-border-color: {{property.languageActiveBorderColor}};
-    --hamburger-color: {{property.hamburgerColor}};
-    --close-btn-color: {{property.closeBtnColor}};
-    --drawer-bg: {{property.drawerBg}};
-    --mobile-menu-color: {{property.mobileMenuColor}};
-    --accordion-icon-color: {{property.accordionIconColor}};
   }
   {{/if}}
+
+  /* 모바일은 항상 Dark 모드 색상 사용 */
+  :root {
+    --hamburger-color: {{property.hamburgerColorDark}};
+    --close-btn-color: {{property.closeBtnColorDark}};
+    --drawer-bg: {{property.drawerBgDark}};
+    --mobile-menu-color: {{property.mobileMenuColorDark}};
+    --accordion-icon-color: {{property.accordionIconColorDark}};
+  }
 
   .global-header {
     /* 색상 전환 애니메이션 */
@@ -747,16 +751,15 @@
   }
 
   .drawer-utility-item a {
-    color: {{property.utilityMenuColor}};
+    color: {{property.drawerUtilityTextColor}};
     font-size: {{property.utilityMenuFontSize}}px;
     font-weight: {{property.utilityMenuFontWeight}};
     text-decoration: none;
   }
 
-  .drawer-utility-item svg {
-    width: {{property.utilityIconSize}}px;
-    height: {{property.utilityIconSize}}px;
-    fill: {{property.utilityIconColor}};
+  .drawer-utility-item svg * {
+    fill: {{property.drawerUtilityIconColor}};
+    stroke: {{property.drawerUtilityIconColor}};
   }
 
   .drawer-language-buttons {
@@ -768,13 +771,14 @@
 
   .drawer-language-btn {
     padding: {{property.languageButtonPaddingY}}px {{property.languageButtonPaddingX}}px;
-    border: {{property.languageButtonBorderThickness}}px solid {{property.languageButtonBorderColor}};
+    border: {{property.languageButtonBorderThickness}}px solid {{property.drawerLanguageBorderColor}};
     border-radius: {{property.languageButtonRadius}}px;
-    background: {{property.languageButtonBg}};
-    color: {{property.languageButtonColor}};
+    background: {{property.drawerLanguageBgColor}};
+    color: {{property.drawerLanguageTextColor}};
     font-size: {{property.languageButtonFontSize}}px;
     font-weight: {{property.languageButtonFontWeight}};
     text-decoration: none;
+    box-sizing: border-box; /* 테두리 두께가 변해도 전체 크기 유지 */
     {{#if (eq property.languageButtonHoverEffect 'scale')}}
     transition: transform 0.2s;
     {{else}}
@@ -953,17 +957,6 @@
   }
 
   @media (max-width: 768px) {
-    /* 모바일 버전은 항상 Dark 모드 색상 사용 */
-    {{#if property.useDarkMode}}
-    :root {
-      --hamburger-color: {{property.hamburgerColorDark}};
-      --close-btn-color: {{property.closeBtnColorDark}};
-      --drawer-bg: {{property.drawerBgDark}};
-      --mobile-menu-color: {{property.mobileMenuColorDark}};
-      --accordion-icon-color: {{property.accordionIconColorDark}};
-    }
-    {{/if}}
-
     .global-header {
       height: {{property.mobileHeaderHeight}}px !important;
       background: {{property.mobileHeaderBg}} !important;
@@ -1594,8 +1587,14 @@
     // 로고 이미지가 없으면 전환하지 않음
     if (!lightLogo && !darkLogo) return;
 
+    // 모바일 체크
+    const isMobile = window.innerWidth <= 768;
+
     logoImages.forEach(img => {
-      if (isDarkMode && darkLogo) {
+      // 모바일에서는 항상 Dark 로고 사용
+      if (isMobile && darkLogo) {
+        img.src = darkLogo;
+      } else if (isDarkMode && darkLogo) {
         img.src = darkLogo;
       } else if (!isDarkMode && lightLogo) {
         img.src = lightLogo;
