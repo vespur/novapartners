@@ -287,22 +287,6 @@
     },
     {
       "type": "TITLE",
-      "content": "🎨 헤더 배경 & 디자인 (Light 모드 - 스크롤 내림)"
-    },
-    {
-      "id": "menuColorDesktop",
-      "label": "데스크탑 메뉴 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "menuHoverColor",
-      "label": "메뉴 호버 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "type": "TITLE",
       "content": "🎨 헤더 배경 & 디자인 (Dark 모드 - 스크롤 내림)"
     },
     {
@@ -424,12 +408,14 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "스크롤 시 헤더 디자인을 변경할 수 있습니다."
+      "content": "⚠️ **주의**: \"스크롤 시 자동 전환\" 기능과는 함께 사용할 수 없습니다. Light/Dark 모드 자동 전환을 사용하는 경우 이 기능은 비활성화됩니다.\n\n스크롤 시 헤더 디자인을 세밀하게 변경할 수 있습니다 (배경색, 그림자, 높이 등)."
     },
     {
       "id": "enableScrollStyle",
       "label": "스크롤 효과 사용",
-      "type": "CHECKBOX"
+      "description": "Light/Dark 모드 자동 전환을 사용하지 않을 때만 활성화 가능합니다.",
+      "type": "CHECKBOX",
+      "isVisible": "property.autoSwitchMode !== true"
     },
     {
       "id": "scrollThreshold",
@@ -616,27 +602,7 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "💡 헤더 모드 시스템:\n\n🔹 **기본 상태** (스크롤 최상단):\n   - 스크롤 위치 0~임계값: 히어로 섹션용 디자인\n   - 투명 배경, 흰색 텍스트 등 자유롭게 설정 가능\n   - \":root\" CSS 변수 사용\n\n🔸 **Light 모드** (스크롤 내림):\n   - 스크롤 위치 > 임계값: 밝은 배경용 디자인\n   - 흰색 배경, 어두운 텍스트\n   - \":root.light-mode\" CSS 변수 사용\n\n🔹 **Dark 모드** (스크롤 내림):\n   - 스크롤 위치 > 임계값: 어두운 배경용 디자인\n   - 검정 배경, 밝은 텍스트\n   - \":root.dark-mode\" CSS 변수 사용\n\n📌 사용 방법:\n1. **기본 상태만 사용**: Light/Dark 모두 체크 해제\n   → 항상 기본 디자인 표시\n2. **Light 모드만**: Light만 체크\n   → 스크롤 내림 시 Light 디자인\n3. **Dark 모드만**: Dark만 체크\n   → 스크롤 내림 시 Dark 디자인\n4. **자동 전환**: 둘 다 체크 + \"스크롤 시 자동 전환\"\n   → 스크롤 위치에 따라 자동 전환\n\n⚠️ **중요**:\n- 기본 상태 / Light / Dark는 완전히 독립적\n- 각각 별도로 색상, 로고, 메뉴 스타일 설정 가능\n- \"스크롤 시 자동 전환\"과 \"페이지별 디자인\"은 동시 사용 불가"
-    },
-    {
-      "id": "headerMode",
-      "label": "헤더 모드 선택",
-      "description": "화면에 표시할 헤더 디자인을 선택하세요",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "기본 상태 (Default)",
-          "value": "default"
-        },
-        {
-          "label": "Light 모드",
-          "value": "light"
-        },
-        {
-          "label": "Dark 모드",
-          "value": "dark"
-        }
-      ]
+      "content": "💡 **헤더 색상 시스템 - 3가지 독립적인 디자인**\n\n헤더는 3가지 디자인 상태를 가질 수 있습니다:\n\n🔹 **기본 상태** (페이지 최상단):\n   - 히어로 이미지나 동영상 위에 표시되는 초기 디자인\n   - 예: 투명 배경, 흰색 텍스트\n\n🔸 **Light 모드** (밝은 배경):\n   - 일반 페이지 콘텐츠에 적합한 디자인\n   - 예: 흰색 배경, 검정 텍스트\n\n🔹 **Dark 모드** (어두운 배경):\n   - 어두운 섹션에 적합한 디자인\n   - 예: 검정 배경, 흰색 텍스트\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n📌 **사용 방법**:\n\n**1. 한 가지 디자인만 사용**\n   → Light/Dark 둘 다 체크 해제\n   → 항상 \"기본 상태\" 디자인만 표시\n\n**2. Light 모드만 사용**\n   → Light만 체크\n   → 스크롤 내리면 Light 디자인으로 변경\n\n**3. Dark 모드만 사용**\n   → Dark만 체크\n   → 스크롤 내리면 Dark 디자인으로 변경\n\n**4. 스크롤 위치에 따라 자동 전환**\n   → Light와 Dark 둘 다 체크\n   → \"스크롤 시 자동 전환\" 체크\n   → 스크롤 위치에 따라 자동으로 색상 변경\n\n**5. 페이지마다 다른 디자인**\n   → Light와 Dark 둘 다 체크\n   → \"페이지별 디자인 매칭\" 체크\n   → 각 페이지마다 Light/Dark 지정 가능\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n⚠️ **주의사항**:\n• 각 모드의 색상, 로고, 메뉴 스타일을 별도로 설정해야 합니다\n• \"스크롤 시 자동 전환\"과 \"페이지별 디자인\"은 동시 사용 불가\n• \"스크롤 효과\"와 \"스크롤 시 자동 전환\"은 동시 사용 불가"
     },
     {
       "id": "useLightMode",
