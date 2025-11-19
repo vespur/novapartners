@@ -1559,6 +1559,49 @@
     });
   }
 
+  // 페이지별 디자인 적용 함수
+  function applyPageBasedDesign() {
+    // 페이지별 디자인이 비활성화되어 있으면 처리하지 않음
+    if (!context.property.enablePageBasedDesign) {
+      return null;
+    }
+
+    // Light/Dark 모드가 모두 활성화되어 있지 않으면 처리하지 않음
+    if (!context.property.useLightMode || !context.property.useDarkMode) {
+      return null;
+    }
+
+    // 현재 페이지 경로 가져오기
+    const currentPath = context.$page?.path || window.location.pathname;
+
+    // 페이지별 매핑 설정 확인
+    const mappings = context.property.pageDesignMappings || [];
+
+    // 현재 페이지와 일치하는 매핑 찾기
+    const matchedMapping = mappings.find(mapping => {
+      if (!mapping.pagePath) return false;
+      // 정확히 일치하는 경로 확인
+      return mapping.pagePath === currentPath;
+    });
+
+    // 매핑된 모드 또는 기본 모드 적용
+    const modeToApply = matchedMapping?.useMode || context.property.defaultPageMode || 'light';
+
+    // 모드 적용
+    const isDarkMode = modeToApply === 'dark';
+
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark-mode');
+      updateLogoImage(true);
+    } else {
+      document.documentElement.classList.remove('dark-mode');
+      updateLogoImage(false);
+    }
+
+    // 적용된 모드 반환 (스크롤 기반 전환과 충돌 방지용)
+    return modeToApply;
+  }
+
   // Submenu backdrop 위치 계산 및 업데이트
   let currentActiveSubmenu = null;
   let backdropUpdateTimer = null;
@@ -1785,17 +1828,23 @@
   // 초기 모드 설정 (페이지 로드 시)
   const header = container.querySelector('.global-header');
   if (header) {
-    if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
-      // 자동 전환 모드: 초기 스크롤 위치에 따라 설정
-      handleScroll();
-    } else if (context.property.useDarkMode && !context.property.useLightMode) {
-      // Dark 모드만 활성화
-      header.classList.add('dark-mode');
-      updateLogoImage(true);
-    } else {
-      // Light 모드만 활성화 (기본)
-      header.classList.remove('dark-mode');
-      updateLogoImage(false);
+    // 1순위: 페이지별 디자인 (활성화되어 있으면 페이지 경로에 따라 모드 적용)
+    const pageBasedMode = applyPageBasedDesign();
+
+    // 페이지별 디자인이 적용되지 않았을 때만 기존 로직 실행
+    if (pageBasedMode === null) {
+      if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
+        // 자동 전환 모드: 초기 스크롤 위치에 따라 설정
+        handleScroll();
+      } else if (context.property.useDarkMode && !context.property.useLightMode) {
+        // Dark 모드만 활성화
+        document.documentElement.classList.add('dark-mode');
+        updateLogoImage(true);
+      } else {
+        // Light 모드만 활성화 (기본)
+        document.documentElement.classList.remove('dark-mode');
+        updateLogoImage(false);
+      }
     }
   }
 
@@ -1829,9 +1878,14 @@
 
     // 재렌더링 완료 후 스크롤 처리 및 플래그 리셋
     setTimeout(() => {
-      if (context.property.enableScrollStyle) {
+      // 페이지별 디자인 먼저 적용
+      const pageBasedMode = applyPageBasedDesign();
+
+      // 페이지별 디자인이 적용되지 않았을 때만 스크롤 처리
+      if (pageBasedMode === null && context.property.enableScrollStyle) {
         handleScroll();
       }
+
       // Submenu backdrop 재초기화
       initSubmenuBackdrop();
       // Accordion 재초기화

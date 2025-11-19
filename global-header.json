@@ -52,6 +52,59 @@
 
     {
       "type": "TITLE",
+      "content": "=== 📄 페이지별 디자인 설정 ==="
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "💡 페이지마다 다른 헤더 디자인(Light/Dark 모드)을 자동으로 적용할 수 있습니다.\n\n예시:\n• 메인 페이지(/): Dark 모드 - 히어로 이미지 위에 밝은 헤더\n• 제품 페이지(/products): Light 모드 - 밝은 배경에 어두운 헤더\n• 회사 소개(/about): Light 모드\n\n📌 메뉴 구조는 모든 페이지에서 동일하게 유지되며, 디자인만 페이지별로 다르게 적용됩니다.\n\n⚠️ 이 기능을 사용하려면 Light 모드와 Dark 모드를 모두 활성화해야 합니다."
+    },
+    {
+      "id": "enablePageBasedDesign",
+      "label": "✅ 페이지별 디자인 사용",
+      "description": "체크하면 페이지 경로에 따라 자동으로 Light/Dark 모드를 전환합니다. 체크 해제하면 모든 페이지에서 동일한 디자인이 적용됩니다.",
+      "type": "CHECKBOX",
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true"
+    },
+    {
+      "id": "defaultPageMode",
+      "label": "기본 모드 (매핑되지 않은 페이지)",
+      "description": "아래 목록에 추가하지 않은 페이지에서 사용할 기본 모드를 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        { "label": "Light 모드 (밝은 배경용)", "value": "light" },
+        { "label": "Dark 모드 (어두운 배경용)", "value": "dark" }
+      ],
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true"
+    },
+    {
+      "id": "pageDesignMappings",
+      "label": "페이지별 모드 매핑",
+      "description": "각 페이지에 적용할 모드를 설정해주세요. '+ 항목 추가' 버튼을 눌러 페이지를 추가하세요.",
+      "type": "LIST",
+      "maxCount": 20,
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true",
+      "settings": [
+        {
+          "id": "pagePath",
+          "label": "페이지 경로",
+          "description": "페이지의 URL 경로를 입력해주세요. 예: / (메인 페이지), /products, /about, /contact 등. 정확히 일치하는 경로에만 적용됩니다.",
+          "type": "TEXT"
+        },
+        {
+          "id": "useMode",
+          "label": "적용할 모드",
+          "description": "이 페이지에서 사용할 헤더 디자인 모드를 선택해주세요.",
+          "type": "RADIO",
+          "options": [
+            { "label": "Light 모드 (밝은 배경용)", "value": "light" },
+            { "label": "Dark 모드 (어두운 배경용)", "value": "dark" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "TITLE",
       "content": "=== 🖥️ 데스크톱 헤더 ==="
     },
     {
@@ -2465,6 +2518,9 @@
     "useDarkMode": false,
     "autoSwitchMode": false,
     "switchThreshold": 600,
-    "switchDuration": 0.3
+    "switchDuration": 0.3,
+    "enablePageBasedDesign": false,
+    "defaultPageMode": "light",
+    "pageDesignMappings": []
   }
 }
