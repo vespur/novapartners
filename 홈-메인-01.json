@@ -1,0 +1,985 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "🧩 헤드라인 / 본문"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "메인 메시지/서브/신뢰 문구와 정렬. 텍스트 정렬은 CTA 버튼 정렬과 독립적으로 설정됩니다."
+    },
+    {
+      "id": "headline",
+      "label": "헤드라인 텍스트",
+      "description": "히어로 메인 카피",
+      "type": "TEXT",
+      "placeholder": "당신의 브랜드를 세계로"
+    },
+    {
+      "id": "style.headlineColor",
+      "label": "헤드라인 색상",
+      "description": "텍스트 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.headlineFontSizeDesktop",
+      "label": "헤드라인 크기 (PC, px)",
+      "description": "예: 64",
+      "type": "TEXT",
+      "placeholder": "64"
+    },
+    {
+      "id": "style.headlineFontSizeMobile",
+      "label": "헤드라인 크기 (모바일, px)",
+      "description": "예: 32",
+      "type": "TEXT",
+      "placeholder": "32"
+    },
+    {
+      "id": "style.contentMaxWidth",
+      "label": "헤드라인 최대 폭 (px)",
+      "description": "예: 600",
+      "type": "TEXT",
+      "placeholder": "600"
+    },
+    {
+      "id": "style.textAlignDesktop",
+      "label": "텍스트 정렬 (PC)",
+      "description": "헤드라인/서브텍스트 정렬",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "가운데",
+          "value": "center"
+        }
+      ]
+    },
+    {
+      "id": "style.textAlignMobile",
+      "label": "텍스트 정렬 (모바일)",
+      "description": "모바일에서의 텍스트 정렬",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "가운데",
+          "value": "center"
+        }
+      ]
+    },
+    {
+      "id": "subtext",
+      "label": "서브텍스트",
+      "description": "브랜드/서비스 설명 2~3줄",
+      "type": "TEXTAREA",
+      "placeholder": "차별화된 영상형 히어로 섹션입니다."
+    },
+    {
+      "id": "style.subtextColor",
+      "label": "서브텍스트 색상",
+      "description": "",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.subtextFontSizeDesktop",
+      "label": "서브텍스트 크기 (PC, px)",
+      "description": "예: 20",
+      "type": "TEXT",
+      "placeholder": "20"
+    },
+    {
+      "id": "style.subtextFontSizeMobile",
+      "label": "서브텍스트 크기 (모바일, px)",
+      "description": "예: 16",
+      "type": "TEXT",
+      "placeholder": "16"
+    },
+    {
+      "id": "supportingNote",
+      "label": "신뢰 문구 (선택)",
+      "description": "비우면 숨김. 예: Trusted by 120+ clients worldwide",
+      "type": "TEXT",
+      "placeholder": "Trusted by 120+ clients worldwide"
+    },
+    {
+      "id": "style.supportingColor",
+      "label": "신뢰 문구 색상",
+      "description": "",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.supportingFontSizeDesktop",
+      "label": "신뢰 문구 크기 (PC, px)",
+      "description": "",
+      "type": "TEXT",
+      "placeholder": "16"
+    },
+    {
+      "id": "style.supportingFontSizeMobile",
+      "label": "신뢰 문구 크기 (모바일, px)",
+      "description": "",
+      "type": "TEXT",
+      "placeholder": "14"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎬 슬라이드 / 전환 / 자동재생"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "배경 이미지/비디오 슬라이드와 전환/속도/루프 설정."
+    },
+    {
+      "id": "slides",
+      "label": "슬라이드 목록",
+      "description": "각 항목은 하나의 장면. 캡션은 우하단.",
+      "type": "LIST",
+      "maxCount": 10,
+      "settings": [
+        {
+          "id": "type",
+          "label": "타입",
+          "description": "video / image",
+          "type": "RADIO",
+          "options": [
+            {
+              "label": "비디오",
+              "value": "video"
+            },
+            {
+              "label": "이미지",
+              "value": "image"
+            }
+          ]
+        },
+        {
+          "id": "mediaUrl",
+          "label": "비디오/이미지 URL",
+          "description": "mp4 / webm / jpg / png 등",
+          "type": "TEXT",
+          "placeholder": "https://..."
+        },
+        {
+          "id": "caption",
+          "label": "슬라이드 캡션",
+          "description": "우하단 강조 문구 (선택)",
+          "type": "TEXT",
+          "placeholder": "Global operations at scale"
+        }
+      ]
+    },
+    {
+      "id": "style.slideTransitionType",
+      "label": "슬라이드 전환 타입",
+      "description": "페이드/슬라이드/줌",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "페이드",
+          "value": "fade"
+        },
+        {
+          "label": "슬라이드",
+          "value": "slide"
+        },
+        {
+          "label": "줌",
+          "value": "zoom"
+        }
+      ]
+    },
+    {
+      "id": "progressMode",
+      "label": "데스크탑 하단 게이지 스타일",
+      "description": "singleBar=한 줄 / multiStep=장면별 막대",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "singleBar (한 줄)",
+          "value": "singleBar"
+        },
+        {
+          "label": "multiStep (슬라이드별 막대)",
+          "value": "multiStep"
+        }
+      ]
+    },
+    {
+      "id": "loopSlides",
+      "label": "무한 반복 재생",
+      "description": "마지막 뒤 처음으로 반복",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.slideTransitionMs",
+      "label": "슬라이드 전환 속도 (ms)",
+      "description": "예: 400",
+      "type": "TEXT",
+      "placeholder": "400"
+    },
+    {
+      "id": "style.slideDurationMs",
+      "label": "각 슬라이드 유지 시간 (ms)",
+      "description": "예: 5000",
+      "type": "TEXT",
+      "placeholder": "5000"
+    },
+    {
+      "id": "style.gaugeDurationMs",
+      "label": "게이지 채우는 시간 (ms)",
+      "description": "보통 유지 시간과 동일",
+      "type": "TEXT",
+      "placeholder": "5000"
+    },
+    {
+      "type": "TITLE",
+      "content": "🖥 데스크탑 하단 게이지 / 번호"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "PC/태블릿 하단 게이지와 슬라이드 번호 표시."
+    },
+    {
+      "id": "style.desktopGaugeShow",
+      "label": "데스크탑 게이지 표시",
+      "description": "체크 해제 시 데스크탑 게이지 숨김",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.desktopGaugeHideMobile",
+      "label": "모바일에서 데스크탑 게이지 숨기기",
+      "description": "모바일에선 데스크탑 게이지를 감춤",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.gaugeAlignDesktop",
+      "label": "가로 정렬",
+      "description": "왼쪽/가운데/오른쪽",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "가운데",
+          "value": "center"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "id": "style.gaugeOffsetXPercentDesktop",
+      "label": "가로 오프셋 (%)",
+      "description": "정렬 기준에서 좌우 미세 이동",
+      "type": "TEXT",
+      "placeholder": "0"
+    },
+    {
+      "id": "style.gaugePositionBottomPxDesktop",
+      "label": "하단에서 띄우기 (px)",
+      "description": "예: 40",
+      "type": "TEXT",
+      "placeholder": "40"
+    },
+    {
+      "id": "style.gaugeHeight",
+      "label": "게이지 두께 (px)",
+      "description": "예: 4",
+      "type": "TEXT",
+      "placeholder": "4"
+    },
+    {
+      "id": "style.gaugeRadius",
+      "label": "모서리 둥글기 (px)",
+      "description": "999=알약형",
+      "type": "TEXT",
+      "placeholder": "999"
+    },
+    {
+      "id": "style.gaugeGap",
+      "label": "multiStep 막대 간격 (px)",
+      "description": "예: 6",
+      "type": "TEXT",
+      "placeholder": "6"
+    },
+    {
+      "id": "style.gaugeMaxWidth",
+      "label": "게이지 최대 가로폭 (px)",
+      "description": "예: 600",
+      "type": "TEXT",
+      "placeholder": "600"
+    },
+    {
+      "id": "style.gaugeTrackColor",
+      "label": "트랙 색상",
+      "description": "rgba 가능",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.gaugeTrackBorderColor",
+      "label": "트랙 테두리 색상",
+      "description": "투명 가능",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.gaugeTrackBorderWidth",
+      "label": "트랙 테두리 두께 (px)",
+      "description": "예: 0/1/2",
+      "type": "TEXT",
+      "placeholder": "0"
+    },
+    {
+      "id": "style.gaugeFillColor",
+      "label": "진행 색상",
+      "description": "게이지 진행 영역 색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.gaugeFillBorderColor",
+      "label": "진행 테두리 색상",
+      "description": "투명 가능",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.gaugeFillBorderWidth",
+      "label": "진행 테두리 두께 (px)",
+      "description": "예: 0/1/2",
+      "type": "TEXT",
+      "placeholder": "0"
+    },
+    {
+      "id": "style.slideCounterFontSize",
+      "label": "슬라이드 번호 크기 (px)",
+      "description": "",
+      "type": "TEXT",
+      "placeholder": "12"
+    },
+    {
+      "id": "style.slideCounterActiveColor",
+      "label": "현재 번호 색",
+      "description": "",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.slideCounterInactiveColor",
+      "label": "비활성 번호 색",
+      "description": "",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.slideCounterOffsetXPercent",
+      "label": "번호 X 오프셋 (%)",
+      "description": "양수=오른쪽, 음수=왼쪽",
+      "type": "TEXT",
+      "placeholder": "0"
+    },
+    {
+      "id": "style.slideCounterOffsetYPx",
+      "label": "번호 Y 오프셋 (px)",
+      "description": "막대 위로 띄우는 값",
+      "type": "TEXT",
+      "placeholder": "4"
+    },
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 전용 풀가로 게이지바"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "모바일에서만 상단/하단 얇은 진행 바를 표시 (singleBar 모드에서 의미 있음)."
+    },
+    {
+      "id": "style.mobileGaugeBarShow",
+      "label": "모바일 게이지바 표시",
+      "description": "모바일 상/하단 얇은 바 표시",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.mobileGaugeBarPosition",
+      "label": "위치 (모바일)",
+      "description": "상단/하단",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "상단 고정",
+          "value": "top"
+        },
+        {
+          "label": "하단 고정",
+          "value": "bottom"
+        }
+      ]
+    },
+    {
+      "id": "style.mobileGaugeBarOffsetPx",
+      "label": "상/하단 기준 오프셋 (px)",
+      "description": "예: 0/8",
+      "type": "TEXT",
+      "placeholder": "0"
+    },
+    {
+      "id": "style.mobileGaugeHeight",
+      "label": "게이지 두께 (px)",
+      "description": "예: 3",
+      "type": "TEXT",
+      "placeholder": "3"
+    },
+    {
+      "id": "style.mobileGaugeTrackColor",
+      "label": "모바일 트랙 색상",
+      "description": "rgba 가능",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.mobileGaugeFillColor",
+      "label": "모바일 진행 색상",
+      "description": "",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "type": "TITLE",
+      "content": "🔘 CTA 버튼"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "두 개의 CTA. 배경/텍스트/테두리/라운드/크기/폰트/호버(underline/glow/none). 정렬은 별도로 설정 가능합니다."
+    },
+    {
+      "id": "ctaPrimary.label",
+      "label": "CTA #1 문구",
+      "description": "예: 지금 시작하기",
+      "type": "TEXT",
+      "placeholder": "지금 시작하기"
+    },
+    {
+      "id": "ctaPrimary.link",
+      "label": "CTA #1 링크",
+      "description": "클릭 이동 URL/페이지",
+      "type": "LINK"
+    },
+    {
+      "id": "ctaSecondary.label",
+      "label": "CTA #2 문구",
+      "description": "예: 자세히 보기",
+      "type": "TEXT",
+      "placeholder": "자세히 보기"
+    },
+    {
+      "id": "ctaSecondary.link",
+      "label": "CTA #2 링크",
+      "description": "",
+      "type": "LINK"
+    },
+    {
+      "id": "style.ctaJustifyDesktop",
+      "label": "CTA 정렬 (PC)",
+      "description": "버튼 그룹 가로 정렬",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "왼쪽",
+          "value": "flex-start"
+        },
+        {
+          "label": "가운데",
+          "value": "center"
+        }
+      ]
+    },
+    {
+      "id": "style.ctaJustifyMobile",
+      "label": "CTA 정렬 (모바일)",
+      "description": "모바일 버튼 그룹 정렬",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "왼쪽",
+          "value": "flex-start"
+        },
+        {
+          "label": "가운데",
+          "value": "center"
+        }
+      ]
+    },
+    {
+      "id": "style.ctaBgColor",
+      "label": "버튼 배경색",
+      "description": "rgba 허용 (불투명도 포함)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.ctaTextColor",
+      "label": "버튼 글자색",
+      "description": "",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.ctaBorderColor",
+      "label": "버튼 테두리 색상",
+      "description": "rgba 허용",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.ctaBorderWidth",
+      "label": "버튼 테두리 두께 (px)",
+      "description": "예: 1",
+      "type": "TEXT",
+      "placeholder": "1"
+    },
+    {
+      "id": "style.ctaRadius",
+      "label": "버튼 라운드 (px)",
+      "description": "999=캡슐형",
+      "type": "TEXT",
+      "placeholder": "8"
+    },
+    {
+      "id": "style.ctaWidthPx",
+      "label": "버튼 가로 크기 (px)",
+      "description": "비우면 자동",
+      "type": "TEXT",
+      "placeholder": ""
+    },
+    {
+      "id": "style.ctaHeightPx",
+      "label": "버튼 세로 크기 (px)",
+      "description": "비우면 자동",
+      "type": "TEXT",
+      "placeholder": ""
+    },
+    {
+      "id": "style.ctaFontSizePx",
+      "label": "버튼 글자 크기 (px)",
+      "description": "예: 16",
+      "type": "TEXT",
+      "placeholder": "16"
+    },
+    {
+      "id": "style.ctaHoverAnimType",
+      "label": "Hover 애니메이션",
+      "description": "glow-lift / underline / none",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "glow-lift",
+          "value": "glow-lift"
+        },
+        {
+          "label": "underline",
+          "value": "underline"
+        },
+        {
+          "label": "none",
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "id": "style.ctaHoverTranslateY",
+      "label": "Hover Y 이동 (px, 음수 권장)",
+      "description": "예: -2",
+      "type": "TEXT",
+      "placeholder": "-2"
+    },
+    {
+      "id": "style.ctaHoverShadow",
+      "label": "Hover 그림자 (box-shadow)",
+      "description": "예: 0 20px 40px rgba(0,0,0,.5)",
+      "type": "TEXTAREA",
+      "placeholder": "0 20px 40px rgba(0,0,0,.5)"
+    },
+    {
+      "id": "style.ctaGlowGradientColor",
+      "label": "glow 스캔 하이라이트 색",
+      "description": "rgba 가능",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.ctaGlowGradientAngleDeg",
+      "label": "glow 스캔 각도 (deg)",
+      "description": "예: 90",
+      "type": "TEXT",
+      "placeholder": "90"
+    },
+    {
+      "id": "style.ctaGlowScanSpeedS",
+      "label": "glow 스캔 속도 (s)",
+      "description": "예: 0.6",
+      "type": "TEXT",
+      "placeholder": "0.6"
+    },
+    {
+      "id": "style.ctaHoverUnderlineColor",
+      "label": "underline 색상",
+      "description": "underline 모드에서 사용",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "type": "TITLE",
+      "content": "⬅➡ 화살표"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "좌/우 슬라이드 네비게이션."
+    },
+    {
+      "id": "style.navArrowShow",
+      "label": "화살표 표시",
+      "description": "체크 해제 시 감춤",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.navArrowHideMobile",
+      "label": "모바일에서 화살표 숨기기",
+      "description": "",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.navArrowStyle",
+      "label": "화살표 스타일",
+      "description": "버튼 외형",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "솔리드(원형)",
+          "value": "solid-circle"
+        },
+        {
+          "label": "글래스 블러",
+          "value": "glass-blur"
+        },
+        {
+          "label": "미니멀 라인",
+          "value": "minimal-line"
+        }
+      ]
+    },
+    {
+      "id": "style.navArrowIconColor",
+      "label": "아이콘 색",
+      "description": "‹ › 또는 SVG fill",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.navArrowBgColor",
+      "label": "배경색",
+      "description": "solid 전용",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.navArrowBorderColor",
+      "label": "테두리 색",
+      "description": "",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.navArrowBorderWidth",
+      "label": "테두리 두께 (px)",
+      "description": "예: 1",
+      "type": "TEXT",
+      "placeholder": "1"
+    },
+    {
+      "id": "style.navArrowRadius",
+      "label": "라운드 (px)",
+      "description": "999=원형",
+      "type": "TEXT",
+      "placeholder": "999"
+    },
+    {
+      "id": "style.navArrowSize",
+      "label": "아이콘 크기 (px)",
+      "description": "예: 20",
+      "type": "TEXT",
+      "placeholder": "20"
+    },
+    {
+      "id": "style.navArrowOffsetXPercent",
+      "label": "좌우 위치 (%)",
+      "description": "예: 5",
+      "type": "TEXT",
+      "placeholder": "5"
+    },
+    {
+      "id": "style.navArrowOffsetYPercent",
+      "label": "세로 위치 (%)",
+      "description": "예: 50",
+      "type": "TEXT",
+      "placeholder": "50"
+    },
+    {
+      "id": "style.navArrowIconSvgLeft",
+      "label": "왼쪽 SVG",
+      "description": "<svg> 전체",
+      "type": "TEXTAREA",
+      "placeholder": ""
+    },
+    {
+      "id": "style.navArrowIconSvgRight",
+      "label": "오른쪽 SVG",
+      "description": "<svg> 전체",
+      "type": "TEXTAREA",
+      "placeholder": ""
+    },
+    {
+      "type": "TITLE",
+      "content": "👇 스크롤 힌트"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "하단 스크롤 안내. 위치와 애니메이션(bounce/pulse/none) 제어."
+    },
+    {
+      "id": "style.scrollHintShow",
+      "label": "스크롤 힌트 표시",
+      "description": "",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.scrollHintHideMobile",
+      "label": "모바일에서 힌트 숨기기",
+      "description": "",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.scrollHintText",
+      "label": "힌트 문구",
+      "description": "예: Scroll / 더 알아보기",
+      "type": "TEXT",
+      "placeholder": "Scroll"
+    },
+    {
+      "id": "style.scrollHintColor",
+      "label": "힌트 색상",
+      "description": "아이콘/텍스트 공통",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.scrollHintFontSize",
+      "label": "힌트 글자 크기 (px)",
+      "description": "예: 12",
+      "type": "TEXT",
+      "placeholder": "12"
+    },
+    {
+      "id": "style.scrollHintOffsetYPercent",
+      "label": "세로 위치 (%)",
+      "description": "하단 기준 위로 올릴 비율",
+      "type": "TEXT",
+      "placeholder": "5"
+    },
+    {
+      "id": "style.scrollHintAnimType",
+      "label": "애니메이션",
+      "description": "bounce / pulse / none",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "bounce",
+          "value": "bounce"
+        },
+        {
+          "label": "pulse",
+          "value": "pulse"
+        },
+        {
+          "label": "none",
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "id": "style.scrollHintAnimSpeedMs",
+      "label": "애니 속도 (ms)",
+      "description": "예: 800",
+      "type": "TEXT",
+      "placeholder": "800"
+    },
+    {
+      "type": "TITLE",
+      "content": "🖼 캡션 / 전체 레이아웃"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "슬라이드 캡션(모바일 숨김), 높이/패딩/오버레이/z-index."
+    },
+    {
+      "id": "style.slideCaptionHideMobile",
+      "label": "모바일에서 캡션 숨기기",
+      "description": "",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "style.heroHeightVh",
+      "label": "섹션 높이 (vh)",
+      "description": "예: 100",
+      "type": "TEXT",
+      "placeholder": "100"
+    },
+    {
+      "id": "style.heroPaddingXPercent",
+      "label": "좌우 패딩 (%)",
+      "description": "예: 5",
+      "type": "TEXT",
+      "placeholder": "5"
+    },
+    {
+      "id": "style.heroPaddingYPercent",
+      "label": "상하 패딩 (%)",
+      "description": "예: 10",
+      "type": "TEXT",
+      "placeholder": "10"
+    },
+    {
+      "id": "style.overlayColor",
+      "label": "오버레이 색상",
+      "description": "rgba 가능",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "style.zIndex",
+      "label": "z-index",
+      "description": "겹침 우선순위",
+      "type": "TEXT",
+      "placeholder": "10"
+    }
+  ],
+  "property": {
+    "headline": "당신의 브랜드를 세계로",
+    "subtext": "차별화된 이미지 및 영상 히어로 섹션",
+    "supportingNote": "Trusted by 120+ clients worldwide",
+    "ctaPrimary": {
+      "label": "지금 시작하기",
+      "link": {
+        "id": null,
+        "type": "url",
+        "label": "#",
+        "value": "#"
+      }
+    },
+    "ctaSecondary": {
+      "label": "자세히 보기",
+      "link": {
+        "id": null,
+        "type": "url",
+        "label": "#",
+        "value": "#"
+      }
+    },
+    "slides": [
+      {
+        "type": "video",
+        "mediaUrl": "https://example.com/video.mp4",
+        "caption": "Global operations at scale"
+      },
+      {
+        "type": "image",
+        "mediaUrl": "https://example.com/slide2.jpg",
+        "caption": "High-impact creative"
+      }
+    ],
+    "progressMode": "multiStep",
+    "loopSlides": true,
+    "style": {
+      "headlineColor": "#FFFFFF",
+      "headlineFontSizeDesktop": "64",
+      "headlineFontSizeMobile": "32",
+      "contentMaxWidth": "600",
+      "textAlignDesktop": "center",
+      "textAlignMobile": "center",
+      "subtextColor": "rgba(255,255,255,0.9)",
+      "subtextFontSizeDesktop": "20",
+      "subtextFontSizeMobile": "16",
+      "supportingColor": "rgba(255,255,255,0.7)",
+      "supportingFontSizeDesktop": "16",
+      "supportingFontSizeMobile": "14",
+      "ctaJustifyDesktop": "center",
+      "ctaJustifyMobile": "center",
+      "ctaBgColor": "#ffffff",
+      "ctaTextColor": "#000000",
+      "ctaBorderColor": "rgba(255,255,255,0.4)",
+      "ctaBorderWidth": "1",
+      "ctaRadius": "8",
+      "ctaWidthPx": "",
+      "ctaHeightPx": "",
+      "ctaFontSizePx": "16",
+      "ctaHoverTranslateY": "-2",
+      "ctaHoverShadow": "0 20px 40px rgba(0,0,0,.5)",
+      "ctaHoverLiftSpeedS": "0.3",
+      "ctaGlowGradientColor": "rgba(255,255,255,.6)",
+      "ctaGlowGradientAngleDeg": "90",
+      "ctaGlowScanSpeedS": "0.6",
+      "ctaHoverUnderlineColor": "#00bfff",
+      "ctaHoverAnimType": "glow-lift",
+      "slideTransitionType": "fade",
+      "desktopGaugeShow": true,
+      "desktopGaugeHideMobile": true,
+      "gaugeAlignDesktop": "center",
+      "gaugeOffsetXPercentDesktop": "0",
+      "gaugePositionBottomPxDesktop": "40",
+      "gaugeHeight": "4",
+      "gaugeRadius": "999",
+      "gaugeGap": "6",
+      "gaugeMaxWidth": "600",
+      "gaugeTrackColor": "rgba(255,255,255,0.2)",
+      "gaugeTrackBorderColor": "rgba(255,255,255,0.4)",
+      "gaugeTrackBorderWidth": "0",
+      "gaugeFillColor": "#00bfff",
+      "gaugeFillBorderColor": "#00bfff",
+      "gaugeFillBorderWidth": "0",
+      "slideCounterFontSize": "12",
+      "slideCounterActiveColor": "#FFFFFF",
+      "slideCounterInactiveColor": "rgba(255,255,255,.4)",
+      "slideCounterOffsetXPercent": "0",
+      "slideCounterOffsetYPx": "4",
+      "mobileGaugeBarShow": true,
+      "mobileGaugeBarPosition": "top",
+      "mobileGaugeBarOffsetPx": "0",
+      "mobileGaugeHeight": "3",
+      "mobileGaugeTrackColor": "rgba(0,0,0,0.4)",
+      "mobileGaugeFillColor": "#00bfff",
+      "navArrowShow": true,
+      "navArrowHideMobile": false,
+      "navArrowStyle": "glass-blur",
+      "navArrowIconColor": "#FFFFFF",
+      "navArrowBgColor": "rgba(0,0,0,0.4)",
+      "navArrowBorderColor": "rgba(255,255,255,0.4)",
+      "navArrowBorderWidth": "1",
+      "navArrowRadius": "999",
+      "navArrowSize": "20",
+      "navArrowOffsetXPercent": "5",
+      "navArrowOffsetYPercent": "50",
+      "navArrowIconSvgLeft": "",
+      "navArrowIconSvgRight": "",
+      "scrollHintShow": true,
+      "scrollHintHideMobile": false,
+      "scrollHintText": "Scroll",
+      "scrollHintColor": "#FFFFFF",
+      "scrollHintFontSize": "12",
+      "scrollHintOffsetYPercent": "5",
+      "scrollHintAnimType": "pulse",
+      "scrollHintAnimSpeedMs": "800",
+      "slideCaptionHideMobile": false,
+      "heroHeightVh": "100",
+      "heroPaddingXPercent": "5",
+      "heroPaddingYPercent": "10",
+      "overlayColor": "rgba(0,0,0,0.6)",
+      "zIndex": "10",
+      "slideTransitionMs": "400",
+      "slideDurationMs": "5000",
+      "gaugeDurationMs": "5000"
+    }
+  }
+}

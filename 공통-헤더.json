@@ -1,0 +1,2221 @@
+{
+  "settings": [
+    {
+      "type": "TITLE",
+      "content": "⚙️ 헤더 기본 설정"
+    },
+    {
+      "id": "headerHeight",
+      "label": "헤더 높이",
+      "description": "헤더의 세로 높이를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "headerPadding",
+      "label": "헤더 좌우 여백",
+      "description": "헤더 내부의 좌우 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "containerMaxWidthEnabled",
+      "label": "컨테이너 최대 너비 제한",
+      "description": "헤더 내부 콘텐츠의 최대 너비를 제한합니다 (데스크톱 전용)",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "컨테이너 최대 너비",
+      "description": "헤더 내부 콘텐츠의 최대 너비를 설정해주세요",
+      "type": "RANGE",
+      "min": 800,
+      "max": 1920,
+      "step": 40,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "id": "containerPaddingDesktop",
+      "label": "컨테이너 좌우 여백",
+      "description": "컨테이너 내부의 좌우 여백을 설정해주세요 (데스크톱)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "id": "isSticky",
+      "label": "상단 고정",
+      "description": "스크롤 시 헤더를 상단에 고정합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "isOverlay",
+      "label": "섹션 겹침",
+      "description": "헤더를 아래 섹션 위에 겹쳐서 표시합니다",
+      "type": "CHECKBOX"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🎨 헤더 디자인"
+    },
+    {
+      "id": "headerBgType",
+      "label": "배경 타입",
+      "description": "단색 또는 그라디언트 중 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "단색", "value": "solid" },
+        { "label": "그라디언트", "value": "gradient" }
+      ]
+    },
+    {
+      "id": "headerBg",
+      "label": "배경색",
+      "description": "헤더의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'solid'"
+    },
+    {
+      "id": "headerGradientStart",
+      "label": "그라디언트 시작색",
+      "description": "그라디언트의 시작 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientEnd",
+      "label": "그라디언트 끝색",
+      "description": "그라디언트의 끝 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientAngle",
+      "label": "그라디언트 각도",
+      "description": "그라디언트의 방향 각도를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerShadow",
+      "label": "그림자 강도",
+      "description": "헤더 하단 그림자의 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadowColor",
+      "label": "그림자 색상",
+      "description": "그림자의 색상과 투명도를 설정해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerBlur",
+      "label": "배경 블러",
+      "description": "헤더 배경의 블러 효과 강도를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorder",
+      "label": "하단 테두리 두께",
+      "description": "헤더 하단 테두리의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorderColor",
+      "label": "테두리 색상",
+      "description": "하단 테두리의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📜 스크롤 시 헤더 디자인"
+    },
+    {
+      "id": "enableScrollStyle",
+      "label": "스크롤 디자인 변경",
+      "description": "스크롤 시 헤더 디자인을 변경합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scrollThreshold",
+      "label": "스크롤 감지 지점",
+      "description": "디자인이 변경될 스크롤 위치를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBgType",
+      "label": "배경 타입",
+      "description": "단색 또는 그라디언트 중 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "단색", "value": "solid" },
+        { "label": "그라디언트", "value": "gradient" }
+      ],
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBg",
+      "label": "배경색",
+      "description": "스크롤 시 적용될 배경색을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid'"
+    },
+    {
+      "id": "scrollGradientStart",
+      "label": "그라디언트 시작색",
+      "description": "스크롤 시 그라디언트 시작 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
+    },
+    {
+      "id": "scrollGradientEnd",
+      "label": "그라디언트 끝색",
+      "description": "스크롤 시 그라디언트 끝 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
+    },
+    {
+      "id": "scrollGradientAngle",
+      "label": "그라디언트 각도",
+      "description": "스크롤 시 그라디언트 방향을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
+    },
+    {
+      "id": "scrollShadow",
+      "label": "그림자 강도",
+      "description": "스크롤 시 그림자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollShadowColor",
+      "label": "그림자 색상",
+      "description": "스크롤 시 그림자 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBlur",
+      "label": "배경 블러",
+      "description": "스크롤 시 배경 블러 강도를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollHeaderHeightEnabled",
+      "label": "헤더 높이 축소",
+      "description": "스크롤 시 헤더 높이를 축소합니다",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollHeaderHeight",
+      "label": "축소된 헤더 높이",
+      "description": "스크롤 시 적용될 헤더 높이를 설정해주세요",
+      "type": "RANGE",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.scrollHeaderHeightEnabled === true"
+    },
+    {
+      "id": "scrollLogoWidthEnabled",
+      "label": "로고 크기 축소",
+      "description": "스크롤 시 로고 크기를 축소합니다",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollLogoWidth",
+      "label": "축소된 로고 너비",
+      "description": "스크롤 시 적용될 로고 너비를 설정해주세요",
+      "type": "RANGE",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.scrollLogoWidthEnabled === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🏷️ 로고"
+    },
+    {
+      "id": "logoImage",
+      "label": "로고 이미지",
+      "description": "헤더에 표시할 로고 이미지를 선택해주세요",
+      "type": "IMAGE_PICKER"
+    },
+    {
+      "id": "logoWidth",
+      "label": "로고 너비",
+      "description": "로고 이미지의 너비를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "logoLink",
+      "label": "로고 링크",
+      "description": "로고 클릭 시 이동할 페이지를 선택해주세요",
+      "type": "LINK"
+    },
+    {
+      "id": "logoAlign",
+      "label": "로고 위치",
+      "description": "로고의 정렬 위치를 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
+      "id": "logoMarginX",
+      "label": "로고 가로 여백",
+      "description": "로고의 좌우 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "logoMarginY",
+      "label": "로고 세로 여백",
+      "description": "로고의 상하 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📋 메뉴"
+    },
+    {
+      "id": "menuItems",
+      "label": "메뉴 항목",
+      "description": "헤더에 표시할 메뉴를 추가해주세요 (최대 10개)",
+      "type": "LIST",
+      "maxCount": 10,
+      "settings": [
+        {
+          "id": "name",
+          "label": "메뉴 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "link",
+          "label": "링크",
+          "type": "LINK"
+        },
+        {
+          "id": "hasSubmenu",
+          "label": "하위 메뉴 사용",
+          "description": "마우스 올릴 때 나타나는 하위 메뉴를 활성화합니다. 그룹 1만 사용하면 한 컬럼, 2-3 추가 시 여러 컬럼 표시",
+          "type": "CHECKBOX"
+        },
+        {
+          "id": "group1Title",
+          "label": "📁 그룹 1 제목",
+          "description": "첫 번째 컬럼 제목 (선택사항)",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item1Name",
+          "label": "항목 1 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item1Link",
+          "label": "항목 1 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item2Name",
+          "label": "항목 2 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item2Link",
+          "label": "항목 2 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item3Name",
+          "label": "항목 3 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item3Link",
+          "label": "항목 3 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item4Name",
+          "label": "항목 4 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item4Link",
+          "label": "항목 4 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item5Name",
+          "label": "항목 5 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item5Link",
+          "label": "항목 5 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item6Name",
+          "label": "항목 6 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item6Link",
+          "label": "항목 6 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item7Name",
+          "label": "항목 7 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item7Link",
+          "label": "항목 7 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item8Name",
+          "label": "항목 8 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item8Link",
+          "label": "항목 8 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item9Name",
+          "label": "항목 9 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item9Link",
+          "label": "항목 9 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item10Name",
+          "label": "항목 10 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group1Item10Link",
+          "label": "항목 10 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Title",
+          "label": "📁 그룹 2 제목 (선택)",
+          "description": "두 번째 컬럼 제목 (그룹1과 가로로 나란히 표시)",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item1Name",
+          "label": "항목 1 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item1Link",
+          "label": "항목 1 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item2Name",
+          "label": "항목 2 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item2Link",
+          "label": "항목 2 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item3Name",
+          "label": "항목 3 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item3Link",
+          "label": "항목 3 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item4Name",
+          "label": "항목 4 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item4Link",
+          "label": "항목 4 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item5Name",
+          "label": "항목 5 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item5Link",
+          "label": "항목 5 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item6Name",
+          "label": "항목 6 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item6Link",
+          "label": "항목 6 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item7Name",
+          "label": "항목 7 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item7Link",
+          "label": "항목 7 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item8Name",
+          "label": "항목 8 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item8Link",
+          "label": "항목 8 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item9Name",
+          "label": "항목 9 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item9Link",
+          "label": "항목 9 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item10Name",
+          "label": "항목 10 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group2Item10Link",
+          "label": "항목 10 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Title",
+          "label": "📁 그룹 3 제목 (선택)",
+          "description": "세 번째 컬럼 제목 (그룹1-2와 가로로 나란히 표시)",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item1Name",
+          "label": "항목 1 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item1Link",
+          "label": "항목 1 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item2Name",
+          "label": "항목 2 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item2Link",
+          "label": "항목 2 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item3Name",
+          "label": "항목 3 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item3Link",
+          "label": "항목 3 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item4Name",
+          "label": "항목 4 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item4Link",
+          "label": "항목 4 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item5Name",
+          "label": "항목 5 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item5Link",
+          "label": "항목 5 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item6Name",
+          "label": "항목 6 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item6Link",
+          "label": "항목 6 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item7Name",
+          "label": "항목 7 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item7Link",
+          "label": "항목 7 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item8Name",
+          "label": "항목 8 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item8Link",
+          "label": "항목 8 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item9Name",
+          "label": "항목 9 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item9Link",
+          "label": "항목 9 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item10Name",
+          "label": "항목 10 이름",
+          "type": "TEXT",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        },
+        {
+          "id": "group3Item10Link",
+          "label": "항목 10 링크",
+          "type": "LINK",
+          "isVisible": "property.menuItems[index].hasSubmenu === true"
+        }
+      ]
+    },
+    {
+      "id": "menuAlign",
+      "label": "메뉴 위치",
+      "description": "메뉴의 정렬 위치를 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
+      "id": "menuColorDesktop",
+      "label": "메뉴 색상 (데스크톱)",
+      "description": "데스크톱에서 메뉴 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuSizeDesktop",
+      "label": "메뉴 크기 (데스크톱)",
+      "description": "데스크톱에서 메뉴 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "menuGapDesktop",
+      "label": "메뉴 간격 (데스크톱)",
+      "description": "데스크톱에서 메뉴 항목 사이 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "menuColorMobile",
+      "label": "메뉴 색상 (모바일)",
+      "description": "모바일에서 메뉴 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuSizeMobile",
+      "label": "메뉴 크기 (모바일)",
+      "description": "모바일에서 메뉴 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 28,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "menuMarginX",
+      "label": "메뉴 가로 여백",
+      "description": "메뉴의 좌우 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "menuMarginY",
+      "label": "메뉴 세로 여백",
+      "description": "메뉴의 상하 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "menuHoverEffect",
+      "label": "메뉴 호버 효과",
+      "description": "메뉴에 마우스를 올렸을 때 효과를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "투명도 변경", "value": "opacity" },
+        { "label": "색상 변경", "value": "color" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "밑줄 슬라이드 (좌→우)", "value": "underline-slide" },
+        { "label": "밑줄 확장 (중앙→양쪽)", "value": "underline-center" },
+        { "label": "배경 슬라이드", "value": "background-slide" },
+        { "label": "확대", "value": "scale" }
+      ]
+    },
+    {
+      "id": "menuHoverColor",
+      "label": "호버 색상",
+      "description": "호버 효과가 '색상 변경'일 때 적용될 색상입니다",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffect === 'color'"
+    },
+    {
+      "id": "menuHoverBgColor",
+      "label": "호버 배경색",
+      "description": "호버 효과가 '배경 슬라이드'일 때 적용될 배경색입니다",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffect === 'background-slide'"
+    },
+    {
+      "id": "menuUnderlineColor",
+      "label": "언더라인 색상",
+      "description": "밑줄 효과의 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffect === 'underline' || property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center'"
+    },
+    {
+      "id": "menuUnderlineThickness",
+      "label": "언더라인 두께",
+      "description": "밑줄 효과의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.menuHoverEffect === 'underline' || property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center'"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📂 하위 메뉴 - 기본 설정"
+    },
+    {
+      "id": "submenuBg",
+      "label": "배경색",
+      "description": "하위 메뉴의 배경색을 선택해주세요. 블러 효과 사용 시 투명도 70-90% 권장",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuPaddingTop",
+      "label": "상단 여백",
+      "description": "하위 메뉴 내용의 위쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "submenuPaddingBottom",
+      "label": "하단 여백",
+      "description": "하위 메뉴 내용의 아래쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "submenuPaddingLeft",
+      "label": "좌측 여백",
+      "description": "하위 메뉴 내용의 왼쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "submenuPaddingRight",
+      "label": "우측 여백",
+      "description": "하위 메뉴 내용의 오른쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "submenuGroupGap",
+      "label": "그룹 간 간격",
+      "description": "하위 메뉴 그룹 사이의 가로 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📂 하위 메뉴 - 블러 효과"
+    },
+    {
+      "id": "submenuBlurEnabled",
+      "label": "블러 효과 활성화",
+      "description": "하위 메뉴 뒤의 배경을 흐리게 만듭니다. 배경색 투명도를 낮춰야 효과가 잘 보입니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "submenuBlur",
+      "label": "블러 강도",
+      "description": "배경 블러의 강도를 설정해주세요. 높을수록 더 흐려집니다",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.submenuBlurEnabled === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📂 하위 메뉴 - 그룹 제목"
+    },
+    {
+      "id": "submenuTitleColor",
+      "label": "제목 색상",
+      "description": "그룹 제목의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuTitleSize",
+      "label": "제목 크기",
+      "description": "그룹 제목의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "submenuTitleWeight",
+      "label": "제목 굵기",
+      "description": "그룹 제목의 글자 굵기를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "얇게 (300)", "value": "300" },
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ]
+    },
+    {
+      "id": "submenuTitlePaddingX",
+      "label": "제목 가로 여백",
+      "description": "그룹 제목의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "submenuTitlePaddingY",
+      "label": "제목 세로 여백",
+      "description": "그룹 제목의 상하 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "submenuTitleMarginBottom",
+      "label": "제목 하단 간격",
+      "description": "그룹 제목과 첫 번째 항목 사이의 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "submenuTitleUnderline",
+      "label": "제목 밑줄 표시",
+      "description": "그룹 제목 아래에 밑줄을 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "submenuTitleUnderlineWidth",
+      "label": "밑줄 두께",
+      "description": "그룹 제목 밑줄의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.submenuTitleUnderline === true"
+    },
+    {
+      "id": "submenuTitleUnderlineColor",
+      "label": "밑줄 색상",
+      "description": "그룹 제목 밑줄의 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.submenuTitleUnderline === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📂 하위 메뉴 - 항목"
+    },
+    {
+      "id": "submenuColor",
+      "label": "항목 색상",
+      "description": "하위 메뉴 항목의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuSize",
+      "label": "항목 크기",
+      "description": "하위 메뉴 항목의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "submenuItemWeight",
+      "label": "항목 굵기",
+      "description": "하위 메뉴 항목의 글자 굵기를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "얇게 (300)", "value": "300" },
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ]
+    },
+    {
+      "id": "submenuItemPaddingX",
+      "label": "항목 가로 여백",
+      "description": "하위 메뉴 항목의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "submenuItemPaddingY",
+      "label": "항목 세로 여백",
+      "description": "하위 메뉴 항목의 상하 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "submenuItemMargin",
+      "label": "항목 간 간격",
+      "description": "하위 메뉴 항목들 사이의 세로 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "submenuItemRadius",
+      "label": "항목 모서리 둥글기",
+      "description": "하위 메뉴 항목의 모서리 둥글기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📂 하위 메뉴 - 호버 효과"
+    },
+    {
+      "id": "submenuHoverEffect",
+      "label": "호버 효과 종류",
+      "description": "마우스를 올렸을 때 적용될 효과를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "배경색 변경", "value": "background" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "굵게", "value": "bold" },
+        { "label": "배경색 + 굵게", "value": "background-bold" },
+        { "label": "글자색 변경", "value": "color" },
+        { "label": "글자색 + 굵게", "value": "color-bold" },
+        { "label": "확대 (1.05배)", "value": "scale" },
+        { "label": "그림자", "value": "shadow" },
+        { "label": "배경색 + 글자색", "value": "background-color" }
+      ]
+    },
+    {
+      "id": "submenuHoverBg",
+      "label": "호버 배경색",
+      "description": "마우스를 올렸을 때의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.submenuHoverEffect === 'background' || property.submenuHoverEffect === 'background-bold' || property.submenuHoverEffect === 'background-color'"
+    },
+    {
+      "id": "submenuHoverColor",
+      "label": "호버 글자색",
+      "description": "마우스를 올렸을 때의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.submenuHoverEffect === 'color' || property.submenuHoverEffect === 'color-bold' || property.submenuHoverEffect === 'background-color'"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "⚡ 유틸리티 메뉴"
+    },
+    {
+      "id": "utilityMenuItems",
+      "label": "유틸리티 메뉴 항목",
+      "description": "로그인, 마이페이지 등 우측 상단 유틸리티 메뉴를 추가해주세요 (최대 5개)",
+      "type": "LIST",
+      "maxCount": 5,
+      "settings": [
+        {
+          "id": "name",
+          "label": "메뉴 이름",
+          "type": "TEXT"
+        },
+        {
+          "id": "link",
+          "label": "링크",
+          "type": "LINK"
+        },
+        {
+          "id": "iconSvg",
+          "label": "아이콘 SVG",
+          "description": "메뉴 앞에 표시할 아이콘 (선택사항)",
+          "type": "TEXTAREA",
+          "placeholder": "<svg>...</svg>"
+        }
+      ]
+    },
+    {
+      "id": "utilityMenuAlign",
+      "label": "유틸리티 메뉴 배치",
+      "description": "유틸리티 메뉴 전체의 위치를 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
+      "id": "utilityMenuColor",
+      "label": "메뉴 색상",
+      "description": "유틸리티 메뉴의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "utilityMenuSize",
+      "label": "메뉴 크기",
+      "description": "유틸리티 메뉴의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "utilityMenuGap",
+      "label": "메뉴 간격",
+      "description": "유틸리티 메뉴 항목 사이 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "utilityMenuHoverEffect",
+      "label": "호버 효과",
+      "description": "메뉴에 마우스를 올렸을 때 효과를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "투명도 변경", "value": "opacity" },
+        { "label": "색상 변경", "value": "color" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "확대", "value": "scale" }
+      ]
+    },
+    {
+      "id": "utilityMenuHoverColor",
+      "label": "호버 색상",
+      "description": "호버 효과가 '색상 변경'일 때 적용될 색상입니다",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.utilityMenuHoverEffect === 'color'"
+    },
+    {
+      "id": "utilityIconSize",
+      "label": "아이콘 크기",
+      "description": "메뉴 아이콘의 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "utilityIconColor",
+      "label": "아이콘 색상",
+      "description": "메뉴 아이콘의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "utilityIconPosition",
+      "label": "아이콘 위치",
+      "description": "아이콘을 텍스트 앞/뒤에 배치합니다",
+      "type": "RADIO",
+      "options": [
+        { "label": "텍스트 앞 (좌측)", "value": "left" },
+        { "label": "텍스트 뒤 (우측)", "value": "right" }
+      ]
+    },
+    {
+      "id": "headerRightMargin",
+      "label": "우측 영역 여백",
+      "description": "화면 우측 끝과의 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🌐 다국어 버튼"
+    },
+    {
+      "id": "languageButtons",
+      "label": "다국어 버튼 목록",
+      "description": "다국어 전환 버튼을 추가해주세요 (최대 5개)",
+      "type": "LIST",
+      "maxCount": 5,
+      "settings": [
+        {
+          "id": "text",
+          "label": "버튼 텍스트",
+          "type": "TEXT"
+        },
+        {
+          "id": "link",
+          "label": "버튼 링크",
+          "type": "LINK"
+        },
+        {
+          "id": "isActive",
+          "label": "활성화 표시",
+          "description": "현재 선택된 언어로 표시합니다",
+          "type": "CHECKBOX"
+        }
+      ]
+    },
+    {
+      "id": "languageButtonAlign",
+      "label": "다국어 버튼 배치",
+      "description": "다국어 버튼 전체의 위치를 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "중앙", "value": "center" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
+      "id": "languageButtonColor",
+      "label": "버튼 색상",
+      "description": "다국어 버튼의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "languageButtonSize",
+      "label": "버튼 크기",
+      "description": "다국어 버튼의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "languageButtonGap",
+      "label": "버튼 간격",
+      "description": "다국어 버튼 사이 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "languageButtonBg",
+      "label": "버튼 배경색",
+      "description": "버튼의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "languageButtonRadius",
+      "label": "버튼 모서리 둥글기",
+      "description": "버튼 모서리의 둥글기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "languageButtonBorder",
+      "label": "버튼 테두리 두께",
+      "description": "버튼 테두리의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "languageButtonBorderColor",
+      "label": "테두리 색상",
+      "description": "버튼 테두리의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "languageButtonMarginRight",
+      "label": "버튼 우측 여백",
+      "description": "다국어 버튼 영역의 우측 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "languageButtonHoverEffect",
+      "label": "호버 효과",
+      "description": "버튼에 마우스를 올렸을 때 효과를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "투명도 변경", "value": "opacity" },
+        { "label": "색상 변경", "value": "color" },
+        { "label": "배경색 변경", "value": "background" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "확대", "value": "scale" }
+      ]
+    },
+    {
+      "id": "languageButtonHoverColor",
+      "label": "호버 글자 색상",
+      "description": "호버 시 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.languageButtonHoverEffect === 'color'"
+    },
+    {
+      "id": "languageButtonHoverBg",
+      "label": "호버 배경색",
+      "description": "호버 시 배경색을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.languageButtonHoverEffect === 'background'"
+    },
+    {
+      "id": "languageActiveStyle",
+      "label": "활성화 표시 효과",
+      "description": "활성화된 언어 버튼의 표시 효과를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "배경색 변경", "value": "background" },
+        { "label": "테두리 강조", "value": "border" },
+        { "label": "밑줄", "value": "underline" },
+        { "label": "굵게", "value": "bold" },
+        { "label": "굵게+밑줄", "value": "bold-underline" },
+        { "label": "배경+테두리", "value": "background-border" }
+      ]
+    },
+    {
+      "id": "languageActiveBg",
+      "label": "활성화 배경색",
+      "description": "활성화된 버튼의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.languageActiveStyle === 'background' || property.languageActiveStyle === 'background-border'"
+    },
+    {
+      "id": "languageActiveBorderColor",
+      "label": "활성화 테두리 색상",
+      "description": "활성화된 버튼의 테두리 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.languageActiveStyle === 'border' || property.languageActiveStyle === 'background-border'"
+    },
+    {
+      "id": "languageActiveBorderWidth",
+      "label": "활성화 테두리 두께",
+      "description": "활성화된 버튼의 테두리 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.languageActiveStyle === 'border' || property.languageActiveStyle === 'background-border'"
+    },
+    {
+      "id": "languageActiveTextColor",
+      "label": "활성화 텍스트 색상",
+      "description": "활성화된 버튼의 텍스트 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📱 모바일 헤더 기본 설정"
+    },
+    {
+      "id": "mobileHeaderHeight",
+      "label": "헤더 높이",
+      "description": "모바일 환경에서 헤더의 세로 높이를 설정해주세요",
+      "type": "RANGE",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileHeaderPaddingY",
+      "label": "헤더 상하 여백",
+      "description": "모바일 헤더의 상하 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileHeaderPaddingX",
+      "label": "헤더 좌우 여백",
+      "description": "모바일 헤더의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileHeaderBg",
+      "label": "헤더 배경색",
+      "description": "모바일 환경에서 헤더의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileHeaderShadow",
+      "label": "헤더 그림자",
+      "description": "모바일 환경에서 헤더 하단 그림자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🏷️ 모바일 로고"
+    },
+    {
+      "id": "mobileLogoWidth",
+      "label": "로고 너비",
+      "description": "모바일 환경에서 로고의 너비를 설정해주세요",
+      "type": "RANGE",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "mobileLogoMarginLeft",
+      "label": "로고 좌측 여백",
+      "description": "로고의 왼쪽 여백을 조절하여 가로 위치를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🍔 햄버거 버튼"
+    },
+    {
+      "id": "hamburgerPosition",
+      "label": "버튼 위치",
+      "description": "햄버거 메뉴 버튼의 위치를 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽", "value": "left" },
+        { "label": "오른쪽", "value": "right" }
+      ]
+    },
+    {
+      "id": "hamburgerSize",
+      "label": "버튼 크기",
+      "description": "햄버거 메뉴 버튼의 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "hamburgerColor",
+      "label": "버튼 색상",
+      "description": "햄버거 메뉴 버튼의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "hamburgerLineThickness",
+      "label": "선 두께",
+      "description": "햄버거 버튼 선의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "❌ X 닫기 버튼"
+    },
+    {
+      "id": "closeBtnSize",
+      "label": "버튼 크기",
+      "description": "닫기 버튼의 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "closeBtnColor",
+      "label": "버튼 색상",
+      "description": "닫기 버튼의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "closeBtnLineThickness",
+      "label": "선 두께",
+      "description": "닫기 버튼 선의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🎭 모바일 드로어 패널"
+    },
+    {
+      "id": "drawerShowLogo",
+      "label": "로고 표시",
+      "description": "드로어 패널 상단에 로고를 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerLogoPaddingY",
+      "label": "로고 상하 여백",
+      "description": "드로어 로고의 상하 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.drawerShowLogo === true"
+    },
+    {
+      "id": "drawerLogoPaddingX",
+      "label": "로고 좌우 여백",
+      "description": "드로어 로고의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.drawerShowLogo === true"
+    },
+    {
+      "id": "drawerAnimation",
+      "label": "드로어 열림 효과",
+      "description": "메뉴 패널이 나타나는 방식을 선택해주세요",
+      "type": "RADIO",
+      "options": [
+        { "label": "왼쪽에서", "value": "left" },
+        { "label": "오른쪽에서", "value": "right" },
+        { "label": "효과없음", "value": "fade" }
+      ]
+    },
+    {
+      "id": "drawerWidth",
+      "label": "드로어 너비",
+      "description": "메뉴 패널의 너비를 설정해주세요 (화면 대비 %)",
+      "type": "RANGE",
+      "min": 60,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "drawerBg",
+      "label": "드로어 배경색",
+      "description": "메뉴 패널의 배경색을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "drawerPaddingY",
+      "label": "드로어 상하 여백",
+      "description": "메뉴 패널 내부의 상하 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerPaddingX",
+      "label": "드로어 좌우 여백",
+      "description": "메뉴 패널 내부의 좌우 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerOverlayBg",
+      "label": "오버레이 배경색",
+      "description": "메뉴 뒤 어두운 배경의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📋 모바일 메뉴"
+    },
+    {
+      "id": "mobileMenuFontSize",
+      "label": "메뉴 글자 크기",
+      "description": "모바일 메뉴 항목의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuFontWeight",
+      "label": "메뉴 글자 굵기",
+      "description": "모바일 메뉴 항목의 글자 굵기를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ]
+    },
+    {
+      "id": "mobileMenuColor",
+      "label": "메뉴 글자 색상",
+      "description": "모바일 메뉴 항목의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileMenuPaddingTop",
+      "label": "메뉴 위 여백",
+      "description": "모바일 메뉴 항목의 위쪽 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuPaddingBottom",
+      "label": "메뉴 아래 여백",
+      "description": "모바일 메뉴 항목의 아래쪽 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuPaddingX",
+      "label": "메뉴 좌우 여백",
+      "description": "모바일 메뉴 항목의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuDivider",
+      "label": "메뉴 구분선 표시",
+      "description": "메뉴 항목 아래에 구분선을 표시합니다 (하위 메뉴 제외)",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "mobileMenuDividerColor",
+      "label": "구분선 색상",
+      "description": "메뉴 구분선의 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.mobileMenuDivider === true"
+    },
+    {
+      "id": "mobileMenuDividerThickness",
+      "label": "구분선 두께",
+      "description": "메뉴 구분선의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "isVisible": "property.mobileMenuDivider === true"
+    },
+    {
+      "id": "mobileMenuDividerPosition",
+      "label": "구분선 위치",
+      "description": "구분선의 위치를 조절해주세요 (0 = 위쪽, 100 = 아래쪽)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "isVisible": "property.mobileMenuDivider === true"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🎨 아코디언 아이콘"
+    },
+    {
+      "id": "accordionIconSize",
+      "label": "아이콘 크기",
+      "description": "아코디언 펼침/접힘 아이콘의 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "accordionIconColor",
+      "label": "아이콘 색상",
+      "description": "아코디언 아이콘의 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "accordionIconMarginLeft",
+      "label": "아이콘 좌측 여백",
+      "description": "아이콘과 메뉴 텍스트 사이의 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "accordionIconSvgOpen",
+      "label": "펼쳐진 상태 아이콘 SVG",
+      "description": "하위 메뉴가 펼쳐졌을 때 표시할 아이콘 (기본: - 아이콘)",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+    {
+      "id": "accordionIconSvgClosed",
+      "label": "접힌 상태 아이콘 SVG",
+      "description": "하위 메뉴가 접혔을 때 표시할 아이콘 (기본: + 아이콘)",
+      "type": "TEXTAREA",
+      "placeholder": "<svg>...</svg>"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📂 하위 메뉴 제목"
+    },
+    {
+      "id": "mobileSubmenuTitleFontSize",
+      "label": "제목 글자 크기",
+      "description": "하위 메뉴 그룹 제목의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSubmenuTitleFontWeight",
+      "label": "제목 글자 굵기",
+      "description": "하위 메뉴 그룹 제목의 글자 굵기를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ]
+    },
+    {
+      "id": "mobileSubmenuTitleColor",
+      "label": "제목 글자 색상",
+      "description": "하위 메뉴 그룹 제목의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileSubmenuTitleMarginTop",
+      "label": "제목 위 여백",
+      "description": "하위 메뉴 그룹 제목의 위쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSubmenuTitleMarginBottom",
+      "label": "제목 아래 여백",
+      "description": "하위 메뉴 그룹 제목의 아래쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSubmenuTitlePaddingX",
+      "label": "제목 좌우 여백",
+      "description": "하위 메뉴 그룹 제목의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "📄 하위 메뉴 항목"
+    },
+    {
+      "id": "mobileSubmenuItemFontSize",
+      "label": "항목 글자 크기",
+      "description": "하위 메뉴 항목의 글자 크기를 설정해주세요",
+      "type": "RANGE",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSubmenuItemFontWeight",
+      "label": "항목 글자 굵기",
+      "description": "하위 메뉴 항목의 글자 굵기를 선택해주세요",
+      "type": "SELECT",
+      "options": [
+        { "label": "보통 (400)", "value": "400" },
+        { "label": "중간 (500)", "value": "500" },
+        { "label": "굵게 (600)", "value": "600" },
+        { "label": "매우 굵게 (700)", "value": "700" }
+      ]
+    },
+    {
+      "id": "mobileSubmenuItemColor",
+      "label": "항목 글자 색상",
+      "description": "하위 메뉴 항목의 글자 색상을 선택해주세요",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileSubmenuItemPaddingY",
+      "label": "항목 상하 여백",
+      "description": "하위 메뉴 항목의 상하 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileSubmenuItemIndent",
+      "label": "항목 들여쓰기",
+      "description": "하위 메뉴 항목의 왼쪽 들여쓰기를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+
+    {
+      "type": "TITLE",
+      "content": "🔻 하단 영역 (유틸리티/다국어)"
+    },
+    {
+      "id": "drawerBottomBorderShow",
+      "label": "상단 구분선 표시",
+      "description": "하단 영역 위에 구분선을 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerBottomBorderColor",
+      "label": "구분선 색상",
+      "description": "하단 영역 상단 구분선의 색상을 선택해주세요",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerBottomBorderShow === true"
+    },
+    {
+      "id": "drawerBottomBorderThickness",
+      "label": "구분선 두께",
+      "description": "하단 영역 상단 구분선의 두께를 설정해주세요",
+      "type": "RANGE",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.drawerBottomBorderShow === true"
+    },
+    {
+      "id": "drawerBottomPaddingY",
+      "label": "영역 상하 여백",
+      "description": "하단 영역의 상하 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerBottomPaddingX",
+      "label": "영역 좌우 여백",
+      "description": "하단 영역의 좌우 안쪽 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerUtilityShow",
+      "label": "유틸리티 메뉴 표시",
+      "description": "하단 영역에 유틸리티 메뉴를 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerUtilityGap",
+      "label": "유틸리티 메뉴 간격",
+      "description": "유틸리티 메뉴 항목 간의 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerUtilityShow === true"
+    },
+    {
+      "id": "drawerLanguageShow",
+      "label": "다국어 버튼 표시",
+      "description": "하단 영역에 다국어 버튼을 표시합니다",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerLanguageGap",
+      "label": "다국어 버튼 간격",
+      "description": "다국어 버튼 간의 간격을 설정해주세요",
+      "type": "RANGE",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageMarginTop",
+      "label": "다국어 버튼 위 여백",
+      "description": "유틸리티 메뉴와 다국어 버튼 사이의 여백을 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    }
+  ],
+  "property": {
+    "logoImage": "",
+    "logoWidth": 150,
+    "logoLink": {
+      "id": null,
+      "type": "url",
+      "label": "/",
+      "value": "/"
+    },
+    "logoAlign": "left",
+    "logoMarginX": 0,
+    "logoMarginY": 0,
+    "menuItems": [],
+    "menuColorDesktop": "#000000FF",
+    "menuSizeDesktop": 16,
+    "menuGapDesktop": 30,
+    "menuColorMobile": "#000000FF",
+    "menuSizeMobile": 18,
+    "menuAlign": "right",
+    "menuMarginX": 0,
+    "menuMarginY": 0,
+    "menuHoverEffect": "opacity",
+    "menuHoverColor": "#000000FF",
+    "menuHoverBgColor": "#F5F5F5FF",
+    "menuUnderlineColor": "#000000FF",
+    "menuUnderlineThickness": 2,
+    "submenuBg": "#FFFFFFEE",
+    "submenuPaddingTop": 20,
+    "submenuPaddingBottom": 20,
+    "submenuPaddingLeft": 0,
+    "submenuPaddingRight": 0,
+    "submenuGroupGap": 40,
+    "submenuBlurEnabled": false,
+    "submenuBlur": 10,
+    "submenuTitleColor": "#000000FF",
+    "submenuTitleSize": 16,
+    "submenuTitleWeight": "600",
+    "submenuTitlePaddingX": 10,
+    "submenuTitlePaddingY": 8,
+    "submenuTitleMarginBottom": 8,
+    "submenuTitleUnderline": false,
+    "submenuTitleUnderlineWidth": 1,
+    "submenuTitleUnderlineColor": "#E0E0E0FF",
+    "submenuColor": "#333333FF",
+    "submenuSize": 14,
+    "submenuItemWeight": "400",
+    "submenuItemPaddingX": 10,
+    "submenuItemPaddingY": 8,
+    "submenuItemMargin": 2,
+    "submenuItemRadius": 4,
+    "submenuHoverEffect": "background",
+    "submenuHoverBg": "#F5F5F5FF",
+    "submenuHoverColor": "#000000FF",
+    "headerHeight": 80,
+    "headerPadding": 40,
+    "containerMaxWidthEnabled": false,
+    "containerMaxWidth": 1200,
+    "containerPaddingDesktop": 40,
+    "isSticky": true,
+    "isOverlay": false,
+    "headerBgType": "solid",
+    "headerBg": "#FFFFFFEE",
+    "headerGradientStart": "#FFFFFFFF",
+    "headerGradientEnd": "#F0F0F0FF",
+    "headerGradientAngle": 180,
+    "headerShadow": 0,
+    "headerShadowColor": "#00000033",
+    "headerBlur": 0,
+    "headerBorder": 0,
+    "headerBorderColor": "#E0E0E0FF",
+    "enableScrollStyle": false,
+    "scrollThreshold": 50,
+    "scrollBgType": "solid",
+    "scrollBg": "#FFFFFFFF",
+    "scrollGradientStart": "#FFFFFFFF",
+    "scrollGradientEnd": "#E0E0E0FF",
+    "scrollGradientAngle": 180,
+    "scrollShadow": 4,
+    "scrollShadowColor": "#00000033",
+    "scrollBlur": 8,
+    "scrollHeaderHeightEnabled": false,
+    "scrollHeaderHeight": 60,
+    "scrollLogoWidthEnabled": false,
+    "scrollLogoWidth": 100,
+    "utilityMenuItems": [],
+    "utilityMenuColor": "#666666FF",
+    "utilityMenuSize": 13,
+    "utilityMenuGap": 12,
+    "utilityMenuHoverEffect": "opacity",
+    "utilityMenuHoverColor": "#000000FF",
+    "utilityIconSize": 16,
+    "utilityIconColor": "#666666FF",
+    "utilityIconPosition": "right",
+    "utilityMenuAlign": "right",
+    "headerRightMargin": 40,
+    "languageButtons": [],
+    "languageButtonColor": "#666666FF",
+    "languageButtonSize": 13,
+    "languageButtonGap": 8,
+    "languageButtonAlign": "right",
+    "languageButtonBg": "#00000000",
+    "languageButtonMarginRight": 0,
+    "languageButtonRadius": 4,
+    "languageButtonBorder": 1,
+    "languageButtonBorderColor": "#CCCCCCFF",
+    "languageButtonHoverEffect": "opacity",
+    "languageButtonHoverColor": "#000000FF",
+    "languageButtonHoverBg": "#F5F5F5FF",
+    "languageActiveStyle": "background",
+    "languageActiveBg": "#000000FF",
+    "languageActiveBorderColor": "#000000FF",
+    "languageActiveBorderWidth": 2,
+    "languageActiveTextColor": "#FFFFFFFF",
+    "mobileHeaderHeight": 60,
+    "mobileHeaderPaddingY": 0,
+    "mobileHeaderPaddingX": 20,
+    "mobileHeaderBg": "#FFFFFFFF",
+    "mobileHeaderShadow": 2,
+    "mobileLogoWidth": 120,
+    "mobileLogoMarginLeft": 0,
+    "hamburgerPosition": "left",
+    "hamburgerSize": 24,
+    "hamburgerColor": "#000000FF",
+    "hamburgerLineThickness": 2,
+    "closeBtnSize": 24,
+    "closeBtnColor": "#000000FF",
+    "closeBtnLineThickness": 2,
+    "drawerShowLogo": true,
+    "drawerLogoPaddingY": 20,
+    "drawerLogoPaddingX": 20,
+    "drawerAnimation": "right",
+    "drawerWidth": 80,
+    "drawerBg": "#FFFFFFFF",
+    "drawerPaddingY": 20,
+    "drawerPaddingX": 20,
+    "drawerOverlayBg": "#00000080",
+    "mobileMenuFontSize": 16,
+    "mobileMenuFontWeight": "500",
+    "mobileMenuColor": "#000000FF",
+    "mobileMenuPaddingTop": 16,
+    "mobileMenuPaddingBottom": 16,
+    "mobileMenuPaddingX": 16,
+    "mobileMenuDivider": true,
+    "mobileMenuDividerColor": "#E0E0E0FF",
+    "mobileMenuDividerThickness": 1,
+    "mobileMenuDividerPosition": 100,
+    "accordionIconSize": 16,
+    "accordionIconColor": "#000000FF",
+    "accordionIconMarginLeft": 10,
+    "accordionIconSvgOpen": "",
+    "accordionIconSvgClosed": "",
+    "mobileSubmenuTitleFontSize": 14,
+    "mobileSubmenuTitleFontWeight": "600",
+    "mobileSubmenuTitleColor": "#666666FF",
+    "mobileSubmenuTitleMarginTop": 8,
+    "mobileSubmenuTitleMarginBottom": 8,
+    "mobileSubmenuTitlePaddingX": 16,
+    "mobileSubmenuItemFontSize": 14,
+    "mobileSubmenuItemFontWeight": "400",
+    "mobileSubmenuItemColor": "#666666FF",
+    "mobileSubmenuItemPaddingY": 8,
+    "mobileSubmenuItemIndent": 20,
+    "drawerBottomBorderShow": true,
+    "drawerBottomBorderColor": "#E0E0E0FF",
+    "drawerBottomBorderThickness": 1,
+    "drawerBottomPaddingY": 20,
+    "drawerBottomPaddingX": 20,
+    "drawerUtilityShow": true,
+    "drawerUtilityGap": 12,
+    "drawerLanguageShow": true,
+    "drawerLanguageGap": 8,
+    "drawerLanguageMarginTop": 12
+  }
+}
