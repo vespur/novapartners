@@ -50,12 +50,12 @@
     width: 100%;
     height: {{property.headerHeight}}px;
 
-    /* CSS 변수 사용 - Light/Dark 모드 자동 전환 */
-    background: var(--header-bg);
-    box-shadow: var(--header-shadow);
-    backdrop-filter: blur(var(--header-blur));
-    -webkit-backdrop-filter: blur(var(--header-blur));
-    border-bottom: var(--header-border);
+    /* CSS 변수 사용 - Light/Dark 모드 자동 전환 (fallback 포함) */
+    background: var(--header-bg, #ffffff);
+    box-shadow: var(--header-shadow, none);
+    backdrop-filter: blur(var(--header-blur, 0px));
+    -webkit-backdrop-filter: blur(var(--header-blur, 0px));
+    border-bottom: var(--header-border, none);
 
     z-index: 1000;
     overflow: visible; /* submenu가 밖으로 나갈 수 있도록 */
@@ -1565,6 +1565,19 @@
         // 자동 전환 모드: 스크롤 위치에 따라 전환
         const scrollY = window.scrollY;
         const threshold = context.property.switchThreshold || 0;
+        const isDark = scrollY <= threshold;
+
+        // 디버깅: 자동 전환 (최초 1회만 출력)
+        if (!window._autoSwitchLogged) {
+          console.log('[자동 전환]', {
+            scrollY: scrollY,
+            threshold: threshold,
+            mode: isDark ? 'Dark' : 'Light'
+          });
+          window._autoSwitchLogged = true;
+          // 5초 후 다시 로깅 가능하도록
+          setTimeout(() => { window._autoSwitchLogged = false; }, 5000);
+        }
 
         if (scrollY > threshold) {
           // 스크롤 내림 (임계값 초과) → Light 모드 (밝은 배경용)
@@ -1661,6 +1674,13 @@
 
     // 매핑된 모드 또는 기본 모드 적용
     const modeToApply = matchedMapping?.useMode || context.property.defaultPageMode || 'light';
+
+    // 디버깅: 페이지별 디자인 적용
+    console.log('[페이지별 디자인]', {
+      currentPath: currentPath,
+      matchedMapping: matchedMapping,
+      modeToApply: modeToApply
+    });
 
     // 모드 적용
     const isDarkMode = modeToApply === 'dark';
@@ -1903,6 +1923,15 @@
   // 초기 모드 설정 (페이지 로드 시)
   const header = container.querySelector('.global-header');
   if (header) {
+    // 디버깅: 초기 설정 확인
+    console.log('[헤더 초기화]', {
+      useLightMode: context.property.useLightMode,
+      useDarkMode: context.property.useDarkMode,
+      autoSwitchMode: context.property.autoSwitchMode,
+      enablePageBasedDesign: context.property.enablePageBasedDesign,
+      currentPath: context.$page?.path || window.location.pathname
+    });
+
     // 1순위: 페이지별 디자인 (활성화되어 있으면 페이지 경로에 따라 모드 적용)
     const pageBasedMode = applyPageBasedDesign();
 
@@ -1928,6 +1957,17 @@
       }
       // 둘 다 해제된 경우: dark-mode 클래스 제거
     }
+
+    // 디버깅: 초기화 완료 후 상태 확인
+    setTimeout(() => {
+      const isDarkMode = document.documentElement.classList.contains('dark-mode');
+      const headerBg = getComputedStyle(document.documentElement).getPropertyValue('--header-bg');
+      console.log('[헤더 초기화 완료]', {
+        isDarkMode: isDarkMode,
+        headerBg: headerBg.trim(),
+        menuColor: getComputedStyle(document.documentElement).getPropertyValue('--menu-color-desktop').trim()
+      });
+    }, 100);
   }
 
   // 스크롤 이벤트 핸들러 등록

@@ -507,7 +507,7 @@
     },
     {
       "type": "DESCRIPTION",
-      "content": "💡 Light/Dark 모드는 페이지의 배경색에 따라 헤더 메뉴 색상을 자동으로 바꿔주는 기능입니다.\n\n예시:\n- 페이지 상단에 어두운 히어로 이미지 → Dark 모드 (밝은 메뉴 색상)\n- 스크롤해서 밝은 배경으로 내려감 → Light 모드 (어두운 메뉴 색상)\n\n※ '스크롤 시 자동 전환' 옵션을 활성화하면 스크롤 위치에 따라 자동으로 Light/Dark 모드가 전환됩니다."
+      "content": "💡 Light/Dark 모드는 페이지의 배경색에 따라 헤더 색상을 자동으로 바꿔주는 기능입니다.\n\n📌 사용 방법:\n1. Light 모드만 사용: Light만 체크 → 밝은 배경용 헤더\n2. Dark 모드만 사용: Dark만 체크 → 어두운 배경용 헤더\n3. 자동 전환 사용: 둘 다 체크 + \"스크롤 시 자동 전환\" 체크\n   → 스크롤 위치에 따라 자동으로 Light/Dark 전환\n4. 페이지별 디자인: \"페이지별 디자인 사용\" 체크\n   → 페이지마다 다른 모드 적용\n\n⚠️ 주의: \"페이지별 디자인\"과 \"스크롤 시 자동 전환\"은 동시 사용 불가 (충돌 방지)"
     },
     {
       "id": "useLightMode",
@@ -561,7 +561,7 @@
     {
       "id": "enablePageBasedDesign",
       "label": "✅ 페이지별 디자인 사용",
-      "description": "체크하면 페이지 경로에 따라 자동으로 Light/Dark 모드를 전환합니다. 체크 해제하면 모든 페이지에서 동일한 디자인이 적용됩니다.",
+      "description": "페이지마다 다른 Light/Dark 모드를 사용할 수 있습니다. ⚠️ 활성화 시 \"스크롤 시 자동 전환\"이 비활성화됩니다 (충돌 방지).",
       "type": "CHECKBOX",
       "isVisible": "property.useLightMode === true && property.useDarkMode === true"
     },
@@ -2745,7 +2745,7 @@
     "enableMainMenu": true,
     "menuItems": [],
     "menuColorDesktop": "#000000FF",
-    "menuColorDesktopDark": "#FFFFFFFF",
+    "menuColorDesktopDark": "#F5F5F5FF",
     "menuSizeDesktop": 16,
     "menuGapDesktop": 30,
     "menuColorMobile": "#000000FF",
@@ -2753,7 +2753,7 @@
     "menuAlign": "right",
     "menuHoverEffect": "opacity",
     "menuHoverColor": "#000000FF",
-    "menuHoverColorDark": "#FFFFFFCC",
+    "menuHoverColorDark": "#FFFFFFFF",
     "menuHoverBgColor": "#F5F5F5FF",
     "menuUnderlineColor": "#000000FF",
     "menuUnderlineThickness": 2,
@@ -2952,12 +2952,12 @@
     "drawerLanguageActiveBorderColor": "#000000FF",
     "drawerLanguageActiveBgColor": "#FFFFFFFF",
     "headerBgTypeDark": "solid",
-    "headerBgDark": "#000000FF",
-    "headerGradientStartDark": "#000000FF",
-    "headerGradientEndDark": "#333333FF",
+    "headerBgDark": "#1a1a1aFF",
+    "headerGradientStartDark": "#1a1a1aFF",
+    "headerGradientEndDark": "#2d2d2dFF",
     "headerGradientAngleDark": 90,
-    "headerShadowDark": 0,
-    "headerShadowColorDark": "#00000033",
+    "headerShadowDark": 4,
+    "headerShadowColorDark": "#00000066",
     "headerBlurDark": 0,
     "headerBorderDark": 0,
     "headerBorderColorDark": "#FFFFFF33"
