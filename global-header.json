@@ -2,6 +2,380 @@
   "settings": [
     {
       "type": "TITLE",
+      "content": "=== 📐 레이아웃 & 스타일 ==="
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "💡 헤더의 전체적인 디자인과 동작 방식을 설정합니다.\n헤더 크기, 배경색, 그림자, 스크롤 효과 등을 커스터마이징할 수 있습니다."
+    },
+    {
+      "type": "TITLE",
+      "content": "⚙️ 헤더 기본 설정"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더의 기본 크기와 위치, 레이아웃을 설정합니다."
+    },
+    {
+      "id": "headerHeight",
+      "label": "헤더 높이 (데스크톱)",
+      "description": "PC 화면에서 헤더의 높이를 설정합니다. (권장: 70-90px)",
+      "type": "RANGE",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "headerPadding",
+      "label": "헤더 좌우 여백",
+      "description": "헤더 내부의 좌우 여백을 설정합니다. 화면 가장자리와의 간격입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "headerRightMargin",
+      "label": "오른쪽 끝 여백",
+      "description": "메뉴가 오른쪽 정렬일 때 오른쪽 끝의 여백을 추가로 설정합니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "containerMaxWidthEnabled",
+      "label": "최대 너비 제한 사용하기",
+      "description": "체크하면 헤더 내용의 최대 너비를 제한합니다. 큰 화면에서 헤더가 너무 넓게 퍼지지 않도록 할 수 있습니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "최대 너비 값",
+      "description": "헤더 콘텐츠의 최대 너비를 설정합니다. 이 값보다 화면이 넓으면 헤더는 중앙 정렬됩니다. (권장: 1200-1400px)",
+      "type": "RANGE",
+      "min": 800,
+      "max": 1920,
+      "step": 40,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "id": "containerPaddingDesktop",
+      "label": "콘텐츠 좌우 여백",
+      "description": "최대 너비 제한을 사용할 때 콘텐츠의 좌우 여백을 설정합니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "id": "isSticky",
+      "label": "상단 고정 (Sticky) 사용하기",
+      "description": "체크하면 페이지를 스크롤해도 헤더가 항상 화면 상단에 고정됩니다. 방문자가 언제든지 메뉴에 접근할 수 있습니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "isOverlay",
+      "label": "오버레이 모드 (콘텐츠 위에 겹치기)",
+      "description": "체크하면 헤더가 페이지 콘텐츠 위에 투명하게 겹쳐집니다. 히어로 이미지 위에 헤더를 표시할 때 유용합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎨 헤더 배경 & 디자인"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더의 배경색, 그림자, 테두리 등 시각적 스타일을 설정합니다."
+    },
+    {
+      "id": "headerBgType",
+      "label": "배경 타입",
+      "description": "헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ]
+    },
+    {
+      "id": "headerBg",
+      "label": "배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'solid'"
+    },
+    {
+      "id": "headerGradientStart",
+      "label": "그라디언트 시작 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientEnd",
+      "label": "그라디언트 끝 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientAngle",
+      "label": "그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerShadow",
+      "label": "그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerBlur",
+      "label": "배경 블러",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorder",
+      "label": "하단 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorderColor",
+      "label": "하단 테두리 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "type": "TITLE",
+      "content": "📜 스크롤 효과 (Light 모드)"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "스크롤 시 헤더 디자인을 변경할 수 있습니다."
+    },
+    {
+      "id": "enableScrollStyle",
+      "label": "스크롤 효과 사용",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "scrollThreshold",
+      "label": "스크롤 감지 지점",
+      "description": "이 픽셀을 넘어 스크롤하면 디자인이 변경됩니다",
+      "type": "RANGE",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBgType",
+      "label": "스크롤 시 배경 타입",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ],
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBg",
+      "label": "스크롤 시 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid' && property.useLightMode === true"
+    },
+    {
+      "id": "scrollGradientStart",
+      "label": "스크롤 시 그라디언트 시작",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
+    },
+    {
+      "id": "scrollGradientEnd",
+      "label": "스크롤 시 그라디언트 끝",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
+    },
+    {
+      "id": "scrollGradientAngle",
+      "label": "스크롤 시 그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
+    },
+    {
+      "id": "scrollShadow",
+      "label": "스크롤 시 그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
+    },
+    {
+      "id": "scrollShadowColor",
+      "label": "스크롤 시 그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
+    },
+    {
+      "id": "scrollBlur",
+      "label": "스크롤 시 배경 블러",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
+    },
+    {
+      "id": "scrollHeaderHeightEnabled",
+      "label": "스크롤 시 헤더 높이 축소",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollHeaderHeight",
+      "label": "축소된 헤더 높이",
+      "type": "RANGE",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.scrollHeaderHeightEnabled === true"
+    },
+    {
+      "id": "scrollLogoWidthEnabled",
+      "label": "스크롤 시 로고 크기 축소",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true && property.enableLogo === true"
+    },
+    {
+      "id": "scrollLogoWidth",
+      "label": "축소된 로고 너비",
+      "type": "RANGE",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.scrollLogoWidthEnabled === true && property.enableLogo === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "📜 스크롤 효과 (Dark 모드)"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "Dark 모드에서 스크롤 시 적용될 헤더 디자인을 설정합니다."
+    },
+    {
+      "id": "scrollBgDark",
+      "label": "스크롤 시 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid' && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollGradientStartDark",
+      "label": "스크롤 시 그라디언트 시작",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollGradientEndDark",
+      "label": "스크롤 시 그라디언트 끝",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollGradientAngleDark",
+      "label": "스크롤 시 그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollShadowDark",
+      "label": "스크롤 시 그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollShadowColorDark",
+      "label": "스크롤 시 그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollBlurDark",
+      "label": "스크롤 시 배경 블러",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "🎯 미리보기 모드"
+    },
+    {
+      "id": "previewScrolled",
+      "label": "스크롤 상태 미리보기",
+      "description": "에디터에서 스크롤 후 상태를 미리 볼 수 있습니다",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "type": "TITLE",
       "content": "=== 🌓 LIGHT/DARK 모드 ==="
     },
     {
@@ -49,7 +423,6 @@
       "unit": "초",
       "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.autoSwitchMode === true"
     },
-
     {
       "type": "TITLE",
       "content": "=== 📄 페이지별 디자인 설정 ==="
@@ -71,8 +444,14 @@
       "description": "아래 목록에 추가하지 않은 페이지에서 사용할 기본 모드를 선택해주세요.",
       "type": "RADIO",
       "options": [
-        { "label": "Light 모드 (밝은 배경용)", "value": "light" },
-        { "label": "Dark 모드 (어두운 배경용)", "value": "dark" }
+        {
+          "label": "Light 모드 (밝은 배경용)",
+          "value": "light"
+        },
+        {
+          "label": "Dark 모드 (어두운 배경용)",
+          "value": "dark"
+        }
       ],
       "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true"
     },
@@ -96,13 +475,18 @@
           "description": "이 페이지에서 사용할 헤더 디자인 모드를 선택해주세요.",
           "type": "RADIO",
           "options": [
-            { "label": "Light 모드 (밝은 배경용)", "value": "light" },
-            { "label": "Dark 모드 (어두운 배경용)", "value": "dark" }
+            {
+              "label": "Light 모드 (밝은 배경용)",
+              "value": "light"
+            },
+            {
+              "label": "Dark 모드 (어두운 배경용)",
+              "value": "dark"
+            }
           ]
         }
       ]
     },
-
     {
       "type": "TITLE",
       "content": "=== 🖥️ 데스크톱 헤더 ==="
@@ -111,7 +495,6 @@
       "type": "DESCRIPTION",
       "content": "PC와 태블릿에서 표시되는 헤더 설정입니다."
     },
-
     {
       "type": "TITLE",
       "content": "🏷️ 로고"
@@ -164,13 +547,21 @@
       "description": "헤더에서 로고가 표시될 위치를 선택해주세요.",
       "type": "RADIO",
       "options": [
-        { "label": "왼쪽", "value": "left" },
-        { "label": "중앙", "value": "center" },
-        { "label": "오른쪽", "value": "right" }
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "중앙",
+          "value": "center"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
       ],
       "isVisible": "property.enableLogo === true"
     },
-
     {
       "type": "TITLE",
       "content": "📋 메인 메뉴"
@@ -597,13 +988,21 @@
       "label": "메뉴 위치",
       "type": "RADIO",
       "options": [
-        { "label": "왼쪽", "value": "left" },
-        { "label": "중앙", "value": "center" },
-        { "label": "오른쪽", "value": "right" }
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "중앙",
+          "value": "center"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
       ],
       "isVisible": "property.enableMainMenu === true"
     },
-
     {
       "type": "TITLE",
       "content": "🎨 메뉴 스타일 (Light 모드)"
@@ -647,13 +1046,34 @@
       "description": "메뉴에 마우스를 올렸을 때 나타날 시각적 효과를 선택해주세요. 다양한 효과를 미리보기로 확인해보세요.",
       "type": "SELECT",
       "options": [
-        { "label": "투명도 변화", "value": "opacity" },
-        { "label": "색상 변화", "value": "color" },
-        { "label": "밑줄 (좌→우)", "value": "underline-slide" },
-        { "label": "밑줄 (중앙→양옆)", "value": "underline-center" },
-        { "label": "밑줄 (고정)", "value": "underline" },
-        { "label": "크기 확대", "value": "scale" },
-        { "label": "배경 슬라이드", "value": "background-slide" }
+        {
+          "label": "투명도 변화",
+          "value": "opacity"
+        },
+        {
+          "label": "색상 변화",
+          "value": "color"
+        },
+        {
+          "label": "밑줄 (좌→우)",
+          "value": "underline-slide"
+        },
+        {
+          "label": "밑줄 (중앙→양옆)",
+          "value": "underline-center"
+        },
+        {
+          "label": "밑줄 (고정)",
+          "value": "underline"
+        },
+        {
+          "label": "크기 확대",
+          "value": "scale"
+        },
+        {
+          "label": "배경 슬라이드",
+          "value": "background-slide"
+        }
       ],
       "isVisible": "property.enableMainMenu === true"
     },
@@ -689,7 +1109,6 @@
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'background-slide'"
     },
-
     {
       "type": "TITLE",
       "content": "🎨 메뉴 스타일 (Dark 모드)"
@@ -706,7 +1125,6 @@
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'color' && property.useDarkMode === true"
     },
-
     {
       "type": "TITLE",
       "content": "📂 서브메뉴 스타일 (Light 모드)"
@@ -796,11 +1214,26 @@
       "label": "그룹 제목 굵기",
       "type": "SELECT",
       "options": [
-        { "label": "얇게 (300)", "value": "300" },
-        { "label": "보통 (400)", "value": "400" },
-        { "label": "중간 (500)", "value": "500" },
-        { "label": "굵게 (600)", "value": "600" },
-        { "label": "아주 굵게 (700)", "value": "700" }
+        {
+          "label": "얇게 (300)",
+          "value": "300"
+        },
+        {
+          "label": "보통 (400)",
+          "value": "400"
+        },
+        {
+          "label": "중간 (500)",
+          "value": "500"
+        },
+        {
+          "label": "굵게 (600)",
+          "value": "600"
+        },
+        {
+          "label": "아주 굵게 (700)",
+          "value": "700"
+        }
       ],
       "isVisible": "property.enableMainMenu === true"
     },
@@ -877,10 +1310,22 @@
       "label": "항목 글자 굵기",
       "type": "SELECT",
       "options": [
-        { "label": "얇게 (300)", "value": "300" },
-        { "label": "보통 (400)", "value": "400" },
-        { "label": "중간 (500)", "value": "500" },
-        { "label": "굵게 (600)", "value": "600" }
+        {
+          "label": "얇게 (300)",
+          "value": "300"
+        },
+        {
+          "label": "보통 (400)",
+          "value": "400"
+        },
+        {
+          "label": "중간 (500)",
+          "value": "500"
+        },
+        {
+          "label": "굵게 (600)",
+          "value": "600"
+        }
       ],
       "isVisible": "property.enableMainMenu === true"
     },
@@ -929,15 +1374,42 @@
       "label": "항목 호버 효과",
       "type": "SELECT",
       "options": [
-        { "label": "배경 변화", "value": "background" },
-        { "label": "밑줄", "value": "underline" },
-        { "label": "굵게", "value": "bold" },
-        { "label": "배경 + 굵게", "value": "background-bold" },
-        { "label": "색상 변화", "value": "color" },
-        { "label": "색상 + 굵게", "value": "color-bold" },
-        { "label": "크기 확대", "value": "scale" },
-        { "label": "그림자", "value": "shadow" },
-        { "label": "배경 + 색상", "value": "background-color" }
+        {
+          "label": "배경 변화",
+          "value": "background"
+        },
+        {
+          "label": "밑줄",
+          "value": "underline"
+        },
+        {
+          "label": "굵게",
+          "value": "bold"
+        },
+        {
+          "label": "배경 + 굵게",
+          "value": "background-bold"
+        },
+        {
+          "label": "색상 변화",
+          "value": "color"
+        },
+        {
+          "label": "색상 + 굵게",
+          "value": "color-bold"
+        },
+        {
+          "label": "크기 확대",
+          "value": "scale"
+        },
+        {
+          "label": "그림자",
+          "value": "shadow"
+        },
+        {
+          "label": "배경 + 색상",
+          "value": "background-color"
+        }
       ],
       "isVisible": "property.enableMainMenu === true"
     },
@@ -953,7 +1425,6 @@
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && (property.submenuHoverEffect === 'color' || property.submenuHoverEffect === 'color-bold' || property.submenuHoverEffect === 'background-color') && property.useLightMode === true"
     },
-
     {
       "type": "TITLE",
       "content": "📂 서브메뉴 스타일 (Dark 모드)"
@@ -988,7 +1459,6 @@
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && (property.submenuHoverEffect === 'color' || property.submenuHoverEffect === 'color-bold' || property.submenuHoverEffect === 'background-color') && property.useDarkMode === true"
     },
-
     {
       "type": "TITLE",
       "content": "🔧 유틸리티 메뉴"
@@ -1036,9 +1506,18 @@
       "label": "유틸리티 메뉴 위치",
       "type": "RADIO",
       "options": [
-        { "label": "왼쪽", "value": "left" },
-        { "label": "중앙", "value": "center" },
-        { "label": "오른쪽", "value": "right" }
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "중앙",
+          "value": "center"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
       ],
       "isVisible": "property.enableUtilityMenu === true"
     },
@@ -1101,8 +1580,14 @@
       "label": "아이콘 위치",
       "type": "RADIO",
       "options": [
-        { "label": "왼쪽", "value": "left" },
-        { "label": "오른쪽", "value": "right" }
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
       ],
       "isVisible": "property.enableUtilityMenu === true"
     },
@@ -1111,10 +1596,22 @@
       "label": "호버 효과",
       "type": "SELECT",
       "options": [
-        { "label": "투명도", "value": "opacity" },
-        { "label": "색상 변화", "value": "color" },
-        { "label": "밑줄", "value": "underline" },
-        { "label": "크기 확대", "value": "scale" }
+        {
+          "label": "투명도",
+          "value": "opacity"
+        },
+        {
+          "label": "색상 변화",
+          "value": "color"
+        },
+        {
+          "label": "밑줄",
+          "value": "underline"
+        },
+        {
+          "label": "크기 확대",
+          "value": "scale"
+        }
       ],
       "isVisible": "property.enableUtilityMenu === true"
     },
@@ -1124,7 +1621,6 @@
       "type": "COLOR_PICKER",
       "isVisible": "property.enableUtilityMenu === true && property.utilityMenuHoverEffect === 'color'"
     },
-
     {
       "type": "TITLE",
       "content": "🌐 언어 선택 버튼"
@@ -1172,9 +1668,18 @@
       "label": "언어 버튼 위치",
       "type": "RADIO",
       "options": [
-        { "label": "왼쪽", "value": "left" },
-        { "label": "중앙", "value": "center" },
-        { "label": "오른쪽", "value": "right" }
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "중앙",
+          "value": "center"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
       ],
       "isVisible": "property.enableLanguageButtons === true"
     },
@@ -1280,11 +1785,26 @@
       "label": "호버 효과",
       "type": "SELECT",
       "options": [
-        { "label": "투명도", "value": "opacity" },
-        { "label": "색상 변화", "value": "color" },
-        { "label": "배경 변화", "value": "background" },
-        { "label": "밑줄", "value": "underline" },
-        { "label": "크기 확대", "value": "scale" }
+        {
+          "label": "투명도",
+          "value": "opacity"
+        },
+        {
+          "label": "색상 변화",
+          "value": "color"
+        },
+        {
+          "label": "배경 변화",
+          "value": "background"
+        },
+        {
+          "label": "밑줄",
+          "value": "underline"
+        },
+        {
+          "label": "크기 확대",
+          "value": "scale"
+        }
       ],
       "isVisible": "property.enableLanguageButtons === true"
     },
@@ -1305,12 +1825,30 @@
       "label": "선택된 언어 스타일",
       "type": "SELECT",
       "options": [
-        { "label": "배경", "value": "background" },
-        { "label": "테두리", "value": "border" },
-        { "label": "밑줄", "value": "underline" },
-        { "label": "굵게", "value": "bold" },
-        { "label": "굵게 + 밑줄", "value": "bold-underline" },
-        { "label": "배경 + 테두리", "value": "background-border" }
+        {
+          "label": "배경",
+          "value": "background"
+        },
+        {
+          "label": "테두리",
+          "value": "border"
+        },
+        {
+          "label": "밑줄",
+          "value": "underline"
+        },
+        {
+          "label": "굵게",
+          "value": "bold"
+        },
+        {
+          "label": "굵게 + 밑줄",
+          "value": "bold-underline"
+        },
+        {
+          "label": "배경 + 테두리",
+          "value": "background-border"
+        }
       ],
       "isVisible": "property.enableLanguageButtons === true"
     },
@@ -1360,7 +1898,6 @@
       "unit": "px",
       "isVisible": "property.enableLanguageButtons === true && (property.languageActiveStyle === 'border' || property.languageActiveStyle === 'background-border')"
     },
-
     {
       "type": "TITLE",
       "content": "=== 📱 모바일 헤더 ==="
@@ -1369,7 +1906,6 @@
       "type": "DESCRIPTION",
       "content": "💡 모바일과 태블릿 작은 화면에서 표시되는 헤더 설정입니다.\n모바일에서는 햄버거 메뉴 버튼을 눌렀을 때 드로어(서랍)가 열리면서 메뉴가 표시됩니다."
     },
-
     {
       "type": "TITLE",
       "content": "📐 모바일 헤더 기본 설정"
@@ -1441,7 +1977,6 @@
       "unit": "px",
       "isVisible": "property.enableLogo === true"
     },
-
     {
       "type": "TITLE",
       "content": "☰ 햄버거 버튼 & 드로어"
@@ -1451,8 +1986,14 @@
       "label": "햄버거 버튼 위치",
       "type": "RADIO",
       "options": [
-        { "label": "왼쪽", "value": "left" },
-        { "label": "오른쪽", "value": "right" }
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
       ]
     },
     {
@@ -1490,9 +2031,18 @@
       "label": "드로어 열림 방향",
       "type": "SELECT",
       "options": [
-        { "label": "왼쪽에서", "value": "left" },
-        { "label": "오른쪽에서", "value": "right" },
-        { "label": "페이드인", "value": "fade" }
+        {
+          "label": "왼쪽에서",
+          "value": "left"
+        },
+        {
+          "label": "오른쪽에서",
+          "value": "right"
+        },
+        {
+          "label": "페이드인",
+          "value": "fade"
+        }
       ]
     },
     {
@@ -1557,7 +2107,6 @@
       "step": 0.5,
       "unit": "px"
     },
-
     {
       "type": "TITLE",
       "content": "📱 모바일 메뉴 스타일"
@@ -1606,10 +2155,22 @@
       "label": "메뉴 글자 굵기",
       "type": "SELECT",
       "options": [
-        { "label": "보통 (400)", "value": "400" },
-        { "label": "중간 (500)", "value": "500" },
-        { "label": "굵게 (600)", "value": "600" },
-        { "label": "아주 굵게 (700)", "value": "700" }
+        {
+          "label": "보통 (400)",
+          "value": "400"
+        },
+        {
+          "label": "중간 (500)",
+          "value": "500"
+        },
+        {
+          "label": "굵게 (600)",
+          "value": "600"
+        },
+        {
+          "label": "아주 굵게 (700)",
+          "value": "700"
+        }
       ]
     },
     {
@@ -1671,7 +2232,6 @@
       "unit": "%",
       "isVisible": "property.mobileMenuDivider === true"
     },
-
     {
       "type": "TITLE",
       "content": "▼ 아코디언 (하위 메뉴)"
@@ -1732,9 +2292,18 @@
       "label": "하위 메뉴 그룹 제목 굵기",
       "type": "SELECT",
       "options": [
-        { "label": "중간 (500)", "value": "500" },
-        { "label": "굵게 (600)", "value": "600" },
-        { "label": "아주 굵게 (700)", "value": "700" }
+        {
+          "label": "중간 (500)",
+          "value": "500"
+        },
+        {
+          "label": "굵게 (600)",
+          "value": "600"
+        },
+        {
+          "label": "아주 굵게 (700)",
+          "value": "700"
+        }
       ]
     },
     {
@@ -1783,9 +2352,18 @@
       "label": "하위 메뉴 항목 글자 굵기",
       "type": "SELECT",
       "options": [
-        { "label": "보통 (400)", "value": "400" },
-        { "label": "중간 (500)", "value": "500" },
-        { "label": "굵게 (600)", "value": "600" }
+        {
+          "label": "보통 (400)",
+          "value": "400"
+        },
+        {
+          "label": "중간 (500)",
+          "value": "500"
+        },
+        {
+          "label": "굵게 (600)",
+          "value": "600"
+        }
       ]
     },
     {
@@ -1811,7 +2389,6 @@
       "step": 5,
       "unit": "px"
     },
-
     {
       "type": "TITLE",
       "content": "📦 드로어 하단 영역"
@@ -1890,9 +2467,18 @@
       "label": "유틸리티 메뉴 글자 굵기",
       "type": "SELECT",
       "options": [
-        { "label": "보통 (400)", "value": "400" },
-        { "label": "중간 (500)", "value": "500" },
-        { "label": "굵게 (600)", "value": "600" }
+        {
+          "label": "보통 (400)",
+          "value": "400"
+        },
+        {
+          "label": "중간 (500)",
+          "value": "500"
+        },
+        {
+          "label": "굵게 (600)",
+          "value": "600"
+        }
       ],
       "isVisible": "property.enableUtilityMenu === true && property.drawerUtilityShow === true"
     },
@@ -1967,316 +2553,20 @@
       "label": "언어 버튼 글자 굵기",
       "type": "SELECT",
       "options": [
-        { "label": "보통 (400)", "value": "400" },
-        { "label": "중간 (500)", "value": "500" },
-        { "label": "굵게 (600)", "value": "600" }
+        {
+          "label": "보통 (400)",
+          "value": "400"
+        },
+        {
+          "label": "중간 (500)",
+          "value": "500"
+        },
+        {
+          "label": "굵게 (600)",
+          "value": "600"
+        }
       ],
       "isVisible": "property.enableLanguageButtons === true && property.drawerLanguageShow === true"
-    },
-
-    {
-      "type": "TITLE",
-      "content": "=== 📐 레이아웃 & 스타일 ==="
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "💡 헤더의 전체적인 디자인과 동작 방식을 설정합니다.\n헤더 크기, 배경색, 그림자, 스크롤 효과 등을 커스터마이징할 수 있습니다."
-    },
-
-    {
-      "type": "TITLE",
-      "content": "⚙️ 헤더 기본 설정"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "헤더의 기본 크기와 위치, 레이아웃을 설정합니다."
-    },
-    {
-      "id": "headerHeight",
-      "label": "헤더 높이 (데스크톱)",
-      "description": "PC 화면에서 헤더의 높이를 설정합니다. (권장: 70-90px)",
-      "type": "RANGE",
-      "min": 60,
-      "max": 120,
-      "step": 5,
-      "unit": "px"
-    },
-    {
-      "id": "headerPadding",
-      "label": "헤더 좌우 여백",
-      "description": "헤더 내부의 좌우 여백을 설정합니다. 화면 가장자리와의 간격입니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 10,
-      "unit": "px"
-    },
-    {
-      "id": "headerRightMargin",
-      "label": "오른쪽 끝 여백",
-      "description": "메뉴가 오른쪽 정렬일 때 오른쪽 끝의 여백을 추가로 설정합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 10,
-      "unit": "px"
-    },
-    {
-      "id": "containerMaxWidthEnabled",
-      "label": "최대 너비 제한 사용하기",
-      "description": "체크하면 헤더 내용의 최대 너비를 제한합니다. 큰 화면에서 헤더가 너무 넓게 퍼지지 않도록 할 수 있습니다.",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "containerMaxWidth",
-      "label": "최대 너비 값",
-      "description": "헤더 콘텐츠의 최대 너비를 설정합니다. 이 값보다 화면이 넓으면 헤더는 중앙 정렬됩니다. (권장: 1200-1400px)",
-      "type": "RANGE",
-      "min": 800,
-      "max": 1920,
-      "step": 40,
-      "unit": "px",
-      "isVisible": "property.containerMaxWidthEnabled === true"
-    },
-    {
-      "id": "containerPaddingDesktop",
-      "label": "콘텐츠 좌우 여백",
-      "description": "최대 너비 제한을 사용할 때 콘텐츠의 좌우 여백을 설정합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 200,
-      "step": 10,
-      "unit": "px",
-      "isVisible": "property.containerMaxWidthEnabled === true"
-    },
-    {
-      "id": "isSticky",
-      "label": "상단 고정 (Sticky) 사용하기",
-      "description": "체크하면 페이지를 스크롤해도 헤더가 항상 화면 상단에 고정됩니다. 방문자가 언제든지 메뉴에 접근할 수 있습니다.",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "isOverlay",
-      "label": "오버레이 모드 (콘텐츠 위에 겹치기)",
-      "description": "체크하면 헤더가 페이지 콘텐츠 위에 투명하게 겹쳐집니다. 히어로 이미지 위에 헤더를 표시할 때 유용합니다.",
-      "type": "CHECKBOX"
-    },
-
-    {
-      "type": "TITLE",
-      "content": "🎨 헤더 배경 & 디자인"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "헤더의 배경색, 그림자, 테두리 등 시각적 스타일을 설정합니다."
-    },
-    {
-      "id": "headerBgType",
-      "label": "배경 타입",
-      "description": "헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
-      "type": "RADIO",
-      "options": [
-        { "label": "단색", "value": "solid" },
-        { "label": "그라디언트", "value": "gradient" }
-      ]
-    },
-    {
-      "id": "headerBg",
-      "label": "배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.headerBgType === 'solid'"
-    },
-    {
-      "id": "headerGradientStart",
-      "label": "그라디언트 시작 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerGradientEnd",
-      "label": "그라디언트 끝 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerGradientAngle",
-      "label": "그라디언트 각도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerShadow",
-      "label": "그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "headerShadowColor",
-      "label": "그림자 색상",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "headerBlur",
-      "label": "배경 블러",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "headerBorder",
-      "label": "하단 테두리 두께",
-      "type": "RANGE",
-      "min": 0,
-      "max": 5,
-      "step": 1,
-      "unit": "px"
-    },
-    {
-      "id": "headerBorderColor",
-      "label": "하단 테두리 색상",
-      "type": "COLOR_PICKER"
-    },
-
-    {
-      "type": "TITLE",
-      "content": "📜 스크롤 효과"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "스크롤 시 헤더 디자인을 변경할 수 있습니다."
-    },
-    {
-      "id": "enableScrollStyle",
-      "label": "스크롤 효과 사용",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "scrollThreshold",
-      "label": "스크롤 감지 지점",
-      "description": "이 픽셀을 넘어 스크롤하면 디자인이 변경됩니다",
-      "type": "RANGE",
-      "min": 0,
-      "max": 300,
-      "step": 10,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollBgType",
-      "label": "스크롤 시 배경 타입",
-      "type": "RADIO",
-      "options": [
-        { "label": "단색", "value": "solid" },
-        { "label": "그라디언트", "value": "gradient" }
-      ],
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollBg",
-      "label": "스크롤 시 배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid'"
-    },
-    {
-      "id": "scrollGradientStart",
-      "label": "스크롤 시 그라디언트 시작",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
-    },
-    {
-      "id": "scrollGradientEnd",
-      "label": "스크롤 시 그라디언트 끝",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
-    },
-    {
-      "id": "scrollGradientAngle",
-      "label": "스크롤 시 그라디언트 각도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient'"
-    },
-    {
-      "id": "scrollShadow",
-      "label": "스크롤 시 그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollShadowColor",
-      "label": "스크롤 시 그림자 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollBlur",
-      "label": "스크롤 시 배경 블러",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollHeaderHeightEnabled",
-      "label": "스크롤 시 헤더 높이 축소",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollHeaderHeight",
-      "label": "축소된 헤더 높이",
-      "type": "RANGE",
-      "min": 40,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.scrollHeaderHeightEnabled === true"
-    },
-    {
-      "id": "scrollLogoWidthEnabled",
-      "label": "스크롤 시 로고 크기 축소",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableScrollStyle === true && property.enableLogo === true"
-    },
-    {
-      "id": "scrollLogoWidth",
-      "label": "축소된 로고 너비",
-      "type": "RANGE",
-      "min": 50,
-      "max": 250,
-      "step": 10,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.scrollLogoWidthEnabled === true && property.enableLogo === true"
-    },
-
-    {
-      "type": "TITLE",
-      "content": "🎯 미리보기 모드"
-    },
-    {
-      "id": "previewScrolled",
-      "label": "스크롤 상태 미리보기",
-      "description": "에디터에서 스크롤 후 상태를 미리 볼 수 있습니다",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableScrollStyle === true"
     }
   ],
   "property": {
@@ -2487,6 +2777,13 @@
     "switchDuration": 0.3,
     "enablePageBasedDesign": false,
     "defaultPageMode": "light",
-    "pageDesignMappings": []
+    "pageDesignMappings": [],
+    "scrollBgDark": "#1A1A1ADD",
+    "scrollGradientStartDark": "#1A1A1ADD",
+    "scrollGradientEndDark": "#000000DD",
+    "scrollGradientAngleDark": 180,
+    "scrollShadowDark": 5,
+    "scrollShadowColorDark": "rgba(0,0,0,0.3)",
+    "scrollBlurDark": 10
   }
 }

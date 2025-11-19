@@ -98,6 +98,8 @@
   }
 
   {{#if property.enableScrollStyle}}
+  /* 스크롤 효과 - Light 모드 */
+  {{#if property.useLightMode}}
   .global-header.scrolled {
     {{#if (eq property.scrollBgType 'gradient')}}
     background: linear-gradient({{property.scrollGradientAngle}}deg, {{property.scrollGradientStart}}, {{property.scrollGradientEnd}}) !important;
@@ -117,6 +119,30 @@
     height: {{property.scrollHeaderHeight}}px !important;
     {{/if}}
   }
+  {{/if}}
+
+  /* 스크롤 효과 - Dark 모드 */
+  {{#if property.useDarkMode}}
+  :root.dark-mode .global-header.scrolled {
+    {{#if (eq property.scrollBgType 'gradient')}}
+    background: linear-gradient({{property.scrollGradientAngleDark}}deg, {{property.scrollGradientStartDark}}, {{property.scrollGradientEndDark}}) !important;
+    {{else}}
+    background: {{property.scrollBgDark}} !important;
+    {{/if}}
+    {{#if (gt property.scrollShadowDark 0)}}
+    box-shadow: 0 2px {{property.scrollShadowDark}}px {{property.scrollShadowColorDark}} !important;
+    {{else}}
+    box-shadow: none !important;
+    {{/if}}
+    {{#if (gt property.scrollBlurDark 0)}}
+    backdrop-filter: blur({{property.scrollBlurDark}}px) !important;
+    -webkit-backdrop-filter: blur({{property.scrollBlurDark}}px) !important;
+    {{/if}}
+    {{#if property.scrollHeaderHeightEnabled}}
+    height: {{property.scrollHeaderHeight}}px !important;
+    {{/if}}
+  }
+  {{/if}}
 
   {{#if property.scrollLogoWidthEnabled}}
   .global-header.scrolled .logo img {
