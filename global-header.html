@@ -513,6 +513,7 @@
   {{#if (eq property.languageButtonAlign 'right')}}
   .header-right .language-buttons {
     margin-right: {{property.languageButtonMarginRight}}px;
+    margin-left: {{property.languageButtonMarginLeft}}px;
   }
   {{/if}}
 
@@ -926,6 +927,17 @@
   }
 
   @media (max-width: 768px) {
+    /* 모바일 버전은 항상 Dark 모드 색상 사용 */
+    {{#if property.useDarkMode}}
+    :root {
+      --hamburger-color: {{property.hamburgerColorDark}};
+      --close-btn-color: {{property.closeBtnColorDark}};
+      --drawer-bg: {{property.drawerBgDark}};
+      --mobile-menu-color: {{property.mobileMenuColorDark}};
+      --accordion-icon-color: {{property.accordionIconColorDark}};
+    }
+    {{/if}}
+
     .global-header {
       height: {{property.mobileHeaderHeight}}px !important;
       background: {{property.mobileHeaderBg}} !important;

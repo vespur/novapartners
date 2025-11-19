@@ -746,7 +746,7 @@
       "description": "서브메뉴 내용의 위쪽 여백을 설정합니다. 메인 메뉴와의 간격을 조절할 수 있습니다.",
       "type": "RANGE",
       "min": 0,
-      "max": 50,
+      "max": 100,
       "step": 5,
       "unit": "px",
       "isVisible": "property.enableMainMenu === true"
@@ -1181,6 +1181,17 @@
     {
       "id": "languageButtonMarginRight",
       "label": "오른쪽 끝 여백 (오른쪽 정렬 시)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableLanguageButtons === true && property.languageButtonAlign === 'right'"
+    },
+    {
+      "id": "languageButtonMarginLeft",
+      "label": "왼쪽 여백 (오른쪽 정렬 시)",
+      "description": "언어 버튼과 왼쪽 요소 사이의 간격을 조절합니다.",
       "type": "RANGE",
       "min": 0,
       "max": 100,
@@ -2384,6 +2395,7 @@
     "languageButtonBg": "#00000000",
     "languageButtonBgDark": "#00000000",
     "languageButtonMarginRight": 0,
+    "languageButtonMarginLeft": 0,
     "languageButtonRadius": 4,
     "languageButtonBorder": 1,
     "languageButtonBorderColor": "#CCCCCCFF",
