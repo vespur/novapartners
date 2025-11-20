@@ -17,7 +17,7 @@
     {
       "id": "lightModePages",
       "label": "Light 모드 적용 페이지",
-      "description": "Light 모드를 적용할 페이지 경로를 입력하세요. 여러 페이지는 쉼표(,)로 구분합니다.\n\n예시: /, /products, /about\n\n💡 Light 모드: 밝은 배경 페이지에 적합",
+      "description": "Light 모드 적용 페이지 경로 입력 (쉼표로 구분)\n\n예시: /, /products, /about\n\n💡 밝은 배경에 적합",
       "type": "TEXTAREA",
       "isVisible": "property.enablePageBasedDesign === true"
     },
