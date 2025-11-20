@@ -2,760 +2,106 @@
   "settings": [
     {
       "type": "TITLE",
-      "content": "=== 📐 레이아웃 & 스타일 ==="
+      "content": "=== ⚙️ 0. 개발자 설정 ==="
     },
     {
       "type": "DESCRIPTION",
-      "content": "💡 헤더의 전체적인 디자인과 동작 방식을 설정합니다.\n헤더 크기, 배경색, 그림자, 스크롤 효과 등을 커스터마이징할 수 있습니다."
+      "content": "헤더의 작동 방식과 페이지별 Light/Dark 모드를 설정합니다."
     },
     {
-      "type": "TITLE",
-      "content": "⚙️ 헤더 기본 설정"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "헤더의 기본 크기와 위치, 레이아웃을 설정합니다."
-    },
-    {
-      "id": "headerHeight",
-      "label": "헤더 높이 (데스크톱)",
-      "description": "PC 화면에서 헤더의 높이를 설정합니다. (권장: 70-90px)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 120,
-      "step": 5,
-      "unit": "px"
-    },
-    {
-      "id": "headerPadding",
-      "label": "헤더 좌우 여백",
-      "description": "헤더 내부의 좌우 여백을 설정합니다. 화면 가장자리와의 간격입니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 10,
-      "unit": "px"
-    },
-    {
-      "id": "headerRightMargin",
-      "label": "오른쪽 끝 여백",
-      "description": "메뉴가 오른쪽 정렬일 때 오른쪽 끝의 여백을 추가로 설정합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 10,
-      "unit": "px"
-    },
-    {
-      "id": "containerMaxWidthEnabled",
-      "label": "최대 너비 제한 사용하기",
-      "description": "체크하면 헤더 내용의 최대 너비를 제한합니다. 큰 화면에서 헤더가 너무 넓게 퍼지지 않도록 할 수 있습니다.",
+      "id": "enablePageBasedDesign",
+      "label": "📍 페이지별 모드 선택 사용하기",
+      "description": "✅ 체크 시: 각 페이지마다 Light/Dark 모드를 개별 설정\n⬜ 체크 해제 시: 스크롤 위치에 따라 자동 전환",
       "type": "CHECKBOX"
     },
     {
-      "id": "containerMaxWidth",
-      "label": "최대 너비 값",
-      "description": "헤더 콘텐츠의 최대 너비를 설정합니다. 이 값보다 화면이 넓으면 헤더는 중앙 정렬됩니다. (권장: 1200-1400px)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 1920,
-      "step": 40,
-      "unit": "px",
-      "isVisible": "property.containerMaxWidthEnabled === true"
+      "id": "lightModePages",
+      "label": "Light 모드 적용 페이지",
+      "description": "Light 모드를 적용할 페이지 경로를 입력하세요. 여러 페이지는 쉼표(,)로 구분합니다.\n\n예시: /, /products, /about\n\n💡 Light 모드: 밝은 배경 페이지에 적합",
+      "type": "TEXTAREA",
+      "isVisible": "property.enablePageBasedDesign === true"
     },
     {
-      "id": "containerPaddingDesktop",
-      "label": "콘텐츠 좌우 여백",
-      "description": "최대 너비 제한을 사용할 때 콘텐츠의 좌우 여백을 설정합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 200,
-      "step": 10,
-      "unit": "px",
-      "isVisible": "property.containerMaxWidthEnabled === true"
+      "id": "darkModePages",
+      "label": "Dark 모드 적용 페이지",
+      "description": "Dark 모드를 적용할 페이지 경로를 입력하세요. 여러 페이지는 쉼표(,)로 구분합니다.\n\n예시: /landing, /hero\n\n💡 Dark 모드: 어두운 배경 페이지에 적합",
+      "type": "TEXTAREA",
+      "isVisible": "property.enablePageBasedDesign === true"
     },
     {
-      "id": "isSticky",
-      "label": "상단 고정 (Sticky) 사용하기",
-      "description": "체크하면 페이지를 스크롤해도 헤더가 항상 화면 상단에 고정됩니다. 방문자가 언제든지 메뉴에 접근할 수 있습니다.",
+      "id": "designMode",
+      "label": "✨ 디자인 모드 사용하기",
+      "description": "체크하면 하위 메뉴가 마우스를 떼도 화면에 계속 표시되어 편집이 쉬워집니다.\n\n⚠️ 디자인 작업 시에만 활성화하고, 완료 후에는 반드시 체크 해제하세요.",
       "type": "CHECKBOX"
-    },
-    {
-      "id": "isOverlay",
-      "label": "오버레이 모드 (콘텐츠 위에 겹치기)",
-      "description": "체크하면 헤더가 페이지 콘텐츠 위에 투명하게 겹쳐집니다. 히어로 이미지 위에 헤더를 표시할 때 유용합니다.",
-      "type": "CHECKBOX"
-    },
-    {
-      "type": "TITLE",
-      "content": "🎨 헤더 배경 & 디자인 (기본 상태 - 스크롤 최상단)"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "기본 상태는 화면에 처음 표시되는 헤더 디자인입니다. 히어로 섹션이나 투명 배경에 적합합니다."
-    },
-    {
-      "id": "headerBgDefault",
-      "label": "배경색 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "headerShadowDefault",
-      "label": "그림자 강도 (기본 상태)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "headerShadowColorDefault",
-      "label": "그림자 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "headerBlurDefault",
-      "label": "배경 블러 (기본 상태)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "headerBorderDefault",
-      "label": "하단 테두리 두께 (기본 상태)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 5,
-      "step": 1,
-      "unit": "px"
-    },
-    {
-      "id": "headerBorderColorDefault",
-      "label": "하단 테두리 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "menuColorDefault",
-      "label": "메뉴 텍스트 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "menuHoverColorDefault",
-      "label": "메뉴 호버 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "logoImageDefault",
-      "label": "로고 이미지 (기본 상태)",
-      "type": "IMAGE_PICKER"
-    },
-    {
-      "id": "utilityMenuColorDefault",
-      "label": "유틸리티 메뉴 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "utilityIconColorDefault",
-      "label": "유틸리티 아이콘 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "languageButtonColorDefault",
-      "label": "언어 버튼 텍스트 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "languageButtonBgDefault",
-      "label": "언어 버튼 배경 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "languageButtonBorderColorDefault",
-      "label": "언어 버튼 테두리 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuBgDefault",
-      "label": "서브메뉴 배경색 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuColorDefault",
-      "label": "서브메뉴 텍스트 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuTitleColorDefault",
-      "label": "서브메뉴 제목 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuHoverBgDefault",
-      "label": "서브메뉴 호버 배경 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuHoverColorDefault",
-      "label": "서브메뉴 호버 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "type": "TITLE",
-      "content": "🎨 헤더 배경 & 디자인 (Light 모드 - 스크롤 내림)"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "Light 모드에서 헤더의 배경색, 그림자, 테두리 등을 설정합니다. 밝은 배경에 적합한 어두운 색상의 헤더를 만들 때 사용하세요."
-    },
-    {
-      "id": "headerBgType",
-      "label": "배경 타입",
-      "description": "헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "단색",
-          "value": "solid"
-        },
-        {
-          "label": "그라디언트",
-          "value": "gradient"
-        }
-      ],
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBg",
-      "label": "배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true && property.headerBgType === 'solid'"
-    },
-    {
-      "id": "headerGradientStart",
-      "label": "그라디언트 시작 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerGradientEnd",
-      "label": "그라디언트 끝 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerGradientAngle",
-      "label": "그라디언트 각도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerShadow",
-      "label": "그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerShadowColor",
-      "label": "그림자 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBlur",
-      "label": "배경 블러",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBorder",
-      "label": "하단 테두리 두께",
-      "type": "RANGE",
-      "min": 0,
-      "max": 5,
-      "step": 1,
-      "unit": "px",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBorderColor",
-      "label": "하단 테두리 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "🎨 헤더 배경 & 디자인 (Dark 모드 - 스크롤 내림)"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "Dark 모드에서 헤더의 기본 상태 배경색, 그림자, 테두리 등을 설정합니다."
-    },
-    {
-      "id": "headerBgTypeDark",
-      "label": "배경 타입 (Dark)",
-      "description": "Dark 모드 헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "단색",
-          "value": "solid"
-        },
-        {
-          "label": "그라디언트",
-          "value": "gradient"
-        }
-      ],
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerBgDark",
-      "label": "배경색 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'solid'"
-    },
-    {
-      "id": "headerGradientStartDark",
-      "label": "그라디언트 시작 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
-    },
-    {
-      "id": "headerGradientEndDark",
-      "label": "그라디언트 끝 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
-    },
-    {
-      "id": "headerGradientAngleDark",
-      "label": "그라디언트 각도 (Dark)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
-    },
-    {
-      "id": "headerShadowDark",
-      "label": "그림자 강도 (Dark)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerShadowColorDark",
-      "label": "그림자 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerBlurDark",
-      "label": "배경 블러 (Dark)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerBorderDark",
-      "label": "하단 테두리 두께 (Dark)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 5,
-      "step": 1,
-      "unit": "px",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerBorderColorDark",
-      "label": "하단 테두리 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "📜 스크롤 효과 (Light 모드)"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "⚠️ **주의**: \"스크롤 시 자동 전환\" 기능과는 함께 사용할 수 없습니다. Light/Dark 모드 자동 전환을 사용하는 경우 이 기능은 비활성화됩니다.\n\n스크롤 시 헤더 디자인을 세밀하게 변경할 수 있습니다 (배경색, 그림자, 높이 등)."
-    },
-    {
-      "id": "enableScrollStyle",
-      "label": "스크롤 효과 사용",
-      "description": "Light/Dark 모드 자동 전환을 사용하지 않을 때만 활성화 가능합니다.",
-      "type": "CHECKBOX",
-      "isVisible": "property.autoSwitchMode !== true"
-    },
-    {
-      "id": "scrollThreshold",
-      "label": "스크롤 감지 지점",
-      "description": "이 픽셀을 넘어 스크롤하면 디자인이 변경됩니다",
-      "type": "RANGE",
-      "min": 0,
-      "max": 300,
-      "step": 10,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollBgType",
-      "label": "스크롤 시 배경 타입",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "단색",
-          "value": "solid"
-        },
-        {
-          "label": "그라디언트",
-          "value": "gradient"
-        }
-      ],
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollBg",
-      "label": "스크롤 시 배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid' && property.useLightMode === true"
-    },
-    {
-      "id": "scrollGradientStart",
-      "label": "스크롤 시 그라디언트 시작",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
-    },
-    {
-      "id": "scrollGradientEnd",
-      "label": "스크롤 시 그라디언트 끝",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
-    },
-    {
-      "id": "scrollGradientAngle",
-      "label": "스크롤 시 그라디언트 각도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
-    },
-    {
-      "id": "scrollShadow",
-      "label": "스크롤 시 그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
-    },
-    {
-      "id": "scrollShadowColor",
-      "label": "스크롤 시 그림자 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
-    },
-    {
-      "id": "scrollBlur",
-      "label": "스크롤 시 배경 블러",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
-    },
-    {
-      "id": "scrollHeaderHeightEnabled",
-      "label": "스크롤 시 헤더 높이 축소",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollHeaderHeight",
-      "label": "축소된 헤더 높이",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.scrollHeaderHeightEnabled === true"
-    },
-    {
-      "id": "scrollLogoWidthEnabled",
-      "label": "스크롤 시 로고 크기 축소",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableScrollStyle === true && property.enableLogo === true"
-    },
-    {
-      "id": "scrollLogoWidth",
-      "label": "축소된 로고 너비",
-      "type": "RANGE",
-      "min": 0,
-      "max": 250,
-      "step": 10,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.scrollLogoWidthEnabled === true && property.enableLogo === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "📜 스크롤 효과 (Dark 모드)"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "Dark 모드에서 스크롤 시 적용될 헤더 디자인을 설정합니다."
-    },
-    {
-      "id": "scrollBgDark",
-      "label": "스크롤 시 배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid' && property.useDarkMode === true"
-    },
-    {
-      "id": "scrollGradientStartDark",
-      "label": "스크롤 시 그라디언트 시작",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
-    },
-    {
-      "id": "scrollGradientEndDark",
-      "label": "스크롤 시 그라디언트 끝",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
-    },
-    {
-      "id": "scrollGradientAngleDark",
-      "label": "스크롤 시 그라디언트 각도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
-    },
-    {
-      "id": "scrollShadowDark",
-      "label": "스크롤 시 그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
-    },
-    {
-      "id": "scrollShadowColorDark",
-      "label": "스크롤 시 그림자 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
-    },
-    {
-      "id": "scrollBlurDark",
-      "label": "스크롤 시 배경 블러",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "🎯 미리보기 모드"
-    },
-    {
-      "type": "TITLE",
-      "content": "=== 🌓 LIGHT/DARK 모드 ==="
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "💡 **헤더 색상 시스템 - 3가지 독립적인 디자인**\n\n헤더는 3가지 디자인 상태를 가질 수 있습니다:\n\n🔹 **기본 상태** (페이지 최상단):\n   - 히어로 이미지나 동영상 위에 표시되는 초기 디자인\n   - 예: 투명 배경, 흰색 텍스트\n\n🔸 **Light 모드** (밝은 배경):\n   - 일반 페이지 콘텐츠에 적합한 디자인\n   - 예: 흰색 배경, 검정 텍스트\n\n🔹 **Dark 모드** (어두운 배경):\n   - 어두운 섹션에 적합한 디자인\n   - 예: 검정 배경, 흰색 텍스트\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n📌 **사용 방법**:\n\n**1. 한 가지 디자인만 사용**\n   → Light/Dark 둘 다 체크 해제\n   → 항상 \"기본 상태\" 디자인만 표시\n\n**2. Light 모드만 사용**\n   → Light만 체크\n   → 스크롤 내리면 Light 디자인으로 변경\n\n**3. Dark 모드만 사용**\n   → Dark만 체크\n   → 스크롤 내리면 Dark 디자인으로 변경\n\n**4. 스크롤 위치에 따라 자동 전환**\n   → Light와 Dark 둘 다 체크\n   → \"스크롤 시 자동 전환\" 체크\n   → 스크롤 위치에 따라 자동으로 색상 변경\n\n**5. 페이지마다 다른 디자인**\n   → Light와 Dark 둘 다 체크\n   → \"페이지별 디자인 매칭\" 체크\n   → 각 페이지마다 Light/Dark 지정 가능\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n⚠️ **주의사항**:\n• 각 모드의 색상, 로고, 메뉴 스타일을 별도로 설정해야 합니다\n• \"스크롤 시 자동 전환\"과 \"페이지별 디자인\"은 동시 사용 불가\n• \"스크롤 효과\"와 \"스크롤 시 자동 전환\"은 동시 사용 불가"
-    },
-    {
-      "id": "useLightMode",
-      "label": "✅ Light 모드 사용 (밝은 배경용)",
-      "description": "일반 페이지에서 사용할 밝은 배경용 헤더 색상",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "useDarkMode",
-      "label": "✅ Dark 모드 사용 (어두운 배경용)",
-      "description": "히어로 섹션이나 어두운 배경에서 사용할 헤더 색상",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "autoSwitchMode",
-      "label": "🔄 스크롤 시 자동 전환",
-      "description": "스크롤 위치에 따라 기본 상태 → Light/Dark 모드로 자동 전환합니다. (Light/Dark 둘 다 체크 필요)",
-      "type": "CHECKBOX",
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true"
     },
     {
       "id": "switchThreshold",
-      "label": "전환 임계값 (스크롤 px)",
-      "description": "이 픽셀 이하: 기본 상태, 초과: Light/Dark 모드로 전환",
+      "label": "모드 전환 지점 (스크롤)",
+      "description": "스크롤이 이 값을 넘으면 Light/Dark 모드로 전환됩니다.\n\n권장값:\n• 낮음: 100px\n• 중간: 200px\n• 높음: 300px",
       "type": "RANGE",
       "min": 0,
       "max": 1000,
       "step": 50,
       "unit": "px",
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.autoSwitchMode === true"
-    },
-    {
-      "id": "switchDuration",
-      "label": "전환 애니메이션 속도",
-      "description": "색상이 변하는 속도를 설정해주세요",
-      "type": "RANGE",
-      "min": 0,
-      "max": 1.0,
-      "step": 0.1,
-      "unit": "초",
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.autoSwitchMode === true"
+      "isVisible": "property.enablePageBasedDesign !== true"
     },
     {
       "type": "TITLE",
-      "content": "=== 📄 페이지별 디자인 설정 ==="
+      "content": "=== 🎨 1. 로고 이미지 ==="
     },
     {
       "type": "DESCRIPTION",
-      "content": "💡 페이지마다 다른 헤더 디자인(Light/Dark 모드)을 자동으로 적용할 수 있습니다.\n\n예시:\n• 메인 페이지(/): Dark 모드 - 히어로 이미지 위에 밝은 헤더\n• 제품 페이지(/products): Light 모드 - 밝은 배경에 어두운 헤더\n• 회사 소개(/about): Light 모드\n\n📌 메뉴 구조는 모든 페이지에서 동일하게 유지되며, 디자인만 페이지별로 다르게 적용됩니다.\n\n⚠️ 이 기능을 사용하려면 Light 모드와 Dark 모드를 모두 활성화해야 합니다."
-    },
-    {
-      "id": "enablePageBasedDesign",
-      "label": "✅ 페이지별 디자인 사용",
-      "description": "페이지마다 다른 Light/Dark 모드를 사용할 수 있습니다. ⚠️ 활성화 시 \"스크롤 시 자동 전환\"이 비활성화됩니다 (충돌 방지).",
-      "type": "CHECKBOX",
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true"
-    },
-    {
-      "id": "defaultPageMode",
-      "label": "기본 모드 (매핑되지 않은 페이지)",
-      "description": "아래 목록에 추가하지 않은 페이지에서 사용할 기본 모드를 선택해주세요.",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "Light 모드 (밝은 배경용)",
-          "value": "light"
-        },
-        {
-          "label": "Dark 모드 (어두운 배경용)",
-          "value": "dark"
-        }
-      ],
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true"
-    },
-    {
-      "id": "pageDesignMappings",
-      "label": "페이지별 모드 매핑",
-      "description": "각 페이지에 적용할 모드를 설정해주세요. '+ 항목 추가' 버튼을 눌러 페이지를 추가하세요.",
-      "type": "LIST",
-      "maxCount": 20,
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true",
-      "settings": [
-        {
-          "id": "pagePath",
-          "label": "페이지 경로",
-          "description": "페이지의 URL 경로를 입력해주세요. 예: / (메인 페이지), /products, /about, /contact 등. 정확히 일치하는 경로에만 적용됩니다.",
-          "type": "TEXT"
-        },
-        {
-          "id": "useMode",
-          "label": "적용할 모드",
-          "description": "이 페이지에서 사용할 헤더 디자인 모드를 선택해주세요.",
-          "type": "RADIO",
-          "options": [
-            {
-              "label": "Light 모드 (밝은 배경용)",
-              "value": "light"
-            },
-            {
-              "label": "Dark 모드 (어두운 배경용)",
-              "value": "dark"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "TITLE",
-      "content": "=== 🖥️ 데스크톱 헤더 ==="
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "PC와 태블릿에서 표시되는 헤더 설정입니다."
-    },
-    {
-      "type": "TITLE",
-      "content": "🏷️ 로고"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "헤더에 표시될 브랜드 로고를 설정할 수 있습니다. Light/Dark 모드별로 다른 로고를 사용할 수 있습니다."
+      "content": "헤더에 표시될 브랜드 로고를 설정합니다.\n\n📌 3가지 상태별로 다른 로고 사용 가능:\n• 기본 상태: 페이지 최상단\n• Light 모드: 밝은 배경용\n• Dark 모드: 어두운 배경용"
     },
     {
       "id": "enableLogo",
       "label": "로고 사용하기",
-      "description": "체크하면 헤더에 로고가 표시됩니다. 체크 해제하면 로고 없이 메뉴만 표시됩니다.",
+      "description": "체크하면 헤더에 로고가 표시됩니다.",
       "type": "CHECKBOX"
     },
     {
-      "id": "logoImage",
-      "label": "로고 이미지 (Light 모드)",
-      "description": "밝은 배경에서 사용할 로고 이미지를 업로드해주세요. PNG 형식을 권장합니다.",
+      "id": "logoImageDefault",
+      "label": "1) 기본 상태 로고",
+      "description": "페이지 최상단(스크롤 0px)에서 표시될 로고\n\n권장: PNG 형식, 투명 배경",
       "type": "IMAGE_PICKER",
-      "isVisible": "property.enableLogo === true && property.useLightMode === true"
+      "isVisible": "property.enableLogo === true"
+    },
+    {
+      "id": "logoImage",
+      "label": "2) Light 모드 로고",
+      "description": "밝은 배경에서 표시될 로고 (어두운 색상 권장)\n\n권장: PNG 형식, 투명 배경",
+      "type": "IMAGE_PICKER",
+      "isVisible": "property.enableLogo === true"
     },
     {
       "id": "logoImageDark",
-      "label": "로고 이미지 (Dark 모드)",
-      "description": "어두운 배경에서 사용할 로고 이미지를 업로드해주세요. 밝은 색상의 로고를 추천합니다.",
+      "label": "3) Dark 모드 로고",
+      "description": "어두운 배경에서 표시될 로고 (밝은 색상 권장)\n\n권장: PNG 형식, 투명 배경",
       "type": "IMAGE_PICKER",
-      "isVisible": "property.enableLogo === true && property.useDarkMode === true"
+      "isVisible": "property.enableLogo === true"
     },
     {
-      "id": "logoWidth",
-      "label": "로고 너비",
-      "description": "로고의 가로 크기를 설정합니다. 높이는 자동으로 조절됩니다. (권장: 120-180px)",
+      "id": "logoHeight",
+      "label": "4) 로고 크기 (높이)",
+      "description": "로고의 높이를 설정합니다. 너비는 비율에 맞게 자동 조정됩니다.\n\n권장값:\n• 작게: 30-40px\n• 표준: 40-50px\n• 크게: 50-70px",
       "type": "RANGE",
       "min": 0,
-      "max": 300,
-      "step": 10,
+      "max": 100,
+      "step": 5,
       "unit": "px",
       "isVisible": "property.enableLogo === true"
     },
     {
       "id": "logoLink",
-      "label": "로고 클릭 시 이동할 페이지",
-      "description": "로고를 클릭했을 때 이동할 페이지를 선택해주세요. 보통 홈페이지(/)로 설정합니다.",
-      "type": "LINK",
+      "label": "5) 로고 클릭 시 이동할 페이지",
+      "description": "로고 클릭 시 이동할 페이지 주소\n\n예시: / (홈페이지)",
+      "type": "TEXT",
       "isVisible": "property.enableLogo === true"
     },
     {
       "id": "logoAlign",
-      "label": "로고 위치",
-      "description": "헤더에서 로고가 표시될 위치를 선택해주세요.",
+      "label": "6) 로고 위치",
+      "description": "헤더에서 로고가 표시될 위치를 선택하세요.",
       "type": "RADIO",
       "options": [
         {
@@ -763,7 +109,7 @@
           "value": "left"
         },
         {
-          "label": "중앙",
+          "label": "가운데",
           "value": "center"
         },
         {
@@ -775,17 +121,21 @@
     },
     {
       "type": "TITLE",
-      "content": "📋 메인 메뉴"
+      "content": "=== 📋 2. 주 메뉴 ==="
     },
     {
       "type": "DESCRIPTION",
-      "content": "헤더에 표시될 메인 메뉴를 설정합니다. 각 메뉴는 하위 메뉴를 가질 수 있으며, 마우스를 올리면 드롭다운으로 표시됩니다."
+      "content": "헤더의 주요 네비게이션 메뉴를 설정합니다."
     },
     {
       "id": "enableMainMenu",
-      "label": "메인 메뉴 사용하기",
-      "description": "체크하면 헤더에 메인 메뉴가 표시됩니다. 체크 해제하면 메뉴 없이 로고만 표시됩니다.",
+      "label": "1) 주 메뉴 사용하기",
+      "description": "체크하면 헤더에 주 메뉴가 표시됩니다.",
       "type": "CHECKBOX"
+    },
+    {
+      "type": "TITLE",
+      "content": "2) 주 메뉴 항목 관리"
     },
     {
       "id": "menuItems",
@@ -1196,7 +546,8 @@
     },
     {
       "id": "menuAlign",
-      "label": "메뉴 위치",
+      "label": "3) 주 메뉴 위치",
+      "description": "헤더에서 주 메뉴가 표시될 위치",
       "type": "RADIO",
       "options": [
         {
@@ -1204,7 +555,7 @@
           "value": "left"
         },
         {
-          "label": "중앙",
+          "label": "가운데",
           "value": "center"
         },
         {
@@ -1215,24 +566,9 @@
       "isVisible": "property.enableMainMenu === true"
     },
     {
-      "type": "TITLE",
-      "content": "🎨 메뉴 스타일 (Light 모드)"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "밝은 배경에서 사용할 메뉴의 색상과 효과를 설정합니다."
-    },
-    {
-      "id": "menuColorDesktop",
-      "label": "메뉴 텍스트 색상",
-      "description": "메뉴 글자의 기본 색상을 설정합니다. 밝은 배경에서는 어두운 색을 권장합니다.",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && property.useLightMode === true"
-    },
-    {
       "id": "menuSizeDesktop",
-      "label": "메뉴 글자 크기",
-      "description": "메뉴 텍스트의 크기를 설정합니다. (권장: 14-18px)",
+      "label": "4) 주 메뉴 글자 크기",
+      "description": "주 메뉴 텍스트의 크기\n\n권장값:\n• 작게: 13-14px\n• 표준: 15-16px\n• 크게: 17-18px",
       "type": "RANGE",
       "min": 0,
       "max": 24,
@@ -1242,14 +578,635 @@
     },
     {
       "id": "menuGapDesktop",
-      "label": "메뉴 간격",
-      "description": "메뉴 항목들 사이의 간격을 설정합니다. 값이 클수록 메뉴 간격이 넓어집니다.",
+      "label": "5) 주 메뉴 간격",
+      "description": "주 메뉴 항목들 사이의 간격\n\n권장값:\n• 좁게: 20-30px\n• 표준: 30-40px\n• 넓게: 40-60px",
       "type": "RANGE",
       "min": 0,
       "max": 80,
       "step": 5,
       "unit": "px",
       "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "=== 🚧 나머지 설정은 기존 구조 유지 ==="
+    },
+    {
+      "id": "headerHeight",
+      "label": "헤더 높이 (데스크톱)",
+      "description": "PC 화면에서 헤더의 높이를 설정합니다. (권장: 70-90px)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "headerPadding",
+      "label": "헤더 좌우 여백",
+      "description": "헤더 내부의 좌우 여백을 설정합니다. 화면 가장자리와의 간격입니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "headerRightMargin",
+      "label": "오른쪽 끝 여백",
+      "description": "메뉴가 오른쪽 정렬일 때 오른쪽 끝의 여백을 추가로 설정합니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "id": "containerMaxWidthEnabled",
+      "label": "최대 너비 제한 사용하기",
+      "description": "체크하면 헤더 내용의 최대 너비를 제한합니다. 큰 화면에서 헤더가 너무 넓게 퍼지지 않도록 할 수 있습니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "최대 너비 값",
+      "description": "헤더 콘텐츠의 최대 너비를 설정합니다. 이 값보다 화면이 넓으면 헤더는 중앙 정렬됩니다. (권장: 1200-1400px)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 1920,
+      "step": 40,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "id": "containerPaddingDesktop",
+      "label": "콘텐츠 좌우 여백",
+      "description": "최대 너비 제한을 사용할 때 콘텐츠의 좌우 여백을 설정합니다.",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "id": "isSticky",
+      "label": "상단 고정 (Sticky) 사용하기",
+      "description": "체크하면 페이지를 스크롤해도 헤더가 항상 화면 상단에 고정됩니다. 방문자가 언제든지 메뉴에 접근할 수 있습니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "isOverlay",
+      "label": "오버레이 모드 (콘텐츠 위에 겹치기)",
+      "description": "체크하면 헤더가 페이지 콘텐츠 위에 투명하게 겹쳐집니다. 히어로 이미지 위에 헤더를 표시할 때 유용합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "headerBgDefault",
+      "label": "배경색 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerShadowDefault",
+      "label": "그림자 강도 (기본 상태)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadowColorDefault",
+      "label": "그림자 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerBlurDefault",
+      "label": "배경 블러 (기본 상태)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorderDefault",
+      "label": "하단 테두리 두께 (기본 상태)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "headerBorderColorDefault",
+      "label": "하단 테두리 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuColorDefault",
+      "label": "메뉴 텍스트 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuHoverColorDefault",
+      "label": "메뉴 호버 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "utilityMenuColorDefault",
+      "label": "유틸리티 메뉴 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "utilityIconColorDefault",
+      "label": "유틸리티 아이콘 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "languageButtonColorDefault",
+      "label": "언어 버튼 텍스트 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "languageButtonBgDefault",
+      "label": "언어 버튼 배경 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "languageButtonBorderColorDefault",
+      "label": "언어 버튼 테두리 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuBgDefault",
+      "label": "서브메뉴 배경색 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuColorDefault",
+      "label": "서브메뉴 텍스트 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuTitleColorDefault",
+      "label": "서브메뉴 제목 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuHoverBgDefault",
+      "label": "서브메뉴 호버 배경 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuHoverColorDefault",
+      "label": "서브메뉴 호버 색상 (기본 상태)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "headerBgType",
+      "label": "배경 타입",
+      "description": "헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ],
+      "isVisible": "property.useLightMode === true"
+    },
+    {
+      "id": "headerBg",
+      "label": "배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useLightMode === true && property.headerBgType === 'solid'"
+    },
+    {
+      "id": "headerGradientStart",
+      "label": "그라디언트 시작 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientEnd",
+      "label": "그라디언트 끝 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientAngle",
+      "label": "그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerShadow",
+      "label": "그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.useLightMode === true"
+    },
+    {
+      "id": "headerShadowColor",
+      "label": "그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useLightMode === true"
+    },
+    {
+      "id": "headerBlur",
+      "label": "배경 블러",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.useLightMode === true"
+    },
+    {
+      "id": "headerBorder",
+      "label": "하단 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.useLightMode === true"
+    },
+    {
+      "id": "headerBorderColor",
+      "label": "하단 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useLightMode === true"
+    },
+    {
+      "id": "headerBgTypeDark",
+      "label": "배경 타입 (Dark)",
+      "description": "Dark 모드 헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ],
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "headerBgDark",
+      "label": "배경색 (Dark)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'solid'"
+    },
+    {
+      "id": "headerGradientStartDark",
+      "label": "그라디언트 시작 색상 (Dark)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
+    },
+    {
+      "id": "headerGradientEndDark",
+      "label": "그라디언트 끝 색상 (Dark)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
+    },
+    {
+      "id": "headerGradientAngleDark",
+      "label": "그라디언트 각도 (Dark)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
+    },
+    {
+      "id": "headerShadowDark",
+      "label": "그림자 강도 (Dark)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "headerShadowColorDark",
+      "label": "그림자 색상 (Dark)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "headerBlurDark",
+      "label": "배경 블러 (Dark)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "headerBorderDark",
+      "label": "하단 테두리 두께 (Dark)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "headerBorderColorDark",
+      "label": "하단 테두리 색상 (Dark)",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.useDarkMode === true"
+    },
+    {
+      "id": "enableScrollStyle",
+      "label": "스크롤 효과 사용",
+      "description": "Light/Dark 모드 자동 전환을 사용하지 않을 때만 활성화 가능합니다.",
+      "type": "CHECKBOX",
+      "isVisible": "property.autoSwitchMode !== true"
+    },
+    {
+      "id": "scrollThreshold",
+      "label": "스크롤 감지 지점",
+      "description": "이 픽셀을 넘어 스크롤하면 디자인이 변경됩니다",
+      "type": "RANGE",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBgType",
+      "label": "스크롤 시 배경 타입",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ],
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollBg",
+      "label": "스크롤 시 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid' && property.useLightMode === true"
+    },
+    {
+      "id": "scrollGradientStart",
+      "label": "스크롤 시 그라디언트 시작",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
+    },
+    {
+      "id": "scrollGradientEnd",
+      "label": "스크롤 시 그라디언트 끝",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
+    },
+    {
+      "id": "scrollGradientAngle",
+      "label": "스크롤 시 그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
+    },
+    {
+      "id": "scrollShadow",
+      "label": "스크롤 시 그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
+    },
+    {
+      "id": "scrollShadowColor",
+      "label": "스크롤 시 그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
+    },
+    {
+      "id": "scrollBlur",
+      "label": "스크롤 시 배경 블러",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
+    },
+    {
+      "id": "scrollHeaderHeightEnabled",
+      "label": "스크롤 시 헤더 높이 축소",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true"
+    },
+    {
+      "id": "scrollHeaderHeight",
+      "label": "축소된 헤더 높이",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.scrollHeaderHeightEnabled === true"
+    },
+    {
+      "id": "scrollLogoWidthEnabled",
+      "label": "스크롤 시 로고 크기 축소",
+      "type": "CHECKBOX",
+      "isVisible": "property.enableScrollStyle === true && property.enableLogo === true"
+    },
+    {
+      "id": "scrollLogoWidth",
+      "label": "축소된 로고 너비",
+      "type": "RANGE",
+      "min": 0,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.scrollLogoWidthEnabled === true && property.enableLogo === true"
+    },
+    {
+      "id": "scrollBgDark",
+      "label": "스크롤 시 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid' && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollGradientStartDark",
+      "label": "스크롤 시 그라디언트 시작",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollGradientEndDark",
+      "label": "스크롤 시 그라디언트 끝",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollGradientAngleDark",
+      "label": "스크롤 시 그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollShadowDark",
+      "label": "스크롤 시 그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollShadowColorDark",
+      "label": "스크롤 시 그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
+    },
+    {
+      "id": "scrollBlurDark",
+      "label": "스크롤 시 배경 블러",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
+    },
+    {
+      "id": "useLightMode",
+      "label": "✅ Light 모드 사용 (밝은 배경용)",
+      "description": "일반 페이지에서 사용할 밝은 배경용 헤더 색상",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "useDarkMode",
+      "label": "✅ Dark 모드 사용 (어두운 배경용)",
+      "description": "히어로 섹션이나 어두운 배경에서 사용할 헤더 색상",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "autoSwitchMode",
+      "label": "🔄 스크롤 시 자동 전환",
+      "description": "스크롤 위치에 따라 기본 상태 → Light/Dark 모드로 자동 전환합니다. (Light/Dark 둘 다 체크 필요)",
+      "type": "CHECKBOX",
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true"
+    },
+    {
+      "id": "switchDuration",
+      "label": "전환 애니메이션 속도",
+      "description": "색상이 변하는 속도를 설정해주세요",
+      "type": "RANGE",
+      "min": 0,
+      "max": 1.0,
+      "step": 0.1,
+      "unit": "초",
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.autoSwitchMode === true"
+    },
+    {
+      "id": "defaultPageMode",
+      "label": "기본 모드 (매핑되지 않은 페이지)",
+      "description": "아래 목록에 추가하지 않은 페이지에서 사용할 기본 모드를 선택해주세요.",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "Light 모드 (밝은 배경용)",
+          "value": "light"
+        },
+        {
+          "label": "Dark 모드 (어두운 배경용)",
+          "value": "dark"
+        }
+      ],
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true"
+    },
+    {
+      "id": "pageDesignMappings",
+      "label": "페이지별 모드 매핑",
+      "description": "각 페이지에 적용할 모드를 설정해주세요. '+ 항목 추가' 버튼을 눌러 페이지를 추가하세요.",
+      "type": "LIST",
+      "maxCount": 20,
+      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true",
+      "settings": [
+        {
+          "id": "pagePath",
+          "label": "페이지 경로",
+          "description": "페이지의 URL 경로를 입력해주세요. 예: / (메인 페이지), /products, /about, /contact 등. 정확히 일치하는 경로에만 적용됩니다.",
+          "type": "TEXT"
+        },
+        {
+          "id": "useMode",
+          "label": "적용할 모드",
+          "description": "이 페이지에서 사용할 헤더 디자인 모드를 선택해주세요.",
+          "type": "RADIO",
+          "options": [
+            {
+              "label": "Light 모드 (밝은 배경용)",
+              "value": "light"
+            },
+            {
+              "label": "Dark 모드 (어두운 배경용)",
+              "value": "dark"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "logoWidth",
+      "label": "로고 너비",
+      "description": "로고의 가로 크기를 설정합니다. 높이는 자동으로 조절됩니다. (권장: 120-180px)",
+      "type": "RANGE",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.enableLogo === true"
+    },
+    {
+      "id": "menuColorDesktop",
+      "label": "메뉴 텍스트 색상",
+      "description": "메뉴 글자의 기본 색상을 설정합니다. 밝은 배경에서는 어두운 색을 권장합니다.",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.enableMainMenu === true && property.useLightMode === true"
     },
     {
       "id": "menuHoverEffect",
@@ -1321,10 +1278,6 @@
       "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'background-slide'"
     },
     {
-      "type": "TITLE",
-      "content": "🎨 메뉴 스타일 (Dark 모드)"
-    },
-    {
       "id": "menuColorDesktopDark",
       "label": "메뉴 텍스트 색상",
       "type": "COLOR_PICKER",
@@ -1349,14 +1302,6 @@
       "description": "배경 슬라이드 효과에 사용될 배경 색상을 설정합니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'background-slide' && property.useDarkMode === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "📂 서브메뉴 스타일 (Light 모드)"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "메인 메뉴에 마우스를 올렸을 때 나타나는 드롭다운 서브메뉴의 디자인을 설정합니다."
     },
     {
       "id": "submenuBg",
@@ -1651,10 +1596,6 @@
       "isVisible": "property.enableMainMenu === true && (property.submenuHoverEffect === 'color' || property.submenuHoverEffect === 'color-bold' || property.submenuHoverEffect === 'background-color') && property.useLightMode === true"
     },
     {
-      "type": "TITLE",
-      "content": "📂 서브메뉴 스타일 (Dark 모드)"
-    },
-    {
       "id": "submenuBgDark",
       "label": "서브메뉴 배경색",
       "type": "COLOR_PICKER",
@@ -1683,14 +1624,6 @@
       "label": "호버 텍스트 색상",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && (property.submenuHoverEffect === 'color' || property.submenuHoverEffect === 'color-bold' || property.submenuHoverEffect === 'background-color') && property.useDarkMode === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "🔧 유틸리티 메뉴"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "💡 유틸리티 메뉴는 로그인, 회원가입, 마이페이지 등 작은 보조 메뉴입니다.\n주로 헤더 오른쪽 상단에 작은 크기로 표시되며, 메인 메뉴와 함께 사용할 수 있습니다."
     },
     {
       "id": "enableUtilityMenu",
@@ -1845,14 +1778,6 @@
       "label": "호버 시 색상",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableUtilityMenu === true && property.utilityMenuHoverEffect === 'color'"
-    },
-    {
-      "type": "TITLE",
-      "content": "🌐 언어 선택 버튼"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "💡 다국어 사이트를 위한 언어 전환 버튼입니다.\n방문자가 원하는 언어로 사이트를 볼 수 있도록 언어 전환 버튼을 제공합니다. 헤더 오른쪽에 작은 버튼으로 표시됩니다."
     },
     {
       "id": "enableLanguageButtons",
@@ -2124,22 +2049,6 @@
       "isVisible": "property.enableLanguageButtons === true && (property.languageActiveStyle === 'border' || property.languageActiveStyle === 'background-border')"
     },
     {
-      "type": "TITLE",
-      "content": "=== 📱 모바일 헤더 ==="
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "💡 모바일과 태블릿 작은 화면에서 표시되는 헤더 설정입니다.\n모바일에서는 햄버거 메뉴 버튼을 눌렀을 때 드로어(서랍)가 열리면서 메뉴가 표시됩니다."
-    },
-    {
-      "type": "TITLE",
-      "content": "📐 모바일 헤더 기본 설정"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "모바일 화면에서 보이는 헤더의 기본 크기와 여백을 설정합니다."
-    },
-    {
       "id": "mobileHeaderHeight",
       "label": "모바일 헤더 높이",
       "description": "모바일 화면의 헤더 높이를 설정합니다. (권장: 60-70px)",
@@ -2201,10 +2110,6 @@
       "step": 5,
       "unit": "px",
       "isVisible": "property.enableLogo === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "☰ 햄버거 버튼 & 드로어"
     },
     {
       "id": "hamburgerPosition",
@@ -2321,10 +2226,6 @@
       "unit": "px"
     },
     {
-      "type": "TITLE",
-      "content": "📱 모바일 메뉴 스타일"
-    },
-    {
       "id": "drawerPaddingX",
       "label": "메뉴 좌우 여백",
       "type": "RANGE",
@@ -2438,10 +2339,6 @@
       "step": 10,
       "unit": "%",
       "isVisible": "property.mobileMenuDivider === true"
-    },
-    {
-      "type": "TITLE",
-      "content": "▼ 아코디언 (하위 메뉴)"
     },
     {
       "id": "accordionIconSize",
@@ -2589,14 +2486,6 @@
       "max": 40,
       "step": 5,
       "unit": "px"
-    },
-    {
-      "type": "TITLE",
-      "content": "📦 드로어 하단 영역"
-    },
-    {
-      "type": "DESCRIPTION",
-      "content": "드로어 맨 아래에 표시될 유틸리티 메뉴와 언어 버튼 설정"
     },
     {
       "id": "drawerBottomBorderShow",
