@@ -18,12 +18,18 @@
     --language-active-text-color: {{property.languageActiveTextColor}};
     --language-active-bg: {{property.languageActiveBg}};
     --language-active-border-color: {{property.languageActiveBorderColor}};
+    --language-button-border-radius: {{property.languageButtonBorderRadiusDefault}}px;
+    --language-button-border: {{#if (gt property.languageButtonBorderDefault 0)}}{{property.languageButtonBorderDefault}}px solid {{property.languageButtonBorderColorDefault}}{{else}}none{{/if}};
 
     /* 헤더 기본 스타일 - 기본 상태 */
+    {{#if (eq property.headerBgTypeDefault 'gradient')}}
+    --header-bg: linear-gradient({{property.headerGradientAngleDefault}}deg, {{property.headerGradientStartDefault}}, {{property.headerGradientEndDefault}});
+    {{else}}
     --header-bg: {{property.headerBgDefault}};
+    {{/if}}
     --header-shadow: {{#if (gt property.headerShadowDefault 0)}}0 2px {{property.headerShadowDefault}}px {{property.headerShadowColorDefault}}{{else}}none{{/if}};
     --header-blur: {{property.headerBlurDefault}}px;
-    --header-border: {{#if (gt property.headerBorderDefault 0)}}{{property.headerBorderDefault}}px solid {{property.headerBorderColorDefault}}{{else}}none{{/if}};
+    --header-border: {{#if property.headerBorderEnabledDefault}}{{property.headerBorderDefault}}px solid {{property.headerBorderColorDefault}}{{else}}none{{/if}};
   }
 
   /* 모바일은 항상 Dark 모드 색상 사용 */
@@ -92,6 +98,8 @@
     --language-active-text-color: {{property.languageActiveTextColor}};
     --language-active-bg: {{property.languageActiveBg}};
     --language-active-border-color: {{property.languageActiveBorderColor}};
+    --language-button-border-radius: {{property.languageButtonBorderRadiusDefault}}px;
+    --language-button-border: {{#if (gt property.languageButtonBorderDefault 0)}}{{property.languageButtonBorderDefault}}px solid {{property.languageButtonBorderColorDefault}}{{else}}none{{/if}};
 
     /* 헤더 기본 스타일 - Light 모드 */
     {{#if (eq property.headerBgType 'gradient')}}
@@ -101,7 +109,7 @@
     {{/if}}
     --header-shadow: {{#if (gt property.headerShadow 0)}}0 2px {{property.headerShadow}}px {{property.headerShadowColor}}{{else}}none{{/if}};
     --header-blur: {{property.headerBlur}}px;
-    --header-border: {{#if (gt property.headerBorder 0)}}{{property.headerBorder}}px solid {{property.headerBorderColor}}{{else}}none{{/if}};
+    --header-border: {{#if property.headerBorderEnabled}}{{property.headerBorder}}px solid {{property.headerBorderColor}}{{else}}none{{/if}};
   }
 
   /* Dark 모드 - CSS 변수 재정의 (:root.dark-mode로 전역 적용) */
@@ -137,7 +145,7 @@
     {{/if}}
     --header-shadow: {{#if (gt property.headerShadowDark 0)}}0 2px {{property.headerShadowDark}}px {{property.headerShadowColorDark}}{{else}}none{{/if}};
     --header-blur: {{property.headerBlurDark}}px;
-    --header-border: {{#if (gt property.headerBorderDark 0)}}{{property.headerBorderDark}}px solid {{property.headerBorderColorDark}}{{else}}none{{/if}};
+    --header-border: {{#if property.headerBorderEnabledDark}}{{property.headerBorderDark}}px solid {{property.headerBorderColorDark}}{{else}}none{{/if}};
   }
 
   /* Submenu 열릴 때 헤더의 backdrop-filter 비활성화 - 통일된 blur 효과 */
