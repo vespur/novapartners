@@ -589,7 +589,398 @@
     },
     {
       "type": "TITLE",
-      "content": "=== 🚧 나머지 설정은 기존 구조 유지 ==="
+      "content": "=== 📂 3. 하위 메뉴 ==="
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "주 메뉴에 마우스를 올렸을 때 나타나는 드롭다운 하위 메뉴의 레이아웃을 설정합니다."
+    },
+    {
+      "id": "submenuPaddingTop",
+      "label": "1) 하위 메뉴 위쪽 여백",
+      "description": "하위 메뉴 영역 상단의 여백\n\n권장값: 20-40px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuPaddingBottom",
+      "label": "2) 하위 메뉴 아래쪽 여백",
+      "description": "하위 메뉴 영역 하단의 여백\n\n권장값: 20-40px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "3) 하위 메뉴 그룹"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "하위 메뉴가 그룹으로 나뉘어 있을 때의 그룹 제목 스타일"
+    },
+    {
+      "id": "submenuGroupGap",
+      "label": "• 그룹 사이 간격",
+      "description": "하위 메뉴 그룹들 사이의 간격\n\n권장값: 30-50px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuTitleSize",
+      "label": "• 그룹 제목 글자 크기",
+      "description": "하위 메뉴 그룹 제목의 글자 크기\n\n권장값: 12-14px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuTitleWeight",
+      "label": "• 그룹 제목 글자 굵기",
+      "description": "하위 메뉴 그룹 제목의 글자 굵기\n\n권장값:\n• 400: 보통\n• 600: 중간\n• 700: 굵게",
+      "type": "RANGE",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "unit": "",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuTitlePaddingX",
+      "label": "• 그룹 제목 가로 여백",
+      "description": "그룹 제목 좌우의 여백\n\n권장값: 15-25px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuTitlePaddingY",
+      "label": "• 그룹 제목 세로 여백",
+      "description": "그룹 제목 상하의 여백\n\n권장값: 8-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuTitleMarginBottom",
+      "label": "• 그룹 제목 아래 간격",
+      "description": "그룹 제목과 하위 메뉴 항목 사이의 간격\n\n권장값: 8-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "4) 하위 메뉴 항목"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "개별 하위 메뉴 항목의 스타일"
+    },
+    {
+      "id": "submenuItemSize",
+      "label": "• 하위 메뉴 글자 크기",
+      "description": "하위 메뉴 항목의 글자 크기\n\n권장값: 13-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuItemWeight",
+      "label": "• 하위 메뉴 글자 굵기",
+      "description": "하위 메뉴 항목의 글자 굵기\n\n권장값:\n• 300: 얇게\n• 400: 보통\n• 500: 중간",
+      "type": "RANGE",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "unit": "",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuItemPaddingX",
+      "label": "• 하위 메뉴 가로 여백",
+      "description": "하위 메뉴 항목 좌우의 여백\n\n권장값: 15-25px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "id": "submenuItemPaddingY",
+      "label": "• 하위 메뉴 세로 여백",
+      "description": "하위 메뉴 항목 상하의 여백\n\n권장값: 8-12px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableMainMenu === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "=== 🔧 4. 유틸리티 메뉴 ==="
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더 우측에 표시되는 보조 메뉴입니다.\n\n로그인, 회원가입, 검색, 장바구니 등의 기능 버튼을 배치할 수 있습니다."
+    },
+    {
+      "id": "enableUtilityMenu",
+      "label": "1) 유틸리티 메뉴 사용하기",
+      "description": "체크하면 헤더에 유틸리티 메뉴가 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "type": "TITLE",
+      "content": "2) 유틸리티 메뉴 관리"
+    },
+    {
+      "id": "utilityMenuItems",
+      "label": "유틸리티 메뉴 항목 관리",
+      "description": "작은 보조 메뉴를 추가해주세요. 최대 5개까지 추가할 수 있습니다. (예: 로그인, 회원가입, 마이페이지, 장바구니)",
+      "type": "LIST",
+      "maxCount": 5,
+      "isVisible": "property.enableUtilityMenu === true",
+      "settings": [
+        {
+          "id": "name",
+          "label": "메뉴 이름",
+          "description": "표시될 텍스트를 입력하세요 (예: 로그인, 회원가입)",
+          "type": "TEXT"
+        },
+        {
+          "id": "link",
+          "label": "메뉴 링크",
+          "description": "클릭 시 이동할 페이지를 선택하세요",
+          "type": "LINK"
+        },
+        {
+          "id": "iconSvg",
+          "label": "아이콘 SVG",
+          "description": "SVG 코드를 입력해주세요 (선택사항)",
+          "type": "TEXTAREA"
+        }
+      ]
+    },
+    {
+      "id": "utilityMenuAlign",
+      "label": "3) 유틸리티 메뉴 위치",
+      "description": "헤더에서 유틸리티 메뉴가 표시될 위치\n\n일반적으로 오른쪽을 사용합니다.",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
+      ],
+      "isVisible": "property.enableUtilityMenu === true"
+    },
+    {
+      "id": "utilityMenuSize",
+      "label": "4) 유틸리티 메뉴 글자 크기",
+      "description": "유틸리티 메뉴 텍스트의 크기\n\n권장값: 13-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableUtilityMenu === true"
+    },
+    {
+      "id": "utilityMenuGap",
+      "label": "5) 유틸리티 메뉴 사이 간격",
+      "description": "유틸리티 메뉴 항목들 사이의 간격\n\n권장값: 15-25px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableUtilityMenu === true"
+    },
+    {
+      "id": "utilityIconSize",
+      "label": "6) 유틸리티 메뉴 아이콘 크기",
+      "description": "유틸리티 메뉴 아이콘(검색, 장바구니 등)의 크기\n\n권장값: 18-24px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.enableUtilityMenu === true"
+    },
+    {
+      "id": "utilityIconPosition",
+      "label": "7) 유틸리티 메뉴 아이콘 위치",
+      "description": "아이콘이 텍스트의 어디에 표시될지 선택",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "텍스트 왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "텍스트 오른쪽",
+          "value": "right"
+        }
+      ],
+      "isVisible": "property.enableUtilityMenu === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "=== 🌐 5. 언어 선택 버튼 ==="
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "다국어 웹사이트를 위한 언어 선택 버튼을 설정합니다."
+    },
+    {
+      "id": "enableLanguageButton",
+      "label": "1) 언어 선택 버튼 사용하기",
+      "description": "체크하면 헤더에 언어 선택 버튼이 표시됩니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "type": "TITLE",
+      "content": "2) 언어 선택 버튼 관리"
+    },
+    {
+      "id": "languageButtons",
+      "label": "언어 버튼 관리",
+      "description": "제공할 언어들을 추가해주세요. 최대 5개까지 추가할 수 있습니다. (예: 한국어, English, 日本語)",
+      "type": "LIST",
+      "maxCount": 5,
+      "isVisible": "property.enableLanguageButtons === true",
+      "settings": [
+        {
+          "id": "text",
+          "label": "버튼 텍스트",
+          "description": "버튼에 표시될 텍스트를 입력하세요 (예: KR, EN, JP, 한국어, English)",
+          "type": "TEXT"
+        },
+        {
+          "id": "link",
+          "label": "언어 페이지 링크",
+          "description": "해당 언어 버전 페이지의 링크를 선택하세요",
+          "type": "LINK"
+        },
+        {
+          "id": "isActive",
+          "label": "현재 선택된 언어로 표시",
+          "description": "체크하면 이 언어가 현재 선택된 언어로 강조 표시됩니다",
+          "type": "CHECKBOX"
+        }
+      ]
+    },
+    {
+      "id": "languageButtonSize",
+      "label": "3) 언어 선택 버튼 글자 크기",
+      "description": "언어 버튼 텍스트의 크기\n\n권장값: 13-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableLanguageButton === true"
+    },
+    {
+      "id": "languageButtonWeight",
+      "label": "4) 언어 선택 버튼 글자 굵기",
+      "description": "언어 버튼 텍스트의 굵기\n\n권장값:\n• 400: 보통\n• 500: 중간\n• 600: 굵게",
+      "type": "RANGE",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "unit": "",
+      "isVisible": "property.enableLanguageButton === true"
+    },
+    {
+      "id": "languageButtonGap",
+      "label": "5) 언어 선택 버튼 사이 간격",
+      "description": "언어 버튼들 사이의 간격\n\n권장값: 8-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.enableLanguageButton === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "6) 언어 선택 버튼 위치"
+    },
+    {
+      "id": "languageButtonAlign",
+      "label": "• 정렬 방향",
+      "description": "언어 선택 버튼이 표시될 위치",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
+      ],
+      "isVisible": "property.enableLanguageButton === true"
+    },
+    {
+      "id": "languageButtonMarginRight",
+      "label": "• 오른쪽 끝 여백 (오른쪽 정렬 시)",
+      "description": "오른쪽으로 정렬했을 때 오른쪽 끝과의 여백\n\n권장값: 20-40px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableLanguageButton === true && property.languageButtonAlign === 'right'"
+    },
+    {
+      "id": "languageButtonMarginLeft",
+      "label": "• 왼쪽 여백 (오른쪽 정렬 시)",
+      "description": "오른쪽으로 정렬했을 때 왼쪽 요소와의 여백\n\n권장값: 20-30px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.enableLanguageButton === true && property.languageButtonAlign === 'right'"
+    },
+    {
+      "type": "TITLE",
+      "content": "=== 🚧 섹션 6-8은 기존 구조 유지 ==="
     },
     {
       "id": "headerHeight",
@@ -1329,113 +1720,11 @@
       "isVisible": "property.enableMainMenu === true && property.submenuBlurEnabled === true"
     },
     {
-      "id": "submenuPaddingTop",
-      "label": "서브메뉴 위쪽 여백",
-      "description": "서브메뉴 내용의 위쪽 여백을 설정합니다. 메인 메뉴와의 간격을 조절할 수 있습니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuPaddingBottom",
-      "label": "서브메뉴 아래쪽 여백",
-      "description": "서브메뉴 내용의 아래쪽 여백을 설정합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuGroupGap",
-      "label": "그룹 사이 간격",
-      "description": "서브메뉴 내에서 그룹들 사이의 가로 간격을 설정합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 80,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
       "id": "submenuTitleColor",
       "label": "그룹 제목 색상",
       "description": "서브메뉴에서 각 그룹 제목의 색상을 설정합니다.",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableMainMenu === true && property.useLightMode === true"
-    },
-    {
-      "id": "submenuTitleSize",
-      "label": "그룹 제목 글자 크기",
-      "description": "그룹 제목의 글자 크기를 설정합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuTitleWeight",
-      "label": "그룹 제목 굵기",
-      "type": "SELECT",
-      "options": [
-        {
-          "label": "얇게 (300)",
-          "value": "300"
-        },
-        {
-          "label": "보통 (400)",
-          "value": "400"
-        },
-        {
-          "label": "중간 (500)",
-          "value": "500"
-        },
-        {
-          "label": "굵게 (600)",
-          "value": "600"
-        },
-        {
-          "label": "아주 굵게 (700)",
-          "value": "700"
-        }
-      ],
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuTitlePaddingX",
-      "label": "그룹 제목 가로 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuTitlePaddingY",
-      "label": "그룹 제목 세로 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuTitleMarginBottom",
-      "label": "그룹 제목 아래 간격",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
     },
     {
       "id": "submenuTitleUnderline",
@@ -1472,50 +1761,6 @@
       "min": 0,
       "max": 18,
       "step": 1,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuItemWeight",
-      "label": "항목 글자 굵기",
-      "type": "SELECT",
-      "options": [
-        {
-          "label": "얇게 (300)",
-          "value": "300"
-        },
-        {
-          "label": "보통 (400)",
-          "value": "400"
-        },
-        {
-          "label": "중간 (500)",
-          "value": "500"
-        },
-        {
-          "label": "굵게 (600)",
-          "value": "600"
-        }
-      ],
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuItemPaddingX",
-      "label": "항목 가로 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "submenuItemPaddingY",
-      "label": "항목 세로 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
       "unit": "px",
       "isVisible": "property.enableMainMenu === true"
     },
@@ -1626,60 +1871,6 @@
       "isVisible": "property.enableMainMenu === true && (property.submenuHoverEffect === 'color' || property.submenuHoverEffect === 'color-bold' || property.submenuHoverEffect === 'background-color') && property.useDarkMode === true"
     },
     {
-      "id": "enableUtilityMenu",
-      "label": "유틸리티 메뉴 사용하기",
-      "description": "체크하면 작은 보조 메뉴가 헤더 오른쪽에 표시됩니다. 로그인, 장바구니 등의 링크를 추가할 수 있습니다.",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "utilityMenuItems",
-      "label": "유틸리티 메뉴 항목 관리",
-      "description": "작은 보조 메뉴를 추가해주세요. 최대 5개까지 추가할 수 있습니다. (예: 로그인, 회원가입, 마이페이지, 장바구니)",
-      "type": "LIST",
-      "maxCount": 5,
-      "isVisible": "property.enableUtilityMenu === true",
-      "settings": [
-        {
-          "id": "name",
-          "label": "메뉴 이름",
-          "description": "표시될 텍스트를 입력하세요 (예: 로그인, 회원가입)",
-          "type": "TEXT"
-        },
-        {
-          "id": "link",
-          "label": "메뉴 링크",
-          "description": "클릭 시 이동할 페이지를 선택하세요",
-          "type": "LINK"
-        },
-        {
-          "id": "iconSvg",
-          "label": "아이콘 SVG",
-          "description": "SVG 코드를 입력해주세요 (선택사항)",
-          "type": "TEXTAREA"
-        }
-      ]
-    },
-    {
-      "id": "utilityMenuAlign",
-      "label": "유틸리티 메뉴 위치",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "왼쪽",
-          "value": "left"
-        },
-        {
-          "label": "중앙",
-          "value": "center"
-        },
-        {
-          "label": "오른쪽",
-          "value": "right"
-        }
-      ],
-      "isVisible": "property.enableUtilityMenu === true"
-    },
-    {
       "id": "utilityMenuColor",
       "label": "텍스트 색상 (Light)",
       "type": "COLOR_PICKER",
@@ -1692,36 +1883,6 @@
       "isVisible": "property.enableUtilityMenu === true && property.useDarkMode === true"
     },
     {
-      "id": "utilityMenuSize",
-      "label": "글자 크기",
-      "type": "RANGE",
-      "min": 0,
-      "max": 18,
-      "step": 1,
-      "unit": "px",
-      "isVisible": "property.enableUtilityMenu === true"
-    },
-    {
-      "id": "utilityMenuGap",
-      "label": "항목 간격",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableUtilityMenu === true"
-    },
-    {
-      "id": "utilityIconSize",
-      "label": "아이콘 크기",
-      "type": "RANGE",
-      "min": 0,
-      "max": 24,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableUtilityMenu === true"
-    },
-    {
       "id": "utilityIconColor",
       "label": "아이콘 색상 (Light)",
       "type": "COLOR_PICKER",
@@ -1732,22 +1893,6 @@
       "label": "아이콘 색상 (Dark)",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableUtilityMenu === true && property.useDarkMode === true"
-    },
-    {
-      "id": "utilityIconPosition",
-      "label": "아이콘 위치",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "왼쪽",
-          "value": "left"
-        },
-        {
-          "label": "오른쪽",
-          "value": "right"
-        }
-      ],
-      "isVisible": "property.enableUtilityMenu === true"
     },
     {
       "id": "utilityMenuHoverEffect",
@@ -1786,75 +1931,6 @@
       "type": "CHECKBOX"
     },
     {
-      "id": "languageButtons",
-      "label": "언어 버튼 관리",
-      "description": "제공할 언어들을 추가해주세요. 최대 5개까지 추가할 수 있습니다. (예: 한국어, English, 日本語)",
-      "type": "LIST",
-      "maxCount": 5,
-      "isVisible": "property.enableLanguageButtons === true",
-      "settings": [
-        {
-          "id": "text",
-          "label": "버튼 텍스트",
-          "description": "버튼에 표시될 텍스트를 입력하세요 (예: KR, EN, JP, 한국어, English)",
-          "type": "TEXT"
-        },
-        {
-          "id": "link",
-          "label": "언어 페이지 링크",
-          "description": "해당 언어 버전 페이지의 링크를 선택하세요",
-          "type": "LINK"
-        },
-        {
-          "id": "isActive",
-          "label": "현재 선택된 언어로 표시",
-          "description": "체크하면 이 언어가 현재 선택된 언어로 강조 표시됩니다",
-          "type": "CHECKBOX"
-        }
-      ]
-    },
-    {
-      "id": "languageButtonAlign",
-      "label": "언어 버튼 위치",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "왼쪽",
-          "value": "left"
-        },
-        {
-          "label": "중앙",
-          "value": "center"
-        },
-        {
-          "label": "오른쪽",
-          "value": "right"
-        }
-      ],
-      "isVisible": "property.enableLanguageButtons === true"
-    },
-    {
-      "id": "languageButtonMarginRight",
-      "label": "오른쪽 끝 여백 (오른쪽 정렬 시)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableLanguageButtons === true && property.languageButtonAlign === 'right'"
-    },
-    {
-      "id": "languageButtonMarginLeft",
-      "label": "왼쪽 여백 (오른쪽 정렬 시)",
-      "description": "언어 버튼과 왼쪽 요소 사이의 간격을 조절합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "isVisible": "property.enableLanguageButtons === true && property.languageButtonAlign === 'right'"
-    },
-    {
       "id": "languageButtonColor",
       "label": "텍스트 색상 (Light)",
       "type": "COLOR_PICKER",
@@ -1865,26 +1941,6 @@
       "label": "텍스트 색상 (Dark)",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableLanguageButtons === true && property.useDarkMode === true"
-    },
-    {
-      "id": "languageButtonSize",
-      "label": "글자 크기",
-      "type": "RANGE",
-      "min": 0,
-      "max": 18,
-      "step": 1,
-      "unit": "px",
-      "isVisible": "property.enableLanguageButtons === true"
-    },
-    {
-      "id": "languageButtonGap",
-      "label": "버튼 간격",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableLanguageButtons === true"
     },
     {
       "id": "languageButtonBg",
