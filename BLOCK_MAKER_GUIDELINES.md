@@ -714,6 +714,37 @@ console.error('test');
 }
 ```
 
+**7. description 길이 제한 (100자 이하)**
+```json
+// ❌ 100자 초과 - 블록 저장 실패!
+{
+  "id": "lightModePages",
+  "description": "Light 모드를 적용할 페이지 경로를 입력하세요. 여러 페이지는 쉼표(,)로 구분합니다.\n\n예시: /, /products, /about\n\n💡 Light 모드: 밝은 배경 페이지에 적합"
+  // ❌ 103자 → 에러: "description은 100자 이하로 입력 가능해요"
+}
+
+// ✅ 100자 이하로 축약
+{
+  "id": "lightModePages",
+  "description": "Light 모드 적용 페이지 경로 입력 (쉼표로 구분)\n\n예시: /, /products, /about\n\n💡 밝은 배경에 적합"
+  // ✅ 69자
+}
+```
+
+**검증 방법:**
+```python
+# 모든 description 길이 체크
+python3 -c "
+import json
+with open('global-header.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+for s in data['settings']:
+    desc = s.get('description', '')
+    if len(desc) > 100:
+        print(f\"❌ {s.get('id')}: {len(desc)}자 (초과: {len(desc)-100}자)\")
+"
+```
+
 #### 🔍 JSON 검증 프로토콜 (개발 전 필수!)
 
 **Step 1: 중복 ID 검색**
@@ -733,6 +764,27 @@ grep -o '"id": "[^"]*"' global-header.json | sort | uniq -d
 - [ ] isVisible 조건이 3단계 이상 중첩되지 않음
 - [ ] 모든 Light 모드 설정에 Dark 모드 대응 설정 존재
 
+**Step 4: description 길이 검증**
+```python
+# 100자 초과하는 description 찾기
+python3 -c "
+import json
+with open('global-header.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+problems = []
+for s in data['settings']:
+    desc = s.get('description', '')
+    if len(desc) > 100:
+        problems.append((s.get('id'), len(desc)))
+if problems:
+    print('❌ 100자 초과 description 발견:')
+    for id, length in problems:
+        print(f'  - {id}: {length}자 (초과: {length-100}자)')
+else:
+    print('✅ 모든 description 100자 이하')
+"
+```
+
 #### ⚠️ 검증 실패 시 발생 문제
 
 1. **중복 ID**: 두 번째 설정이 첫 번째를 덮어씀 → 일부 설정 작동 안함
@@ -740,6 +792,7 @@ grep -o '"id": "[^"]*"' global-header.json | sort | uniq -d
 3. **잘못된 타입**: "블록을 저장하지 못했어요" 에러
 4. **중복 섹션**: UI가 뒤죽박죽, 사용자 혼란
 5. **기술 용어**: 비개발자 사용 불가
+6. **description 길이 초과**: "description은 100자 이하로 입력 가능해요" 에러 → 블록 저장 실패
 
 #### 📋 개발 워크플로우에 통합
 
