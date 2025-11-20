@@ -1820,7 +1820,534 @@
     },
     {
       "type": "TITLE",
-      "content": "=== 🚧 나머지 모바일 설정은 기존 구조 유지 ==="
+      "content": "3) 모바일 드로어 메뉴"
+    },
+    {
+      "id": "showDrawerLogo",
+      "label": "• 드로어 내 로고 표시",
+      "description": "드로어 메뉴 상단에 로고를 표시합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "closeBtnSize",
+      "label": "• 닫기 버튼 크기",
+      "description": "권장값: 24-32px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "closeBtnColorDark",
+      "label": "• 닫기 버튼 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "closeBtnStrokeWidth",
+      "label": "• 닫기 버튼 선 두께",
+      "description": "권장값: 2-3px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "drawerOpenEffect",
+      "label": "• 드로어 열림 효과",
+      "description": "드로어가 나타나는 방식을 선택하세요.",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "왼쪽에서",
+          "value": "left"
+        },
+        {
+          "label": "오른쪽에서",
+          "value": "right"
+        },
+        {
+          "label": "페이드인",
+          "value": "fade"
+        }
+      ]
+    },
+    {
+      "id": "drawerWidth",
+      "label": "드로어 너비",
+      "description": "화면 너비의 몇 %를 차지할지",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "drawerBgDark",
+      "label": "• 드로어 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "drawerOverlayBg",
+      "label": "• 오버레이 배경색",
+      "description": "드로어 밖 어두운 배경 색상\n\n권장: 반투명 검정 (#00000080)",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "type": "TITLE",
+      "content": "4) 모바일 주 메뉴 스타일"
+    },
+    {
+      "id": "mobileMenuDivider",
+      "label": "• 메뉴 항목 구분선 사용하기",
+      "description": "각 메뉴 항목 사이에 구분선을 표시합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "mobileMenuDividerColor",
+      "label": "  - 구분선 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.mobileMenuDivider === true"
+    },
+    {
+      "id": "mobileMenuPaddingX",
+      "label": "• 주 메뉴 좌우 여백",
+      "description": "권장값: 20-30px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuPaddingY",
+      "label": "• 주 메뉴 상하 여백",
+      "description": "권장값: 12-18px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuColorDark",
+      "label": "• 주 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "mobileMenuSize",
+      "label": "• 주 메뉴 글자 크기",
+      "description": "권장값: 15-17px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "mobileMenuWeight",
+      "label": "• 주 메뉴 글자 굵기",
+      "description": "권장값:\n• 400: 보통\n• 500: 중간\n• 600: 굵게",
+      "type": "RANGE",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "unit": ""
+    },
+    {
+      "type": "TITLE",
+      "content": "5) 모바일 하위 메뉴 스타일 (아코디언)"
+    },
+    {
+      "type": "TITLE",
+      "content": "① 아코디언 아이콘"
+    },
+    {
+      "id": "accordionIconClosed",
+      "label": "• 닫힌 상태 아이콘 SVG",
+      "description": "예: + 아이콘의 SVG 코드",
+      "type": "TEXTAREA"
+    },
+    {
+      "id": "accordionIconOpen",
+      "label": "• 열린 상태 아이콘 SVG",
+      "description": "예: - 아이콘의 SVG 코드",
+      "type": "TEXTAREA"
+    },
+    {
+      "id": "accordionIconSize",
+      "label": "• 아코디언 아이콘 크기",
+      "description": "권장값: 16-24px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "accordionIconColorDark",
+      "label": "• 아코디언 아이콘 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "accordionIconMarginLeft",
+      "label": "• 아코디언 아이콘 왼쪽 여백",
+      "description": "권장값: 10-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "② 하위 메뉴 그룹 제목"
+    },
+    {
+      "id": "drawerSubmenuTitlePaddingX",
+      "label": "• 그룹 제목 좌우 여백",
+      "description": "권장값: 25-35px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerSubmenuTitlePaddingTop",
+      "label": "• 그룹 제목 상단 여백",
+      "description": "권장값: 10-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "drawerSubmenuTitlePaddingBottom",
+      "label": "• 그룹 제목 하단 여백",
+      "description": "권장값: 8-12px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "drawerSubmenuTitleColor",
+      "label": "• 그룹 제목 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "drawerSubmenuTitleSize",
+      "label": "• 그룹 제목 글자 크기",
+      "description": "권장값: 12-14px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "drawerSubmenuTitleWeight",
+      "label": "• 그룹 제목 글자 굵기",
+      "description": "권장값:\n• 500: 중간\n• 600: 굵게\n• 700: 더 굵게",
+      "type": "RANGE",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "unit": ""
+    },
+    {
+      "type": "TITLE",
+      "content": "③ 하위 메뉴"
+    },
+    {
+      "id": "drawerSubmenuPaddingX",
+      "label": "• 하위 메뉴 좌우 여백",
+      "description": "권장값: 30-40px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerSubmenuPaddingY",
+      "label": "• 하위 메뉴 상하 여백",
+      "description": "권장값: 10-14px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "drawerSubmenuColor",
+      "label": "• 하위 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "drawerSubmenuSize",
+      "label": "• 하위 메뉴 글자 크기",
+      "description": "권장값: 14-16px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "drawerSubmenuWeight",
+      "label": "• 하위 메뉴 글자 굵기",
+      "description": "권장값:\n• 300: 얇게\n• 400: 보통\n• 500: 중간",
+      "type": "RANGE",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "unit": ""
+    },
+    {
+      "type": "TITLE",
+      "content": "6) 드로어 하단 영역"
+    },
+    {
+      "id": "drawerBottomDivider",
+      "label": "• 드로어 하단 영역 구분선 표시",
+      "description": "하단 영역(유틸리티/언어) 상단에 구분선을 표시합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerBottomDividerColor",
+      "label": "  - 구분선 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerBottomDivider === true"
+    },
+    {
+      "id": "drawerBottomPaddingX",
+      "label": "• 드로어 하단 좌우 여백",
+      "description": "권장값: 20-30px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "drawerBottomPaddingY",
+      "label": "• 드로어 하단 상하 여백",
+      "description": "권장값: 20-30px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "① 유틸리티 메뉴"
+    },
+    {
+      "id": "drawerUtilityShow",
+      "label": "• 유틸리티 메뉴 표시",
+      "description": "드로어 하단에 유틸리티 메뉴를 표시합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerUtilityGap",
+      "label": "  - 유틸리티 메뉴 간격",
+      "description": "권장값: 15-20px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "isVisible": "property.drawerUtilityShow === true"
+    },
+    {
+      "id": "drawerUtilitySize",
+      "label": "  - 유틸리티 메뉴 글자 크기",
+      "description": "권장값: 14-16px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.drawerUtilityShow === true"
+    },
+    {
+      "id": "drawerUtilityWeight",
+      "label": "  - 유틸리티 메뉴 글자 굵기",
+      "description": "권장값: 400-500",
+      "type": "RANGE",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "unit": "",
+      "isVisible": "property.drawerUtilityShow === true"
+    },
+    {
+      "id": "drawerUtilityColor",
+      "label": "  - 유틸리티 메뉴 글자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerUtilityShow === true"
+    },
+    {
+      "id": "drawerUtilityIconSize",
+      "label": "  - 유틸리티 메뉴 아이콘 크기",
+      "description": "권장값: 18-22px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerUtilityShow === true"
+    },
+    {
+      "id": "drawerUtilityIconColor",
+      "label": "  - 유틸리티 메뉴 아이콘 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerUtilityShow === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "② 언어 버튼"
+    },
+    {
+      "id": "drawerLanguageShow",
+      "label": "• 언어 버튼 표시",
+      "description": "드로어 하단에 언어 선택 버튼을 표시합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "drawerLanguagePaddingX",
+      "label": "  - 언어 버튼 좌우 여백",
+      "description": "권장값: 12-18px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguagePaddingTop",
+      "label": "  - 언어 버튼 상단 여백",
+      "description": "권장값: 8-12px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguagePaddingBottom",
+      "label": "  - 언어 버튼 하단 여백",
+      "description": "권장값: 8-12px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageGap",
+      "label": "  - 언어 버튼 간격",
+      "description": "권장값: 8-12px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageSize",
+      "label": "  - 언어 버튼 글자 크기",
+      "description": "권장값: 13-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageWeight",
+      "label": "  - 언어 버튼 글자 굵기",
+      "description": "권장값: 400-500",
+      "type": "RANGE",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "unit": "",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageColor",
+      "label": "  - 언어 버튼 글자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageBorder",
+      "label": "  - 언어 버튼 테두리 두께",
+      "description": "권장값: 1-2px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageBorderColor",
+      "label": "  - 언어 버튼 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerLanguageShow === true && property.drawerLanguageBorder > 0"
+    },
+    {
+      "id": "drawerLanguageBgColor",
+      "label": "  - 언어 버튼 배경 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageActiveStyle",
+      "label": "  - 선택된 언어 스타일",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "배경색 변화",
+          "value": "background"
+        },
+        {
+          "label": "테두리 강조",
+          "value": "border"
+        }
+      ],
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageActiveTextColor",
+      "label": "  - 선택된 언어 글자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerLanguageShow === true"
+    },
+    {
+      "id": "drawerLanguageActiveBgColor",
+      "label": "  - 선택된 언어 배경 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerLanguageShow === true && property.drawerLanguageActiveStyle === 'background'"
+    },
+    {
+      "id": "drawerLanguageActiveBorderColor",
+      "label": "  - 선택된 언어 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.drawerLanguageShow === true && property.drawerLanguageActiveStyle === 'border'"
     },
     {
       "id": "headerRightMargin",
@@ -1831,94 +2358,6 @@
       "max": 100,
       "step": 10,
       "unit": "px"
-    },
-    {
-      "id": "enableScrollStyle",
-      "label": "스크롤 효과 사용",
-      "description": "Light/Dark 모드 자동 전환을 사용하지 않을 때만 활성화 가능합니다.",
-      "type": "CHECKBOX",
-      "isVisible": "property.autoSwitchMode !== true"
-    },
-    {
-      "id": "scrollThreshold",
-      "label": "스크롤 감지 지점",
-      "description": "이 픽셀을 넘어 스크롤하면 디자인이 변경됩니다",
-      "type": "RANGE",
-      "min": 0,
-      "max": 300,
-      "step": 10,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollBgType",
-      "label": "스크롤 시 배경 타입",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "단색",
-          "value": "solid"
-        },
-        {
-          "label": "그라디언트",
-          "value": "gradient"
-        }
-      ],
-      "isVisible": "property.enableScrollStyle === true"
-    },
-    {
-      "id": "scrollBg",
-      "label": "스크롤 시 배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid' && property.useLightMode === true"
-    },
-    {
-      "id": "scrollGradientStart",
-      "label": "스크롤 시 그라디언트 시작",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
-    },
-    {
-      "id": "scrollGradientEnd",
-      "label": "스크롤 시 그라디언트 끝",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
-    },
-    {
-      "id": "scrollGradientAngle",
-      "label": "스크롤 시 그라디언트 각도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useLightMode === true"
-    },
-    {
-      "id": "scrollShadow",
-      "label": "스크롤 시 그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
-    },
-    {
-      "id": "scrollShadowColor",
-      "label": "스크롤 시 그림자 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
-    },
-    {
-      "id": "scrollBlur",
-      "label": "스크롤 시 배경 블러",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.useLightMode === true"
     },
     {
       "id": "scrollHeaderHeightEnabled",
@@ -1953,12 +2392,6 @@
       "isVisible": "property.enableScrollStyle === true && property.scrollLogoWidthEnabled === true && property.enableLogo === true"
     },
     {
-      "id": "scrollBgDark",
-      "label": "스크롤 시 배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'solid' && property.useDarkMode === true"
-    },
-    {
       "id": "scrollGradientStartDark",
       "label": "스크롤 시 그라디언트 시작",
       "type": "COLOR_PICKER",
@@ -1981,109 +2414,10 @@
       "isVisible": "property.enableScrollStyle === true && property.scrollBgType === 'gradient' && property.useDarkMode === true"
     },
     {
-      "id": "scrollShadowDark",
-      "label": "스크롤 시 그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
-    },
-    {
       "id": "scrollShadowColorDark",
       "label": "스크롤 시 그림자 색상",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
-    },
-    {
-      "id": "scrollBlurDark",
-      "label": "스크롤 시 배경 블러",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableScrollStyle === true && property.useDarkMode === true"
-    },
-    {
-      "id": "useLightMode",
-      "label": "✅ Light 모드 사용 (밝은 배경용)",
-      "description": "일반 페이지에서 사용할 밝은 배경용 헤더 색상",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "useDarkMode",
-      "label": "✅ Dark 모드 사용 (어두운 배경용)",
-      "description": "히어로 섹션이나 어두운 배경에서 사용할 헤더 색상",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "autoSwitchMode",
-      "label": "🔄 스크롤 시 자동 전환",
-      "description": "스크롤 위치에 따라 기본 상태 → Light/Dark 모드로 자동 전환합니다. (Light/Dark 둘 다 체크 필요)",
-      "type": "CHECKBOX",
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true"
-    },
-    {
-      "id": "switchDuration",
-      "label": "전환 애니메이션 속도",
-      "description": "색상이 변하는 속도를 설정해주세요",
-      "type": "RANGE",
-      "min": 0,
-      "max": 1.0,
-      "step": 0.1,
-      "unit": "초",
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.autoSwitchMode === true"
-    },
-    {
-      "id": "defaultPageMode",
-      "label": "기본 모드 (매핑되지 않은 페이지)",
-      "description": "아래 목록에 추가하지 않은 페이지에서 사용할 기본 모드를 선택해주세요.",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "Light 모드 (밝은 배경용)",
-          "value": "light"
-        },
-        {
-          "label": "Dark 모드 (어두운 배경용)",
-          "value": "dark"
-        }
-      ],
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true"
-    },
-    {
-      "id": "pageDesignMappings",
-      "label": "페이지별 모드 매핑",
-      "description": "각 페이지에 적용할 모드를 설정해주세요. '+ 항목 추가' 버튼을 눌러 페이지를 추가하세요.",
-      "type": "LIST",
-      "maxCount": 20,
-      "isVisible": "property.useLightMode === true && property.useDarkMode === true && property.enablePageBasedDesign === true",
-      "settings": [
-        {
-          "id": "pagePath",
-          "label": "페이지 경로",
-          "description": "페이지의 URL 경로를 입력해주세요. 예: / (메인 페이지), /products, /about, /contact 등. 정확히 일치하는 경로에만 적용됩니다.",
-          "type": "TEXT"
-        },
-        {
-          "id": "useMode",
-          "label": "적용할 모드",
-          "description": "이 페이지에서 사용할 헤더 디자인 모드를 선택해주세요.",
-          "type": "RADIO",
-          "options": [
-            {
-              "label": "Light 모드 (밝은 배경용)",
-              "value": "light"
-            },
-            {
-              "label": "Dark 모드 (어두운 배경용)",
-              "value": "dark"
-            }
-          ]
-        }
-      ]
     },
     {
       "id": "logoWidth",
@@ -2600,51 +2934,15 @@
       ]
     },
     {
-      "id": "drawerWidth",
-      "label": "드로어 너비",
-      "description": "화면 너비의 몇 %를 차지할지",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%"
-    },
-    {
       "id": "drawerBg",
       "label": "드로어 배경색 (Light)",
       "type": "COLOR_PICKER",
       "isVisible": "property.useLightMode === true"
     },
     {
-      "id": "drawerBgDark",
-      "label": "드로어 배경색 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "drawerOverlayBg",
-      "label": "배경 어둡기 (오버레이)",
-      "type": "COLOR_PICKER"
-    },
-    {
       "id": "drawerShowLogo",
       "label": "드로어 내 로고 표시",
       "type": "CHECKBOX"
-    },
-    {
-      "id": "closeBtnSize",
-      "label": "닫기 버튼 크기",
-      "type": "RANGE",
-      "min": 0,
-      "max": 32,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "closeBtnColorDark",
-      "label": "닫기 버튼 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
     },
     {
       "id": "closeBtnLineThickness",
@@ -2672,12 +2970,6 @@
       "max": 40,
       "step": 5,
       "unit": "px"
-    },
-    {
-      "id": "mobileMenuColorDark",
-      "label": "메뉴 텍스트 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
     },
     {
       "id": "mobileMenuFontSize",
@@ -2730,26 +3022,6 @@
       "unit": "px"
     },
     {
-      "id": "mobileMenuPaddingX",
-      "label": "메뉴 항목 좌우 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "mobileMenuDivider",
-      "label": "메뉴 항목 구분선",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "mobileMenuDividerColor",
-      "label": "구분선 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.mobileMenuDivider === true"
-    },
-    {
       "id": "mobileMenuDividerThickness",
       "label": "구분선 두께",
       "type": "RANGE",
@@ -2769,30 +3041,6 @@
       "step": 10,
       "unit": "%",
       "isVisible": "property.mobileMenuDivider === true"
-    },
-    {
-      "id": "accordionIconSize",
-      "label": "아코디언 아이콘 크기",
-      "type": "RANGE",
-      "min": 0,
-      "max": 24,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "accordionIconColorDark",
-      "label": "아코디언 아이콘 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "accordionIconMarginLeft",
-      "label": "아코디언 아이콘 왼쪽 간격",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 5,
-      "unit": "px"
     },
     {
       "id": "accordionIconSvgOpen",
@@ -2939,40 +3187,6 @@
       "isVisible": "property.drawerBottomBorderShow === true"
     },
     {
-      "id": "drawerBottomPaddingX",
-      "label": "좌우 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 40,
-      "step": 5,
-      "unit": "px"
-    },
-    {
-      "id": "drawerBottomPaddingY",
-      "label": "상하 여백",
-      "type": "RANGE",
-      "min": 0,
-      "max": 40,
-      "step": 5,
-      "unit": "px"
-    },
-    {
-      "id": "drawerUtilityShow",
-      "label": "유틸리티 메뉴 표시",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableUtilityMenu === true"
-    },
-    {
-      "id": "drawerUtilityGap",
-      "label": "유틸리티 메뉴 간격",
-      "type": "RANGE",
-      "min": 0,
-      "max": 24,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableUtilityMenu === true && property.drawerUtilityShow === true"
-    },
-    {
       "id": "utilityMenuFontSize",
       "label": "유틸리티 메뉴 글자 크기",
       "type": "RANGE",
@@ -3007,38 +3221,6 @@
       "label": "유틸리티 메뉴 텍스트 색상",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableUtilityMenu === true && property.drawerUtilityShow === true"
-    },
-    {
-      "id": "drawerUtilityIconColor",
-      "label": "유틸리티 메뉴 아이콘 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableUtilityMenu === true && property.drawerUtilityShow === true"
-    },
-    {
-      "id": "drawerUtilityIconSize",
-      "label": "유틸리티 메뉴 아이콘 크기",
-      "type": "RANGE",
-      "min": 0,
-      "max": 32,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableUtilityMenu === true && property.drawerUtilityShow === true"
-    },
-    {
-      "id": "drawerLanguageShow",
-      "label": "언어 버튼 표시",
-      "type": "CHECKBOX",
-      "isVisible": "property.enableLanguageButtons === true"
-    },
-    {
-      "id": "drawerLanguageGap",
-      "label": "언어 버튼 간격",
-      "type": "RANGE",
-      "min": 0,
-      "max": 16,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.enableLanguageButtons === true && property.drawerLanguageShow === true"
     },
     {
       "id": "drawerLanguageMarginTop",
@@ -3083,36 +3265,6 @@
     {
       "id": "drawerLanguageTextColor",
       "label": "언어 버튼 텍스트 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableLanguageButtons === true && property.drawerLanguageShow === true"
-    },
-    {
-      "id": "drawerLanguageBorderColor",
-      "label": "언어 버튼 테두리 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableLanguageButtons === true && property.drawerLanguageShow === true"
-    },
-    {
-      "id": "drawerLanguageBgColor",
-      "label": "언어 버튼 배경 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableLanguageButtons === true && property.drawerLanguageShow === true"
-    },
-    {
-      "id": "drawerLanguageActiveTextColor",
-      "label": "언어 버튼 활성 텍스트 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableLanguageButtons === true && property.drawerLanguageShow === true"
-    },
-    {
-      "id": "drawerLanguageActiveBorderColor",
-      "label": "언어 버튼 활성 테두리 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableLanguageButtons === true && property.drawerLanguageShow === true"
-    },
-    {
-      "id": "drawerLanguageActiveBgColor",
-      "label": "언어 버튼 활성 배경 색상",
       "type": "COLOR_PICKER",
       "isVisible": "property.enableLanguageButtons === true && property.drawerLanguageShow === true"
     },
