@@ -980,12 +980,16 @@
     },
     {
       "type": "TITLE",
-      "content": "=== 🚧 섹션 6-8은 기존 구조 유지 ==="
+      "content": "=== 💻 6. 데스크탑 헤더 기본 설정 ==="
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "데스크탑 화면에서 헤더의 기본 레이아웃과 동작을 설정합니다."
     },
     {
       "id": "headerHeight",
-      "label": "헤더 높이 (데스크톱)",
-      "description": "PC 화면에서 헤더의 높이를 설정합니다. (권장: 70-90px)",
+      "label": "1) 헤더 높이",
+      "description": "PC 화면에서 헤더의 높이\n\n권장값:\n• 낮음: 60-70px\n• 표준: 70-90px\n• 높음: 90-110px",
       "type": "RANGE",
       "min": 0,
       "max": 120,
@@ -994,13 +998,829 @@
     },
     {
       "id": "headerPadding",
-      "label": "헤더 좌우 여백",
-      "description": "헤더 내부의 좌우 여백을 설정합니다. 화면 가장자리와의 간격입니다.",
+      "label": "2) 헤더 좌우 여백",
+      "description": "헤더 내부의 좌우 여백 (화면 가장자리와의 간격)\n\n권장값:\n• 좁게: 20-30px\n• 표준: 30-50px\n• 넓게: 50-80px",
       "type": "RANGE",
       "min": 0,
       "max": 100,
       "step": 10,
       "unit": "px"
+    },
+    {
+      "id": "isSticky",
+      "label": "3) 헤더 상단 고정 사용하기 (Sticky)",
+      "description": "✅ 체크 시: 스크롤해도 헤더가 항상 화면 상단에 고정\n⬜ 체크 해제 시: 스크롤하면 헤더가 위로 사라짐\n\n일반적으로 체크를 권장합니다.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "isOverlay",
+      "label": "4) 헤더를 아래 섹션과 겹치기 (오버레이)",
+      "description": "✅ 체크 시: 헤더가 페이지 콘텐츠 위에 투명하게 겹침\n⬜ 체크 해제 시: 헤더가 페이지 상단 영역을 차지함\n\n히어로 이미지 위에 헤더를 표시할 때 체크하세요.",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "containerMaxWidthEnabled",
+      "label": "5) 최대 너비 제한 사용하기",
+      "description": "✅ 체크 시: 헤더 내용의 최대 너비를 제한 (큰 화면에서 너무 넓어지지 않음)\n⬜ 체크 해제 시: 화면 너비에 맞게 헤더가 늘어남",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "containerMaxWidth",
+      "label": "• 최대 너비 값",
+      "description": "헤더 콘텐츠의 최대 너비\n\n권장값:\n• 작게: 1200px\n• 표준: 1400px\n• 크게: 1600-1920px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 1920,
+      "step": 40,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "id": "containerPaddingDesktop",
+      "label": "• 콘텐츠 좌우 여백",
+      "description": "최대 너비 제한 사용 시 콘텐츠의 좌우 여백\n\n권장값: 30-50px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "isVisible": "property.containerMaxWidthEnabled === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "=== 🎨 7. 데스크탑 디자인 및 효과 ==="
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "헤더의 색상, 그림자, 블러 등 시각적 디자인을 3가지 상태별로 설정합니다.\n\n• 기본 상태: 스크롤 최상단\n• Light 모드: 밝은 배경용\n• Dark 모드: 어두운 배경용"
+    },
+    {
+      "type": "TITLE",
+      "content": "1) 기본 상태 디자인"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "스크롤이 화면 최상단에 위치한 상태의 헤더 디자인"
+    },
+    {
+      "type": "TITLE",
+      "content": "① 헤더"
+    },
+    {
+      "id": "headerBgTypeDefault",
+      "label": "• 배경색 타입",
+      "description": "헤더 배경을 단색 또는 그라디언트로 설정",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ]
+    },
+    {
+      "id": "headerBgDefault",
+      "label": "• 배경색",
+      "description": "헤더의 배경 색상\n\n권장: 투명(#00000000) 또는 반투명",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgTypeDefault === 'solid' || !property.headerBgTypeDefault"
+    },
+    {
+      "id": "headerGradientStartDefault",
+      "label": "• 그라디언트 시작 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgTypeDefault === 'gradient'"
+    },
+    {
+      "id": "headerGradientEndDefault",
+      "label": "• 그라디언트 끝 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgTypeDefault === 'gradient'"
+    },
+    {
+      "id": "headerGradientAngleDefault",
+      "label": "• 그라디언트 각도",
+      "description": "권장값:\n• 0도: 좌→우\n• 90도: 상→하\n• 180도: 우→좌",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.headerBgTypeDefault === 'gradient'"
+    },
+    {
+      "id": "headerBlurDefault",
+      "label": "• 배경 블러 효과 강도",
+      "description": "배경 흐림 효과 (하위 메뉴 배경까지 동시 적용)\n\n권장값:\n• 약하게: 5-10px\n• 표준: 10-15px\n• 강하게: 15-20px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadowDefault",
+      "label": "• 그림자 강도",
+      "description": "헤더 하단 그림자\n\n권장값: 0-10px\n0 = 그림자 없음",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadowColorDefault",
+      "label": "• 그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerShadowDefault > 0"
+    },
+    {
+      "id": "headerBorderEnabledDefault",
+      "label": "• 하단 테두리 사용하기",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "headerBorderDefault",
+      "label": "• 하단 테두리 두께",
+      "description": "권장값: 1-2px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.headerBorderEnabledDefault === true"
+    },
+    {
+      "id": "headerBorderColorDefault",
+      "label": "• 하단 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBorderEnabledDefault === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "② 주 메뉴"
+    },
+    {
+      "id": "menuColorDefault",
+      "label": "• 주 메뉴 글자 색상",
+      "description": "주 메뉴 텍스트의 기본 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuHoverEffectDefault",
+      "label": "• 주 메뉴 마우스 호버 효과",
+      "description": "메뉴에 마우스를 올렸을 때의 효과",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "투명도 변화",
+          "value": "opacity"
+        },
+        {
+          "label": "색상 변화",
+          "value": "color"
+        },
+        {
+          "label": "밑줄 (좌→우)",
+          "value": "underline-slide"
+        },
+        {
+          "label": "밑줄 (가운데 확장)",
+          "value": "underline-center"
+        },
+        {
+          "label": "배경 슬라이드",
+          "value": "background-slide"
+        }
+      ]
+    },
+    {
+      "id": "menuHoverColorDefault",
+      "label": "• 호버 시 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffectDefault === 'color'"
+    },
+    {
+      "id": "menuUnderlineColorDefault",
+      "label": "• 밑줄 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffectDefault === 'underline-slide' || property.menuHoverEffectDefault === 'underline-center'"
+    },
+    {
+      "id": "menuHoverBgColorDefault",
+      "label": "• 배경 슬라이드 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffectDefault === 'background-slide'"
+    },
+    {
+      "type": "TITLE",
+      "content": "③ 하위 메뉴"
+    },
+    {
+      "id": "submenuBgDefault",
+      "label": "• 하위 메뉴 배경색",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuTitleColorDefault",
+      "label": "• 하위 메뉴 그룹 제목 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuColorDefault",
+      "label": "• 하위 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "submenuHoverEffectDefault",
+      "label": "• 하위 메뉴 마우스 호버 효과",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "투명도 변화",
+          "value": "opacity"
+        },
+        {
+          "label": "배경색 변화",
+          "value": "background"
+        }
+      ]
+    },
+    {
+      "id": "submenuHoverBgDefault",
+      "label": "• 호버 시 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.submenuHoverEffectDefault === 'background'"
+    },
+    {
+      "id": "submenuHoverColorDefault",
+      "label": "• 호버 시 글자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.submenuHoverEffectDefault === 'background'"
+    },
+    {
+      "type": "TITLE",
+      "content": "④ 유틸리티 메뉴"
+    },
+    {
+      "id": "utilityMenuColorDefault",
+      "label": "• 유틸리티 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "utilityIconColorDefault",
+      "label": "• 유틸리티 메뉴 아이콘 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "utilityHoverEffectDefault",
+      "label": "• 유틸리티 메뉴 마우스 호버 효과",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "투명도 변화",
+          "value": "opacity"
+        },
+        {
+          "label": "색상 변화",
+          "value": "color"
+        }
+      ]
+    },
+    {
+      "id": "utilityHoverColorDefault",
+      "label": "• 호버 시 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.utilityHoverEffectDefault === 'color'"
+    },
+    {
+      "type": "TITLE",
+      "content": "⑤ 언어 선택 버튼"
+    },
+    {
+      "id": "languageButtonColorDefault",
+      "label": "• 언어 선택 버튼 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "languageButtonBgTypeDefault",
+      "label": "• 언어 선택 버튼 배경색 타입",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ]
+    },
+    {
+      "id": "languageButtonBgDefault",
+      "label": "• 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.languageButtonBgTypeDefault === 'solid' || !property.languageButtonBgTypeDefault"
+    },
+    {
+      "id": "languageButtonBorderRadiusDefault",
+      "label": "• 언어 선택 버튼 모서리 둥글기",
+      "description": "권장값:\n• 사각형: 0px\n• 약간 둥글게: 4-8px\n• 둥글게: 20-30px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "languageButtonBorderDefault",
+      "label": "• 언어 선택 버튼 테두리 두께",
+      "description": "권장값: 1-2px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "id": "languageButtonBorderColorDefault",
+      "label": "• 언어 선택 버튼 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.languageButtonBorderDefault > 0"
+    },
+    {
+      "id": "languageButtonHoverEffectDefault",
+      "label": "• 언어 선택 버튼 마우스 호버 효과",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "투명도 변화",
+          "value": "opacity"
+        },
+        {
+          "label": "배경색 변화",
+          "value": "background"
+        }
+      ]
+    },
+    {
+      "id": "languageActiveStyleDefault",
+      "label": "• 선택된 언어 스타일",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "배경색 변화",
+          "value": "background"
+        },
+        {
+          "label": "테두리 강조",
+          "value": "border"
+        }
+      ]
+    },
+    {
+      "id": "languageActiveTextColorDefault",
+      "label": "• 선택된 언어 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "type": "TITLE",
+      "content": "2) Light 모드 디자인"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "밝은 배경에 적합한 헤더 디자인 (스크롤 내려가면 전환)"
+    },
+    {
+      "type": "TITLE",
+      "content": "① 헤더"
+    },
+    {
+      "id": "headerBgType",
+      "label": "• 배경색 타입",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ]
+    },
+    {
+      "id": "headerBg",
+      "label": "• 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'solid' || !property.headerBgType"
+    },
+    {
+      "id": "headerGradientStart",
+      "label": "• 그라디언트 시작 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientEnd",
+      "label": "• 그라디언트 끝 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerGradientAngle",
+      "label": "• 그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.headerBgType === 'gradient'"
+    },
+    {
+      "id": "headerBlur",
+      "label": "• 배경 블러 효과 강도",
+      "description": "권장값: 10-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadow",
+      "label": "• 그림자 강도",
+      "description": "권장값: 0-10px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadowColor",
+      "label": "• 그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerShadow > 0"
+    },
+    {
+      "id": "headerBorderEnabled",
+      "label": "• 하단 테두리 사용하기",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "headerBorder",
+      "label": "• 하단 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.headerBorderEnabled === true"
+    },
+    {
+      "id": "headerBorderColor",
+      "label": "• 하단 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBorderEnabled === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "② 주 메뉴"
+    },
+    {
+      "id": "menuColorDesktop",
+      "label": "• 주 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuHoverEffect",
+      "label": "• 주 메뉴 마우스 호버 효과",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "투명도 변화",
+          "value": "opacity"
+        },
+        {
+          "label": "색상 변화",
+          "value": "color"
+        },
+        {
+          "label": "밑줄 (좌→우)",
+          "value": "underline-slide"
+        },
+        {
+          "label": "밑줄 (가운데 확장)",
+          "value": "underline-center"
+        },
+        {
+          "label": "배경 슬라이드",
+          "value": "background-slide"
+        }
+      ]
+    },
+    {
+      "id": "menuHoverColor",
+      "label": "• 호버 시 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffect === 'color'"
+    },
+    {
+      "id": "menuUnderlineColor",
+      "label": "• 밑줄 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center'"
+    },
+    {
+      "id": "menuHoverBgColor",
+      "label": "• 배경 슬라이드 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffect === 'background-slide'"
+    },
+    {
+      "type": "TITLE",
+      "content": "3) Dark 모드 디자인"
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "어두운 배경에 적합한 헤더 디자인 (스크롤 내려가면 전환)"
+    },
+    {
+      "type": "TITLE",
+      "content": "① 헤더"
+    },
+    {
+      "id": "headerBgTypeDark",
+      "label": "• 배경색 타입",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ]
+    },
+    {
+      "id": "headerBgDark",
+      "label": "• 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgTypeDark === 'solid' || !property.headerBgTypeDark"
+    },
+    {
+      "id": "headerGradientStartDark",
+      "label": "• 그라디언트 시작 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgTypeDark === 'gradient'"
+    },
+    {
+      "id": "headerGradientEndDark",
+      "label": "• 그라디언트 끝 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBgTypeDark === 'gradient'"
+    },
+    {
+      "id": "headerGradientAngleDark",
+      "label": "• 그라디언트 각도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "deg",
+      "isVisible": "property.headerBgTypeDark === 'gradient'"
+    },
+    {
+      "id": "headerBlurDark",
+      "label": "• 배경 블러 효과 강도",
+      "description": "권장값: 10-15px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadowDark",
+      "label": "• 그림자 강도",
+      "type": "RANGE",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "headerShadowColorDark",
+      "label": "• 그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerShadowDark > 0"
+    },
+    {
+      "id": "headerBorderEnabledDark",
+      "label": "• 하단 테두리 사용하기",
+      "type": "CHECKBOX"
+    },
+    {
+      "id": "headerBorderDark",
+      "label": "• 하단 테두리 두께",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "isVisible": "property.headerBorderEnabledDark === true"
+    },
+    {
+      "id": "headerBorderColorDark",
+      "label": "• 하단 테두리 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.headerBorderEnabledDark === true"
+    },
+    {
+      "type": "TITLE",
+      "content": "② 주 메뉴"
+    },
+    {
+      "id": "menuColorDesktopDark",
+      "label": "• 주 메뉴 글자 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "menuHoverEffectDark",
+      "label": "• 주 메뉴 마우스 호버 효과",
+      "type": "SELECT",
+      "options": [
+        {
+          "label": "투명도 변화",
+          "value": "opacity"
+        },
+        {
+          "label": "색상 변화",
+          "value": "color"
+        },
+        {
+          "label": "밑줄 (좌→우)",
+          "value": "underline-slide"
+        },
+        {
+          "label": "배경 슬라이드",
+          "value": "background-slide"
+        }
+      ]
+    },
+    {
+      "id": "menuHoverColorDark",
+      "label": "• 호버 시 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffectDark === 'color'"
+    },
+    {
+      "id": "menuUnderlineColorDark",
+      "label": "• 밑줄 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffectDark === 'underline-slide'"
+    },
+    {
+      "id": "menuHoverBgColorDark",
+      "label": "• 배경 슬라이드 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.menuHoverEffectDark === 'background-slide'"
+    },
+    {
+      "type": "TITLE",
+      "content": "=== 📱 8. 모바일 헤더 ==="
+    },
+    {
+      "type": "DESCRIPTION",
+      "content": "모바일 화면 (768px 이하)에서의 헤더 디자인을 설정합니다."
+    },
+    {
+      "type": "TITLE",
+      "content": "1) 모바일 헤더 기본 설정"
+    },
+    {
+      "id": "mobileHeaderHeight",
+      "label": "• 헤더 높이",
+      "description": "모바일 화면에서 헤더의 높이\n\n권장값: 50-70px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileHeaderPadding",
+      "label": "• 헤더 좌우 여백",
+      "description": "권장값: 15-25px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "mobileHeaderBgType",
+      "label": "• 배경색 타입",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "단색",
+          "value": "solid"
+        },
+        {
+          "label": "그라디언트",
+          "value": "gradient"
+        }
+      ]
+    },
+    {
+      "id": "mobileHeaderBg",
+      "label": "• 배경색",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.mobileHeaderBgType === 'solid' || !property.mobileHeaderBgType"
+    },
+    {
+      "id": "mobileHeaderShadow",
+      "label": "• 그림자 강도",
+      "description": "권장값: 0-8px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "mobileHeaderShadowColor",
+      "label": "• 그림자 색상",
+      "type": "COLOR_PICKER",
+      "isVisible": "property.mobileHeaderShadow > 0"
+    },
+    {
+      "type": "TITLE",
+      "content": "2) 모바일 로고 및 햄버거 버튼"
+    },
+    {
+      "id": "mobileLogoHeight",
+      "label": "• 로고 크기",
+      "description": "권장값: 30-50px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "id": "hamburgerAlign",
+      "label": "• 햄버거 버튼 위치",
+      "type": "RADIO",
+      "options": [
+        {
+          "label": "왼쪽",
+          "value": "left"
+        },
+        {
+          "label": "오른쪽",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "id": "hamburgerSize",
+      "label": "• 햄버거 버튼 크기",
+      "description": "권장값: 24-32px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "id": "hamburgerColorDark",
+      "label": "• 햄버거 버튼 색상",
+      "type": "COLOR_PICKER"
+    },
+    {
+      "id": "hamburgerStrokeWidth",
+      "label": "• 햄버거 버튼 선 두께",
+      "description": "권장값: 2-3px",
+      "type": "RANGE",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "TITLE",
+      "content": "=== 🚧 나머지 모바일 설정은 기존 구조 유지 ==="
     },
     {
       "id": "headerRightMargin",
@@ -1011,322 +1831,6 @@
       "max": 100,
       "step": 10,
       "unit": "px"
-    },
-    {
-      "id": "containerMaxWidthEnabled",
-      "label": "최대 너비 제한 사용하기",
-      "description": "체크하면 헤더 내용의 최대 너비를 제한합니다. 큰 화면에서 헤더가 너무 넓게 퍼지지 않도록 할 수 있습니다.",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "containerMaxWidth",
-      "label": "최대 너비 값",
-      "description": "헤더 콘텐츠의 최대 너비를 설정합니다. 이 값보다 화면이 넓으면 헤더는 중앙 정렬됩니다. (권장: 1200-1400px)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 1920,
-      "step": 40,
-      "unit": "px",
-      "isVisible": "property.containerMaxWidthEnabled === true"
-    },
-    {
-      "id": "containerPaddingDesktop",
-      "label": "콘텐츠 좌우 여백",
-      "description": "최대 너비 제한을 사용할 때 콘텐츠의 좌우 여백을 설정합니다.",
-      "type": "RANGE",
-      "min": 0,
-      "max": 200,
-      "step": 10,
-      "unit": "px",
-      "isVisible": "property.containerMaxWidthEnabled === true"
-    },
-    {
-      "id": "isSticky",
-      "label": "상단 고정 (Sticky) 사용하기",
-      "description": "체크하면 페이지를 스크롤해도 헤더가 항상 화면 상단에 고정됩니다. 방문자가 언제든지 메뉴에 접근할 수 있습니다.",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "isOverlay",
-      "label": "오버레이 모드 (콘텐츠 위에 겹치기)",
-      "description": "체크하면 헤더가 페이지 콘텐츠 위에 투명하게 겹쳐집니다. 히어로 이미지 위에 헤더를 표시할 때 유용합니다.",
-      "type": "CHECKBOX"
-    },
-    {
-      "id": "headerBgDefault",
-      "label": "배경색 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "headerShadowDefault",
-      "label": "그림자 강도 (기본 상태)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "headerShadowColorDefault",
-      "label": "그림자 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "headerBlurDefault",
-      "label": "배경 블러 (기본 상태)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "headerBorderDefault",
-      "label": "하단 테두리 두께 (기본 상태)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 5,
-      "step": 1,
-      "unit": "px"
-    },
-    {
-      "id": "headerBorderColorDefault",
-      "label": "하단 테두리 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "menuColorDefault",
-      "label": "메뉴 텍스트 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "menuHoverColorDefault",
-      "label": "메뉴 호버 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "utilityMenuColorDefault",
-      "label": "유틸리티 메뉴 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "utilityIconColorDefault",
-      "label": "유틸리티 아이콘 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "languageButtonColorDefault",
-      "label": "언어 버튼 텍스트 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "languageButtonBgDefault",
-      "label": "언어 버튼 배경 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "languageButtonBorderColorDefault",
-      "label": "언어 버튼 테두리 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuBgDefault",
-      "label": "서브메뉴 배경색 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuColorDefault",
-      "label": "서브메뉴 텍스트 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuTitleColorDefault",
-      "label": "서브메뉴 제목 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuHoverBgDefault",
-      "label": "서브메뉴 호버 배경 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "submenuHoverColorDefault",
-      "label": "서브메뉴 호버 색상 (기본 상태)",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "headerBgType",
-      "label": "배경 타입",
-      "description": "헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "단색",
-          "value": "solid"
-        },
-        {
-          "label": "그라디언트",
-          "value": "gradient"
-        }
-      ],
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBg",
-      "label": "배경색",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true && property.headerBgType === 'solid'"
-    },
-    {
-      "id": "headerGradientStart",
-      "label": "그라디언트 시작 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerGradientEnd",
-      "label": "그라디언트 끝 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerGradientAngle",
-      "label": "그라디언트 각도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.useLightMode === true && property.headerBgType === 'gradient'"
-    },
-    {
-      "id": "headerShadow",
-      "label": "그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerShadowColor",
-      "label": "그림자 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBlur",
-      "label": "배경 블러",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBorder",
-      "label": "하단 테두리 두께",
-      "type": "RANGE",
-      "min": 0,
-      "max": 5,
-      "step": 1,
-      "unit": "px",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBorderColor",
-      "label": "하단 테두리 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useLightMode === true"
-    },
-    {
-      "id": "headerBgTypeDark",
-      "label": "배경 타입 (Dark)",
-      "description": "Dark 모드 헤더 배경을 단색으로 할지 그라디언트로 할지 선택하세요.",
-      "type": "RADIO",
-      "options": [
-        {
-          "label": "단색",
-          "value": "solid"
-        },
-        {
-          "label": "그라디언트",
-          "value": "gradient"
-        }
-      ],
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerBgDark",
-      "label": "배경색 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'solid'"
-    },
-    {
-      "id": "headerGradientStartDark",
-      "label": "그라디언트 시작 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
-    },
-    {
-      "id": "headerGradientEndDark",
-      "label": "그라디언트 끝 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
-    },
-    {
-      "id": "headerGradientAngleDark",
-      "label": "그라디언트 각도 (Dark)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 360,
-      "step": 15,
-      "unit": "deg",
-      "isVisible": "property.useDarkMode === true && property.headerBgTypeDark === 'gradient'"
-    },
-    {
-      "id": "headerShadowDark",
-      "label": "그림자 강도 (Dark)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerShadowColorDark",
-      "label": "그림자 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerBlurDark",
-      "label": "배경 블러 (Dark)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerBorderDark",
-      "label": "하단 테두리 두께 (Dark)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 5,
-      "step": 1,
-      "unit": "px",
-      "isVisible": "property.useDarkMode === true"
-    },
-    {
-      "id": "headerBorderColorDark",
-      "label": "하단 테두리 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
     },
     {
       "id": "enableScrollStyle",
@@ -1593,64 +2097,6 @@
       "isVisible": "property.enableLogo === true"
     },
     {
-      "id": "menuColorDesktop",
-      "label": "메뉴 텍스트 색상",
-      "description": "메뉴 글자의 기본 색상을 설정합니다. 밝은 배경에서는 어두운 색을 권장합니다.",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && property.useLightMode === true"
-    },
-    {
-      "id": "menuHoverEffect",
-      "label": "마우스 올릴 때 효과",
-      "description": "메뉴에 마우스를 올렸을 때 나타날 시각적 효과를 선택해주세요. 다양한 효과를 미리보기로 확인해보세요.",
-      "type": "SELECT",
-      "options": [
-        {
-          "label": "투명도 변화",
-          "value": "opacity"
-        },
-        {
-          "label": "색상 변화",
-          "value": "color"
-        },
-        {
-          "label": "밑줄 (좌→우)",
-          "value": "underline-slide"
-        },
-        {
-          "label": "밑줄 (중앙→양옆)",
-          "value": "underline-center"
-        },
-        {
-          "label": "밑줄 (고정)",
-          "value": "underline"
-        },
-        {
-          "label": "크기 확대",
-          "value": "scale"
-        },
-        {
-          "label": "배경 슬라이드",
-          "value": "background-slide"
-        }
-      ],
-      "isVisible": "property.enableMainMenu === true"
-    },
-    {
-      "id": "menuHoverColor",
-      "label": "호버 시 변경될 색상",
-      "description": "마우스를 올렸을 때 메뉴 텍스트가 이 색상으로 변경됩니다.",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'color' && property.useLightMode === true"
-    },
-    {
-      "id": "menuUnderlineColor",
-      "label": "밑줄 색상",
-      "description": "메뉴 아래에 표시될 밑줄의 색상을 설정합니다.",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && (property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center' || property.menuHoverEffect === 'underline')"
-    },
-    {
       "id": "menuUnderlineThickness",
       "label": "밑줄 두께",
       "description": "밑줄의 두께를 설정합니다. 값이 클수록 두껍게 표시됩니다.",
@@ -1660,39 +2106,6 @@
       "step": 1,
       "unit": "px",
       "isVisible": "property.enableMainMenu === true && (property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center' || property.menuHoverEffect === 'underline')"
-    },
-    {
-      "id": "menuHoverBgColor",
-      "label": "배경 슬라이드 색상",
-      "description": "배경 슬라이드 효과에 사용될 배경 색상을 설정합니다.",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'background-slide'"
-    },
-    {
-      "id": "menuColorDesktopDark",
-      "label": "메뉴 텍스트 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && property.useDarkMode === true"
-    },
-    {
-      "id": "menuHoverColorDark",
-      "label": "호버 시 색상",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'color' && property.useDarkMode === true"
-    },
-    {
-      "id": "menuUnderlineColorDark",
-      "label": "밑줄 색상",
-      "description": "메뉴 아래에 표시될 밑줄의 색상을 설정합니다.",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && (property.menuHoverEffect === 'underline-slide' || property.menuHoverEffect === 'underline-center' || property.menuHoverEffect === 'underline') && property.useDarkMode === true"
-    },
-    {
-      "id": "menuHoverBgColorDark",
-      "label": "배경 슬라이드 색상",
-      "description": "배경 슬라이드 효과에 사용될 배경 색상을 설정합니다.",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.enableMainMenu === true && property.menuHoverEffect === 'background-slide' && property.useDarkMode === true"
     },
     {
       "id": "submenuBg",
@@ -2105,16 +2518,6 @@
       "isVisible": "property.enableLanguageButtons === true && (property.languageActiveStyle === 'border' || property.languageActiveStyle === 'background-border')"
     },
     {
-      "id": "mobileHeaderHeight",
-      "label": "모바일 헤더 높이",
-      "description": "모바일 화면의 헤더 높이를 설정합니다. (권장: 60-70px)",
-      "type": "RANGE",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px"
-    },
-    {
       "id": "mobileHeaderPaddingX",
       "label": "헤더 좌우 여백",
       "description": "헤더 내부의 좌우 여백을 설정합니다. 로고와 햄버거 버튼의 가장자리 간격입니다.",
@@ -2131,20 +2534,6 @@
       "min": 0,
       "max": 30,
       "step": 5,
-      "unit": "px"
-    },
-    {
-      "id": "mobileHeaderBg",
-      "label": "배경색",
-      "type": "COLOR_PICKER"
-    },
-    {
-      "id": "mobileHeaderShadow",
-      "label": "그림자 강도",
-      "type": "RANGE",
-      "min": 0,
-      "max": 20,
-      "step": 2,
       "unit": "px"
     },
     {
@@ -2181,21 +2570,6 @@
           "value": "right"
         }
       ]
-    },
-    {
-      "id": "hamburgerSize",
-      "label": "햄버거 버튼 크기",
-      "type": "RANGE",
-      "min": 0,
-      "max": 32,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "id": "hamburgerColorDark",
-      "label": "햄버거 버튼 색상 (Dark)",
-      "type": "COLOR_PICKER",
-      "isVisible": "property.useDarkMode === true"
     },
     {
       "id": "hamburgerLineThickness",
