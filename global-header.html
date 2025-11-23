@@ -1654,65 +1654,25 @@
     const header = container.querySelector('.global-header');
     if (!header) return;
 
-    // 페이지별 디자인이 활성화되어 있고 현재 페이지에 매칭되는 경로가 있으면
-    // 자동 전환을 건너뜀 (페이지별 디자인이 우선)
-    const skipAutoSwitch = context.property.enablePageBasedDesign &&
-        context.property.useLightMode &&
-        context.property.useDarkMode;
-
-    let hasMatchingPath = false;
-    if (skipAutoSwitch) {
-      const currentPath = context.$page?.path || window.location.pathname;
-      const mappings = context.property.pageDesignMappings || [];
-      hasMatchingPath = mappings.some(mapping => {
-        return mapping.pagePath && mapping.pagePath === currentPath;
-      });
+    // 페이지별 디자인이 활성화되어 있으면 스크롤 기반 모드 전환 완전 차단
+    if (context.property.enablePageBasedDesign) {
+      // 페이지별 디자인이 우선 - 스크롤 처리 건너뜀
+      return;
     }
 
-    // Light/Dark 모드 처리 (페이지별 디자인 매칭이 없을 때만)
-    if (!hasMatchingPath) {
-      const scrollY = window.scrollY;
-      const threshold = context.property.switchThreshold || 0;
+    // 스크롤 기반 모드 전환 (페이지별 디자인 OFF일 때만)
+    const scrollY = window.scrollY;
+    const threshold = context.property.switchThreshold || 0;
 
-      // 스크롤 최상단 (0~threshold) → 기본 상태 (클래스 없음)
-      // 스크롤 내림 (> threshold) → Light 또는 Dark 모드
-      if (scrollY <= threshold) {
-        // 기본 상태: 모든 모드 클래스 제거
-        document.documentElement.classList.remove('light-mode', 'dark-mode');
-        updateLogoImage('default');
-
-        console.log('[기본 상태]', { scrollY, threshold });
-      } else {
-        // 스크롤 내림: Light/Dark 모드 전환
-        if (context.property.useLightMode && context.property.useDarkMode && context.property.autoSwitchMode) {
-          // 자동 전환 모드: 사용자 설정에 따라
-          // 기본적으로 스크롤 내림 = Light 모드
-          document.documentElement.classList.remove('dark-mode');
-          document.documentElement.classList.add('light-mode');
-          updateLogoImage('light');
-
-          console.log('[자동 전환 → Light]', { scrollY, threshold });
-        } else if (context.property.useLightMode && context.property.useDarkMode) {
-          // 둘 다 활성화 + 자동 전환 OFF: Light 모드 고정
-          document.documentElement.classList.remove('dark-mode');
-          document.documentElement.classList.add('light-mode');
-          updateLogoImage('light');
-        } else if (context.property.useDarkMode) {
-          // Dark 모드만 활성화
-          document.documentElement.classList.remove('light-mode');
-          document.documentElement.classList.add('dark-mode');
-          updateLogoImage('dark');
-        } else if (context.property.useLightMode) {
-          // Light 모드만 활성화
-          document.documentElement.classList.remove('dark-mode');
-          document.documentElement.classList.add('light-mode');
-          updateLogoImage('light');
-        } else {
-          // 둘 다 비활성화: 기본 상태 유지
-          document.documentElement.classList.remove('light-mode', 'dark-mode');
-          updateLogoImage('default');
-        }
-      }
+    if (scrollY <= threshold) {
+      // 스크롤 최상단 → 기본 상태
+      document.documentElement.classList.remove('light-mode', 'dark-mode');
+      updateLogoImage('default');
+    } else {
+      // 스크롤 내림 → Light 모드 전환
+      document.documentElement.classList.remove('dark-mode');
+      document.documentElement.classList.add('light-mode');
+      updateLogoImage('light');
     }
 
     // 스크롤 스타일 처리 (Light/Dark 모드와 독립적)
@@ -1769,11 +1729,8 @@ if (window.scrollY > (context.property.scrollThreshold || 0)) {
     const lightPages = (context.property.lightModePages || '').split(',').map(p => p.trim()).filter(p => p);
     const darkPages = (context.property.darkModePages || '').split(',').map(p => p.trim()).filter(p => p);
 
-    console.log('[페이지별 모드]', { currentPath, lightPages, darkPages });
-
     // 현재 경로가 어느 목록에 포함되는지 확인
     if (lightPages.includes(currentPath)) {
-      console.log('[페이지별 모드] Light 모드 적용:', currentPath);
       document.documentElement.classList.remove('dark-mode');
       document.documentElement.classList.add('light-mode');
       updateLogoImage('light');
@@ -1781,7 +1738,6 @@ if (window.scrollY > (context.property.scrollThreshold || 0)) {
     }
 
     if (darkPages.includes(currentPath)) {
-      console.log('[페이지별 모드] Dark 모드 적용:', currentPath);
       document.documentElement.classList.remove('light-mode');
       document.documentElement.classList.add('dark-mode');
       updateLogoImage('dark');
@@ -1789,48 +1745,9 @@ if (window.scrollY > (context.property.scrollThreshold || 0)) {
     }
 
     // 어느 목록에도 없으면 기본 상태
-    console.log('[페이지별 모드] 기본 상태 적용:', currentPath);
     document.documentElement.classList.remove('light-mode', 'dark-mode');
     updateLogoImage('default');
     return 'default';
-
-    // 하위 호환: 기존 mappings 로직 (사용 안 됨)
-    const mappings = context.property.pageDesignMappings || [];
-
-    // 현재 페이지와 일치하는 매핑 찾기
-    const matchedMapping = mappings.find(mapping => {
-      if (!mapping.pagePath) return false;
-      // 정확히 일치하는 경로 확인
-      return mapping.pagePath === currentPath;
-    });
-
-    // 매핑된 모드 또는 기본 모드 적용
-    const modeToApply = matchedMapping?.useMode || context.property.defaultPageMode || 'light';
-
-    // 디버깅: 페이지별 디자인 적용
-    console.log('[페이지별 디자인]', {
-      currentPath: currentPath,
-      matchedMapping: matchedMapping,
-      modeToApply: modeToApply
-    });
-
-    // 모드 적용
-    if (modeToApply === 'dark') {
-      document.documentElement.classList.remove('light-mode');
-      document.documentElement.classList.add('dark-mode');
-      updateLogoImage('dark');
-    } else if (modeToApply === 'light') {
-      document.documentElement.classList.remove('dark-mode');
-      document.documentElement.classList.add('light-mode');
-      updateLogoImage('light');
-    } else {
-      // default 모드
-      document.documentElement.classList.remove('light-mode', 'dark-mode');
-      updateLogoImage('default');
-    }
-
-    // 적용된 모드 반환 (스크롤 기반 전환과 충돌 방지용)
-    return modeToApply;
   }
 
   // Submenu backdrop 위치 계산 및 업데이트
@@ -2059,47 +1976,24 @@ if (window.scrollY > (context.property.scrollThreshold || 0)) {
   // 초기 모드 설정 (페이지 로드 시)
   const header = container.querySelector('.global-header');
   if (header) {
-    // 디버깅: 초기 설정 확인
-    console.log('[헤더 초기화]', {
-      useLightMode: context.property.useLightMode,
-      useDarkMode: context.property.useDarkMode,
-      autoSwitchMode: context.property.autoSwitchMode,
-      enablePageBasedDesign: context.property.enablePageBasedDesign,
-      currentPath: context.$page?.path || window.location.pathname
-    });
-
     // 1순위: 페이지별 디자인 (활성화되어 있으면 페이지 경로에 따라 모드 적용)
     const pageBasedMode = applyPageBasedDesign();
 
-    // 페이지별 디자인이 적용되지 않았을 때만 기존 로직 실행
+    // 페이지별 디자인이 적용되지 않았을 때만 스크롤 기반 모드 적용
     if (pageBasedMode === null) {
-      // 초기 로드 시 스크롤 위치 확인하여 모드 설정
       handleScroll();
     }
-
-    // 디버깅: 초기화 완료 후 상태 확인
-    setTimeout(() => {
-      const isDarkMode = document.documentElement.classList.contains('dark-mode');
-      const headerBg = getComputedStyle(document.documentElement).getPropertyValue('--header-bg');
-      console.log('[헤더 초기화 완료]', {
-        isDarkMode: isDarkMode,
-        headerBg: headerBg.trim(),
-        menuColor: getComputedStyle(document.documentElement).getPropertyValue('--menu-color-desktop').trim()
-      });
-    }, 100);
   }
 
   // 스크롤 이벤트 핸들러 등록
   if (context.property.enableScrollStyle) {
     // 스크롤 스타일 활성화 시: backdrop 포함 핸들러 등록
     window.addEventListener('scroll', handleScrollWithBackdrop, { passive: true });
-    handleScroll();
-  } else if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
-    // 스크롤 스타일 비활성화 + 자동 전환 활성화 시: 모드 전환만 처리
+  } else if (!context.property.enablePageBasedDesign) {
+    // 페이지별 디자인 OFF + 스크롤 스타일 OFF: 모드 전환만 처리
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // 초기 상태 설정
   } else {
-    // 기타: submenu backdrop만 처리
+    // 페이지별 디자인 ON: submenu backdrop만 처리
     window.addEventListener('scroll', () => {
       if (currentActiveSubmenu) {
         updateSubmenuBackdrop(currentActiveSubmenu);
