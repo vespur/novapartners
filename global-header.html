@@ -1,0 +1,1849 @@
+<style>
+  /* Light/Dark 모드 CSS 변수 - :root에 정의하여 전역 접근 가능 */
+  {{#if property.useLightMode}}
+  :root {
+    --logo-image: url('{{property.logoImage}}');
+    --menu-color-desktop: {{property.menuColorDesktop}};
+    --menu-hover-color: {{property.menuHoverColor}};
+    --submenu-bg: {{property.submenuBg}};
+    --submenu-title-color: {{property.submenuTitleColor}};
+    --submenu-color: {{property.submenuColor}};
+    --submenu-hover-bg: {{property.submenuHoverBg}};
+    --submenu-hover-color: {{property.submenuHoverColor}};
+    --utility-menu-color: {{property.utilityMenuColor}};
+    --utility-icon-color: {{property.utilityIconColor}};
+    --language-button-color: {{property.languageButtonColor}};
+    --language-button-bg: {{property.languageButtonBg}};
+    --language-button-border-color: {{property.languageButtonBorderColor}};
+    --language-active-text-color: {{property.languageActiveTextColor}};
+    --language-active-bg: {{property.languageActiveBg}};
+    --language-active-border-color: {{property.languageActiveBorderColor}};
+    --hamburger-color: {{property.hamburgerColor}};
+    --close-btn-color: {{property.closeBtnColor}};
+    --drawer-bg: {{property.drawerBg}};
+    --mobile-menu-color: {{property.mobileMenuColor}};
+    --accordion-icon-color: {{property.accordionIconColor}};
+  }
+  {{/if}}
+
+  .global-header {
+    /* 색상 전환 애니메이션 */
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+
+    width: 100%;
+    height: {{property.headerHeight}}px;
+    {{#if (eq property.headerBgType 'gradient')}}
+    background: linear-gradient({{property.headerGradientAngle}}deg, {{property.headerGradientStart}}, {{property.headerGradientEnd}});
+    {{else}}
+    background: {{property.headerBg}};
+    {{/if}}
+    {{#if (gt property.headerShadow 0)}}
+    box-shadow: 0 2px {{property.headerShadow}}px {{property.headerShadowColor}};
+    {{/if}}
+    {{#if (gt property.headerBlur 0)}}
+    backdrop-filter: blur({{property.headerBlur}}px);
+    -webkit-backdrop-filter: blur({{property.headerBlur}}px);
+    {{/if}}
+    {{#if (gt property.headerBorder 0)}}
+    border-bottom: {{property.headerBorder}}px solid {{property.headerBorderColor}};
+    {{/if}}
+    z-index: 1000;
+    overflow: visible; /* submenu가 밖으로 나갈 수 있도록 */
+
+    {{#if property.isOverlay}}
+    position: {{#if property.isSticky}}fixed{{else}}absolute{{/if}};
+    top: 0;
+    left: 0;
+    {{else}}
+      {{#if property.isSticky}}
+      position: sticky;
+      top: 0;
+      {{else}}
+      position: relative;
+      {{/if}}
+    {{/if}}
+  }
+
+  /* Dark 모드 - CSS 변수 재정의 (:root.dark-mode로 전역 적용) */
+  {{#if property.useDarkMode}}
+  :root.dark-mode {
+    --logo-image: url('{{property.logoImageDark}}');
+    --menu-color-desktop: {{property.menuColorDesktopDark}};
+    --menu-hover-color: {{property.menuHoverColorDark}};
+    --submenu-bg: {{property.submenuBgDark}};
+    --submenu-title-color: {{property.submenuTitleColorDark}};
+    --submenu-color: {{property.submenuColorDark}};
+    --submenu-hover-bg: {{property.submenuHoverBgDark}};
+    --submenu-hover-color: {{property.submenuHoverColorDark}};
+    --utility-menu-color: {{property.utilityMenuColorDark}};
+    --utility-icon-color: {{property.utilityIconColorDark}};
+    --language-button-color: {{property.languageButtonColorDark}};
+    --language-button-bg: {{property.languageButtonBgDark}};
+    --language-button-border-color: {{property.languageButtonBorderColorDark}};
+    --language-active-text-color: {{property.languageActiveTextColorDark}};
+    --language-active-bg: {{property.languageActiveBgDark}};
+    --language-active-border-color: {{property.languageActiveBorderColorDark}};
+    --hamburger-color: {{property.hamburgerColorDark}};
+    --close-btn-color: {{property.closeBtnColorDark}};
+    --drawer-bg: {{property.drawerBgDark}};
+    --mobile-menu-color: {{property.mobileMenuColorDark}};
+    --accordion-icon-color: {{property.accordionIconColorDark}};
+  }
+  {{/if}}
+
+  /* Submenu 열릴 때 헤더의 backdrop-filter 비활성화 - 통일된 blur 효과 */
+  .global-header.submenu-open {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  {{#if property.enableScrollStyle}}
+  .global-header.scrolled {
+    {{#if (eq property.scrollBgType 'gradient')}}
+    background: linear-gradient({{property.scrollGradientAngle}}deg, {{property.scrollGradientStart}}, {{property.scrollGradientEnd}}) !important;
+    {{else}}
+    background: {{property.scrollBg}} !important;
+    {{/if}}
+    {{#if (gt property.scrollShadow 0)}}
+    box-shadow: 0 2px {{property.scrollShadow}}px {{property.scrollShadowColor}} !important;
+    {{else}}
+    box-shadow: none !important;
+    {{/if}}
+    {{#if (gt property.scrollBlur 0)}}
+    backdrop-filter: blur({{property.scrollBlur}}px) !important;
+    -webkit-backdrop-filter: blur({{property.scrollBlur}}px) !important;
+    {{/if}}
+    {{#if property.scrollHeaderHeightEnabled}}
+    height: {{property.scrollHeaderHeight}}px !important;
+    {{/if}}
+  }
+
+  {{#if property.scrollLogoWidthEnabled}}
+  .global-header.scrolled .logo img {
+    width: {{property.scrollLogoWidth}}px !important;
+  }
+  {{/if}}
+  {{/if}}
+
+  .header-container {
+    {{#if property.containerMaxWidthEnabled}}
+    max-width: {{property.containerMaxWidth}}px;
+    margin: 0 auto;
+    padding: 0 {{property.containerPaddingDesktop}}px;
+    {{else}}
+    max-width: 100%;
+    padding: 0 {{property.headerPadding}}px;
+    {{/if}}
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-left {
+    display: flex;
+    {{#if (eq property.logoAlign 'left')}}
+    justify-content: flex-start;
+    {{else if (eq property.logoAlign 'center')}}
+    justify-content: center;
+    {{else}}
+    justify-content: flex-end;
+    {{/if}}
+  }
+
+  .header-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    {{#if (eq property.menuAlign 'left')}}
+    justify-content: flex-start;
+    {{else if (eq property.menuAlign 'center')}}
+    justify-content: center;
+    {{else}}
+    justify-content: flex-end;
+    {{/if}}
+  }
+
+  .header-right-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: auto;  /* flex container 내에서 오른쪽으로 밀기 */
+  }
+
+  /* 오른쪽 끝으로 밀어내기: container padding을 음수 margin으로 상쇄 */
+  {{#if property.containerMaxWidthEnabled}}
+  .header-right-content {
+    margin-right: -{{property.containerPaddingDesktop}}px;
+    padding-right: {{property.headerRightMargin}}px;
+  }
+  {{else}}
+  .header-right-content {
+    margin-right: -{{property.headerPadding}}px;
+    padding-right: {{property.headerRightMargin}}px;
+  }
+  {{/if}}
+
+  .logo {
+    display: flex;
+    align-items: center;
+    margin: {{property.logoMarginY}}px {{property.logoMarginX}}px;
+  }
+
+  .logo a {
+    display: block;
+    line-height: 0;
+  }
+
+  {{#if property.logoImage}}
+  .logo img {
+    width: {{property.logoWidth}}px;
+    height: auto;
+    transition: width 0.3s ease;
+  }
+  {{/if}}
+
+  .nav-desktop {
+    display: flex;
+    gap: {{property.menuGapDesktop}}px;
+    align-items: center;
+    margin: {{property.menuMarginY}}px {{property.menuMarginX}}px;
+  }
+
+  .menu-item-wrapper {
+    position: relative; /* submenu의 위치 기준점 */
+  }
+
+  /* 하위 메뉴 컨테이너 */
+  .submenu {
+    position: absolute;
+    top: 100%; /* menu-item 바로 아래 */
+    left: 0; /* menu-item의 왼쪽 끝과 정렬 */
+    min-width: 100%; /* 최소한 menu-item 너비 */
+    width: max-content; /* 내용에 맞춰 확장 */
+    max-width: 80vw; /* 화면을 넘지 않도록 */
+    background: transparent; /* 배경은 별도 처리 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 10001;
+    padding: {{property.submenuPaddingTop}}px 0 {{property.submenuPaddingBottom}}px;
+    /* 명시적 stacking context 생성 - backdrop-filter 영향 차단 */
+    isolation: isolate;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    /* GPU 레이어 강제 생성 - 렌더링 분리 */
+    will-change: opacity;
+  }
+
+  /*
+   * 하위 메뉴 배경 - Fixed positioning으로 헤더 backdrop-filter에서 분리
+   * JavaScript로 동적 위치 계산 (CSS 변수 사용)
+   *
+   * Z-INDEX 전략:
+   * - Backdrop은 header(1000)보다 낮은 z-index를 가져야 함
+   * - Submenu는 header 내부에 있으므로 header의 stacking context에 속함
+   * - Backdrop z-index > Header z-index 일 경우, backdrop이 submenu를 덮음
+   * - 해결: Backdrop z-index를 header보다 낮게 설정 (500)
+   * - 결과: Submenu(header 내부) > Header(1000) > Backdrop(500)
+   */
+  .submenu-backdrop {
+    position: fixed;
+    left: 0 !important;
+    width: 100vw !important;
+    top: var(--submenu-backdrop-top, -9999px); /* JavaScript로 설정 */
+    height: var(--submenu-backdrop-height, 0); /* JavaScript로 설정 */
+    background: var(--submenu-bg);
+    {{#if property.submenuBlurEnabled}}
+    backdrop-filter: blur({{property.submenuBlur}}px);
+    -webkit-backdrop-filter: blur({{property.submenuBlur}}px);
+    {{/if}}
+    z-index: 500; /* header(1000)보다 낮게 - submenu가 header 내부이므로 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    pointer-events: none; /* 클릭 이벤트는 submenu로 전달 */
+  }
+
+  .submenu-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu-item-wrapper:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 하위 메뉴 내용 - menu-item 기준 배치 */
+  .submenu-content {
+    display: flex;
+    flex-direction: row;
+    gap: {{property.submenuGroupGap}}px;
+    align-items: flex-start;
+    /* padding 제거 - 메뉴 텍스트와 완벽히 정렬하기 위해 */
+    position: relative;
+    z-index: 1; /* submenu 내에서 확실히 위로 */
+  }
+
+  /* 그룹 컨테이너 */
+  .submenu-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 0 0 auto;
+    min-width: 200px;
+    position: relative;
+    z-index: 2; /* submenu-content(1) 위에 */
+  }
+
+  /* 그룹 제목 */
+  .submenu-group-title {
+    color: var(--submenu-title-color) !important;
+    font-size: {{property.submenuTitleSize}}px !important;
+    font-weight: {{property.submenuTitleWeight}};
+    padding: {{property.submenuTitlePaddingY}}px {{property.submenuTitlePaddingX}}px;
+    margin-bottom: {{property.submenuTitleMarginBottom}}px;
+    pointer-events: none;
+    {{#if property.submenuTitleUnderline}}
+    border-bottom: {{property.submenuTitleUnderlineWidth}}px solid {{property.submenuTitleUnderlineColor}};
+    {{/if}}
+    position: relative;
+    z-index: 3; /* 확실히 최상위 */
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+  }
+
+  /* 하위 메뉴 항목 */
+  .submenu-item {
+    display: block;
+    color: var(--submenu-color) !important;
+    font-size: {{property.submenuSize}}px !important;
+    font-weight: {{property.submenuItemWeight}};
+    padding: {{property.submenuItemPaddingY}}px {{property.submenuItemPaddingX}}px;
+    margin: {{property.submenuItemMargin}}px 0;
+    text-decoration: none !important;
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.2s{{/if}} ease;
+    border-radius: {{property.submenuItemRadius}}px;
+    position: relative;
+    z-index: 3; /* 확실히 최상위 */
+  }
+
+  .submenu-item:hover {
+    {{#if (eq property.submenuHoverEffect 'background')}}
+    background: var(--submenu-hover-bg) !important;
+    {{else if (eq property.submenuHoverEffect 'underline')}}
+    text-decoration: underline !important;
+    {{else if (eq property.submenuHoverEffect 'bold')}}
+    font-weight: bold;
+    {{else if (eq property.submenuHoverEffect 'background-bold')}}
+    background: var(--submenu-hover-bg) !important;
+    font-weight: bold;
+    {{else if (eq property.submenuHoverEffect 'color')}}
+    color: var(--submenu-hover-color) !important;
+    {{else if (eq property.submenuHoverEffect 'color-bold')}}
+    color: var(--submenu-hover-color) !important;
+    font-weight: bold;
+    {{else if (eq property.submenuHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{else if (eq property.submenuHoverEffect 'shadow')}}
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    {{else if (eq property.submenuHoverEffect 'background-color')}}
+    background: var(--submenu-hover-bg) !important;
+    color: var(--submenu-hover-color) !important;
+    {{/if}}
+  }
+
+  .submenu-item::after,
+  .submenu-item::before {
+    display: none !important;
+  }
+
+  .nav-desktop > a,
+  .menu-item-wrapper > a {
+    color: var(--menu-color-desktop);
+    font-size: {{property.menuSizeDesktop}}px;
+    text-decoration: none;
+    white-space: nowrap;
+    position: relative;
+    display: inline-block;
+    {{#if (eq property.menuHoverEffect 'opacity')}}
+    transition: opacity 0.3s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.menuHoverEffect 'color')}}
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.menuHoverEffect 'scale')}}
+    transition: transform 0.3s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.menuHoverEffect 'background-slide')}}
+    padding: 8px 16px;
+    overflow: hidden;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else}}
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{/if}}
+  }
+
+  {{#if (eq property.menuHoverEffect 'underline-slide')}}
+  .nav-desktop > a::after,
+  .menu-item-wrapper > a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: {{property.menuUnderlineThickness}}px;
+    background: {{property.menuUnderlineColor}};
+    transition: width 0.3s ease;
+  }
+  .nav-desktop > a:hover::after,
+  .menu-item-wrapper > a:hover::after {
+    width: 100%;
+  }
+  {{else if (eq property.menuHoverEffect 'underline-center')}}
+  .nav-desktop > a::after,
+  .menu-item-wrapper > a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: {{property.menuUnderlineThickness}}px;
+    background: {{property.menuUnderlineColor}};
+    transition: width 0.3s ease;
+  }
+  .nav-desktop > a:hover::after,
+  .menu-item-wrapper > a:hover::after {
+    width: 100%;
+  }
+  {{else if (eq property.menuHoverEffect 'background-slide')}}
+  .nav-desktop > a::before,
+  .menu-item-wrapper > a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: {{property.menuHoverBgColor}};
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+  .nav-desktop > a:hover::before,
+  .menu-item-wrapper > a:hover::before {
+    width: 100%;
+  }
+  {{/if}}
+
+  .nav-desktop > a:hover,
+  .menu-item-wrapper > a:hover {
+    {{#if (eq property.menuHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.menuHoverEffect 'color')}}
+    color: var(--menu-hover-color);
+    {{else if (eq property.menuHoverEffect 'underline')}}
+    text-decoration: underline;
+    text-decoration-color: {{property.menuUnderlineColor}};
+    text-decoration-thickness: {{property.menuUnderlineThickness}}px;
+    text-underline-offset: 4px;
+    {{else if (eq property.menuHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{/if}}
+  }
+
+  .utility-menu {
+    display: flex;
+    gap: {{property.utilityMenuGap}}px;
+    align-items: center;
+  }
+
+  .utility-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .utility-item svg {
+    width: {{property.utilityIconSize}}px;
+    height: {{property.utilityIconSize}}px;
+    transition: stroke {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, fill {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+  }
+
+  .utility-item svg * {
+    stroke: var(--utility-icon-color);
+    fill: var(--utility-icon-color);
+  }
+
+  .utility-menu a {
+    color: var(--utility-menu-color);
+    font-size: {{property.utilityMenuSize}}px;
+    text-decoration: none;
+    {{#if (eq property.utilityMenuHoverEffect 'opacity')}}
+    transition: opacity 0.2s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.utilityMenuHoverEffect 'color')}}
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.utilityMenuHoverEffect 'scale')}}
+    transition: transform 0.2s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else}}
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{/if}}
+  }
+
+  .utility-menu a:hover {
+    {{#if (eq property.utilityMenuHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.utilityMenuHoverEffect 'color')}}
+    color: {{property.utilityMenuHoverColor}};
+    {{else if (eq property.utilityMenuHoverEffect 'underline')}}
+    text-decoration: underline;
+    {{else if (eq property.utilityMenuHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{/if}}
+  }
+
+  .language-buttons {
+    display: flex;
+    gap: {{property.languageButtonGap}}px;
+    align-items: center;
+  }
+
+  {{#if (eq property.languageButtonAlign 'right')}}
+  .header-right .language-buttons {
+    margin-right: {{property.languageButtonMarginRight}}px;
+  }
+  {{/if}}
+
+  .language-btn {
+    background: var(--language-button-bg);
+    border: {{property.languageButtonBorder}}px solid var(--language-button-border-color);
+    border-radius: {{property.languageButtonRadius}}px;
+    color: var(--language-button-color);
+    font-size: {{property.languageButtonSize}}px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    {{#if (eq property.languageButtonHoverEffect 'opacity')}}
+    transition: opacity 0.2s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, border-color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.languageButtonHoverEffect 'color')}}
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, border-color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.languageButtonHoverEffect 'background')}}
+    transition: background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, border-color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.languageButtonHoverEffect 'scale')}}
+    transition: transform 0.2s, color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, border-color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else}}
+    transition: all {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{/if}}
+  }
+
+  .language-btn:hover {
+    {{#if (eq property.languageButtonHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.languageButtonHoverEffect 'color')}}
+    color: {{property.languageButtonHoverColor}};
+    {{else if (eq property.languageButtonHoverEffect 'background')}}
+    background: {{property.languageButtonHoverBg}};
+    {{else if (eq property.languageButtonHoverEffect 'underline')}}
+    text-decoration: underline;
+    {{else if (eq property.languageButtonHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{/if}}
+  }
+
+  .language-btn.active {
+    {{#if (eq property.languageActiveStyle 'background')}}
+    background: var(--language-active-bg) !important;
+    color: var(--language-active-text-color) !important;
+    {{else if (eq property.languageActiveStyle 'border')}}
+    border: {{property.languageActiveBorderWidth}}px solid var(--language-active-border-color) !important;
+    color: var(--language-active-text-color) !important;
+    {{else if (eq property.languageActiveStyle 'underline')}}
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--language-active-text-color) !important;
+    {{else if (eq property.languageActiveStyle 'bold')}}
+    font-weight: bold;
+    color: var(--language-active-text-color) !important;
+    {{else if (eq property.languageActiveStyle 'bold-underline')}}
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--language-active-text-color) !important;
+    {{else if (eq property.languageActiveStyle 'background-border')}}
+    background: var(--language-active-bg) !important;
+    border: {{property.languageActiveBorderWidth}}px solid var(--language-active-border-color) !important;
+    color: var(--language-active-text-color) !important;
+    {{/if}}
+  }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hamburger svg {
+    width: {{property.hamburgerSize}}px;
+    height: {{property.hamburgerSize}}px;
+    stroke: var(--hamburger-color);
+    transition: stroke {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+  }
+
+  .hamburger svg line {
+    stroke-width: {{property.hamburgerLineThickness}};
+  }
+
+  .nav-mobile {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    {{#if (eq property.drawerAnimation 'fade')}}
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    {{else if (eq property.drawerAnimation 'left')}}
+    left: -100%;
+    {{else}}
+    right: -100%;
+    {{/if}}
+    width: {{property.drawerWidth}}%;
+    max-width: 400px;
+    background: var(--drawer-bg);
+    {{#if (eq property.drawerAnimation 'fade')}}
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    transition: opacity 0.3s, visibility 0.3s, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else if (eq property.drawerAnimation 'left')}}
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    transition: left 0.3s, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{else}}
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    transition: right 0.3s, background {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+    {{/if}}
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-mobile.active {
+    {{#if (eq property.drawerAnimation 'fade')}}
+    opacity: 1;
+    visibility: visible;
+    {{else if (eq property.drawerAnimation 'left')}}
+    left: 0;
+    {{else}}
+    right: 0;
+    {{/if}}
+  }
+
+  .mobile-header {
+    padding: 0 {{property.mobileHeaderPaddingX}}px;
+    display: flex;
+    {{#if (eq property.hamburgerPosition 'left')}}
+    flex-direction: row-reverse;
+    {{/if}}
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    height: {{property.mobileHeaderHeight}}px;
+  }
+
+  .mobile-header-logo {
+    display: flex;
+    align-items: center;
+    {{#if (eq property.hamburgerPosition 'left')}}
+    margin-right: {{property.mobileLogoMarginLeft}}px;
+    {{else}}
+    margin-left: {{property.mobileLogoMarginLeft}}px;
+    {{/if}}
+  }
+
+  {{#if property.drawerShowLogo}}
+  .mobile-header-logo img {
+    width: {{property.mobileLogoWidth}}px;
+    height: auto;
+  }
+  {{/if}}
+
+  .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .close-btn svg {
+    width: {{property.closeBtnSize}}px;
+    height: {{property.closeBtnSize}}px;
+    stroke: var(--close-btn-color);
+    transition: stroke {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+  }
+
+  .close-btn svg line {
+    stroke-width: {{property.closeBtnLineThickness}};
+  }
+
+  .drawer-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+  }
+
+  .drawer-bottom-area {
+    {{#if property.drawerBottomBorderShow}}
+    border-top: {{property.drawerBottomBorderThickness}}px solid {{property.drawerBottomBorderColor}};
+    {{/if}}
+    padding: {{property.drawerBottomPaddingY}}px {{property.drawerBottomPaddingX}}px;
+    flex-shrink: 0;
+  }
+
+  .drawer-utility-menu {
+    display: flex;
+    flex-direction: column;
+    gap: {{property.drawerUtilityGap}}px;
+  }
+
+  .drawer-utility-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .drawer-utility-item a {
+    color: {{property.utilityMenuColor}};
+    font-size: {{property.utilityMenuFontSize}}px;
+    font-weight: {{property.utilityMenuFontWeight}};
+    text-decoration: none;
+  }
+
+  .drawer-utility-item svg {
+    width: {{property.utilityIconSize}}px;
+    height: {{property.utilityIconSize}}px;
+    fill: {{property.utilityIconColor}};
+  }
+
+  .drawer-language-buttons {
+    display: flex;
+    gap: {{property.drawerLanguageGap}}px;
+    flex-wrap: wrap;
+    margin-top: {{property.drawerLanguageMarginTop}}px;
+  }
+
+  .drawer-language-btn {
+    padding: {{property.languageButtonPaddingY}}px {{property.languageButtonPaddingX}}px;
+    border: {{property.languageButtonBorderThickness}}px solid {{property.languageButtonBorderColor}};
+    border-radius: {{property.languageButtonRadius}}px;
+    background: {{property.languageButtonBg}};
+    color: {{property.languageButtonColor}};
+    font-size: {{property.languageButtonFontSize}}px;
+    font-weight: {{property.languageButtonFontWeight}};
+    text-decoration: none;
+    {{#if (eq property.languageButtonHoverEffect 'scale')}}
+    transition: transform 0.2s;
+    {{else}}
+    transition: all 0.2s;
+    {{/if}}
+  }
+
+  .drawer-language-btn:hover {
+    {{#if (eq property.languageButtonHoverEffect 'opacity')}}
+    opacity: 0.6;
+    {{else if (eq property.languageButtonHoverEffect 'color')}}
+    color: {{property.languageButtonHoverColor}};
+    {{else if (eq property.languageButtonHoverEffect 'background')}}
+    background: {{property.languageButtonHoverBg}};
+    {{else if (eq property.languageButtonHoverEffect 'underline')}}
+    text-decoration: underline;
+    {{else if (eq property.languageButtonHoverEffect 'scale')}}
+    transform: scale(1.05);
+    {{/if}}
+  }
+
+  .drawer-language-btn.active {
+    {{#if (eq property.languageActiveStyle 'background')}}
+    background: {{property.languageActiveBg}} !important;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'border')}}
+    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'underline')}}
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'bold')}}
+    font-weight: bold;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'bold-underline')}}
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: {{property.languageActiveTextColor}} !important;
+    {{else if (eq property.languageActiveStyle 'background-border')}}
+    background: {{property.languageActiveBg}} !important;
+    border: {{property.languageActiveBorderWidth}}px solid {{property.languageActiveBorderColor}} !important;
+    color: {{property.languageActiveTextColor}} !important;
+    {{/if}}
+  }
+
+  .mobile-menu {
+    padding: {{property.drawerPaddingY}}px {{property.drawerPaddingX}}px;
+  }
+
+  /* 모바일 메인 메뉴 항목 */
+  .mobile-menu > a {
+    display: block;
+    color: var(--mobile-menu-color);
+    font-size: {{property.mobileMenuFontSize}}px;
+    font-weight: {{property.mobileMenuFontWeight}};
+    text-decoration: none;
+    padding: {{property.mobileMenuPaddingTop}}px {{property.mobileMenuPaddingX}}px {{property.mobileMenuPaddingBottom}}px {{property.mobileMenuPaddingX}}px;
+    position: relative;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+  }
+
+  .mobile-menu > .menu-accordion > .menu-accordion-header {
+    display: flex;
+    align-items: center;
+    color: var(--mobile-menu-color);
+    font-size: {{property.mobileMenuFontSize}}px;
+    font-weight: {{property.mobileMenuFontWeight}};
+    text-decoration: none;
+    padding: {{property.mobileMenuPaddingTop}}px {{property.mobileMenuPaddingX}}px {{property.mobileMenuPaddingBottom}}px {{property.mobileMenuPaddingX}}px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    transition: color {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+  }
+
+  {{#if property.mobileMenuDivider}}
+  .mobile-menu > a::after,
+  .mobile-menu > .menu-accordion > .menu-accordion-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: {{property.mobileMenuDividerPosition}}%;
+    transform: translateY(50%);
+    height: {{property.mobileMenuDividerThickness}}px;
+    background: {{property.mobileMenuDividerColor}};
+  }
+  {{/if}}
+
+  /* 아코디언 헤더 */
+  .menu-accordion-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* 아코디언 아이콘 */
+  .accordion-icon {
+    width: {{property.accordionIconSize}}px;
+    height: {{property.accordionIconSize}}px;
+    margin-left: {{property.accordionIconMarginLeft}}px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .menu-accordion.expanded .accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  .accordion-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .accordion-icon svg * {
+    stroke: var(--accordion-icon-color);
+    fill: var(--accordion-icon-color);
+    transition: stroke {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease, fill {{#if property.autoSwitchMode}}{{property.switchDuration}}s{{else}}0.3s{{/if}} ease;
+  }
+
+  /* 아코디언 콘텐츠 */
+  .menu-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  .menu-accordion.expanded .menu-accordion-content {
+    max-height: 2000px;
+    opacity: 1;
+  }
+
+  /* 하위 메뉴 그룹 제목 */
+  .mobile-submenu-title {
+    font-size: {{property.mobileSubmenuTitleFontSize}}px !important;
+    font-weight: {{property.mobileSubmenuTitleFontWeight}} !important;
+    color: {{property.mobileSubmenuTitleColor}} !important;
+    margin-top: {{property.mobileSubmenuTitleMarginTop}}px !important;
+    margin-bottom: {{property.mobileSubmenuTitleMarginBottom}}px !important;
+    padding: 0 {{property.mobileSubmenuTitlePaddingX}}px !important;
+    pointer-events: none;
+  }
+
+  /* 하위 메뉴 항목 - 구분선 제거 */
+  .mobile-submenu-item {
+    display: block;
+    font-size: {{property.mobileSubmenuItemFontSize}}px !important;
+    font-weight: {{property.mobileSubmenuItemFontWeight}} !important;
+    color: {{property.mobileSubmenuItemColor}} !important;
+    padding: {{property.mobileSubmenuItemPaddingY}}px 0 !important;
+    padding-left: {{property.mobileSubmenuItemIndent}}px !important;
+    text-decoration: none;
+    border-bottom: none !important;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: {{property.drawerOverlayBg}};
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    z-index: 1999;
+  }
+
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (max-width: 768px) {
+    .global-header {
+      height: {{property.mobileHeaderHeight}}px !important;
+      background: {{property.mobileHeaderBg}} !important;
+      padding: {{property.mobileHeaderPaddingY}}px 0 !important;
+      {{#if (gt property.mobileHeaderShadow 0)}}
+      box-shadow: 0 2px {{property.mobileHeaderShadow}}px rgba(0,0,0,0.15) !important;
+      {{/if}}
+    }
+
+    .header-container {
+      padding: 0 {{property.mobileHeaderPaddingX}}px;
+      {{#if (eq property.hamburgerPosition 'left')}}
+      grid-template-columns: auto 1fr;
+      {{else}}
+      grid-template-columns: 1fr auto;
+      {{/if}}
+    }
+
+    .header-left {
+      {{#if (eq property.hamburgerPosition 'left')}}
+      order: 2;
+      {{/if}}
+      justify-content: flex-start !important;
+    }
+
+    .header-right {
+      {{#if (eq property.hamburgerPosition 'left')}}
+      order: 1;
+      justify-content: flex-start !important;
+      {{/if}}
+    }
+
+    .logo {
+      margin-left: {{property.mobileLogoMarginLeft}}px !important;
+    }
+
+    .logo img {
+      width: {{property.mobileLogoWidth}}px !important;
+    }
+
+    .header-center {
+      display: none;
+    }
+
+    .nav-desktop {
+      display: none;
+    }
+
+    .utility-menu {
+      display: none;
+    }
+
+    .language-buttons {
+      display: none;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .header-right-content {
+      margin-right: 0;
+      padding-right: 0;
+    }
+  }
+</style>
+
+<template>
+  <!-- Submenu backdrop - 헤더 밖에 배치하여 backdrop-filter 분리 -->
+  <div class="submenu-backdrop"></div>
+
+  <header class="global-header">
+    <div class="header-container">
+      <div class="header-left">
+        {{#if (eq property.logoAlign 'left')}}
+        <div class="logo">
+          {{#if property.logoImage}}
+          <a href="{{property.logoLink.value}}">
+            <img src="{{property.logoImage}}" alt="Logo" />
+          </a>
+          {{/if}}
+        </div>
+        {{/if}}
+
+        {{#if (eq property.menuAlign 'left')}}
+        <nav class="nav-desktop">
+          {{#each property.menuItems}}
+            {{#if hasSubmenu}}
+            <div class="menu-item-wrapper">
+              <a href="{{link.value}}">{{name}}</a>
+              <div class="submenu">
+                <div class="submenu-content">
+                  {{#if (or group1Title group1Item1Name group1Item2Name group1Item3Name group1Item4Name group1Item5Name group1Item6Name group1Item7Name group1Item8Name group1Item9Name group1Item10Name)}}
+                  <div class="submenu-group">
+                    {{#if group1Title}}<div class="submenu-group-title">{{group1Title}}</div>{{/if}}
+                    {{#if group1Item1Name}}<a class="submenu-item" href="{{group1Item1Link.value}}">{{group1Item1Name}}</a>{{/if}}
+                    {{#if group1Item2Name}}<a class="submenu-item" href="{{group1Item2Link.value}}">{{group1Item2Name}}</a>{{/if}}
+                    {{#if group1Item3Name}}<a class="submenu-item" href="{{group1Item3Link.value}}">{{group1Item3Name}}</a>{{/if}}
+                    {{#if group1Item4Name}}<a class="submenu-item" href="{{group1Item4Link.value}}">{{group1Item4Name}}</a>{{/if}}
+                    {{#if group1Item5Name}}<a class="submenu-item" href="{{group1Item5Link.value}}">{{group1Item5Name}}</a>{{/if}}
+                    {{#if group1Item6Name}}<a class="submenu-item" href="{{group1Item6Link.value}}">{{group1Item6Name}}</a>{{/if}}
+                    {{#if group1Item7Name}}<a class="submenu-item" href="{{group1Item7Link.value}}">{{group1Item7Name}}</a>{{/if}}
+                    {{#if group1Item8Name}}<a class="submenu-item" href="{{group1Item8Link.value}}">{{group1Item8Name}}</a>{{/if}}
+                    {{#if group1Item9Name}}<a class="submenu-item" href="{{group1Item9Link.value}}">{{group1Item9Name}}</a>{{/if}}
+                    {{#if group1Item10Name}}<a class="submenu-item" href="{{group1Item10Link.value}}">{{group1Item10Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
+                  {{#if (or group2Title group2Item1Name group2Item2Name group2Item3Name group2Item4Name group2Item5Name group2Item6Name group2Item7Name group2Item8Name group2Item9Name group2Item10Name)}}
+                  <div class="submenu-group">
+                    {{#if group2Title}}<div class="submenu-group-title">{{group2Title}}</div>{{/if}}
+                    {{#if group2Item1Name}}<a class="submenu-item" href="{{group2Item1Link.value}}">{{group2Item1Name}}</a>{{/if}}
+                    {{#if group2Item2Name}}<a class="submenu-item" href="{{group2Item2Link.value}}">{{group2Item2Name}}</a>{{/if}}
+                    {{#if group2Item3Name}}<a class="submenu-item" href="{{group2Item3Link.value}}">{{group2Item3Name}}</a>{{/if}}
+                    {{#if group2Item4Name}}<a class="submenu-item" href="{{group2Item4Link.value}}">{{group2Item4Name}}</a>{{/if}}
+                    {{#if group2Item5Name}}<a class="submenu-item" href="{{group2Item5Link.value}}">{{group2Item5Name}}</a>{{/if}}
+                    {{#if group2Item6Name}}<a class="submenu-item" href="{{group2Item6Link.value}}">{{group2Item6Name}}</a>{{/if}}
+                    {{#if group2Item7Name}}<a class="submenu-item" href="{{group2Item7Link.value}}">{{group2Item7Name}}</a>{{/if}}
+                    {{#if group2Item8Name}}<a class="submenu-item" href="{{group2Item8Link.value}}">{{group2Item8Name}}</a>{{/if}}
+                    {{#if group2Item9Name}}<a class="submenu-item" href="{{group2Item9Link.value}}">{{group2Item9Name}}</a>{{/if}}
+                    {{#if group2Item10Name}}<a class="submenu-item" href="{{group2Item10Link.value}}">{{group2Item10Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
+                  {{#if (or group3Title group3Item1Name group3Item2Name group3Item3Name group3Item4Name group3Item5Name group3Item6Name group3Item7Name group3Item8Name group3Item9Name group3Item10Name)}}
+                  <div class="submenu-group">
+                    {{#if group3Title}}<div class="submenu-group-title">{{group3Title}}</div>{{/if}}
+                    {{#if group3Item1Name}}<a class="submenu-item" href="{{group3Item1Link.value}}">{{group3Item1Name}}</a>{{/if}}
+                    {{#if group3Item2Name}}<a class="submenu-item" href="{{group3Item2Link.value}}">{{group3Item2Name}}</a>{{/if}}
+                    {{#if group3Item3Name}}<a class="submenu-item" href="{{group3Item3Link.value}}">{{group3Item3Name}}</a>{{/if}}
+                    {{#if group3Item4Name}}<a class="submenu-item" href="{{group3Item4Link.value}}">{{group3Item4Name}}</a>{{/if}}
+                    {{#if group3Item5Name}}<a class="submenu-item" href="{{group3Item5Link.value}}">{{group3Item5Name}}</a>{{/if}}
+                    {{#if group3Item6Name}}<a class="submenu-item" href="{{group3Item6Link.value}}">{{group3Item6Name}}</a>{{/if}}
+                    {{#if group3Item7Name}}<a class="submenu-item" href="{{group3Item7Link.value}}">{{group3Item7Name}}</a>{{/if}}
+                    {{#if group3Item8Name}}<a class="submenu-item" href="{{group3Item8Link.value}}">{{group3Item8Name}}</a>{{/if}}
+                    {{#if group3Item9Name}}<a class="submenu-item" href="{{group3Item9Link.value}}">{{group3Item9Name}}</a>{{/if}}
+                    {{#if group3Item10Name}}<a class="submenu-item" href="{{group3Item10Link.value}}">{{group3Item10Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+            {{else}}
+            <a href="{{link.value}}">{{name}}</a>
+            {{/if}}
+          {{/each}}
+        </nav>
+        {{/if}}
+
+        {{#if (and (eq property.utilityMenuAlign 'left') (gt (size property.utilityMenuItems) 0))}}
+        <nav class="utility-menu">
+          {{#each property.utilityMenuItems}}
+          <div class="utility-item">
+            {{#if (eq ../property.utilityIconPosition 'left')}}
+              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+              <a href="{{link.value}}">{{name}}</a>
+            {{else}}
+              <a href="{{link.value}}">{{name}}</a>
+              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+            {{/if}}
+          </div>
+          {{/each}}
+        </nav>
+        {{/if}}
+
+        {{#if (and (eq property.languageButtonAlign 'left') (gt (size property.languageButtons) 0))}}
+        <div class="language-buttons">
+          {{#each property.languageButtons}}
+          <a href="{{link.value}}" class="language-btn {{#if isActive}}active{{/if}}">{{text}}</a>
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+
+      <div class="header-center">
+        {{#if (eq property.logoAlign 'center')}}
+        <div class="logo">
+          {{#if property.logoImage}}
+          <a href="{{property.logoLink.value}}">
+            <img src="{{property.logoImage}}" alt="Logo" />
+          </a>
+          {{/if}}
+        </div>
+        {{/if}}
+
+        {{#if (eq property.menuAlign 'center')}}
+        <nav class="nav-desktop">
+          {{#each property.menuItems}}
+            {{#if hasSubmenu}}
+            <div class="menu-item-wrapper">
+              <a href="{{link.value}}">{{name}}</a>
+              <div class="submenu">
+                <div class="submenu-content">
+                  {{#if (or group1Title group1Item1Name group1Item2Name group1Item3Name group1Item4Name group1Item5Name group1Item6Name group1Item7Name group1Item8Name group1Item9Name group1Item10Name)}}
+                  <div class="submenu-group">
+                    {{#if group1Title}}<div class="submenu-group-title">{{group1Title}}</div>{{/if}}
+                    {{#if group1Item1Name}}<a class="submenu-item" href="{{group1Item1Link.value}}">{{group1Item1Name}}</a>{{/if}}
+                    {{#if group1Item2Name}}<a class="submenu-item" href="{{group1Item2Link.value}}">{{group1Item2Name}}</a>{{/if}}
+                    {{#if group1Item3Name}}<a class="submenu-item" href="{{group1Item3Link.value}}">{{group1Item3Name}}</a>{{/if}}
+                    {{#if group1Item4Name}}<a class="submenu-item" href="{{group1Item4Link.value}}">{{group1Item4Name}}</a>{{/if}}
+                    {{#if group1Item5Name}}<a class="submenu-item" href="{{group1Item5Link.value}}">{{group1Item5Name}}</a>{{/if}}
+                    {{#if group1Item6Name}}<a class="submenu-item" href="{{group1Item6Link.value}}">{{group1Item6Name}}</a>{{/if}}
+                    {{#if group1Item7Name}}<a class="submenu-item" href="{{group1Item7Link.value}}">{{group1Item7Name}}</a>{{/if}}
+                    {{#if group1Item8Name}}<a class="submenu-item" href="{{group1Item8Link.value}}">{{group1Item8Name}}</a>{{/if}}
+                    {{#if group1Item9Name}}<a class="submenu-item" href="{{group1Item9Link.value}}">{{group1Item9Name}}</a>{{/if}}
+                    {{#if group1Item10Name}}<a class="submenu-item" href="{{group1Item10Link.value}}">{{group1Item10Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
+                  {{#if (or group2Title group2Item1Name group2Item2Name group2Item3Name group2Item4Name group2Item5Name group2Item6Name group2Item7Name group2Item8Name group2Item9Name group2Item10Name)}}
+                  <div class="submenu-group">
+                    {{#if group2Title}}<div class="submenu-group-title">{{group2Title}}</div>{{/if}}
+                    {{#if group2Item1Name}}<a class="submenu-item" href="{{group2Item1Link.value}}">{{group2Item1Name}}</a>{{/if}}
+                    {{#if group2Item2Name}}<a class="submenu-item" href="{{group2Item2Link.value}}">{{group2Item2Name}}</a>{{/if}}
+                    {{#if group2Item3Name}}<a class="submenu-item" href="{{group2Item3Link.value}}">{{group2Item3Name}}</a>{{/if}}
+                    {{#if group2Item4Name}}<a class="submenu-item" href="{{group2Item4Link.value}}">{{group2Item4Name}}</a>{{/if}}
+                    {{#if group2Item5Name}}<a class="submenu-item" href="{{group2Item5Link.value}}">{{group2Item5Name}}</a>{{/if}}
+                    {{#if group2Item6Name}}<a class="submenu-item" href="{{group2Item6Link.value}}">{{group2Item6Name}}</a>{{/if}}
+                    {{#if group2Item7Name}}<a class="submenu-item" href="{{group2Item7Link.value}}">{{group2Item7Name}}</a>{{/if}}
+                    {{#if group2Item8Name}}<a class="submenu-item" href="{{group2Item8Link.value}}">{{group2Item8Name}}</a>{{/if}}
+                    {{#if group2Item9Name}}<a class="submenu-item" href="{{group2Item9Link.value}}">{{group2Item9Name}}</a>{{/if}}
+                    {{#if group2Item10Name}}<a class="submenu-item" href="{{group2Item10Link.value}}">{{group2Item10Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
+                  {{#if (or group3Title group3Item1Name group3Item2Name group3Item3Name group3Item4Name group3Item5Name group3Item6Name group3Item7Name group3Item8Name group3Item9Name group3Item10Name)}}
+                  <div class="submenu-group">
+                    {{#if group3Title}}<div class="submenu-group-title">{{group3Title}}</div>{{/if}}
+                    {{#if group3Item1Name}}<a class="submenu-item" href="{{group3Item1Link.value}}">{{group3Item1Name}}</a>{{/if}}
+                    {{#if group3Item2Name}}<a class="submenu-item" href="{{group3Item2Link.value}}">{{group3Item2Name}}</a>{{/if}}
+                    {{#if group3Item3Name}}<a class="submenu-item" href="{{group3Item3Link.value}}">{{group3Item3Name}}</a>{{/if}}
+                    {{#if group3Item4Name}}<a class="submenu-item" href="{{group3Item4Link.value}}">{{group3Item4Name}}</a>{{/if}}
+                    {{#if group3Item5Name}}<a class="submenu-item" href="{{group3Item5Link.value}}">{{group3Item5Name}}</a>{{/if}}
+                    {{#if group3Item6Name}}<a class="submenu-item" href="{{group3Item6Link.value}}">{{group3Item6Name}}</a>{{/if}}
+                    {{#if group3Item7Name}}<a class="submenu-item" href="{{group3Item7Link.value}}">{{group3Item7Name}}</a>{{/if}}
+                    {{#if group3Item8Name}}<a class="submenu-item" href="{{group3Item8Link.value}}">{{group3Item8Name}}</a>{{/if}}
+                    {{#if group3Item9Name}}<a class="submenu-item" href="{{group3Item9Link.value}}">{{group3Item9Name}}</a>{{/if}}
+                    {{#if group3Item10Name}}<a class="submenu-item" href="{{group3Item10Link.value}}">{{group3Item10Name}}</a>{{/if}}
+                  </div>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+            {{else}}
+            <a href="{{link.value}}">{{name}}</a>
+            {{/if}}
+          {{/each}}
+        </nav>
+        {{/if}}
+
+        {{#if (and (eq property.utilityMenuAlign 'center') (gt (size property.utilityMenuItems) 0))}}
+        <nav class="utility-menu">
+          {{#each property.utilityMenuItems}}
+          <div class="utility-item">
+            {{#if (eq ../property.utilityIconPosition 'left')}}
+              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+              <a href="{{link.value}}">{{name}}</a>
+            {{else}}
+              <a href="{{link.value}}">{{name}}</a>
+              {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+            {{/if}}
+          </div>
+          {{/each}}
+        </nav>
+        {{/if}}
+
+        {{#if (and (eq property.languageButtonAlign 'center') (gt (size property.languageButtons) 0))}}
+        <div class="language-buttons">
+          {{#each property.languageButtons}}
+          <a href="{{link.value}}" class="language-btn {{#if isActive}}active{{/if}}">{{text}}</a>
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+
+      <div class="header-right">
+        <div class="header-right-content">
+          {{#if (eq property.logoAlign 'right')}}
+          <div class="logo">
+            {{#if property.logoImage}}
+            <a href="{{property.logoLink.value}}">
+              <img src="{{property.logoImage}}" alt="Logo" />
+            </a>
+            {{/if}}
+          </div>
+          {{/if}}
+
+          {{#if (eq property.menuAlign 'right')}}
+          <nav class="nav-desktop">
+            {{#each property.menuItems}}
+              {{#if hasSubmenu}}
+              <div class="menu-item-wrapper">
+                <a href="{{link.value}}">{{name}}</a>
+                <div class="submenu">
+                  <div class="submenu-content">
+                    <div class="submenu-left">
+                      {{#if (eq ../property.menuAlign 'left')}}
+                      <div class="submenu-groups-wrapper">
+                        {{#if (or group1Title group1Item1Name group1Item2Name group1Item3Name group1Item4Name group1Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group1Title}}<div class="submenu-group-title">{{group1Title}}</div>{{/if}}
+                          {{#if group1Item1Name}}<a class="submenu-item" href="{{group1Item1Link.value}}">{{group1Item1Name}}</a>{{/if}}
+                          {{#if group1Item2Name}}<a class="submenu-item" href="{{group1Item2Link.value}}">{{group1Item2Name}}</a>{{/if}}
+                          {{#if group1Item3Name}}<a class="submenu-item" href="{{group1Item3Link.value}}">{{group1Item3Name}}</a>{{/if}}
+                          {{#if group1Item4Name}}<a class="submenu-item" href="{{group1Item4Link.value}}">{{group1Item4Name}}</a>{{/if}}
+                          {{#if group1Item5Name}}<a class="submenu-item" href="{{group1Item5Link.value}}">{{group1Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                        {{#if (or group2Title group2Item1Name group2Item2Name group2Item3Name group2Item4Name group2Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group2Title}}<div class="submenu-group-title">{{group2Title}}</div>{{/if}}
+                          {{#if group2Item1Name}}<a class="submenu-item" href="{{group2Item1Link.value}}">{{group2Item1Name}}</a>{{/if}}
+                          {{#if group2Item2Name}}<a class="submenu-item" href="{{group2Item2Link.value}}">{{group2Item2Name}}</a>{{/if}}
+                          {{#if group2Item3Name}}<a class="submenu-item" href="{{group2Item3Link.value}}">{{group2Item3Name}}</a>{{/if}}
+                          {{#if group2Item4Name}}<a class="submenu-item" href="{{group2Item4Link.value}}">{{group2Item4Name}}</a>{{/if}}
+                          {{#if group2Item5Name}}<a class="submenu-item" href="{{group2Item5Link.value}}">{{group2Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                        {{#if (or group3Title group3Item1Name group3Item2Name group3Item3Name group3Item4Name group3Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group3Title}}<div class="submenu-group-title">{{group3Title}}</div>{{/if}}
+                          {{#if group3Item1Name}}<a class="submenu-item" href="{{group3Item1Link.value}}">{{group3Item1Name}}</a>{{/if}}
+                          {{#if group3Item2Name}}<a class="submenu-item" href="{{group3Item2Link.value}}">{{group3Item2Name}}</a>{{/if}}
+                          {{#if group3Item3Name}}<a class="submenu-item" href="{{group3Item3Link.value}}">{{group3Item3Name}}</a>{{/if}}
+                          {{#if group3Item4Name}}<a class="submenu-item" href="{{group3Item4Link.value}}">{{group3Item4Name}}</a>{{/if}}
+                          {{#if group3Item5Name}}<a class="submenu-item" href="{{group3Item5Link.value}}">{{group3Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                      </div>
+                      {{/if}}
+                    </div>
+                    <div class="submenu-center">
+                      {{#if (eq ../property.menuAlign 'center')}}
+                      <div class="submenu-groups-wrapper">
+                        {{#if (or group1Title group1Item1Name group1Item2Name group1Item3Name group1Item4Name group1Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group1Title}}<div class="submenu-group-title">{{group1Title}}</div>{{/if}}
+                          {{#if group1Item1Name}}<a class="submenu-item" href="{{group1Item1Link.value}}">{{group1Item1Name}}</a>{{/if}}
+                          {{#if group1Item2Name}}<a class="submenu-item" href="{{group1Item2Link.value}}">{{group1Item2Name}}</a>{{/if}}
+                          {{#if group1Item3Name}}<a class="submenu-item" href="{{group1Item3Link.value}}">{{group1Item3Name}}</a>{{/if}}
+                          {{#if group1Item4Name}}<a class="submenu-item" href="{{group1Item4Link.value}}">{{group1Item4Name}}</a>{{/if}}
+                          {{#if group1Item5Name}}<a class="submenu-item" href="{{group1Item5Link.value}}">{{group1Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                        {{#if (or group2Title group2Item1Name group2Item2Name group2Item3Name group2Item4Name group2Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group2Title}}<div class="submenu-group-title">{{group2Title}}</div>{{/if}}
+                          {{#if group2Item1Name}}<a class="submenu-item" href="{{group2Item1Link.value}}">{{group2Item1Name}}</a>{{/if}}
+                          {{#if group2Item2Name}}<a class="submenu-item" href="{{group2Item2Link.value}}">{{group2Item2Name}}</a>{{/if}}
+                          {{#if group2Item3Name}}<a class="submenu-item" href="{{group2Item3Link.value}}">{{group2Item3Name}}</a>{{/if}}
+                          {{#if group2Item4Name}}<a class="submenu-item" href="{{group2Item4Link.value}}">{{group2Item4Name}}</a>{{/if}}
+                          {{#if group2Item5Name}}<a class="submenu-item" href="{{group2Item5Link.value}}">{{group2Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                        {{#if (or group3Title group3Item1Name group3Item2Name group3Item3Name group3Item4Name group3Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group3Title}}<div class="submenu-group-title">{{group3Title}}</div>{{/if}}
+                          {{#if group3Item1Name}}<a class="submenu-item" href="{{group3Item1Link.value}}">{{group3Item1Name}}</a>{{/if}}
+                          {{#if group3Item2Name}}<a class="submenu-item" href="{{group3Item2Link.value}}">{{group3Item2Name}}</a>{{/if}}
+                          {{#if group3Item3Name}}<a class="submenu-item" href="{{group3Item3Link.value}}">{{group3Item3Name}}</a>{{/if}}
+                          {{#if group3Item4Name}}<a class="submenu-item" href="{{group3Item4Link.value}}">{{group3Item4Name}}</a>{{/if}}
+                          {{#if group3Item5Name}}<a class="submenu-item" href="{{group3Item5Link.value}}">{{group3Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                      </div>
+                      {{/if}}
+                    </div>
+                    <div class="submenu-right">
+                      {{#if (eq ../property.menuAlign 'right')}}
+                      <div class="submenu-groups-wrapper">
+                        {{#if (or group1Title group1Item1Name group1Item2Name group1Item3Name group1Item4Name group1Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group1Title}}<div class="submenu-group-title">{{group1Title}}</div>{{/if}}
+                          {{#if group1Item1Name}}<a class="submenu-item" href="{{group1Item1Link.value}}">{{group1Item1Name}}</a>{{/if}}
+                          {{#if group1Item2Name}}<a class="submenu-item" href="{{group1Item2Link.value}}">{{group1Item2Name}}</a>{{/if}}
+                          {{#if group1Item3Name}}<a class="submenu-item" href="{{group1Item3Link.value}}">{{group1Item3Name}}</a>{{/if}}
+                          {{#if group1Item4Name}}<a class="submenu-item" href="{{group1Item4Link.value}}">{{group1Item4Name}}</a>{{/if}}
+                          {{#if group1Item5Name}}<a class="submenu-item" href="{{group1Item5Link.value}}">{{group1Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                        {{#if (or group2Title group2Item1Name group2Item2Name group2Item3Name group2Item4Name group2Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group2Title}}<div class="submenu-group-title">{{group2Title}}</div>{{/if}}
+                          {{#if group2Item1Name}}<a class="submenu-item" href="{{group2Item1Link.value}}">{{group2Item1Name}}</a>{{/if}}
+                          {{#if group2Item2Name}}<a class="submenu-item" href="{{group2Item2Link.value}}">{{group2Item2Name}}</a>{{/if}}
+                          {{#if group2Item3Name}}<a class="submenu-item" href="{{group2Item3Link.value}}">{{group2Item3Name}}</a>{{/if}}
+                          {{#if group2Item4Name}}<a class="submenu-item" href="{{group2Item4Link.value}}">{{group2Item4Name}}</a>{{/if}}
+                          {{#if group2Item5Name}}<a class="submenu-item" href="{{group2Item5Link.value}}">{{group2Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                        {{#if (or group3Title group3Item1Name group3Item2Name group3Item3Name group3Item4Name group3Item5Name)}}
+                        <div class="submenu-group">
+                          {{#if group3Title}}<div class="submenu-group-title">{{group3Title}}</div>{{/if}}
+                          {{#if group3Item1Name}}<a class="submenu-item" href="{{group3Item1Link.value}}">{{group3Item1Name}}</a>{{/if}}
+                          {{#if group3Item2Name}}<a class="submenu-item" href="{{group3Item2Link.value}}">{{group3Item2Name}}</a>{{/if}}
+                          {{#if group3Item3Name}}<a class="submenu-item" href="{{group3Item3Link.value}}">{{group3Item3Name}}</a>{{/if}}
+                          {{#if group3Item4Name}}<a class="submenu-item" href="{{group3Item4Link.value}}">{{group3Item4Name}}</a>{{/if}}
+                          {{#if group3Item5Name}}<a class="submenu-item" href="{{group3Item5Link.value}}">{{group3Item5Name}}</a>{{/if}}
+                        </div>
+                        {{/if}}
+                      </div>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{else}}
+              <a href="{{link.value}}">{{name}}</a>
+              {{/if}}
+            {{/each}}
+          </nav>
+          {{/if}}
+
+          {{#if (and (eq property.utilityMenuAlign 'right') (gt (size property.utilityMenuItems) 0))}}
+          <nav class="utility-menu">
+            {{#each property.utilityMenuItems}}
+            <div class="utility-item">
+              {{#if (eq ../property.utilityIconPosition 'left')}}
+                {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+                <a href="{{link.value}}">{{name}}</a>
+              {{else}}
+                <a href="{{link.value}}">{{name}}</a>
+                {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+              {{/if}}
+            </div>
+            {{/each}}
+          </nav>
+          {{/if}}
+
+          {{#if (and (eq property.languageButtonAlign 'right') (gt (size property.languageButtons) 0))}}
+          <div class="language-buttons">
+            {{#each property.languageButtons}}
+            <a href="{{link.value}}" class="language-btn {{#if isActive}}active{{/if}}">{{text}}</a>
+            {{/each}}
+          </div>
+          {{/if}}
+        </div>
+
+        <button class="hamburger">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay"></div>
+
+  <div class="nav-mobile">
+    <div class="mobile-header">
+      <div class="mobile-header-logo">
+        {{#if property.drawerShowLogo}}
+        {{#if property.logoImage}}
+        <a href="{{property.logoLink.value}}">
+          <img src="{{property.logoImage}}" alt="Logo" />
+        </a>
+        {{/if}}
+        {{/if}}
+      </div>
+      <button class="close-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="drawer-scroll-area">
+      <div class="mobile-menu">
+      {{#each property.menuItems}}
+        {{#if hasSubmenu}}
+        <div class="menu-accordion" data-menu-index="{{@index}}">
+          <div class="menu-accordion-header">
+            <span>{{name}}</span>
+            <div class="accordion-icon">
+              {{#if ../property.accordionIconSvgClosed}}
+              {{{../property.accordionIconSvgClosed}}}
+              {{else}}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              {{/if}}
+            </div>
+          </div>
+          <div class="menu-accordion-content">
+            {{#if (or group1Title group1Item1Name group1Item2Name group1Item3Name group1Item4Name group1Item5Name group1Item6Name group1Item7Name group1Item8Name group1Item9Name group1Item10Name)}}
+              {{#if group1Title}}<div class="mobile-submenu-title">{{group1Title}}</div>{{/if}}
+              {{#if group1Item1Name}}<a href="{{group1Item1Link.value}}" class="mobile-submenu-item">{{group1Item1Name}}</a>{{/if}}
+              {{#if group1Item2Name}}<a href="{{group1Item2Link.value}}" class="mobile-submenu-item">{{group1Item2Name}}</a>{{/if}}
+              {{#if group1Item3Name}}<a href="{{group1Item3Link.value}}" class="mobile-submenu-item">{{group1Item3Name}}</a>{{/if}}
+              {{#if group1Item4Name}}<a href="{{group1Item4Link.value}}" class="mobile-submenu-item">{{group1Item4Name}}</a>{{/if}}
+              {{#if group1Item5Name}}<a href="{{group1Item5Link.value}}" class="mobile-submenu-item">{{group1Item5Name}}</a>{{/if}}
+              {{#if group1Item6Name}}<a href="{{group1Item6Link.value}}" class="mobile-submenu-item">{{group1Item6Name}}</a>{{/if}}
+              {{#if group1Item7Name}}<a href="{{group1Item7Link.value}}" class="mobile-submenu-item">{{group1Item7Name}}</a>{{/if}}
+              {{#if group1Item8Name}}<a href="{{group1Item8Link.value}}" class="mobile-submenu-item">{{group1Item8Name}}</a>{{/if}}
+              {{#if group1Item9Name}}<a href="{{group1Item9Link.value}}" class="mobile-submenu-item">{{group1Item9Name}}</a>{{/if}}
+              {{#if group1Item10Name}}<a href="{{group1Item10Link.value}}" class="mobile-submenu-item">{{group1Item10Name}}</a>{{/if}}
+            {{/if}}
+            {{#if (or group2Title group2Item1Name group2Item2Name group2Item3Name group2Item4Name group2Item5Name group2Item6Name group2Item7Name group2Item8Name group2Item9Name group2Item10Name)}}
+              {{#if group2Title}}<div class="mobile-submenu-title">{{group2Title}}</div>{{/if}}
+              {{#if group2Item1Name}}<a href="{{group2Item1Link.value}}" class="mobile-submenu-item">{{group2Item1Name}}</a>{{/if}}
+              {{#if group2Item2Name}}<a href="{{group2Item2Link.value}}" class="mobile-submenu-item">{{group2Item2Name}}</a>{{/if}}
+              {{#if group2Item3Name}}<a href="{{group2Item3Link.value}}" class="mobile-submenu-item">{{group2Item3Name}}</a>{{/if}}
+              {{#if group2Item4Name}}<a href="{{group2Item4Link.value}}" class="mobile-submenu-item">{{group2Item4Name}}</a>{{/if}}
+              {{#if group2Item5Name}}<a href="{{group2Item5Link.value}}" class="mobile-submenu-item">{{group2Item5Name}}</a>{{/if}}
+              {{#if group2Item6Name}}<a href="{{group2Item6Link.value}}" class="mobile-submenu-item">{{group2Item6Name}}</a>{{/if}}
+              {{#if group2Item7Name}}<a href="{{group2Item7Link.value}}" class="mobile-submenu-item">{{group2Item7Name}}</a>{{/if}}
+              {{#if group2Item8Name}}<a href="{{group2Item8Link.value}}" class="mobile-submenu-item">{{group2Item8Name}}</a>{{/if}}
+              {{#if group2Item9Name}}<a href="{{group2Item9Link.value}}" class="mobile-submenu-item">{{group2Item9Name}}</a>{{/if}}
+              {{#if group2Item10Name}}<a href="{{group2Item10Link.value}}" class="mobile-submenu-item">{{group2Item10Name}}</a>{{/if}}
+            {{/if}}
+            {{#if (or group3Title group3Item1Name group3Item2Name group3Item3Name group3Item4Name group3Item5Name group3Item6Name group3Item7Name group3Item8Name group3Item9Name group3Item10Name)}}
+              {{#if group3Title}}<div class="mobile-submenu-title">{{group3Title}}</div>{{/if}}
+              {{#if group3Item1Name}}<a href="{{group3Item1Link.value}}" class="mobile-submenu-item">{{group3Item1Name}}</a>{{/if}}
+              {{#if group3Item2Name}}<a href="{{group3Item2Link.value}}" class="mobile-submenu-item">{{group3Item2Name}}</a>{{/if}}
+              {{#if group3Item3Name}}<a href="{{group3Item3Link.value}}" class="mobile-submenu-item">{{group3Item3Name}}</a>{{/if}}
+              {{#if group3Item4Name}}<a href="{{group3Item4Link.value}}" class="mobile-submenu-item">{{group3Item4Name}}</a>{{/if}}
+              {{#if group3Item5Name}}<a href="{{group3Item5Link.value}}" class="mobile-submenu-item">{{group3Item5Name}}</a>{{/if}}
+              {{#if group3Item6Name}}<a href="{{group3Item6Link.value}}" class="mobile-submenu-item">{{group3Item6Name}}</a>{{/if}}
+              {{#if group3Item7Name}}<a href="{{group3Item7Link.value}}" class="mobile-submenu-item">{{group3Item7Name}}</a>{{/if}}
+              {{#if group3Item8Name}}<a href="{{group3Item8Link.value}}" class="mobile-submenu-item">{{group3Item8Name}}</a>{{/if}}
+              {{#if group3Item9Name}}<a href="{{group3Item9Link.value}}" class="mobile-submenu-item">{{group3Item9Name}}</a>{{/if}}
+              {{#if group3Item10Name}}<a href="{{group3Item10Link.value}}" class="mobile-submenu-item">{{group3Item10Name}}</a>{{/if}}
+            {{/if}}
+          </div>
+        </div>
+        {{else}}
+        <a href="{{link.value}}">{{name}}</a>
+        {{/if}}
+      {{/each}}
+      </div>
+    </div>
+
+    <div class="drawer-bottom-area">
+      {{#if (and property.drawerUtilityShow (gt (size property.utilityMenuItems) 0))}}
+      <nav class="drawer-utility-menu">
+        {{#each property.utilityMenuItems}}
+        <div class="drawer-utility-item">
+          {{#if (eq ../property.utilityIconPosition 'left')}}
+            {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+            <a href="{{link.value}}">{{name}}</a>
+          {{else}}
+            <a href="{{link.value}}">{{name}}</a>
+            {{#if iconSvg}}{{{iconSvg}}}{{/if}}
+          {{/if}}
+        </div>
+        {{/each}}
+      </nav>
+      {{/if}}
+
+      {{#if (and property.drawerLanguageShow (gt (size property.languageButtons) 0))}}
+      <div class="drawer-language-buttons">
+        {{#each property.languageButtons}}
+        <a href="{{link.value}}" class="drawer-language-btn {{#if isActive}}active{{/if}}">{{text}}</a>
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<script>
+  const container = bm.container;
+  const context = bm.context;
+
+  function handleScroll() {
+    const header = container.querySelector('.global-header');
+    if (!header) return;
+
+    // Light/Dark 모드 자동 전환 처리
+    if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
+      const scrollY = window.scrollY;
+      const threshold = context.property.switchThreshold || 0;
+
+      if (scrollY > threshold) {
+        // 임계값을 넘으면 Light 모드로 전환 (dark-mode 클래스 제거)
+        document.documentElement.classList.remove('dark-mode');
+        updateLogoImage(false); // Light 모드 로고
+      } else {
+        // 임계값 이하면 Dark 모드로 전환 (dark-mode 클래스 추가)
+        document.documentElement.classList.add('dark-mode');
+        updateLogoImage(true); // Dark 모드 로고
+      }
+    } else if (context.property.useDarkMode && !context.property.useLightMode) {
+      // Dark 모드만 활성화된 경우
+      document.documentElement.classList.add('dark-mode');
+      updateLogoImage(true);
+    } else {
+      // Light 모드만 활성화되거나 자동 전환 비활성화
+      document.documentElement.classList.remove('dark-mode');
+      updateLogoImage(false);
+    }
+
+    // 기존 스크롤 스타일 처리
+    if (!context.property.enableScrollStyle) {
+      header.classList.remove('scrolled');
+      return;
+    }
+
+    if (context.property.previewScrolled !== false) {
+      header.classList.add('scrolled');
+      return;
+    }
+
+    if (window.scrollY > context.property.scrollThreshold) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+
+  // 로고 이미지 전환 함수
+  function updateLogoImage(isDarkMode) {
+    const logoImages = container.querySelectorAll('.logo img');
+    if (!logoImages || logoImages.length === 0) return;
+
+    const lightLogo = context.property.logoImage;
+    const darkLogo = context.property.logoImageDark;
+
+    // 로고 이미지가 없으면 전환하지 않음
+    if (!lightLogo && !darkLogo) return;
+
+    logoImages.forEach(img => {
+      if (isDarkMode && darkLogo) {
+        img.src = darkLogo;
+      } else if (!isDarkMode && lightLogo) {
+        img.src = lightLogo;
+      }
+    });
+  }
+
+  // Submenu backdrop 위치 계산 및 업데이트
+  let currentActiveSubmenu = null;
+  let backdropUpdateTimer = null;
+
+  function updateSubmenuBackdrop(submenu) {
+    const backdrop = container.querySelector('.submenu-backdrop');
+    const header = container.querySelector('.global-header');
+    if (!backdrop || !submenu || !header) return;
+
+    const submenuRect = submenu.getBoundingClientRect();
+    const headerRect = header.getBoundingClientRect();
+
+    // 통일된 블러 효과: Backdrop을 헤더 상단부터 시작하여 헤더+submenu 전체를 커버
+    // 이렇게 하면 헤더와 submenu가 하나의 블러 배경을 공유하여 시각적 통일감 확보
+    const backdropTop = headerRect.top;
+    const backdropHeight = headerRect.height + submenuRect.height;
+
+    backdrop.style.setProperty('--submenu-backdrop-top', `${backdropTop}px`);
+    backdrop.style.setProperty('--submenu-backdrop-height', `${backdropHeight}px`);
+    backdrop.classList.add('active');
+
+    // 헤더의 backdrop-filter 비활성화 (겹치는 blur 방지)
+    header.classList.add('submenu-open');
+  }
+
+  function hideSubmenuBackdrop() {
+    const backdrop = container.querySelector('.submenu-backdrop');
+    const header = container.querySelector('.global-header');
+    if (!backdrop) return;
+
+    backdrop.classList.remove('active');
+
+    // 헤더의 backdrop-filter 복원
+    if (header) {
+      header.classList.remove('submenu-open');
+    }
+  }
+
+  // Menu item hover 이벤트 처리
+  function initSubmenuBackdrop() {
+    const menuWrappers = container.querySelectorAll('.menu-item-wrapper');
+
+    menuWrappers.forEach(wrapper => {
+      const submenu = wrapper.querySelector('.submenu');
+      if (!submenu) return;
+
+      wrapper.addEventListener('mouseenter', () => {
+        currentActiveSubmenu = submenu;
+
+        // 약간의 지연을 주어 submenu가 렌더링된 후 계산
+        clearTimeout(backdropUpdateTimer);
+        backdropUpdateTimer = setTimeout(() => {
+          if (currentActiveSubmenu === submenu) {
+            updateSubmenuBackdrop(submenu);
+          }
+        }, 10);
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        if (currentActiveSubmenu === submenu) {
+          currentActiveSubmenu = null;
+          clearTimeout(backdropUpdateTimer);
+          hideSubmenuBackdrop();
+        }
+      });
+    });
+  }
+
+  // 스크롤 시 backdrop 위치 업데이트
+  function handleScrollWithBackdrop() {
+    handleScroll();
+
+    if (currentActiveSubmenu) {
+      updateSubmenuBackdrop(currentActiveSubmenu);
+    }
+  }
+
+  // Prevent background scroll on mobile
+  function preventBackgroundScroll() {
+    const navMobile = container.querySelector('.nav-mobile');
+    const drawerScrollArea = container.querySelector('.drawer-scroll-area');
+
+    if (!drawerScrollArea) return;
+
+    let touchStartY = 0;
+
+    drawerScrollArea.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    drawerScrollArea.addEventListener('touchmove', (e) => {
+      const touchY = e.touches[0].clientY;
+      const scrollTop = drawerScrollArea.scrollTop;
+      const scrollHeight = drawerScrollArea.scrollHeight;
+      const clientHeight = drawerScrollArea.clientHeight;
+      const touchDelta = touchY - touchStartY;
+
+      // 상단에서 아래로 스와이프 방지
+      if (scrollTop === 0 && touchDelta > 0) {
+        e.preventDefault();
+      }
+
+      // 하단에서 위로 스와이프 방지
+      if (scrollTop + clientHeight >= scrollHeight && touchDelta < 0) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
+
+  // Accordion functionality
+  function initAccordion() {
+    const accordionHeaders = container.querySelectorAll('.menu-accordion-header');
+
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const accordion = header.closest('.menu-accordion');
+        const wasExpanded = accordion.classList.contains('expanded');
+
+        // Auto-collapse all other accordions
+        const allAccordions = container.querySelectorAll('.menu-accordion');
+        allAccordions.forEach(acc => {
+          if (acc !== accordion) {
+            acc.classList.remove('expanded');
+            // Switch icon back to closed
+            const icon = acc.querySelector('.accordion-icon');
+            if (icon && context.property.accordionIconSvgClosed) {
+              icon.innerHTML = context.property.accordionIconSvgClosed || `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              `;
+            }
+          }
+        });
+
+        // Toggle current accordion
+        if (!wasExpanded) {
+          accordion.classList.add('expanded');
+          // Switch icon to open
+          const icon = accordion.querySelector('.accordion-icon');
+          if (icon && context.property.accordionIconSvgOpen) {
+            icon.innerHTML = context.property.accordionIconSvgOpen || `
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            `;
+          }
+        } else {
+          accordion.classList.remove('expanded');
+          // Switch icon back to closed
+          const icon = accordion.querySelector('.accordion-icon');
+          if (icon && context.property.accordionIconSvgClosed) {
+            icon.innerHTML = context.property.accordionIconSvgClosed || `
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            `;
+          }
+        }
+      });
+    });
+  }
+
+  container.addEventListener('click', (e) => {
+    const navMobile = container.querySelector('.nav-mobile');
+    const overlay = container.querySelector('.overlay');
+
+    if (e.target.closest('.hamburger')) {
+      navMobile.classList.add('active');
+      overlay.classList.add('active');
+      // 모바일 배경 스크롤 완전 차단
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+    }
+
+    if (e.target.closest('.close-btn') || e.target.matches('.overlay')) {
+      navMobile.classList.remove('active');
+      overlay.classList.remove('active');
+      // 모바일 배경 스크롤 복원
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+
+    if (e.target.matches('.mobile-submenu-item')) {
+      navMobile.classList.remove('active');
+      overlay.classList.remove('active');
+      // 모바일 배경 스크롤 복원
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+
+    // 빈 링크 클릭 방지
+    const link = e.target.closest('a');
+    if (link) {
+      const href = link.getAttribute('href');
+      if (!href || href === '' || href === '#' || href === 'null' || href === 'undefined') {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }
+  }, true);
+
+  // 초기화
+  initSubmenuBackdrop();
+  initAccordion();
+  preventBackgroundScroll();
+
+  // 초기 모드 설정 (페이지 로드 시)
+  const header = container.querySelector('.global-header');
+  if (header) {
+    if (context.property.autoSwitchMode && context.property.useLightMode && context.property.useDarkMode) {
+      // 자동 전환 모드: 초기 스크롤 위치에 따라 설정
+      handleScroll();
+    } else if (context.property.useDarkMode && !context.property.useLightMode) {
+      // Dark 모드만 활성화
+      header.classList.add('dark-mode');
+      updateLogoImage(true);
+    } else {
+      // Light 모드만 활성화 (기본)
+      header.classList.remove('dark-mode');
+      updateLogoImage(false);
+    }
+  }
+
+  if (context.property.enableScrollStyle) {
+    window.addEventListener('scroll', handleScrollWithBackdrop, { passive: true });
+    handleScroll();
+  } else {
+    window.addEventListener('scroll', () => {
+      if (currentActiveSubmenu) {
+        updateSubmenuBackdrop(currentActiveSubmenu);
+      }
+    }, { passive: true });
+  }
+
+  // Light/Dark 모드 자동 전환이 활성화되어 있지 않아도 스크롤 핸들러 등록
+  if (!context.property.enableScrollStyle && (context.property.autoSwitchMode || context.property.useDarkMode)) {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  let isApplying = false;
+  bm.onContextChange = () => {
+    // 무한 루프 방지: apply 중에는 다시 호출하지 않음
+    if (isApplying) {
+      return;
+    }
+
+    isApplying = true;
+
+    // 템플릿 강제 재렌더링
+    bm.apply();
+
+    // 재렌더링 완료 후 스크롤 처리 및 플래그 리셋
+    setTimeout(() => {
+      if (context.property.enableScrollStyle) {
+        handleScroll();
+      }
+      // Submenu backdrop 재초기화
+      initSubmenuBackdrop();
+      // Accordion 재초기화
+      initAccordion();
+      isApplying = false;
+    }, 50);
+  };
+
+  bm.onDestroy = () => {
+    window.removeEventListener('scroll', handleScrollWithBackdrop);
+    window.removeEventListener('scroll', handleScroll);
+    clearTimeout(backdropUpdateTimer);
+    document.body.style.overflow = '';
+  };
+</script>
